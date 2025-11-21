@@ -1,0 +1,277 @@
+﻿@startuml
+title Diagramme de Cas d'Utilisation – Plateforme de vente en ligne (avec paiement et notifications)
+
+
+left to right direction
+
+
+actor "Client" as C
+actor "Administrateur" as A
+actor "Employé" as E
+actor "Système de paiement" as P
+actor "Serveur mail" as M
+
+
+rectangle "Système de vente en ligne" {
+
+
+  usecase "UC1 - S'authentifier" as UC1
+  usecase "UC2 - Créer un compte" as UC2
+  usecase "UC3 - Consulter le catalogue" as UC3
+  usecase "UC4 - Rechercher un produit" as UC4
+
+
+  usecase "UC5 - Gérer le panier" as UC5
+  usecase "UC6 - Ajouter au panier" as UC6
+  usecase "UC7 - Supprimer du panier" as UC7
+
+
+  usecase "UC8 - Passer une commande" as UC8
+  usecase "UC9 - Payer la commande" as UC9
+  usecase "UC10 - Modifier le mode de paiement" as UC10
+  usecase "UC11 - Modifier l'adresse de livraison" as UC11
+
+
+  usecase "UC12 - Recevoir une confirmation par mail" as UC12
+  usecase "UC13 - Consulter l'état de la commande" as UC13
+
+
+  usecase "UC14 - Gérer les produits" as UC14
+  usecase "UC15 - Gérer les utilisateurs" as UC15
+  usecase "UC16 - Gérer les stocks" as UC16
+  usecase "UC17 - Suivre les commandes" as UC17
+
+
+  ' Relations entre cas d'utilisation
+  UC5 ..> UC6 : <<include>>
+  UC5 ..> UC7 : <<include>>
+  UC8 ..> UC5 : <<include>>
+  UC8 ..> UC9 : <<include>>
+  UC8 ..> UC10 : <<include>>
+  UC8 ..> UC11 : <<include>>
+  UC8 ..> UC12 : <<include>>
+  UC8 ..> UC13 : <<include>>
+  UC14 ..> UC16 : <<extend>>
+  UC17 ..> UC12 : <<include>>
+}
+
+
+' Relations acteurs / cas d'utilisation
+C --> UC1
+C --> UC2
+C --> UC3
+C --> UC4
+C --> UC5
+C --> UC8
+C --> UC13
+
+
+A --> UC1
+A --> UC14
+A --> UC15
+A --> UC16
+A --> UC17
+
+
+E --> UC16
+E --> UC17
+
+
+P --> UC9
+M --> UC12
+
+
+@enduml
+
+
+
+
+
+
+
+
+@startuml
+title DCU – Plateforme de vente en ligne (structuré par packages)
+
+
+left to right direction
+actor "Client" as C
+actor "Administrateur" as A
+actor "Employé" as E
+actor "Système de paiement" as P
+actor "Serveur mail" as M
+
+
+rectangle "Système de vente en ligne" {
+
+
+  package "Front-office (Client)" {
+    usecase "UC1 - S'authentifier" as UC1
+    usecase "UC2 - Créer un compte" as UC2
+    usecase "UC3 - Consulter le catalogue" as UC3
+    usecase "UC4 - Rechercher un produit" as UC4
+    usecase "UC5 - Gérer le panier" as UC5
+    usecase "UC8 - Passer une commande" as UC8
+    usecase "UC9 - Payer la commande" as UC9
+    usecase "UC13 - Consulter l'état de la commande" as UC13
+  }
+
+
+  package "Back-office (Gestion interne)" {
+    usecase "UC14 - Gérer les produits" as UC14
+    usecase "UC15 - Gérer les utilisateurs" as UC15
+    usecase "UC16 - Gérer les stocks" as UC16
+    usecase "UC17 - Suivre les commandes" as UC17
+  }
+
+
+  package "Services externes" {
+    usecase "UC10 - Modifier le mode de paiement" as UC10
+    usecase "UC11 - Modifier l'adresse de livraison" as UC11
+    usecase "UC12 - Recevoir une confirmation par mail" as UC12
+  }
+
+
+  ' Relations entre UC
+  UC8 ..> UC5 : <<include>>
+  UC8 ..> UC9 : <<include>>
+  UC8 ..> UC12 : <<include>>
+  UC8 ..> UC13 : <<include>>
+  UC14 ..> UC16 : <<extend>>
+}
+
+
+' Associations
+C --> UC1
+C --> UC2
+C --> UC3
+C --> UC4
+C --> UC5
+C --> UC8
+C --> UC13
+
+
+A --> UC14
+A --> UC15
+A --> UC16
+A --> UC17
+
+
+E --> UC16
+E --> UC17
+
+
+P --> UC9
+M --> UC12
+
+
+@enduml
+
+
+
+
+
+
+
+
+@startuml
+title Diagramme de Cas d'Utilisation – Plateforme de vente en ligne
+left to right direction
+
+
+' Acteurs
+actor "Client" as C
+actor "Administrateur" as A
+actor "Système de paiement" as P
+actor "Serveur mail" as M
+
+
+' Packages
+package "Gestion des comptes" {
+  usecase "UC1 - S'authentifier" as UC1
+  usecase "UC2 - Se déconnecter" as UC2
+  usecase "UC3 - Créer un compte" as UC3
+  usecase "UC4 - Supprimer un compte" as UC4
+}
+
+
+package "Catalogue et commandes" {
+  usecase "UC5 - Consulter le catalogue" as UC5
+  usecase "UC6 - Rechercher un produit" as UC6
+  usecase "UC7 - Gérer le panier" as UC7
+  usecase "UC8 - Ajouter au panier" as UC8
+  usecase "UC9 - Supprimer du panier" as UC9
+  usecase "UC10 - Passer une commande" as UC10
+}
+
+
+package "Paiement" {
+  usecase "UC11 - Payer la commande" as UC11
+  usecase "UC12 - Modifier le mode de paiement" as UC12
+  usecase "UC13 - Modifier l'adresse de livraison" as UC13
+}
+
+
+package "Notifications" {
+  usecase "UC14 - Recevoir une confirmation par mail" as UC14
+}
+
+
+note right of UC14 : Si la commande est validée,\nenvoi automatique d'un mail
+' ou pour une note sur le lien :
+' UC10 ..> UC14 : <<include>>
+' note right on link : Si la commande est validée,\nenvoi automatique d'un mail
+
+
+package "Suivi" {
+  usecase "UC15 - Consulter l'état de la commande" as UC15
+}
+
+
+package "Administration" {
+  usecase "UC16 - Gérer les produits" as UC16
+  usecase "UC17 - Gérer les utilisateurs" as UC17
+  usecase "UC18 - Gérer les stocks" as UC18
+  usecase "UC19 - Suivre les commandes" as UC19
+}
+
+
+' Relations entre cas d'utilisation
+UC7 ..> UC8 : <<include>>
+UC7 ..> UC9 : <<include>>
+UC10 ..> UC7 : <<include>>
+UC10 ..> UC11 : <<include>>
+UC10 ..> UC14 : <<include>>
+UC10 ..> UC15 : <<include>>
+UC16 ..> UC18 : <<extend>>
+UC19 ..> UC14 : <<include>>
+UC17 ..> UC4 : <<extend>>
+UC17 ..> UC3 : <<extend>>
+UC11 ..> UC13 : <<extend>>
+UC11 ..> UC12 : <<extend>>
+UC16 ..> UC15 : <<include>>
+
+
+' Relations acteurs / cas d'utilisation
+C --> UC1
+C --> UC2
+C --> UC3
+C --> UC4
+C --> UC5
+C --> UC6
+C --> UC7
+C --> UC10
+C --> UC14
+C --> UC15
+
+
+A --> UC1
+A --> UC16
+A --> UC17
+A --> UC18
+A --> UC19
+
+
+P --> UC11
+M --> UC14
+@enduml

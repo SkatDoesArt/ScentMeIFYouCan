@@ -1,93 +1,272 @@
-# eq_3_02_ROLLAND-Estevan_SALOU-Zahra_TONG--HATET-Mathis_YMAMOU-Yassar
+<div align="center">
 
+# Plateforme de Vente en Ligne (SAE BUT2)
 
+Projet académique : développement d'une plateforme e-commerce moderne (achat, réservation, recherche avancée, personnalisation, interactions sociales, gestion des comptes).
 
-## Getting started
+</div>
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+---
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+## 📌 Sommaire
+1. Contexte & Objectifs  
+2. Fonctionnalités  
+3. Architecture Prévisionnelle  
+4. Exigences Fonctionnelles & Techniques  
+5. Installation & Lancement  
+6. Utilisation  
+7. Workflow de Développement  
+8. Qualité & Tests  
+9. Sécurité & Données  
+10. Diagrammes  
+11. Roadmap & Évolutions  
+12. Contribution  
+13. Équipe  
+14. Licence  
+15. Statut du Projet  
+16. FAQ  
+17. Ressources  
+18. Prochaines Étapes
 
-## Add your files
+---
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
+## 1. Contexte & Objectifs
+Cette plateforme vise à offrir une expérience d'achat fluide, personnalisable et engageante. Elle intègre : gestion des produits, réservation d'articles indisponibles, favoris, collections, suggestions intelligentes, historique d'achats, et mécanismes sociaux (avis, recherche d'utilisateurs, fidélité).
 
+**Objectifs principaux :**  
+- Achat & réservation rapides  
+- Recherche efficace (catégories, prix, popularité)  
+- Gestion de compte complète  
+- Personnalisation (thème clair/sombre)  
+- Notifications mail (pré-commande / confirmation)  
+- Extensibilité pour fonctionnalités sociales
+
+---
+
+## 2. Fonctionnalités
+### Indispensables
+- Achat de produits
+- Réservation (alerte retour en stock)
+- Catalogue + recherche + tri multi-critères
+- Création / modification / suppression de compte
+
+### Secondaires
+- Favoris (like)
+- Collections personnalisées (type Pinterest)
+- Thème clair / sombre
+- Historique des achats
+- Suggestions basées sur favoris + historiques
+
+### Bonus (Évolutions futures)
+- Shopping à plusieurs (paiement partagé)
+- Avis & notation des produits
+- Recherche et suivi d'utilisateurs
+- Système de fidélité / points
+- Sons de confirmation (UX ludique)
+
+---
+
+## 3. Architecture Prévisionnelle
+| Couche | Stack (prévisionnelle) | Rôle |
+|-------|------------------------|------|
+| Frontend | HTML5, CSS3, JS (React ou Vue) | Interface utilisateur, interactions dynamiques, thème |
+| Backend | PHP (Laravel / Symfony) | API REST, logique métier, sécurité |
+| Base de données | MySQL / PostgreSQL | Produits, utilisateurs, commandes, favoris, collections, fidélité |
+| Communication | API REST JSON | Intégration front / back |
+| Notifications | SMTP / Mailer PHP | Alertes stock, confirmations commande |
+
+**Scalabilité :** Découplage front/back, modularité des services futurs (paiement, recommandation).  
+**Évolutivité :** Ajout micro-service recommandation ou fidélité possible.
+
+---
+
+## 4. Exigences Fonctionnelles & Techniques
+Voir `cahier_des_chargesV1.md` et `Analyse/cahier_charges_exigences.md` pour le détail initial. Synthèse :
+
+| Domaine | Exigences clés |
+|---------|----------------|
+| Authentification | Connexion, déconnexion, gestion profil, sécurité basique (hash mots de passe) |
+| Catalogue | Filtrage (catégorie, prix, popularité), recherche avec historique |
+| Panier | Ajout / suppression, persistance par utilisateur |
+| Commande | Checkout, adresse livraison, mode de paiement (intégration ultérieure) |
+| Pré-commande | Mise en attente + notification mail retour stock |
+| Personnalisation | Mode sombre/clair persisté (localStorage / BD) |
+| Engagement | Favoris, collections, avis (phase future) |
+| Recommandation | Basée sur favoris + achats (phase secondaire) |
+| Fidélité | Points, avantages (roadmap) |
+
+---
+
+## 5. Installation & Lancement
+Projet encore en phase documentaire. Instructions ci-dessous anticipées.
+
+### Prérequis
+- PHP >= 8.x
+- Composer
+- Node.js + npm / yarn
+- Serveur SQL (MySQL ou PostgreSQL)
+
+### Installation (prévisionnel)
+```sh
+# Cloner le dépôt
+git clone https://gitlab.univ-nantes.fr/pub/but/but2/sae/groupe3/eq_3_02_rolland-estevan_salou-zahra_tong-hatet-mathis_ymamou-yassar.git
+cd eq_3_02_rolland-estevan_salou-zahra_tong-hatet-mathis_ymamou-yassar
+
+# Backend (exemple Laravel)
+composer install
+cp .env.example .env
+php artisan key:generate
+# Configurer DB dans .env puis
+php artisan migrate
+
+# Frontend (exemple React)
+cd frontend
+npm install
+npm run dev
 ```
-cd existing_repo
-git remote add origin https://gitlab.univ-nantes.fr/pub/but/but2/sae/groupe3/eq_3_02_rolland-estevan_salou-zahra_tong-hatet-mathis_ymamou-yassar.git
-git branch -M main
-git push -uf origin main
+
+### Lancement
+```sh
+# Démarrer backend
+php artisan serve
+# Démarrer frontend (port indiqué par le framework)
+npm run dev
 ```
 
-## Integrate with your tools
+---
 
-- [ ] [Set up project integrations](https://gitlab.univ-nantes.fr/pub/but/but2/sae/groupe3/eq_3_02_rolland-estevan_salou-zahra_tong-hatet-mathis_ymamou-yassar/-/settings/integrations)
+## 6. Utilisation (Scénarios de base)
+1. Créer un compte / se connecter
+2. Parcourir le catalogue, filtrer par catégorie
+3. Ajouter des produits au panier ou en réservation
+4. Passer commande et recevoir confirmation mail
+5. Gérer favoris / collections (phase secondaire)
 
-## Collaborate with your team
+---
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
+## 7. Workflow de Développement
+| Étape | Description |
+|-------|-------------|
+| Branche principale | `main` stable |
+| Nouvelles features | Branches `feature/<nom>` |
+| Revue | Merge Request + revue pair |
+| Tests | Avant merge, exécution tests unitaires & lint |
+| Déploiement | Manuel (environnement académique) |
 
-## Test and Deploy
+Convention de commits (suggestion): `type(scope): message` (`feat`, `fix`, `docs`, `refactor`, `test`).
 
-Use the built-in continuous integration in GitLab.
+---
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+## 8. Qualité & Tests
+| Type | Outils (prévisionnel) |
+|------|-----------------------|
+| Lint Front | ESLint + Prettier |
+| Lint Back | PHP-CS-Fixer / Laravel Pint |
+| Tests Back | PHPUnit |
+| Tests Front | Vitest / Jest |
+| E2E | Playwright / Cypress (phase ultérieure) |
 
-***
+Mesures futures: couverture de code, scan SAST (GitLab CI). CI à définir.
 
-# Editing this README
+---
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+## 9. Sécurité & Données
+- Hash mot de passe (bcrypt / Argon2)
+- Validation serveur + filtrage entrée (prévenir injections)
+- Protection CSRF (framework intégré)
+- Politique RGPD (limiter données personnelles à l'essentiel)
+- Journaux d'activité admin (phase future)
 
-## Suggestions for a good README
+---
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+## 10. Diagrammes
+Les diagrammes UML (cas d'utilisation, activité) sont dans `Analyse/` :
+- `DC.puml` (Cas d'utilisation)
+- `Diagramme d'activité.puml` (Flux commandes, panier)
+Fichiers lisibles restants en cours de rédaction (`*_lisible.txt`).
 
-## Name
-Choose a self-explaining name for your project.
+Rendu graphique générable via PlantUML :
+```sh
+plantuml Analyse/DC.puml
+plantuml Analyse/Diagramme\ d'activité.puml
+```
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+---
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+## 11. Roadmap & Évolutions
+| Phase | Contenu |
+|-------|---------|
+| Initiale | Auth, catalogue, panier, commande, réservation |
+| Secondaire | Favoris, collections, historique, suggestions, thème |
+| Bonus | Avis, shopping partagé, fidélité, recherche users |
+| Optimisation | Recommandations avancées, micro-services, scaling |
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+Indicateur de priorité: Haute (Indispensables), Moyenne (Secondaires), Basse (Bonus).
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+---
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+## 12. Contribution
+Les contributions suivent le workflow branche + Merge Request. Ouvrir une issue avant changements majeurs. Tests et lint requis avant fusion.
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+Guide rapide :
+```sh
+git checkout -b feature/favoris
+# coder...
+git commit -m "feat(favoris): ajout liste favoris"
+git push origin feature/favoris
+# ouvrir MR GitLab
+```
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+---
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+## 13. Équipe
+| Nom | Rôle (indicatif) |
+|-----|------------------|
+| Estevan ROLLAND | Frontend / UX |
+| Zahra SALOU | Backend / Données |
+| Mathis TONG--HATET | Intégration / Tests |
+| Yassar YMAMOU | Fonctionnel / Architecture |
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+Répartition détaillée dans `Divers/repartition des taches .md`.
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+---
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+## 14. Licence
+Projet académique interne (Université de Nantes). Licence formelle non définie. Ne pas réutiliser publiquement sans accord de l'équipe et de l'encadrement pédagogique.
 
-## License
-For open source projects, say how it is licensed.
+---
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+## 15. Statut du Projet
+`EN COURS` – Phase de spécification & préparation architecture. Développement imminent.
+
+---
+
+## 16. FAQ (Rapide)
+| Question | Réponse |
+|----------|---------|
+| Framework final choisi ? | À valider (React vs Vue, Laravel vs Symfony) |
+| Paiement réel intégré ? | Mock dans première version, passerelle plus tard |
+| Recommandations IA ? | Potentiel futur (analyse historique) |
+
+---
+
+## 17. Ressources / Resources
+- `cahier_des_chargesV1.md` – Description complète des besoins
+- `Analyse/cahier_charges_exigences.md` – Exigences détaillées
+- `Analyse/` – UML & documents de conception
+- `Divers/` – Aides (palette couleurs, répartition tâches)
+
+---
+
+## 18. Prochaines Étapes / Next Steps
+1. Valider stack technique (frameworks)  
+2. Initialiser dépôt backend + structure frontend  
+3. Mettre en place modèle BD & migrations  
+4. Implémenter Auth + Catalogue  
+5. Intégrer Panier + Commande + Réservation  
+6. Déployer version alpha interne
+
+---
+
+<div align="center">🎯 Merci de contribuer à un projet propre, documenté et évolutif. </div>
+

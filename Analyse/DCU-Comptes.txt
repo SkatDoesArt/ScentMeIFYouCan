@@ -1,0 +1,60 @@
+@startuml
+title Diagramme de Cas d'Utilisation – UC1 & UC2 : Création/authentification à un compte
+
+
+left to right direction
+
+
+actor "Client" as C
+actor "Administrateur" as A
+actor "Base de données utilisateurs" as BDusers
+
+
+rectangle "Système de création de comptes" {
+
+
+  usecase "UC1 - S'authentifier" as UC1
+  usecase "UC2 - Créer un compte" as UC2
+  usecase "UC8 - Réinitialiser le MDP" as UC8
+  
+  
+  usecase "UC3 - Entrer des informations" as UC3
+  usecase "UC4 - Sauvegarder les informations" as UC4
+  
+  usecase "UC5 - Vérifier les informations" as UC5
+  usecase "UC6 - Récupérer informations utilisateur" as UC6
+  
+  usecase "UC7 - Connexion au compte" as UC7
+  usecase "UC9 - Envoyer mail de réinitialisation MDP" as UC9
+  usecase "UC10 - Recevoir mail réinitialisation MDP" as UC10
+
+
+  ' Relations entre cas d'utilisation
+  UC2 ..> UC3 : <<includes>>
+  UC3 ..> UC4 : <<includes>>
+  UC3 ..> UC7 : <<includes>>
+  
+  UC1 ..> UC5 : <<includes>>
+  UC5 ..> UC6 : <<includes>>
+  UC5 ..> UC7 : <<includes>>
+  
+  UC8 ..> UC9 : <<includes>>
+  UC9 ..> UC10 : <<includes>>
+}
+
+
+' Relations acteurs / cas d'utilisation
+A --> UC1
+C --> UC1
+C --> UC2
+C --> UC8
+C --> UC10
+UC4 --> BDusers
+UC6 --> BDusers
+
+
+
+
+@enduml
+
+

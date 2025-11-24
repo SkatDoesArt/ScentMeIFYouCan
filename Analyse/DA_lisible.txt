@@ -49,27 +49,39 @@ endif
 @startuml
 title Diagramme d'activité : Gérer le panier
 
+|Base de Donnée|
+|Client|
+|Système|
 
+
+|Client|
 start
-split 
-:Valider le panier;
-if(Panier vide ?);
-split again
-:Modifier le panier;
+:Accéder au panier;
 
+if (Panier vide ?) then (oui)
+    |Base de Donnée|
+    :Ajouter un produit;
+    detach   
 
-split
-  :Ajouter un produit;
-split again
-  :Supprimer un produit;
-end split
-
-
-:Afficher le panier mis à jour;
-stop
-
-
+else (non)
+    |Client|
+    while (Modifier le panier ?)
+        if (Ajouter un produit ?) then (oui)
+            |Base de Donnée|
+            :Ajouter un produit;
+        else (non)
+            |Base de Donnée|
+            :Supprimer un produit;
+        endif
+        |Client|
+    endwhile (non)
+    :Valider le panier;
+    |Système|
+    :Afficher le panier mis à jour;
+    stop
+endif
 @enduml
+
 
 
 

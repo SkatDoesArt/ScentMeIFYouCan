@@ -49,8 +49,8 @@ rectangle "Système de vente en ligne" {
   UC8 ..> UC9 : <<include>>
   UC8 ..> UC10 : <<include>>
   UC8 ..> UC11 : <<include>>
-  UC8 ..> UC12 : <<include>>
   UC8 ..> UC13 : <<include>>
+  UC9 ..> UC12 : <<include>>
   UC14 ..> UC16 : <<extend>>
   UC17 ..> UC12 : <<include>>
 }

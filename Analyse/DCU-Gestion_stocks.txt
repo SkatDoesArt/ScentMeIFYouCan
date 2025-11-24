@@ -1,0 +1,54 @@
+@startuml
+title Diagramme de Cas d'Utilisation – UC16 : Gestion des stocks
+
+
+left to right direction
+
+
+actor "Administrateur" as A
+actor "Base de données" as BDproduits
+
+
+rectangle "Système de gestion des stocks" {
+
+
+  usecase "UC1 - Afficher liste des produits" as UC1
+  usecase "UC3 - Supprimer produit" as UC3
+  usecase "UC2 - Modifier infos produit" as UC2
+  
+  usecase "UC4 - Ajouter produit" as UC4
+  
+  usecase "UC5 - Ajouter infos produit" as UC5
+  usecase "UC6 - Ajouter produit à la BD" as UC6
+  
+  usecase "UC7 - Récupérer données" as UC7
+
+
+  
+
+
+  ' Relations entre cas d'utilisation
+  UC1 ..> UC7 : <<includes>>
+  UC2 ..> UC7 : <<includes>>
+  UC3 ..> UC7 : <<includes>>
+  UC4 ..> UC5 : <<includes>>
+  UC5 ..> UC6 : <<includes>>
+  
+}
+
+
+' Relations acteurs / cas d'utilisation
+
+
+A --> UC1
+A --> UC2
+A --> UC3
+A --> UC4
+
+UC7 --> BDproduits
+UC6 --> BDproduits
+
+
+@enduml
+
+

@@ -1,0 +1,30 @@
+@startuml "DA payer commande"
+title Diagramme d'activité : Payer une commande
+
+start
+
+:Sélectionner le mode de paiement;
+
+if (Mode de paiement valide ?) then (Oui)
+  
+  :Saisir les informations de paiement;
+  :Vérifier la validité du paiement;
+
+  if (Paiement accepté ?) then (Oui)
+    :Confirmer la commande;
+    :Envoyer un mail de confirmation;
+  else (Non)
+    :Afficher un message d'erreur;
+    :Demander un nouveau moyen de paiement;
+  endif
+
+else (Non)
+  :Afficher un message d'erreur;
+endif
+
+stop
+
+@enduml
+
+
+

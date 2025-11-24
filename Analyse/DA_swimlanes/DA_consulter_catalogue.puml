@@ -1,0 +1,32 @@
+@startuml
+title Diagramme d'activité : Consulter le catalogue
+
+|Client|
+|Système|
+|Base de Donnée|
+
+
+|Client|
+start
+repeat : Effectuer une recherche
+    :Saisir le nom, la catégorie ou filtrer (marques, catégories, prix);
+    |Système|
+    :Recevoir la demande de recherche;
+    |Base de Donnée|
+    :Rechercher les produits selon les critères;
+    |Système|
+    :Afficher les résultats;
+    |Client|
+    if (Produits trouvés ?) then (Oui)
+        |Système|
+        :Afficher la liste des produits;
+    else (Non)
+        |Système|
+        :Afficher message "Aucun produit trouvé";
+    endif
+|Client|
+repeat while (Nouvelle recherche ?) is (Oui)
+    -> non;
+    |Client|
+    stop
+@enduml

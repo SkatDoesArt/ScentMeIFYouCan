@@ -1,0 +1,47 @@
+@startuml
+title Diagramme d'activité : Gérer les produits
+
+|Administrateur|
+start
+:Se connecter;
+:Accéder à la gestion des produits;
+
+|Système|
+:Afficher liste des produits;
+
+repeat
+    |Administrateur|
+    :Choisir une action;
+
+    if (Ajouter ?) then (Oui)
+        :Saisir détails produit;
+        |Base de Données|
+        :Créer produit;
+    else (Non)
+        if (Modifier ?) then (Oui)
+            :Sélectionner produit;
+            :Modifier données;
+            |Base de Données|
+            :Mettre à jour produit;
+        else (Non)
+            if (Supprimer ?) then (Oui)
+                :Sélectionner produit;
+                |Base de Données|
+                :Supprimer produit;
+            else (Non)
+                if (Rechercher ?) then (Oui)
+                    :Saisir critère;
+                    |Base de Données|
+                    :Rechercher produit;
+                endif
+            endif
+        endif
+    endif
+
+repeat while (Autre action ?) is (Oui)
+
+|Administrateur|
+:Se déconnecter;
+stop
+
+@enduml

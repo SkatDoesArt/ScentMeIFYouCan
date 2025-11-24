@@ -1,86 +1,4 @@
 Cas 8,9,5,13,17(fait)
-@startuml
-title Diagramme d'activité : Payer une commande (UC9 )
-
-|Client|
-start
-:Passer commande;
-:Sélectionner le mode de paiement;
-
-if (Mode de paiement valide ?) then (Oui)
-    if (Utiliser les informations pré-enregistrées ?) then (Oui)
-        :Utiliser les informations existantes;
-    else (Non)
-        :Saisir les informations de paiement;
-    endif
-    :Rentrer le code secret de la carte;
-    :Valider le paiement;
-
-    |Système de paiement|
-    if (Paiement accepté ?) then (non)
-    |Système de paiement|
-        :Refuser la transaction;
-        :Afficher un message d'erreur;
-        stop
-    
-    else (oui)
-        :Confirmer la transaction;
-        |Serveur mail|
-        :Envoyer un mail de confirmation;
-        stop
-        
-        
-    endif
-else (Non)
-    |Client|
-    :Afficher un message d'erreur;
-    |Système de paiement|
-    :Demander un nouveau moyen de paiement;
-    detach
-endif
-
-@enduml
-
-
-
-
-
-
-@startuml
-title Diagramme d'activité : Gérer le panier
-
-|Base de Donnée|
-|Client|
-|Système|
-
-
-|Client|
-start
-:Accéder au panier;
-
-if (Panier vide ?) then (oui)
-    |Base de Donnée|
-    :Ajouter un produit;
-    detach   
-
-else (non)
-    |Client|
-    while (Modifier le panier ?)
-        if (Ajouter un produit ?) then (oui)
-            |Base de Donnée|
-            :Ajouter un produit;
-        else (non)
-            |Base de Donnée|
-            :Supprimer un produit;
-        endif
-        |Client|
-    endwhile (non)
-    :Valider le panier;
-    |Système|
-    :Afficher le panier mis à jour;
-    stop
-endif
-@enduml
 
 
 
@@ -91,145 +9,22 @@ endif
 
 
 
-@startuml
-title Diagramme d'activité : Consulter le catalogue
-
-|Client|
-|Système|
-|Base de Donnée|
-
-
-|Client|
-start
-repeat : Effectuer une recherche
-    :Saisir le nom, la catégorie ou filtrer (marques, catégories, prix);
-    |Système|
-    :Recevoir la demande de recherche;
-    |Base de Donnée|
-    :Rechercher les produits selon les critères;
-    |Système|
-    :Afficher les résultats;
-    |Client|
-    if (Produits trouvés ?) then (Oui)
-        |Système|
-        :Afficher la liste des produits;
-    else (Non)
-        |Système|
-        :Afficher message "Aucun produit trouvé";
-    endif
-|Client|
-repeat while (Nouvelle recherche ?) is (Oui)
-    -> non;
-    |Client|
-    stop
-@enduml
 
 
 
 
 
 
-@startuml
-title Diagramme d'activité : Gérer les utilisateurs
-
-|Administrateur|
-|Base de Donnée|
-
-
-|Administrateur|
-start
-:Se connecter;
-
-repeat : Gérer les utilisateurs
-    switch (Choisir une action)
-        case (Ajouter un utilisateur)
-            :Saisir les informations du nouvel utilisateur;
-            |Base de Donnée|
-            :Enregistrer le nouvel utilisateur;
-            |Administrateur|
-            :Valider l'ajout;
-        case (Modifier un utilisateur)
-            :Sélectionner l'utilisateur à modifier;
-            :Modifier les informations;
-            |Base de Donnée|
-            :Mettre à jour les informations de l'utilisateur;
-            |Administrateur|
-            :Valider la modification;
-        case (Supprimer un utilisateur)
-            :Sélectionner l'utilisateur à supprimer;
-            |Base de Donnée|
-            :Supprimer l'utilisateur;
-            |Administrateur|
-            :Confirmer la suppression;
-        case (Rechercher un utilisateur)
-            :Saisir nom ou rôle de l'utilisateur;
-            |Base de Donnée|
-            :Rechercher l'utilisateur;
-            |Administrateur|
-            :Afficher les résultats;
-    endswitch
-repeat while (Autre action à effectuer ?) is (Oui)
-    -> no;
-|Administrateur|
-:Se déconnecter;
-stop
-@enduml
 
 
 
-@startuml
-title Diagramme d'activité : Gérer les produits
-
-|Administrateur|
-start
-:Se connecter;
-:Accéder à la gestion des produits;
-
-|Système|
-    :Afficher la liste des produits;
-    |Administrateur|
-    :Choisir une action;
-
-    if (Ajouter un produit ?) then (Oui)
-        :Saisir nom, description, prix, stock;
-        |Système|
-        :Valider l'ajout;
-    else (Non)
-        if (Modifier un produit ?) then (Oui)
-            |Administrateur|
-            :Sélectionner le produit;
-            :Modifier les informations;
-            |Système|
-            :Valider la modification;
-        else (Non)
-            if (Supprimer un produit ?) then (Oui)
-                |Administrateur|
-                :Sélectionner le produit;
-                |Système|
-                :Confirmer la suppression;
-            else (Non)
-                if (Rechercher un produit ?) then (Oui)
-                    |Administrateur|
-                    :Saisir nom ou catégorie;
-                    |Système|
-                    :Afficher les résultats;
-                else (Non)
-                    |Administrateur|
-                    :Aucune action;
-                endif
-            endif
-        endif
-    endif
 
 
-if (Modification d'un produits) then(Oui)
-|BD|
-:Modifier une base de donné;
-else(Non)
 
-endif
-|Administrateur|
-:Se déconnecter;
-stop
 
-@enduml
+
+
+
+
+
+

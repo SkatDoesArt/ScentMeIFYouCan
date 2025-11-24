@@ -1,0 +1,25 @@
+@startuml "consulter catalogue"
+title Diagramme d'activité : Consulter le catalogue
+
+
+start
+repeat
+  :Saisir le nom ou la catégorie du produit;
+  :Rechercher un produit;
+  :Afficher les résultats;
+  if (Produit trouvé ?) then (Oui)
+    :Afficher les détails du produit;
+  else (Non)
+    :Afficher message "Aucun produit trouvé";
+  endif
+repeat while (Nouvelle recherche ?)
+stop
+
+
+@enduml
+
+
+
+
+
+

@@ -1,0 +1,34 @@
+@startuml "manage user"
+title Diagramme d'activité : Gérer les utilisateurs
+
+DA_consulter_catalogue
+start
+:Se connecter en tant qu'administrateur;
+
+
+repeat
+
+
+  switch (Choisir une action)
+    case (Ajouter un utilisateur)
+      :Saisir les informations du nouvel utilisateur;
+      :Valider l'ajout;
+    case (Modifier un utilisateur)
+      :Sélectionner l'utilisateur à modifier;
+      :Modifier les informations;
+      :Valider la modification;
+    case (Supprimer un utilisateur)
+      :Sélectionner l'utilisateur à supprimer;
+      :Confirmer la suppression;
+    case (Rechercher un utilisateur)
+      :Saisir nom ou rôle de l'utilisateur;
+      :Afficher les résultats;
+  endswitch
+
+
+repeat while (Autre action à effectuer ?)
+
+
+:Se déconnecter;
+stop
+@enduml

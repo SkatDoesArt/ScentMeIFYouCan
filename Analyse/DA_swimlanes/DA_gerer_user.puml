@@ -1,0 +1,45 @@
+@startuml
+title Diagramme d'activité : Gérer les utilisateurs
+
+|Administrateur|
+|Base de Donnée|
+
+
+|Administrateur|
+start
+:Se connecter;
+
+repeat : Gérer les utilisateurs
+    switch (Choisir une action)
+        case (Ajouter un utilisateur)
+            :Saisir les informations du nouvel utilisateur;
+            |Base de Donnée|
+            :Enregistrer le nouvel utilisateur;
+            |Administrateur|
+            :Valider l'ajout;
+        case (Modifier un utilisateur)
+            :Sélectionner l'utilisateur à modifier;
+            :Modifier les informations;
+            |Base de Donnée|
+            :Mettre à jour les informations de l'utilisateur;
+            |Administrateur|
+            :Valider la modification;
+        case (Supprimer un utilisateur)
+            :Sélectionner l'utilisateur à supprimer;
+            |Base de Donnée|
+            :Supprimer l'utilisateur;
+            |Administrateur|
+            :Confirmer la suppression;
+        case (Rechercher un utilisateur)
+            :Saisir nom ou rôle de l'utilisateur;
+            |Base de Donnée|
+            :Rechercher l'utilisateur;
+            |Administrateur|
+            :Afficher les résultats;
+    endswitch
+repeat while (Autre action à effectuer ?) is (Oui)
+    -> no;
+|Administrateur|
+:Se déconnecter;
+stop
+@enduml

@@ -1,0 +1,28 @@
+@startuml
+title Diagramme d'activité – Passer une commande
+
+|Client|
+start
+:Valider panier;
+:Choisir adresse de livraison;
+
+|Système|
+:Créer commande;
+:Vérifier disponibilité produits;
+
+if (Stock suffisant ?) then (Oui)
+  :Réserver produits;
+else (Non)
+  |Client|
+  :Afficher erreur "Stock insuffisant";
+  stop
+endif
+
+|Client|
+:Choisir mode de paiement;
+
+|Système|
+:Rediriger vers paiement;
+
+stop
+@enduml

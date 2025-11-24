@@ -1,0 +1,33 @@
+@startuml "gerer panier"
+title Diagramme d'activité : Gérer le panier
+
+start
+
+repeat
+  :Afficher le panier;
+
+  if (Panier vide ?) then (Oui)
+    :Afficher "Panier vide";
+  endif
+
+  switch (Action utilisateur)
+    case (Ajouter un produit)
+      :Sélectionner un produit;
+      :Ajouter au panier;
+    case (Supprimer un produit)
+      :Sélectionner un produit;
+      :Supprimer du panier;
+    case (Modifier quantités)
+      :Saisir la nouvelle quantité;
+      :Mettre à jour la ligne du panier;
+    case (Valider le panier)
+      :Contrôler le contenu;
+      break
+  endswitch
+
+repeat while (Autre action ?)
+
+stop
+
+@enduml
+

@@ -1,0 +1,41 @@
+@startuml
+title Diagramme d'activité : Gérer le panier
+
+|Client|
+start
+:Accéder au panier;
+
+if (Panier vide ?) then (Oui)
+    :Ajouter un produit;
+
+    |Système|
+    :Mettre à jour le panier;
+    stop
+else (Non)
+    repeat
+        if (Ajouter un produit ?) then (Oui)
+            |Client|
+            :Sélectionner produit;
+
+            |Système|
+            :Ajouter au panier;
+        else (Non)
+            
+            |Client|
+            :Sélectionner produit à retirer;
+
+            |Système|
+            :Retirer du panier;
+        endif
+
+        |Client|
+    repeat while (Modifier encore ?) is (Oui)
+
+    :Valider le panier;
+
+    |Système|
+    :Afficher panier mis à jour;
+    stop
+endif
+
+@enduml

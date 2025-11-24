@@ -1,102 +1,76 @@
-﻿@startuml
-title Diagramme de classe – Plateforme de vente en ligne (structuré par packages)
-
+﻿@startuml "DC"
+title Diagramme de classes – Plateforme de vente en ligne (corrigé et structuré par packages)
 
 package Utilisateurs {
+
     class User {
         - idUser : int
         - nom : String
         - prenom : String
         - login : String
         - mdp : String
-        
-        + seConnecter()
-        + seDeconnecter()
     }
-
 
     class Client {
-        - moyenDePayement : String
         - adresse : String
-
-
-        + <<create>> Client()
-        + changeInfo()
-        + passerCommande()
+        - moyenPaiement : String
     }
-
 
     class Admin {
-        + <<create>> Admin()
-        + gererCatalogue()
-        + gererProduits()
-    }
 
+    }
 
     Client --|> User
     Admin --|> User
 }
 
-
 package Produits {
+
     class Produit {
         - idProduit : int
         - nom : String
         - prix : double
         - description : String
-        
-        + <<create>> Produit()
-        + modifierPrix()
     }
-
 
     class Catalogue {
-        - id : int
+        - idCatalogue : int
         - nom : String
-
-
-        + <<create>> Catalogue()
-        + addItem()
-        + removeItem()
     }
 
-
-    Catalogue "1..*" o-- "0..*" Produit : est formé de
+    Catalogue "1" o-- "0..*" Produit : contient >
 }
-
 
 package Commandes {
+
     class Panier {
-        - id : int
-
-
-        + <<create>> Panier()
-        + addToBasket()
-        + removeFromBasket()
-        + vider()
+        - idPanier : int
     }
 
+    class LignePanier {
+        - quantite : int
+    }
 
     class Commande {
-        - id : int
+        - idCommande : int
         - date : Date
         - statut : String
-        
-        + <<create>> Commande()
-        + valider()
-        + payer()
     }
 
+    class LigneCommande {
+        - quantite : int
+        - prixUnitaire : double
+    }
 
-    Panier "0..*" o-- "0..1" Produit : est composé de
-    Commande "1..*" o-- "0..*" Produit : est composé de
+    ' --- Relations internes ---
+    Panier "1" *-- "0..*" LignePanier : contient >
+    LignePanier "1" --> "1" Produit
+
+    Commande "1" *-- "1..*" LigneCommande : contient >
+    LigneCommande "1" --> "1" Produit
 }
 
-
-Client "1" --> "1" Panier : possede
-Client "0..*" -- "1" Commande : a commandé
-
-
-
+Client "1" --> "1" Panier : possède >
+Client "0..*" --> "1" Commande : effectue >
 
 @enduml

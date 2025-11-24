@@ -164,3 +164,61 @@ repeat while (Autre action à effectuer ?)
 :Se déconnecter;
 stop
 @enduml
+
+
+@startuml
+title Diagramme d'activité : Gérer les produits
+
+|Administrateur|
+start
+:Se connecter;
+:Accéder à la gestion des produits;
+
+|Système|
+    :Afficher la liste des produits;
+    |Administrateur|
+    :Choisir une action;
+
+    if (Ajouter un produit ?) then (Oui)
+        :Saisir nom, description, prix, stock;
+        |Système|
+        :Valider l'ajout;
+    else (Non)
+        if (Modifier un produit ?) then (Oui)
+            |Administrateur|
+            :Sélectionner le produit;
+            :Modifier les informations;
+            |Système|
+            :Valider la modification;
+        else (Non)
+            if (Supprimer un produit ?) then (Oui)
+                |Administrateur|
+                :Sélectionner le produit;
+                |Système|
+                :Confirmer la suppression;
+            else (Non)
+                if (Rechercher un produit ?) then (Oui)
+                    |Administrateur|
+                    :Saisir nom ou catégorie;
+                    |Système|
+                    :Afficher les résultats;
+                else (Non)
+                    |Administrateur|
+                    :Aucune action;
+                endif
+            endif
+        endif
+    endif
+
+
+if (Modification d'un produits) then(Oui)
+|BD|
+:Modifier une base de donné;
+else(Non)
+
+endif
+|Administrateur|
+:Se déconnecter;
+stop
+
+@enduml

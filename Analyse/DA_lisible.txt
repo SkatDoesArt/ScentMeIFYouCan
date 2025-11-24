@@ -1,0 +1,133 @@
+Cas 8,9,5,13,17(fait)
+@startuml 
+title Diagramme d'activité : Payer une commande
+
+
+start
+
+
+:Sélectionner le mode de paiement;
+
+
+if (Mode de paiement valide ?) then (Oui)
+  :Saisir les informations de paiement;
+  :Vérifier la validité du paiement;
+
+
+  if (Paiement accepté ?) then (Oui)
+    :Confirmer la commande;
+    :Envoyer un mail de confirmation;
+  else (Non)
+    :Afficher un message d'erreur;
+    :Demander un nouveau moyen de paiement;
+  endif
+
+
+else (Non)
+  :Afficher un message d'erreur;
+endif
+
+
+stop
+
+
+@enduml
+
+
+
+
+
+
+@startuml
+title Diagramme d'activité : Gérer le panier
+
+
+start
+split 
+:Valider le panier;
+if(Panier vide ?);
+split again
+:Modifier le panier;
+
+
+split
+  :Ajouter un produit;
+split again
+  :Supprimer un produit;
+end split
+
+
+:Afficher le panier mis à jour;
+stop
+
+
+@enduml
+
+
+
+
+
+
+
+
+
+
+@startuml
+title Diagramme d'activité : Consulter le catalogue
+
+
+start
+repeat
+  :Saisir le nom ou la catégorie du produit;
+  :Rechercher un produit;
+  :Afficher les résultats;
+  if (Produit trouvé ?) then (Oui)
+    :Afficher les détails du produit;
+  else (Non)
+    :Afficher message "Aucun produit trouvé";
+  endif
+repeat while (Nouvelle recherche ?)
+stop
+
+
+@enduml
+
+
+
+
+
+
+@startuml
+title Diagramme d'activité : Gérer les utilisateurs
+
+
+start
+:Se connecter en tant qu'administrateur;
+
+
+repeat
+
+
+  switch (Choisir une action)
+    case (Ajouter un utilisateur)
+      :Saisir les informations du nouvel utilisateur;
+      :Valider l'ajout;
+    case (Modifier un utilisateur)
+      :Sélectionner l'utilisateur à modifier;
+      :Modifier les informations;
+      :Valider la modification;
+    case (Supprimer un utilisateur)
+      :Sélectionner l'utilisateur à supprimer;
+      :Confirmer la suppression;
+    case (Rechercher un utilisateur)
+      :Saisir nom ou rôle de l'utilisateur;
+      :Afficher les résultats;
+  endswitch
+
+
+repeat while (Autre action à effectuer ?)
+
+
+:Se déconnecter;
+stop
+@enduml

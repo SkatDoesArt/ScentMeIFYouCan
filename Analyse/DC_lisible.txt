@@ -1,0 +1,102 @@
+@startuml
+title Diagramme de classe – Plateforme de vente en ligne (structuré par packages)
+
+
+package Utilisateurs {
+    class User {
+        - idUser : int
+        - nom : String
+        - prenom : String
+        - login : String
+        - mdp : String
+        
+        + seConnecter()
+        + seDeconnecter()
+    }
+
+
+    class Client {
+        - moyenDePayement : String
+        - adresse : String
+
+
+        + <<create>> Client()
+        + changeInfo()
+        + passerCommande()
+    }
+
+
+    class Admin {
+        + <<create>> Admin()
+        + gererCatalogue()
+        + gererProduits()
+    }
+
+
+    Client --|> User
+    Admin --|> User
+}
+
+
+package Produits {
+    class Produit {
+        - idProduit : int
+        - nom : String
+        - prix : double
+        - description : String
+        
+        + <<create>> Produit()
+        + modifierPrix()
+    }
+
+
+    class Catalogue {
+        - id : int
+        - nom : String
+
+
+        + <<create>> Catalogue()
+        + addItem()
+        + removeItem()
+    }
+
+
+    Catalogue "1..*" o-- "0..*" Produit : est formé de
+}
+
+
+package Commandes {
+    class Panier {
+        - id : int
+
+
+        + <<create>> Panier()
+        + addToBasket()
+        + removeFromBasket()
+        + vider()
+    }
+
+
+    class Commande {
+        - id : int
+        - date : Date
+        - statut : String
+        
+        + <<create>> Commande()
+        + valider()
+        + payer()
+    }
+
+
+    Panier "0..*" o-- "0..1" Produit : est composé de
+    Commande "1..*" o-- "0..*" Produit : est composé de
+}
+
+
+Client "1" --> "1" Panier : possede
+Client "0..*" -- "1" Commande : a commandé
+
+
+
+
+@enduml

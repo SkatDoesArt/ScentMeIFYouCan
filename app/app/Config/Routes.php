@@ -1,16 +1,13 @@
 <?php
 
-namespace Config;
+use CodeIgniter\Router\RouteCollection;
 
-$routes = Services::routes();
+/**
+ * @var RouteCollection $routes
+ */
+$routes->get('/', 'Home::index');
 
-// Chargement des routes par défaut de CodeIgniter
-$routes->setDefaultNamespace('App\Controllers');
-$routes->setDefaultController('Home');
-$routes->setDefaultMethod('index');
-$routes->setTranslateURIDashes(false);
-$routes->set404Override();
-$routes->setAutoRoute(true);
+
 
 // --------------------------------------------------------------------
 // Routes personnalisées pour les vues
@@ -50,4 +47,6 @@ $routes->get('admin/stock', 'Admin::stock');
 
 // ---------- Emails ----------
 $routes->get('emails/order-confirmation', 'Emails::orderConfirmation');
+
+
 

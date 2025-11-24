@@ -43,16 +43,16 @@ rectangle "Système de vente en ligne" {
 
 
   ' Relations entre cas d'utilisation
-  UC5 ..> UC6 : <<include>>
-  UC5 ..> UC7 : <<include>>
-  UC8 ..> UC5 : <<include>>
-  UC8 ..> UC9 : <<include>>
-  UC8 ..> UC10 : <<include>>
-  UC8 ..> UC11 : <<include>>
-  UC8 ..> UC13 : <<include>>
-  UC9 ..> UC12 : <<include>>
-  UC14 ..> UC16 : <<extend>>
-  UC17 ..> UC12 : <<include>>
+  UC5 ..> UC6 : <<includes>>
+  UC5 ..> UC7 : <<includes>>
+  UC8 ..> UC5 : <<includes>>
+  UC8 ..> UC9 : <<includes>>
+  UC8 ..> UC10 : <<includes>>
+  UC8 ..> UC11 : <<includes>>
+  UC8 ..> UC13 : <<includes>>
+  UC9 ..> UC12 : <<includes>>
+  UC14 ..> UC16 : <<extends>>
+  UC17 ..> UC12 : <<extends>>
 }
 
 
@@ -82,7 +82,6 @@ M --> UC12
 
 
 @enduml
-
 
 
 

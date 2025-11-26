@@ -1,41 +1,70 @@
 @startuml
-title Diagramme d'activité : Gérer le panier
+title Diagramme d'activité : Consulter le catalogue
 
 |Client|
 start
 :Accéder au panier;
 
-if (Panier vide ?) then (Oui)
-    :Ajouter un produit;
+if (Panier vide ?) then (oui)
 
-    |Système|
-    :Mettre à jour le panier;
-    stop
-else (Non)
-    repeat
-        if (Ajouter un produit ?) then (Oui)
+    if (Connecté ?) then (oui)
+        |Client|
+        if (Ajouter un article ?) then (oui)
+            :Sélectionner article;
+            |Systeme|
+            :Ajouter article;
+        else (non)
             |Client|
-            :Sélectionner produit;
-
-            |Système|
-            :Ajouter au panier;
-        else (Non)
-            
-            |Client|
-            :Sélectionner produit à retirer;
-
-            |Système|
-            :Retirer du panier;
+            stop
         endif
 
-        |Client|
-    repeat while (Modifier encore ?) is (Oui)
+    else (non)
+        |Systeme|
+        :Se connecter;
+    endif
 
-    :Valider le panier;
+else (non)
 
-    |Système|
-    :Afficher panier mis à jour;
-    stop
+    repeat
+
+        if (Modifier panier ?) then (oui)
+
+            |Client|
+            if (Ajouter un article ?) then (oui)
+
+                :Sélectionner article;
+                |Systeme|
+                :Ajouter article au panier;
+
+            else (non)
+
+                |Client|
+                if (Modifier article existant ?) then (oui)
+                    :Sélectionner article;
+
+                    if (Supprimer ?) then (oui)
+                        |Systeme|
+                        :Supprimer l'article;
+                    else (non)
+                        |Client|
+                        :Sélectionner spécifications;
+                        |Systeme|
+                        :Modifier article;
+                    endif
+
+                else (non)
+                    ' Aucune modification
+                endif
+
+            endif
+
+        else (non)
+            break
+        endif
+
+    repeat while (Modifier encore ?)
+
 endif
 
+stop
 @enduml

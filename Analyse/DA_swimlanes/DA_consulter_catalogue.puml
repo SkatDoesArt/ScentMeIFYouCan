@@ -3,7 +3,7 @@ title Diagramme d'activité : Consulter le catalogue
 
 |Client|
 |Système|
-|Base de Donnée|
+
 
 
 |Client|
@@ -12,7 +12,7 @@ repeat : Effectuer une recherche
     :Saisir le nom, la catégorie ou filtrer (marques, catégories, prix);
     |Système|
     :Recevoir la demande de recherche;
-    |Base de Donnée|
+
     :Rechercher les produits selon les critères;
     |Système|
     :Afficher les résultats;

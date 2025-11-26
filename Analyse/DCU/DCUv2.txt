@@ -1,5 +1,5 @@
 @startuml
-title Diagramme de Cas d'Utilisation – Plateforme de vente de parfums
+title Diagramme de Cas d'Utilisation – Plateforme de vente de parfums (complet)
 
 left to right direction
 
@@ -36,7 +36,11 @@ rectangle "Plateforme de vente en ligne" {
     usecase "UC9 - Envoyer mail de réinitialisation MDP" as UC9
     usecase "UC10 - Recevoir mail réinitialisation MDP" as UC10
 
-    ' Relations internes au package
+    ' AJOUTS (profil)
+    usecase "UC11 - Modifier le profil" as UC11
+    usecase "UC12 - Modifier le mot de passe" as UC12
+
+    ' Relations internes
     UC2 ..> UC3 : <<includes>>
     UC3 ..> UC4 : <<includes>>
     UC3 ..> UC7 : <<includes>>
@@ -47,11 +51,14 @@ rectangle "Plateforme de vente en ligne" {
 
     UC8 ..> UC9 : <<includes>>
     UC9 ..> UC10 : <<includes>>
+
+    UC11 --> BDusers
+    UC12 --> BDusers
   }
 
 
   ' -------------------------------------
-  ' AUTRES FONCTIONNALITÉS DU SITE
+  '    FONCTIONNALITÉS DU SITE
   ' -------------------------------------
   usecase "UC3G - Consulter le catalogue" as UC3G
   usecase "UC4G - Rechercher un produit" as UC4G
@@ -59,6 +66,7 @@ rectangle "Plateforme de vente en ligne" {
   usecase "UC5G - Gérer le panier" as UC5G
   usecase "UC6G - Ajouter au panier" as UC6G
   usecase "UC7G - Supprimer du panier" as UC7G
+  usecase "UC18 - Mettre à jour la quantité" as UC18
 
   usecase "UC8G - Passer une commande" as UC8G
   usecase "UC9G - Payer la commande" as UC9G
@@ -72,42 +80,82 @@ rectangle "Plateforme de vente en ligne" {
   usecase "UC15G - Gérer les utilisateurs" as UC15G
   usecase "UC17G - Suivre les commandes" as UC17G
 
+  ' AJOUTS COMMANDES / CLIENT
+  usecase "UC19 - Annuler une commande" as UC19
+  usecase "UC20 - Appliquer un code promo" as UC20
+  usecase "UC13H - Consulter l'historique des commandes" as UC13H
 
-  ' Relations entre cas d'utilisation globaux
+  ' AJOUTS PAIEMENT ERREURS
+  usecase "UC21 - Paiement refusé" as UC21
+  usecase "UC22 - Moyen de paiement invalide" as UC22
+  usecase "UC23 - Relancer le paiement" as UC23
+  usecase "UC24 - Informations bancaires invalides" as UC24
+  usecase "UC25 - Erreur serveur paiement" as UC25
+
+  ' AJOUTS NOTIFICATIONS
+  usecase "UC27 - Notification d'expédition" as UC27
+  usecase "UC28 - Notification de livraison" as UC28
+  usecase "UC29 - Échec d'envoi d'email" as UC29
+
+  ' AJOUTS ERREURS COMMANDES
+  usecase "UC30 - Rupture de stock pendant commande" as UC30
+  usecase "UC31 - Adresse invalide" as UC31
+
+
+  ' ===========================
+  '     RELATIONS ENTRE UC
+  ' ===========================
   UC5G ..> UC6G : <<includes>>
   UC5G ..> UC7G : <<includes>>
+  UC5G ..> UC18 : <<includes>>
+
   UC8G ..> UC5G : <<includes>>
   UC8G ..> UC9G : <<includes>>
   UC8G ..> UC10G : <<includes>>
   UC8G ..> UC11G : <<includes>>
+  UC8G ..> UC20 : <<includes>>
+
+  ' Supprimé : UC8G ..> UC13G
+  UC13G ..> UC8G : <<extends>>
+
   UC9G ..> UC12G : <<includes>>
-  UC17G ..> UC12G : <<extends>>
+
+  ' EXTENDS paiement erreurs
+  UC21 ..> UC9G : <<extends>>
+  UC22 ..> UC9G : <<extends>>
+  UC23 ..> UC9G : <<extends>>
+  UC24 ..> UC9G : <<extends>>
+  UC25 ..> UC9G : <<extends>>
+
+  ' Notifications
+  UC17G ..> UC27 : <<includes>>
+  UC17G ..> UC28 : <<includes>>
+  UC29 ..> UC12G : <<extends>>
+
+  ' Commande erreurs
+  UC30 ..> UC8G : <<extends>>
+  UC31 ..> UC11G : <<extends>>
 }
 
 
 ' =======================
-' LIENS ENTRE ACTEURS & UC
+'     LIENS ACTEURS
 ' =======================
-
-' Client & Administrateur avec fonctions comptes
 C --> UC1
 C --> UC2
 C --> UC8
-C --> UC10
-
-A --> UC1
-
-' Connexions BD utilisateurs
-UC4 --> BDusers
-UC6 --> BDusers
-
-' Client avec système principal
+C --> UC12
+C --> UC11
 C --> UC3G
 C --> UC4G
 C --> UC5G
 C --> UC8G
 C --> UC13G
+C --> UC13H
+C --> UC19
+C --> UC20
 
+A --> UC1
 A --> UC14G
 A --> UC15G
 A --> UC17G
@@ -115,6 +163,12 @@ A --> UC17G
 E --> UC17G
 
 P --> UC9G
+
 M --> UC12G
+M --> UC27
+M --> UC28
+
+UC4 --> BDusers
+UC6 --> BDusers
 
 @enduml

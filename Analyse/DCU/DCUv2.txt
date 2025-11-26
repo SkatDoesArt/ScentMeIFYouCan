@@ -1,0 +1,120 @@
+@startuml
+title Diagramme de Cas d'Utilisation – Plateforme de vente de parfums
+
+left to right direction
+
+' =======================
+'       ACTEURS
+' =======================
+actor "Client" as C
+actor "Administrateur" as A
+actor "Employé" as E
+actor "Système de paiement" as P
+actor "Serveur mail" as M
+actor "Base de données utilisateurs" as BDusers
+
+
+' =======================
+'     SYSTEME GLOBAL
+' =======================
+rectangle "Plateforme de vente en ligne" {
+
+  ' -------------------------------------
+  ' PACKAGE : GESTION DES COMPTES
+  ' -------------------------------------
+  package "Gestion des comptes" {
+
+    usecase "UC1 - S'authentifier" as UC1
+    usecase "UC2 - Créer un compte" as UC2
+    usecase "UC8 - Réinitialiser le MDP" as UC8
+
+    usecase "UC3 - Entrer des informations" as UC3
+    usecase "UC4 - Sauvegarder les informations" as UC4
+    usecase "UC5 - Vérifier les informations" as UC5
+    usecase "UC6 - Récupérer informations utilisateur" as UC6
+    usecase "UC7 - Connexion au compte" as UC7
+    usecase "UC9 - Envoyer mail de réinitialisation MDP" as UC9
+    usecase "UC10 - Recevoir mail réinitialisation MDP" as UC10
+
+    ' Relations internes au package
+    UC2 ..> UC3 : <<includes>>
+    UC3 ..> UC4 : <<includes>>
+    UC3 ..> UC7 : <<includes>>
+
+    UC1 ..> UC5 : <<includes>>
+    UC5 ..> UC6 : <<includes>>
+    UC5 ..> UC7 : <<includes>>
+
+    UC8 ..> UC9 : <<includes>>
+    UC9 ..> UC10 : <<includes>>
+  }
+
+
+  ' -------------------------------------
+  ' AUTRES FONCTIONNALITÉS DU SITE
+  ' -------------------------------------
+  usecase "UC3G - Consulter le catalogue" as UC3G
+  usecase "UC4G - Rechercher un produit" as UC4G
+
+  usecase "UC5G - Gérer le panier" as UC5G
+  usecase "UC6G - Ajouter au panier" as UC6G
+  usecase "UC7G - Supprimer du panier" as UC7G
+
+  usecase "UC8G - Passer une commande" as UC8G
+  usecase "UC9G - Payer la commande" as UC9G
+  usecase "UC10G - Modifier le mode de paiement" as UC10G
+  usecase "UC11G - Modifier l'adresse de livraison" as UC11G
+
+  usecase "UC12G - Recevoir une confirmation par mail" as UC12G
+  usecase "UC13G - Consulter l'état de la commande" as UC13G
+
+  usecase "UC14G - Gérer les produits" as UC14G
+  usecase "UC15G - Gérer les utilisateurs" as UC15G
+  usecase "UC17G - Suivre les commandes" as UC17G
+
+
+  ' Relations entre cas d'utilisation globaux
+  UC5G ..> UC6G : <<includes>>
+  UC5G ..> UC7G : <<includes>>
+  UC8G ..> UC5G : <<includes>>
+  UC8G ..> UC9G : <<includes>>
+  UC8G ..> UC10G : <<includes>>
+  UC8G ..> UC11G : <<includes>>
+  UC9G ..> UC12G : <<includes>>
+  UC17G ..> UC12G : <<extends>>
+}
+
+
+' =======================
+' LIENS ENTRE ACTEURS & UC
+' =======================
+
+' Client & Administrateur avec fonctions comptes
+C --> UC1
+C --> UC2
+C --> UC8
+C --> UC10
+
+A --> UC1
+
+' Connexions BD utilisateurs
+UC4 --> BDusers
+UC6 --> BDusers
+
+' Client avec système principal
+C --> UC3G
+C --> UC4G
+C --> UC5G
+C --> UC8G
+C --> UC13G
+
+A --> UC14G
+A --> UC15G
+A --> UC17G
+
+E --> UC17G
+
+P --> UC9G
+M --> UC12G
+
+@enduml

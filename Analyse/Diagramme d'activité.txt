@@ -1,0 +1,250 @@
+﻿@startuml
+title Diagramme d'activité : Consulter le catalogue
+
+|Client|
+|Système|
+|Base de Donnée|
+
+
+|Client|
+start
+repeat : Effectuer une recherche
+    :Saisir le nom, la catégorie ou filtrer (marques, catégories, prix);
+    |Système|
+    :Recevoir la demande de recherche;
+    |Base de Donnée|
+    :Rechercher les produits selon les critères;
+    |Système|
+    :Afficher les résultats;
+    |Client|
+    if (Produits trouvés ?) then (Oui)
+        |Système|
+        :Afficher la liste des produits;
+    else (Non)
+        |Système|
+        :Afficher message "Aucun produit trouvé";
+    endif
+|Client|
+repeat while (Nouvelle recherche ?) is (Oui)
+    -> non;
+    |Client|
+    stop
+@enduml
+
+
+
+
+@startuml
+title Diagramme d'activité : Gérer le panier
+
+|Client|
+start
+:Accéder au panier;
+
+if (Panier vide ?) then (Oui)
+    :Ajouter un produit;
+
+    |Système|
+    :Mettre à jour le panier;
+    stop
+else (Non)
+    repeat
+        if (Ajouter un produit ?) then (Oui)
+            |Client|
+            :Sélectionner produit;
+
+            |Système|
+            :Ajouter au panier;
+        else (Non)
+            
+            |Client|
+            :Sélectionner produit à retirer;
+
+            |Système|
+            :Retirer du panier;
+        endif
+
+        |Client|
+    repeat while (Modifier encore ?) is (Oui)
+
+    :Valider le panier;
+
+    |Système|
+    :Afficher panier mis à jour;
+    stop
+endif
+
+@enduml
+
+
+
+
+@startuml
+title Diagramme d'activité : Gérer les produits
+
+|Administrateur|
+start
+:Se connecter;
+:Accéder à la gestion des produits;
+
+|Système|
+:Afficher liste des produits;
+
+repeat
+    |Administrateur|
+    :Choisir une action;
+
+    if (Ajouter ?) then (Oui)
+        :Saisir détails produit;
+        |Base de Données|
+        :Créer produit;
+    else (Non)
+        if (Modifier ?) then (Oui)
+            :Sélectionner produit;
+            :Modifier données;
+            |Base de Données|
+            :Mettre à jour produit;
+        else (Non)
+            if (Supprimer ?) then (Oui)
+                :Sélectionner produit;
+                |Base de Données|
+                :Supprimer produit;
+            else (Non)
+                if (Rechercher ?) then (Oui)
+                    :Saisir critère;
+                    |Base de Données|
+                    :Rechercher produit;
+                endif
+            endif
+        endif
+    endif
+
+repeat while (Autre action ?) is (Oui)
+
+|Administrateur|
+:Se déconnecter;
+stop
+
+@enduml
+
+
+
+
+@startuml
+title Diagramme d'activité : Gérer les utilisateurs
+
+|Administrateur|
+|Base de Donnée|
+
+
+|Administrateur|
+start
+:Se connecter;
+
+repeat : Gérer les utilisateurs
+    switch (Choisir une action)
+        case (Ajouter un utilisateur)
+            :Saisir les informations du nouvel utilisateur;
+            |Base de Donnée|
+            :Enregistrer le nouvel utilisateur;
+            |Administrateur|
+            :Valider l'ajout;
+        case (Modifier un utilisateur)
+            :Sélectionner l'utilisateur à modifier;
+            :Modifier les informations;
+            |Base de Donnée|
+            :Mettre à jour les informations de l'utilisateur;
+            |Administrateur|
+            :Valider la modification;
+        case (Supprimer un utilisateur)
+            :Sélectionner l'utilisateur à supprimer;
+            |Base de Donnée|
+            :Supprimer l'utilisateur;
+            |Administrateur|
+            :Confirmer la suppression;
+        case (Rechercher un utilisateur)
+            :Saisir nom ou rôle de l'utilisateur;
+            |Base de Donnée|
+            :Rechercher l'utilisateur;
+            |Administrateur|
+            :Afficher les résultats;
+    endswitch
+repeat while (Autre action à effectuer ?) is (Oui)
+    -> no;
+|Administrateur|
+:Se déconnecter;
+stop
+@enduml
+
+
+
+@startuml
+title Diagramme d'activité – Passer une commande
+
+|Client|
+start
+:Valider panier;
+:Choisir adresse de livraison;
+
+|Système|
+:Créer commande;
+:Vérifier disponibilité produits;
+
+if (Stock suffisant ?) then (Oui)
+  :Réserver produits;
+else (Non)
+  |Client|
+  :Afficher erreur "Stock insuffisant";
+  stop
+endif
+
+|Client|
+:Choisir mode de paiement;
+
+|Système|
+:Rediriger vers paiement;
+
+stop
+@enduml
+
+
+
+
+@startuml
+title Diagramme d'activité : Payer une commande (UC9)
+
+|Client|
+start
+:Passer commande;
+:Choisir un mode de paiement;
+
+if (Mode de paiement valide ?) then (Oui)
+    if (Infos enregistrées ?) then (Oui)
+        :Utiliser les informations enregistrées;
+    else (Non)
+        :Saisir les informations de paiement;
+    endif
+    :Saisir le code secret;
+    :Valider le paiement;
+
+    |Système de paiement|
+    if (Paiement accepté ?) then (Oui)
+        :Confirmer la transaction;
+
+        |Serveur mail|
+        :Envoyer confirmation au client;
+        stop
+    else (Non)
+        :Refuser la transaction;
+
+        |Client|
+        :Afficher message d'erreur;
+        stop
+    endif
+
+else (Non)
+    :Afficher message d'erreur;
+    stop
+endif
+
+@enduml

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/workspace/code_demo/02-POO/exercice06" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/workspace/code_demo/02-POO/exercice07" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/workspace/code_demo/04-MVC" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

@@ -1,7 +1,12 @@
 ﻿@startuml "DC"
-title Diagramme de classes – Plateforme de vente en ligne (corrigé et structuré par packages)
+title Diagramme de classes – Plateforme de vente en ligne
 
 package Utilisateurs {
+
+    enum Role {
+        Admin
+        Client
+    }
 
     class User {
         - idUser : int
@@ -9,16 +14,17 @@ package Utilisateurs {
         - prenom : String
         - login : String
         - mdp : String
+        - role : Role
     }
+    
+    User ..> Role : <<uses>>
 
     class Client {
         - adresse : String
         - moyenPaiement : String
     }
 
-    class Admin {
-
-    }
+    class Admin {  }
 
     Client --|> User
     Admin --|> User
@@ -31,14 +37,27 @@ package Produits {
         - nom : String
         - prix : double
         - description : String
+        - niveauPrestige 'niveau sur 5
+        - notationProduit
+        - taille
+        - quantiteRestante
     }
+
+    class Avis {
+        - titre
+        - contenue
+        - date
+    }
+
+    User "0..*" --> "1" Avis : à laisse
+    Produit "0..*" -- "0..*" Avis : avis
 
     class Catalogue {
         - idCatalogue : int
         - nom : String
     }
 
-    Catalogue "1" o-- "0..*" Produit : contient >
+    Catalogue "1" o-- "0..*" Produit : contient
 }
 
 package Commandes {
@@ -62,15 +81,15 @@ package Commandes {
         - prixUnitaire : double
     }
 
-    ' --- Relations internes ---
-    Panier "1" *-- "0..*" LignePanier : contient >
-    LignePanier "1" --> "1" Produit
+    ' Relations internes
+    Panier "1" *-- "0..*" LignePanier : contient
+    LignePanier "1" --> "1" Produit : concerne
 
-    Commande "1" *-- "1..*" LigneCommande : contient >
-    LigneCommande "1" --> "1" Produit
+    Commande "1" *-- "1..*" LigneCommande : contient
+    LigneCommande "1" --> "1" Produit : concerne
 }
 
-Client "1" --> "1" Panier : possède >
-Client "0..*" --> "1" Commande : effectue >
+Client "1" --> "1" Panier : possède
+Client "0..*" --> "1" Commande : effectue
 
 @enduml

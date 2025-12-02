@@ -80,3 +80,21 @@
     window.addEventListener('resize', resize);
 
     requestAnimationFrame(render);
+
+document.addEventListener('DOMContentLoaded', function() {
+  const menuToggle = document.querySelector('.menu-toggle');
+  const navList = document.querySelector('.nav-list');
+
+  menuToggle.addEventListener('click', function() {
+    navList.classList.toggle('active');
+  });
+
+  const goShoppingLink = document.querySelector('.go-shopping a');
+  const header = document.querySelector('.header');
+
+  goShoppingLink.addEventListener('click', function(e) {
+    e.preventDefault();
+    header.style.display = 'block';
+  });
+});
+

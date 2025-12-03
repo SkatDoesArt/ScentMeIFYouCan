@@ -1,0 +1,228 @@
+html {
+    scroll-behavior: smooth;
+}
+
+/* Reset et base */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+}
+
+/* HEADER & NAVBAR */
+.header {
+    display: none;
+    background-color: #000;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.menu-toggle {
+    display: none;
+}
+
+.container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+#bigname {
+    font-family: "Playfair Display", serif;
+    font-size: 50px;
+    font-weight: bold;
+    /* margin: 0 auto; */
+    margin-top: 0;
+    margin-bottom: 0;
+    color: white;
+    animation: clignotementShadow 2s infinite;
+}
+
+@keyframes clignotementShadow {
+
+    0%,
+    100% {
+        text-shadow: 0 0 0px white, 0 0 25px white;
+    }
+
+    50% {
+        text-shadow: 0 0 10px white, 0 0 20px white;
+    }
+}
+
+/* Barre de recherche */
+.recherche {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 20px;
+    padding: 0.25rem;
+    width: 40%;
+    margin: 0 1rem;
+}
+
+label.hidden{
+    display: none;
+}
+
+.recherche input {
+    font-family: 'Poppins', sans-serif;
+    border-radius: 20%;
+    border: none;
+    outline: none;
+    padding: 0.5rem 1rem;
+    width: 100%;
+    font-size: 0.9rem;
+}
+
+.recherche svg {
+    padding: 0 0.5rem;
+    color: #333;
+}
+
+/* Boutons de connexion et panier */
+#icons-navbar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+#icons-navbar a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
+/* Nav Upper */
+#nav-upper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+    padding: 0 1rem;
+}
+
+/* Nav List */
+#nav-list {
+    background-color: rgba(230, 180, 150, 0.9);
+    padding: 0.75rem 0;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    width: 100%;
+    margin: 0;
+}
+
+.categorie {
+    color: white;
+    font-size: 0.9rem;
+    font-family: "Poppins";
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0 0.5rem;
+}
+
+.categorie:hover {
+    text-decoration: underline;
+}
+
+
+/* HOME */
+.home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+    background-color: #000;
+}
+
+.container-home {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    filter: blur(2px);
+}
+
+.home-title {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-title h4 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-family: "Playfair Display", serif;
+    font-weight: bold;
+    color: white;
+    letter-spacing: 0.05em;
+    position: relative;
+    display: inline-block;
+    z-index: 2;
+}
+
+.home-title h4::before { /*Le fond marron transparent */
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100vw;
+    height: 60%;
+    background-color: rgba(23, 14, 8, 0.6);
+    z-index: -1;
+    padding: 5.5rem 2rem;
+    margin: .5rem;
+}
+
+.go-shopping {
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    font-weight: 400;
+    text-align: center;
+    color: white;
+    letter-spacing: 0.1em;
+    position: relative;
+    text-shadow: 0.5px 0 10px white;
+    z-index: 1;
+    margin-top: 2rem;
+    cursor: pointer;
+}
+
+.go-shopping a {
+    text-decoration: none;
+    color: white;
+}
+
+.go-shopping::after { /* La petite barre en dessous */
+    content: '';
+    display: block;
+    width: 50px;
+    height: 2px;
+    background: white;
+    margin: 0.5rem auto;
+    transition: width 0.5s ease-in-out;
+}
+
+.go-shopping:hover::after {
+    width: 80px;
+}

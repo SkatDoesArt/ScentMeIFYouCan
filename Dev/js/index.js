@@ -104,5 +104,7 @@ const background = document.getElementById("home");
 const body = document.body;
 goShoppingLink.addEventListener("click", function () {
     body.style.overflow = "scroll";
-    background.style.display = "none";
+    setTimeout(function() {
+        background.style.display = "none";
+    }, 200); // le temps qu'il faut pour le scroll smooth (200 milisecondes = 0.2 sec)
 });

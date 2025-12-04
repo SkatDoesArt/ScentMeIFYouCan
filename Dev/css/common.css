@@ -6,25 +6,24 @@ html {
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
-    overflow-x: hidden;
+    overflow-x: hidden !important;
 }
 
-/* HEADER & NAVBAR */
-.header {
-    display: none;
+/* Header et Navbar */
+#header {
     background-color: #000;
-    position: fixed;
+    position: sticky;
     width: 100%;
     top: 0;
     left: 0;
-    z-index: 1;
+    z-index: 1000;
 }
 
-.menu-toggle {
+#menu-toggle {
     display: none;
 }
 
-.container {
+#container {
     width: 100%;
     margin: 0 auto;
     padding: 0 1rem;
@@ -34,7 +33,6 @@ body {
     font-family: "Playfair Display", serif;
     font-size: 50px;
     font-weight: bold;
-    /* margin: 0 auto; */
     margin-top: 0;
     margin-bottom: 0;
     color: white;
@@ -84,13 +82,14 @@ label.hidden{
 }
 
 /* Boutons de connexion et panier */
-#icons-navbar {
+#nav-buttons {
     display: flex;
     align-items: center;
     gap: 1rem;
 }
 
-#icons-navbar a {
+#nav-buttons a {
+    font-family: 'Poppins', sans-serif;
     color: white;
     text-decoration: none;
     display: flex;
@@ -134,7 +133,7 @@ label.hidden{
 
 
 /* HOME */
-.home {
+#home {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -143,7 +142,7 @@ label.hidden{
     background-color: #000;
 }
 
-.container-home {
+#container-home {
     width: 100%;
     height: 100%;
     display: flex;
@@ -153,7 +152,7 @@ label.hidden{
     position: relative;
 }
 
-.back {
+#back {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -161,7 +160,7 @@ label.hidden{
     filter: blur(2px);
 }
 
-.home-title {
+#home-title {
     text-align: center;
     position: relative;
     z-index: 1;
@@ -170,7 +169,7 @@ label.hidden{
     align-items: center;
 }
 
-.home-title h4 {
+#home-title h4 {
     font-size: clamp(2.5rem, 5vw, 4rem);
     font-family: "Playfair Display", serif;
     font-weight: bold;
@@ -178,10 +177,11 @@ label.hidden{
     letter-spacing: 0.05em;
     position: relative;
     display: inline-block;
+    padding: 0.5rem 2rem;
     z-index: 2;
 }
 
-.home-title h4::before { /*Le fond marron transparent */
+#home-title h4::before {
     content: '';
     position: absolute;
     top: 50%;
@@ -191,11 +191,9 @@ label.hidden{
     height: 60%;
     background-color: rgba(23, 14, 8, 0.6);
     z-index: -1;
-    padding: 5.5rem 2rem;
-    margin: .5rem;
 }
 
-.go-shopping {
+#go-shopping {
     font-size: clamp(1rem, 2vw, 1.5rem);
     font-weight: 400;
     text-align: center;
@@ -208,12 +206,12 @@ label.hidden{
     cursor: pointer;
 }
 
-.go-shopping a {
+#go-shopping a {
     text-decoration: none;
     color: white;
 }
 
-.go-shopping::after { /* La petite barre en dessous */
+#go-shopping::after {
     content: '';
     display: block;
     width: 50px;
@@ -223,6 +221,6 @@ label.hidden{
     transition: width 0.5s ease-in-out;
 }
 
-.go-shopping:hover::after {
+#go-shopping:hover::after {
     width: 80px;
 }

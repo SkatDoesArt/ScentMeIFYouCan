@@ -2,10 +2,7 @@ body {
     overflow: hidden; /* change en scroll quand on a cliqué sur GO SHOPPING*/
 }
 
-/* Section accueil */
-/* #accueil {
-    height: 100vh;
-} */
+/* ACCUEIL */
 
 #accueil .title {
     display: flex;
@@ -46,11 +43,28 @@ body {
     margin: 0 2%;
     background-size: cover;
     background-position: center;
-    /* mask: linear-gradient(white 70%, transparent); */
 }
 
-.panel button {
+.panel a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #333;
+    color: white;
+    background: linear-gradient(transparent,rgb(0, 0, 0, .7) 70%);
+    padding-top: 300px;
     z-index: 2;
+    text-decoration: none;
+}
+
+.panel h3 {
+    background-color: black;
+    padding: 15px 80px;
+}
+
+.panel svg {
+    margin: 0;
+    fill: white;
 }
 
 #panel1 {
@@ -66,6 +80,14 @@ body {
 #small-products-panels {
     display: flex;
     flex-direction: column;
+    
+}
+
+#small-products-panels a {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    padding-top: 150px;
 }
 
 #small-products-panels .panel {
@@ -82,6 +104,13 @@ body {
     height: 273px;
     background-image: url("../../Divers/pictures/parfums/jean_paul_geautier.jpeg");
 }
+
+.panel h3:hover, .panel h4:hover {
+    text-decoration: underline;
+}
+
+
+
 
 /* ====== RESPONSIVE MEDIA QUERIES ====== */
 @media (max-width: 992px) {

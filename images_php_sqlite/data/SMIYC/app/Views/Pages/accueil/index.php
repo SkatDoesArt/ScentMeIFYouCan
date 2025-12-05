@@ -122,7 +122,7 @@
                     </svg>
                 </form>
                 <div id="nav-buttons">
-                    <a href="#">
+                    <a href="auth/login">
                         <p>Se connecter</p>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"
                             class="min-h-iconLarge min-w-iconLarge stroke-[0.125rem]" alt="" height="2rem" width="2rem">

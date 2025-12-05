@@ -14,14 +14,16 @@ $routes->get('/', 'Home::index');
 // --------------------------------------------------------------------
 
 // ---------- Authentification ----------
-$routes->get('login', 'Auth::login');
+$routes->get('/', 'Auth::login');
 $routes->get('register', 'Auth::register');
 $routes->get('forgot-password', 'Auth::forgotPassword');
+
 
 
 // ---------------- Profile ----------------
 $routes->get('profile', 'Auth::profile');
 $routes->get('orders/status/(:num)', 'Orders::status/$1'); // statut d'une commande
+$routes->get('profile/edit', 'Auth::editProfile');
 
 //                   TODO
 // suivi commande
@@ -30,7 +32,7 @@ $routes->get('orders/status/(:num)', 'Orders::status/$1'); // statut d'une comma
 // Langues et regions
 
 // $routes->get('orders/history', 'Orders::history');
-// $routes->get('profile/edit', 'Auth::editProfile');
+
 
 
 // ---------- Catalogue et produits ----------

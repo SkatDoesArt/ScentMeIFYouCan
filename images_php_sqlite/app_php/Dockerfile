@@ -7,20 +7,23 @@ ADD data/ports.conf /etc/apache2
 
 
 RUN <<EOF
+export DEBIAN_FRONTEND=noninteractive
 echo ----------------------------
 echo "Mise à jour des dépôts"
 echo ----------------------------
-apt-get update
-apt-get -y install lsb-release ca-certificates curl apt-transport-https
+apt-get -q update
+apt-get -y -q install lsb-release ca-certificates curl apt-transport-https
 curl -sSLo /tmp/debsuryorg-archive-keyring.deb https://packages.sury.org/debsuryorg-archive-keyring.deb
 dpkg -i /tmp/debsuryorg-archive-keyring.deb
 sh -c 'echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
-apt-get update
+#redefinir les priorités des repos
+sed -i "s/Pin-Priority:\ -1/Pin-Priority:\ 999/g" /etc/apt/preferences.d/no-debian-php
+apt-get -q update
 
 echo ----------------------------
 echo "Installation de : vim"
 echo ----------------------------
-apt-get install -y vim
+apt-get install -y -q vim
 
 echo ----------------------------
 echo "Installation de composer"
@@ -34,29 +37,42 @@ rm composer-setup.php
 echo ----------------------------
 echo "Installation de sqlite3"
 echo ----------------------------
-apt-get -y install sqlite3
-
+apt-get -y -q install sqlite3
+echo "----------------------------"
+echo "zip pour composer"
+echo "----------------------------"
+apt-get -y -q install unzip
 echo ----------------------------
 echo "Mise à jour du php.ini en dev"
 echo ----------------------------
 cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini
-
-
-#echo "Installation des extensions PHP :"
-#apt install php${PHP_VERSION}-common php${PHP_VERSION}-{bcmath,bz2,curl,gd,gmp,intl,mbstring,opcache,readline,xml,zip}
-
-#sed -i 's/;extension=pdo_sqlite/extension=pdo_sqlite/g' /usr/local/etc/php/php.ini
-#sed -i 's/;extension=sqlite3/extension=sqlite3/g' /usr/local/etc/php/php.ini
 echo ----------------------------
-echo "Suppression des virtulas host"
+echo "Installation des extensions PHP :"
+echo ----------------------------
+PHP_VERSION_MINEUR=${PHP_VERSION%.*}
+echo "---- common"
+apt install -y -q php${PHP_VERSION_MINEUR}-common
+echo "---- CI4 base : intl, mbstring, json (fourni de base)"
+apt install -y -q php${PHP_VERSION_MINEUR}-intl
+sed -i 's/;extension=intl/extension=intl/g' /usr/local/etc/php/php.ini
+apt install -y -q php${PHP_VERSION_MINEUR}-mbstring
+sed -i 's/;extension=mbstring/extension=mbstring/g' /usr/local/etc/php/php.ini
+echo "---- SQLite3"
+apt install -y -q php${PHP_VERSION_MINEUR}-pdo-sqlite
+sed -i 's/;extension=pdo_sqlite/extension=pdo_sqlite/g' /usr/local/etc/php/php.ini
+apt install -y -q php${PHP_VERSION_MINEUR}-sqlite3
+sed -i 's/;extension=sqlite3/extension=sqlite3/g' /usr/local/etc/php/php.ini
+#recopie des .so
+cp /usr/lib/php/20240924/*.so /usr/local/lib/php/extensions/no-debug-non-zts-20240924
+
+echo ----------------------------
+echo "Suppression des virtuals hosts"
 echo ----------------------------
 a2dissite *
 a2ensite ci.conf
 a2ensite default.conf
 a2enmod rewrite
 EOF
-
-
 
 CMD ["apache2-foreground"]
 

@@ -1,0 +1,239 @@
+body {
+    overflow: hidden; /* change en scroll quand on a cliqué sur GO SHOPPING*/
+}
+
+/* ACCUEIL */
+
+#accueil .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "Playfair-Display", "sans-serif";
+    width: 100%;
+    color: #333;
+}
+
+.title span {
+    height: .5px;
+    width: 100%;
+    background-color: #333;
+}
+
+.title h1 {
+    text-align: center;
+    margin: 2%;
+    width: fit-content;
+    text-wrap: nowrap;
+    font-size: 40px;
+}
+
+#product-panels {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+}
+
+.panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 535px;
+    border: 1px solid black;
+    margin: 0 2%;
+    background-size: cover;
+    background-position: center;
+}
+
+.panel a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #333;
+    color: white;
+    background: linear-gradient(transparent,rgb(0, 0, 0, .7) 70%);
+    padding-top: 300px;
+    z-index: 2;
+    text-decoration: none;
+}
+
+.panel h3 {
+    background-color: black;
+    padding: 15px 80px;
+}
+
+.panel svg {
+    margin: 0;
+    fill: white;
+}
+
+#panel1 {
+    width: 665px;
+    background-image: url("../../Divers/pictures/parfums/valentino_homme.jpg");
+}
+
+#panel2 {
+    width: 322px;
+    background-image: url("../../Divers/pictures/parfums/scandal-her-le-parfum.jpg");
+}
+
+#small-products-panels {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+#small-products-panels a {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    padding-top: 150px;
+}
+
+#small-products-panels .panel {
+    margin: 4.5%;
+    width: 320px;
+}
+
+#panel-exotique {
+    height: 230px;
+    background-image: url("../../Divers/pictures/parfums/yara.jpg");
+}
+
+#panel-homme {
+    height: 273px;
+    background-image: url("../../Divers/pictures/parfums/jean_paul_geautier.jpeg");
+}
+
+.panel h3:hover, .panel h4:hover {
+    text-decoration: underline;
+}
+
+
+
+
+/* ====== RESPONSIVE MEDIA QUERIES ====== */
+@media (max-width: 992px) {
+    .recherche {
+        width: 50%;
+    }
+
+    #nav-list {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .categorie {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 768px) {
+    #nav-upper {
+        flex-direction: column;
+        height: auto;
+        padding: 1rem;
+    }
+
+    #bigname {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .recherche {
+        width: 80%;
+        margin: 1rem 0;
+    }
+
+    #nav-buttons {
+        margin-top: 1rem;
+    }
+
+    #menu-toggle {
+        display: block;
+        position: fixed;
+        top: 1rem;
+        left: 1rem;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+        z-index: 1001;
+    }
+
+    #nav-list {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 80%;
+        max-width: 300px;
+        height: 100%;
+        background-color: rgba(230, 180, 150, 0.9);
+        z-index: 1000;
+        padding: 2rem;
+        transition: left 0.3s ease;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    #nav-list.active {
+        left: 0;
+    }
+
+    .categorie {
+        color: #333;
+        font-size: 1rem;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid #eee;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    #home-title h4 {
+        font-size: 2rem;
+        padding: 0.5rem 1rem;
+    }
+
+    #go-shopping {
+        font-size: 1rem;
+    }
+
+    .recherche {
+        width: 90%;
+    }
+
+    #header-container {
+        padding: 0.5rem;
+    }
+}
+
+@media (min-width: 769px) {
+    .recherche {
+        width: 40%;
+    }
+
+    #nav-list {
+        justify-content: center;
+        background-color: rgba(230, 180, 150, 0.9);
+        padding: 0.75rem 0;
+        display: flex;
+        flex-direction: row;
+        position: relative;
+        width: 100%;
+        height: auto;
+        box-shadow: none;
+    }
+
+    .menu-toggle {
+        display: none;
+    }
+
+    .categorie {
+        color: white;
+        font-size: 0.9rem;
+        border-bottom: none;
+        padding: 0 0.5rem;
+    }
+}

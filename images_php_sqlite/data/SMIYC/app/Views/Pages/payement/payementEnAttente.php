@@ -6,6 +6,6 @@
     <title>Document</title>
 </head>
 <body>
-    DASHBOARD
+    PAYEMMENT EN ATTENTE
 </body>
 </html>

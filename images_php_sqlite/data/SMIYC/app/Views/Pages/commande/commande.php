@@ -6,6 +6,6 @@
     <title>Document</title>
 </head>
 <body>
-    DASHBOARD
+    COMMANDE
 </body>
 </html>

@@ -6,6 +6,6 @@
     <title>Document</title>
 </head>
 <body>
-    DASHBOARD
+    PANIER
 </body>
 </html>

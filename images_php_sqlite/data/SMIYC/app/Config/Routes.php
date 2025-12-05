@@ -5,62 +5,76 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
+
+// ---------- Page d’accueil ----------
 $routes->get('/', 'Home::index');
 
 
+// ====================================================================
+// AUTHENTIFICATION
+// ====================================================================
+$routes->group('auth', function($routes) {
+    $routes->get('auth/login', 'Auth::login');
+    $routes->get('register', 'Auth::register');
+    $routes->get('forgot-password', 'Auth::forgotPassword');    
 
-// --------------------------------------------------------------------
-// Routes personnalisées pour les vues
-// --------------------------------------------------------------------
-
-// ---------- Authentification ----------
-$routes->get('/', 'Auth::login');
-$routes->get('register', 'Auth::register');
-$routes->get('forgot-password', 'Auth::forgotPassword');
-
-
-
-// ---------------- Profile ----------------
-$routes->get('profile', 'Auth::profile');
-$routes->get('orders/status/(:num)', 'Orders::status/$1'); // statut d'une commande
-$routes->get('profile/edit', 'Auth::editProfile');
-
-//                   TODO
-// suivi commande
-// moyen de payement (carte saved)
-// historique des commandes
-// Langues et regions
-
-// $routes->get('orders/history', 'Orders::history');
+    $routes->get('profile', 'Auth::profile');
+    $routes->get('profile/edit', 'Auth::editProfile');
+});
 
 
-
-// ---------- Catalogue et produits ----------
-$routes->get('catalogue', 'Catalogue::index');
-$routes->get('product/(:num)', 'Catalogue::detail/$1');
-$routes->get('search', 'Catalogue::search');
-
-
-// ---------- Panier ----------
-$routes->get('cart', 'Cart::index');
-// $routes->get('checkout', 'Cart::checkout');  -> a voir
-// ---------- Paiement ----------
-$routes->get('payment', 'Payment::index');
-$routes->get('payment/success', 'Payment::success');
-$routes->get('payment/error', 'Payment::error');
-// ---------- Commandes ----------
+// ====================================================================
+// CATALOGUE
+// ====================================================================
+$routes->group('catalogue', function($routes) {
+    $routes->get('/', 'Catalogue::index');
+    $routes->get('product/(:num)', 'Catalogue::detail/$1');
+    $routes->get('search', 'Catalogue::search');
+});
 
 
-
-// ---------- Administration ----------
-$routes->get('admin/dashboard', 'Admin::dashboard');
-$routes->get('admin/products', 'Admin::products');
-$routes->get('admin/users', 'Admin::users');
-$routes->get('admin/orders', 'Admin::orders');
-$routes->get('admin/stock', 'Admin::stock');
-
-
-// ---------- Emails ----------
-$routes->get('emails/order-confirmation', 'Emails::orderConfirmation');
+// ====================================================================
+// PANIER
+// ====================================================================
+$routes->group('cart', function($routes) {
+    $routes->get('/', 'Cart::index');
+});
 
 
+// ====================================================================
+// PAIEMENT
+// ====================================================================
+$routes->group('payment', function($routes) {
+    $routes->get('/', 'Payment::index');
+    $routes->get('success', 'Payment::success');
+    $routes->get('error', 'Payment::error');
+});
+
+
+// ====================================================================
+// COMMANDES
+// ====================================================================
+$routes->group('orders', function($routes) {
+    $routes->get('status/(:num)', 'Orders::status/$1');
+    // $routes->get('history', 'Orders::history');
+});
+
+
+// ====================================================================
+// ADMINISTRATION
+// ====================================================================
+$routes->group('admin', function($routes) {
+    $routes->get('dashboard', 'Admin::dashboard');
+    $routes->get('products', 'Admin::products');
+    $routes->get('users', 'Admin::users');
+    $routes->get('orders', 'Admin::orders');
+    $routes->get('stock', 'Admin::stock');
+});
+
+
+// ====================================================================
+// EMAILS (pour test uniquement)
+// ====================================================================
+$routes->group('emails', function($routes) {
+    $routes->get('order-confirmation', 'Emails::orderConfirmation');
+});

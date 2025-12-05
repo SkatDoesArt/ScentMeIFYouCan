@@ -4,17 +4,17 @@ namespace App\Controllers;
 
 class Auth extends BaseController
 {
-    public function login(): string
+    public function login()
     {
         return view('Pages/auth/login');
     }
 
-    public function register(): string
+    public function register()
     {
         return view('Pages/auth/register');
     }
 
-    public function forgotPassword(): string
+    public function forgotPassword()
     {
         return view('Pages/auth/forgot_password');
     }

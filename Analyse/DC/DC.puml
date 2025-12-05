@@ -30,6 +30,13 @@ package Utilisateurs {
     Admin --|> User
 }
 
+enum MoyenPayement {
+    - Carte
+    - PayPal
+}
+
+Client "0..*"-->"0..*" MoyenPayement : "- utilise"
+
 package Produits {
 
     class Produit {
@@ -93,3 +100,4 @@ Client "1" --> "1" Panier : possède
 Client "0..*" --> "1" Commande : effectue
 
 @enduml
+

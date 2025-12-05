@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>SMIYC/public/css/common.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>SMIYC/public/css/index.css">
     
-    <!-- FONTS -->
+    <!-- FONTS -->../auth/login.php
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
@@ -121,7 +121,7 @@
                     </svg>
                 </form>
                 <div id="nav-buttons">
-                    <a href="../auth/login.php">
+                    <a href="<?php  echo "#" ?>">
                         <p>Se connecter</p>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"
                             class="min-h-iconLarge min-w-iconLarge stroke-[0.125rem]" alt="" height="2rem" width="2rem">

@@ -14,7 +14,7 @@ $routes->get('/', 'Home::index');
 // AUTHENTIFICATION
 // ====================================================================
 $routes->group('auth', function($routes) {
-    $routes->get('auth/login', 'Auth::login');
+    $routes->get('login', 'Auth::login');
     $routes->get('register', 'Auth::register');
     $routes->get('forgot-password', 'Auth::forgotPassword');    
 

@@ -1,6 +1,6 @@
-body {
+/* body {
     overflow: hidden; /* change en scroll quand on a cliqué sur GO SHOPPING*/
-}
+/* } */
 
 /* ACCUEIL */
 
@@ -69,12 +69,12 @@ body {
 
 #panel1 {
     width: 665px;
-    background-image: url("../../Divers/pictures/parfums/valentino_homme.jpg");
+    background-image: url("../pictures/parfums/valentino_homme.jpg");
 }
 
 #panel2 {
     width: 322px;
-    background-image: url("../../Divers/pictures/parfums/scandal-her-le-parfum.jpg");
+    background-image: url("../pictures/parfums/scandal-her-le-parfum.jpg");
 }
 
 #small-products-panels {
@@ -97,19 +97,21 @@ body {
 
 #panel-exotique {
     height: 230px;
-    background-image: url("../../Divers/pictures/parfums/yara.jpg");
+    background-image: url("../pictures/parfums/yara.jpg");
 }
 
 #panel-homme {
     height: 273px;
-    background-image: url("../../Divers/pictures/parfums/jean_paul_geautier.jpeg");
+    background-image: url("../pictures/parfums/jean_paul_geautier.jpeg");
 }
 
 .panel h3:hover, .panel h4:hover {
     text-decoration: underline;
 }
 
-
+#best-site {
+    height: 200vh;
+}
 
 
 /* ====== RESPONSIVE MEDIA QUERIES ====== */

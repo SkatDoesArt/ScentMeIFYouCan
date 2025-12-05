@@ -108,3 +108,4 @@ goShoppingLink.addEventListener("click", function () {
         background.style.display = "none";
     }, 200); // le temps qu'il faut pour le scroll smooth (200 milisecondes = 0.2 sec)
 });
+

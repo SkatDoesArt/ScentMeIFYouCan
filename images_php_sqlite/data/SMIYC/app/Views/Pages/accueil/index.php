@@ -153,6 +153,7 @@
             <span class="categorie" role="link">Crème</span>
         </nav>
     </header>
+
     <section id="accueil">
         <div class="title">
             <span></span> <!-- Ligne pleine fine -->
@@ -195,6 +196,10 @@
                 </div>
             </div>
         </div>
+    </section>
+
+    <section id="best-site">
+        <h1>LE MEILLEUR SITE DE PARFUM</h1>
     </section>
 
 </body>

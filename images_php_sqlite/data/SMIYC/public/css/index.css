@@ -1,6 +1,6 @@
-body {
+/* body {
     overflow: hidden; /* change en scroll quand on a cliqué sur GO SHOPPING*/
-}
+/* } */
 
 /* ACCUEIL */
 
@@ -109,7 +109,9 @@ body {
     text-decoration: underline;
 }
 
-
+#best-site {
+    height: 200vh;
+}
 
 
 /* ====== RESPONSIVE MEDIA QUERIES ====== */

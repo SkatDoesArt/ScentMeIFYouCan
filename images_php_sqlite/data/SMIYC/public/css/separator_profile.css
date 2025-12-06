@@ -1,0 +1,86 @@
+/* Container principal */
+.container {
+    display: flex;
+    gap: 40px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100vh;
+    padding: 20px;
+    overflow: hidden;
+}
+
+/* Colonne gauche : menu */
+.left {
+    border-right: 2px solid #ddd;
+    padding-right: 20px;
+    max-width: 220px;
+    position: sticky;
+    top: 0;
+}
+
+/* Texte gauche : titres et paragraphes */
+.left p, .left a, .left strong {
+    margin: 5px 0;
+    cursor: pointer;
+    white-space: nowrap;       /* texte sur une seule ligne */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color 0.3s;
+}
+
+.left p:hover { color: #a33; }
+.left a:hover { text-decoration: underline; }
+
+/* Colonne droite : contenu utilisateur */
+.right {
+    flex: 1;
+    display: flex;
+    padding: 20px;
+}
+
+.right-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+/* Titres colonne droite */
+.right-content h2 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+.right-content h3 {
+    margin: 5px 0;
+}
+
+/* Bouton en bas et centré */
+#button_modif {
+    margin-top: auto;   /* pousse le bouton en bas */
+    align-self: center; /* centre horizontalement */
+    padding: 10px 25px;
+    background-color: #D9D9D9;
+    color: #000;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#button_modif:hover {
+    background-color: #D9D9D9;
+    transform: translateY(-2px);
+}
+
+/* Responsive mobile */
+@media (max-width: 900px) {
+    .container {
+        flex-direction: column;
+        height: auto;
+    }
+    .left {
+        border-right: none;
+        max-width: 100%;
+        padding-right: 0;
+        margin-bottom: 20px;
+    }
+}

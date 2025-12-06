@@ -18,4 +18,7 @@ class Auth extends BaseController
     {
         return view('Pages/auth/forgot_password');
     }
+    public function profile():string{
+        return view('Pages/auth/profile');
+    }
 }

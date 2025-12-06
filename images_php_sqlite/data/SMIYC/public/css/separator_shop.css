@@ -1,0 +1,91 @@
+/* Container principal */
+.container {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    padding: 20px;
+    height: 100vh;
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Colonne gauche : filtre */
+.left {
+    border-right: 2px solid #ddd;
+    padding-right: 30px;
+    max-width: 220px;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+}
+
+.left h2, .left h3, .left h4 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.left p {
+    margin: 5px 0;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.left p:hover {
+    color: #a33;
+}
+
+.left a {
+    display: inline-block;
+    margin-top: 10px;
+    color: #0077cc;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.left a:hover {
+    text-decoration: underline;
+}
+
+.left input[type="range"] {
+    width: 100%;
+    margin-top: 10px;
+}
+
+/* Colonne droite : produits */
+.right {
+    flex: 1;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.right h2 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+/* Grille produits */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 20px;
+}
+
+
+
+/* Responsive pour mobiles */
+@media (max-width: 900px) {
+    .container {
+        flex-direction: column;
+        height: auto;
+    }
+    .left {
+        position: relative;
+        height: auto;
+        border-right: none;
+        padding-right: 0;
+        margin-bottom: 20px;
+    }
+    .grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    }
+}

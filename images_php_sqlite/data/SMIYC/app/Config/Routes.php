@@ -27,7 +27,7 @@ $routes->group('auth', function($routes) {
 // CATALOGUE
 // ====================================================================
 $routes->group('catalogue', function($routes) {
-    $routes->get('/', 'Catalogue::index');
+   $routes->get('/', 'Catalogue::shop'); 
     $routes->get('product/(:num)', 'Catalogue::detail/$1');
     $routes->get('search', 'Catalogue::search');
 });

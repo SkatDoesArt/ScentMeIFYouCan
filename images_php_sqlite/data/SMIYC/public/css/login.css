@@ -1,3 +1,7 @@
+
+
+
+
 *, *::after, *::before {
 	 margin: 0;
 	 padding: 0;
@@ -9,6 +13,7 @@
 	 width: 100%;
 	 height: 100vh;
 	 display: flex;
+	 flex-direction: column;
 	 justify-content: center;
 	 align-items: center;
 	 font-family: 'Montserrat', sans-serif;
@@ -16,6 +21,8 @@
 /* 	 background-color: #ecf0f3;
 	 color: #a0a5a8; */
 }
+
+
 /**/
  .main {
 	 position: relative;
@@ -200,7 +207,7 @@
 	 transform: scale(0.97);
 	 transition: 0.25s;
 }
-/**/
+
  .is-txr {
 	 left: calc(100% - 400px);
 	 transition: 1.25s;
@@ -235,13 +242,13 @@
 
 /* --- Styles pour le Fond Animé --- */
 #back {
-    position: fixed; /* Reste fixe par rapport à la fenêtre */
+    position: fixed; 
     top: 0;
     left: 0;
     width: 100%;
-    height: 100vh; /* Couvre toute la hauteur visible */
-    z-index: -1; /* Très important : s'assure qu'il est derrière tout le reste */
-/* 	filter: blur(1px); */
+    height: 100vh; 
+    z-index: -1; 
+	filter: blur(0px);
 }
 
 #glcanvas {
@@ -250,13 +257,21 @@
     height: 100%;
 }
 
-/* Modification pour le formulaire principal */
+
 .main {
-    /* Le z-index doit être supérieur à -1 pour apparaître au-dessus du fond */
+
     position: relative; 
     z-index: 1; 
-    /* Le reste du CSS du .main ne change pas */
     width: 1000px;
-    /* ... */
+
 }
- 
+ /* Règle pour le header lui-même */
+#header {
+    background-color: #000;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+	box-shadow: 0px 1px 10px rgb(82, 82, 82);
+}

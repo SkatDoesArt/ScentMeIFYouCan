@@ -54,7 +54,7 @@ $routes->group('payment', function($routes) {
 // COMMANDES
 // ====================================================================
 $routes->group('commande', function($routes) {
-    $routes->get('status', 'Commande::status');
+    $routes->get('status/(:num)', 'Commande::status/$1');
     $routes->get('history', 'Commande::history');
 });
 

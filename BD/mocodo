@@ -1,0 +1,24 @@
+CATALOGUE: id_catalogue, nom
+USER: id_user, nom, prenom, mail, tel, login, mdp, role
+UTILISE 1 USER, 0N ADRESSE
+ADRESSE : id_user, adresse, ville, region, code_postal, pays
+LAISSER, 0N USER, 1N PRODUIT, 0N AVIS
+AVIS: id_avis, titre, contenu, date
+:
+
+CONTENIR, 1N CATALOGUE, 0N PRODUIT
+PRODUIT: id_produit, nom, prix, description, niveau_prestige, notation, taille, quantite_restante
+COMPOSER_PANIER, 1N PANIER, 1N PRODUIT, 0N LIGNE_PANIER
+LIGNE_PANIER: id_ligne_panier, quantite
+
+LIGNE_COMMANDE: id_ligne_commande, quantite, prix_unitaire
+COMPOSER_COMMANDE, 1N COMMANDE, 1N PRODUIT, 0N LIGNE_COMMANDE
+PANIER: id_panier
+POSSEDER, 11 CLIENT, 1N PANIER
+MOYEN_PAYEMENT: id_moyen, type_moyen
+
+:
+COMMANDE: id_commande, date, statut
+EFFECTUER, 0N CLIENT, 1N COMMANDE
+CLIENT: id_user, adresse, moyen_payement
+UTILISER, 0N CLIENT, 0N MOYEN_PAYEMENT

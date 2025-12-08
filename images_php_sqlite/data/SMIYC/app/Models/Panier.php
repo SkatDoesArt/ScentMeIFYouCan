@@ -35,7 +35,10 @@ class Panier {
         return $total;
     }
     public function calculerTotalProduits():float{
-
+        $total= 0;
+        foreach($this->liste_panier as $produit){
+            
+        }
     }
 }
 

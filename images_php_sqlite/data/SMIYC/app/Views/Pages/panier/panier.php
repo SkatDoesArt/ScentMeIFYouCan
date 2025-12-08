@@ -35,104 +35,33 @@ $panier = new Panier(1, $liste_produits);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>SMIYC/public/css/panier.css">
+    
+      <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>SMIYC/public/css/common.css">
     <title>Panier</title>
-<style>
-body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-}
 
-.panier-container {
-    display: flex;
-    gap: 20px;
-    align-items: flex-start; /* pour que summary reste en haut */
-}
-
-/* La div panier devient scrollable */
-.panier {
-    flex: 2;
-    max-height: 500px; /* ou la hauteur que tu veux */
-    overflow-y: auto;
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 5px;
-}
-
-/* Card produit */
-.card {
-    display: flex;
-    border-bottom: 1px solid #ccc;
-    padding: 15px 0;
-    align-items: center;
-}
-
-.card-img {
-    width: 80px;
-    height: 80px;
-    background: #eee;
-    margin-right: 15px;
-}
-
-.card-info {
-    flex: 1;
-}
-
-.card-info div {
-    margin-bottom: 5px;
-}
-
-.quantity-control {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.quantity-control button {
-    width: 25px;
-    height: 25px;
-    cursor: pointer;
-}
-
-.delete-btn {
-    margin-left: 10px;
-    cursor: pointer;
-    color: red;
-}
-
-/* Résumé du panier reste fixe */
-.summary {
-    flex: 1;
-    border: 1px solid #ccc;
-    padding: 15px;
-    border-radius: 5px;
-    position: sticky;
-    top: 0; /* reste collé en haut de la page */
-    height: fit-content;
-}
-
-.summary h3 {
-    margin-top: 0;
-}
-
-.summary input[type="text"] {
-    width: 100%;
-    padding: 5px;
-    margin-bottom: 10px;
-}
-
-.summary button {
-    width: 100%;
-    padding: 10px;
-    background: black;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-</style>
 
 </head>
 <body>
+  <header id="header">
+    <div id="header-container">
+<!--       <div id="menu-toggle">
+        <i class="fas fa-bars"></i>
+      </div> -->
+      <div id="retour-fleche">
 
+      </div>
+      <div id="retour">
+        <a href=""></a>
+      </div>
+      <nav id="nav-upper">
+        <h1 id="bigname">SMIYC</h1>
+      </nav>
+    </div>
+
+  </header>
+
+<h2>Récaputilatif de votre panier</h2>
 <div class="panier-container">
     <div class="panier">
         <?php foreach ($panier->getListePanier() as $produit): ?>

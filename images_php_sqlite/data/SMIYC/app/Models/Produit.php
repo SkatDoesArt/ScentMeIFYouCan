@@ -10,13 +10,14 @@ class Produit {
     private int $niveauPrestige;
     private int $taille;
     private int $quantiteRestante;
-    
+    private ?array $avis =null;
     // --- Constructeur (<<create>>) ---
     public function __construct(int $idProduit, string $nom, float $prix, string $description) {
         $this->idProduit = $idProduit;
         $this->nom = $nom;
         $this->prix = $prix;
         $this->description = $description;
+        $this->avis=null;
     }
 
 
@@ -44,7 +45,10 @@ class Produit {
         return $this->description;
     }
 
-
+    public function getAvis():array{
+        return  $this->avis;
+    }
+    
 
 
 
@@ -52,5 +56,17 @@ class Produit {
 
 
 }
+class Avis {
+    private User $user;
+    private string $titre;
+    private string $contenue;
+    private string $date;
 
+    public function __construct(User $user, string $titre, string $contenue,string $date) {
+        $this->user = $user;
+        $this->titre = $titre;
+        $this->contenue = $contenue;
+        $this->date = $date;
+    }
+}
 ?>

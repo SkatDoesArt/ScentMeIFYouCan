@@ -14,7 +14,6 @@ body {
     flex: 2;
     max-height: 500px; /* ou la hauteur que tu veux */
     overflow-y: auto;
-    border: 1px solid #ccc;
     padding: 10px;
     border-radius: 5px;
 }
@@ -91,4 +90,24 @@ body {
 }
 h2{
     text-align: center;
+}
+
+.btn-panier {
+        display: block;         /* permet le centrage avec margin auto */
+    margin: 20px auto;  
+    margin-top: auto;        /* pousse le bouton en bas */
+    align-self: center;      /* centre horizontalement */
+    padding: 10px 25px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+
+    transition: background-color 0.3s, transform 0.2s;
+    border-radius: 8px;      /* joli arrondi */
+}
+
+.btn-panier:hover {
+    background-color: #000;
+    transform: translateY(-2px);
 }

@@ -1,33 +1,11 @@
 <?php
 
-use App\Models\Produit;
+use App\Models\ProduitModel;
 
 // Liste de produits (à génerer  aprés avec la base de donné )
-$liste_produits = [
-    new Produit(1, "Produit A", 19.99, "Une description courte"),
-    new Produit(2, "Produit B", 29.99, "Description du produit B"),
-    new Produit(3, "Produit C", 9.99, "Produit C très populaire"),
-    new Produit(4, "Produit D", 15.50, "Description D"),
-    new Produit(5, "Produit E", 12.00, "Description E"),
-    new Produit(6, "Produit F", 25.75, "Description F"),
-    new Produit(7, "Produit G", 30.00, "Description G"),
-    new Produit(8, "Produit H", 18.90, "Description H"),    new Produit(1, "Produit A", 19.99, "Une description courte"),
-    new Produit(2, "Produit B", 29.99, "Description du produit B"),
-    new Produit(3, "Produit C", 9.99, "Produit C très populaire"),
-    new Produit(4, "Produit D", 15.50, "Description D"),
-    new Produit(5, "Produit E", 12.00, "Description E"),
-    new Produit(6, "Produit F", 25.75, "Description F"),
-    new Produit(7, "Produit G", 30.00, "Description G"),
-    new Produit(8, "Produit H", 18.90, "Description H"),    new Produit(1, "Produit A", 19.99, "Une description courte"),
-    new Produit(2, "Produit B", 29.99, "Description du produit B"),
-    new Produit(3, "Produit C", 9.99, "Produit C très populaire"),
-    new Produit(4, "Produit D", 15.50, "Description D"),
-    new Produit(5, "Produit E", 12.00, "Description E"),
-    new Produit(6, "Produit F", 25.75, "Description F"),
-    new Produit(7, "Produit G", 30.00, "Description G"),
-    new Produit(8, "Produit H", 18.90, "Description H"),
-    
-];
+$produits = new ProduitModel();
+$liste_produits=$produits->getDisponibles();
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -116,15 +94,19 @@ $liste_produits = [
     <div class="right">
         <h2>Parfums Hommes</h2>
         <div class="grid">
-            <?php foreach ($liste_produits as $p): ?>
-                <a href="product?id=<?= $p->getId() ?>" class="card">
-                    <img src="#" alt="<?= htmlspecialchars($p->getNom()) ?>">
-                    <div class="info">
-                        <span><?= htmlspecialchars($p->getNom()) ?></span>
-                        <strong><?= number_format($p->getPrix(), 2) ?> €</strong>
-                    </div>
-                </a>
-            <?php endforeach; ?>
+<?php foreach ($liste_produits as $p): ?>
+    <a href="<?= base_url('product?id=' . $p->getId()) ?>" class="card">
+        
+        <img src="#" alt="<?= esc($p->getNom()) ?>">
+
+        <div class="info">
+            <span><?= esc($p->getNom()) ?></span>
+            <strong><?= number_format($p->getPrix(), 2) ?> €</strong>
+        </div>
+
+    </a>
+<?php endforeach; ?>
+
         </div>
     </div>
 </div>

@@ -4,7 +4,7 @@
 <head>
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
   <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>SMIYC/public/css/common.css">
+  <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>SMIYC/public/css/common.css">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>SMIYC/public/css/login.css">
 
   <script type="text/javascript" src="<?php echo base_url(); ?>SMIYC/public/js/background.js" defer></script>
@@ -74,16 +74,24 @@
 
   <header id="header">
     <div id="header-container">
-<!--       <div id="menu-toggle">
+      <!--       <div id="menu-toggle">
         <i class="fas fa-bars"></i>
       </div> -->
-      <div id="retour-fleche">
-
-      </div>
-      <div id="retour">
-        <a href=""></a>
-      </div>
       <nav id="nav-upper">
+        <div class="retour-arriere">
+          <div id="retour-fleche">
+            <a href="javascript:history.back()" title="Retour à la page précédente" style="display: block;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="#ffffff" viewBox="0 0 256 256">
+                <path
+                  d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z">
+                </path>
+              </svg>
+            </a>
+          </div>
+          <div id="retour">
+            <a href="javascript:history.back()" title="Retour à la page précédente">Retour</a>
+          </div>
+        </div>
         <h1 id="bigname">SMIYC</h1>
       </nav>
     </div>

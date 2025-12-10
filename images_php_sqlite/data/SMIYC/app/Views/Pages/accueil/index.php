@@ -26,12 +26,12 @@
 
     <!-- JAVASCRIPT -->
     <script type="text/javascript" src="<?php echo base_url(); ?>SMIYC/public/js/index.js" defer></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>SMIYC/public/js/background.js" defer></script>
     
     <title>SMIYC</title>
 </head>
 
 <body>
-
     <section id="home">
         <div id="container-home">
             <!-- le truc cool en fond  -->
@@ -97,7 +97,7 @@
                 <h4>ScentMeIfYouCan</h4>
             </div>
             <div id="go-shopping">
-                <a id="go-shopping-link" href="#accueil">GO SHOPPING</a>
+                <a id="go-shopping-link" <?php anchor("#accueil")?>>GO SHOPPING</a>
             </div>
         </div>
     </section>

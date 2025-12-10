@@ -1,6 +1,6 @@
-/* body {
-    overflow: hidden; /* change en scroll quand on a cliqué sur GO SHOPPING*/
-/* } */
+body {
+    overflow:hidden !important; /* change en scroll quand on a cliqué sur GO SHOPPING*/
+}
 
 /* ACCUEIL */
 

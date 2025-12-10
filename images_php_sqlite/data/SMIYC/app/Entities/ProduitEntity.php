@@ -13,11 +13,15 @@ class ProduitEntity extends Entity
         'name'             => 'string',
         'price'            => 'float',
         'description'      => 'string',
-        'notation'   => 'int',
+        'notation'         => 'int',
         'taille'           => 'int',
         'quantiteRestante' => 'int',
     ];
     public function getId() { return $this->attributes['id']; }
     public function getNom() { return $this->attributes['name']; }
     public function getPrix() { return $this->attributes['price']; }
+    public function getDescription(){return $this->attributes['description'];}
+    public function getNotation(){return $this->attributes['notation'];}
+    public function getTaile(){return $this->attributes['taille'];}
+    public function getQuantiteRestante(){return $this->attributes['quantiteRestante'];}
 }

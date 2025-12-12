@@ -40,13 +40,15 @@ foreach ($panier as $ligne) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="<?= base_url(); ?>SMIYC/public/css/panier.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url(); ?>SMIYC/public/css/common.css">
+
+    <script type="text/javascript" src="<?php echo base_url(); ?>SMIYC/public/js/reloadPage.js" defer></script>
 </head>
 
 <body>
     <header id="header">
         <div id="header-container">
             <nav id="nav-upper">                
-                <h1 id="bigname">SMIYC</h1>
+                <h1 id="bigname"><a href="<?= base_url() ?>SMIYC/public/">SMIYC</a></h1>
             </nav>
         </div>
     </header>

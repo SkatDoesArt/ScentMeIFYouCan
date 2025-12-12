@@ -19,6 +19,7 @@ $liste_produits=$produits->getDisponibles();
     <link rel="stylesheet" href="<?php echo base_url(); ?>SMIYC/public/css/separator_shop.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>SMIYC/public/css/card_produit.css">
 
+    <script type="text/javascript" src="<?php echo base_url(); ?>SMIYC/public/js/reloadPage.js" defer></script>
 
 </head>
 
@@ -29,7 +30,7 @@ $liste_produits=$produits->getDisponibles();
                 <i class="fas fa-bars"></i>
             </div>
             <nav id="nav-upper">
-                <h1 id="bigname">SMIYC</h1>
+                <h1 id="bigname"><a href="<?= base_url() ?>SMIYC/public/">SMIYC</a></h1>
                 <form class="recherche" role="search">
                     <label class="hidden" for="search">Recherche</label>
                     <input type="search" id="search" placeholder="Rechercher un produit, une marque" inputmode="search"

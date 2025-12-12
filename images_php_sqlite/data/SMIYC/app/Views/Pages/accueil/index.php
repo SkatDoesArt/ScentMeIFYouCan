@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -9,7 +8,7 @@
     <!-- CSS -->
     <link rel="stylesheet" href="<?php echo base_url(); ?>SMIYC/public/css/common.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>SMIYC/public/css/index.css">
-    
+
     <!-- FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,7 +26,8 @@
     <!-- JAVASCRIPT -->
     <script type="text/javascript" src="<?php echo base_url(); ?>SMIYC/public/js/index.js" defer></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>SMIYC/public/js/background.js" defer></script>
-    
+    <script type="text/javascript" src="<?php echo base_url(); ?>SMIYC/public/js/reloadPage.js" defer></script>
+
     <title>SMIYC</title>
 </head>
 
@@ -97,7 +97,7 @@
                 <h4>ScentMeIfYouCan</h4>
             </div>
             <div id="go-shopping">
-                <a id="go-shopping-link" <?php anchor("#accueil")?>>GO SHOPPING</a>
+                <a id="go-shopping-link" <?php anchor("#accueil") ?>>GO SHOPPING</a>
             </div>
         </div>
     </section>
@@ -108,7 +108,7 @@
                 <i class="fas fa-bars"></i>
             </div>
             <nav id="nav-upper">
-                <h1 id="bigname">SMIYC</h1>
+                <h1 id="bigname"><a href="<?= base_url() ?>SMIYC/public/">SMIYC</a></h1>
                 <form class="recherche" role="search">
                     <label class="hidden" for="search">Recherche</label>
                     <input type="search" id="search" placeholder="Rechercher un produit, une marque" inputmode="search"
@@ -200,9 +200,32 @@
     </section>
 
     <section id="best-site">
-        <h1>LE MEILLEUR SITE DE PARFUM</h1>
+        <div class="contentOnRight">
+            <div class="title">
+                <h1>Le meilleur site de parfum</h1>
+                <span></span>
+            </div>
+            <div id="meilleur-icons-div">
+                <div class="meilleur-icons">
+
+                </div>
+                <div class="meilleur-icons">
+
+                </div>
+                <div class="meilleur-icons">
+                    
+                </div>
+            </div>
+            <p>
+                Le parfum n’a jamais été aussi simple à choisir. <br>
+                Avec Scent Me If You Can, explorez, comparez, vibrez. <br>
+                Votre odeur, votre style, votre signature.
+            </p>
+        </div>
+
+
     </section>
 
 </body>
 
-</html>ublic/#accueil
+</html>

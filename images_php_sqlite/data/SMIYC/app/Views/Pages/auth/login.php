@@ -8,6 +8,8 @@
   <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>SMIYC/public/css/login.css">
 
   <script type="text/javascript" src="<?php echo base_url(); ?>SMIYC/public/js/background.js" defer></script>
+  <script type="text/javascript" src="<?php echo base_url(); ?>SMIYC/public/js/reloadPage.js" defer></script>
+
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
 </head>
 
@@ -92,7 +94,7 @@
             <a href="javascript:history.back()" title="Retour à la page précédente">Retour</a>
           </div>
         </div>
-        <h1 id="bigname">SMIYC</h1>
+        <h1 id="bigname"><a href="<?= base_url() ?>SMIYC/public/">SMIYC</a></h1>
       </nav>
     </div>
 

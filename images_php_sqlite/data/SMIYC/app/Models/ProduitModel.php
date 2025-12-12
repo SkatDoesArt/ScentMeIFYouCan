@@ -8,13 +8,13 @@ use CodeIgniter\Model;
 class ProduitModel extends Model
 {
     protected $table            = 'produit';
-    protected $primaryKey       = 'id';
+    protected $primaryKey       = 'id_produit';
     protected $useAutoIncrement = true;
     protected $returnType       = ProduitEntity::class;
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields = [
-        'id',
+        'id_produit',
         'name',
         'price',
         'description',
@@ -54,13 +54,36 @@ class ProduitModel extends Model
     protected $afterDelete    = [];
 
     /**
-     * Renvoie  la 
+     * Renvoie tous les produits disponibles
      */
     public function getDisponibles(): array
     {
         return $this->where('quantiteRestante >', 0)->findAll();
     }
-    public function getByName(String $name){
-        return $this->like('name', $name)->findAll();
+
+    /**
+     * Renvoie un produit par son ID
+     */
+    public function getById(int $id)
+    {
+        return $this->find($id);
+    }
+
+    /**
+     * Renvoie une liste de produits par marque
+     * (fonctionne uniquement si la colonne existe)
+     */
+    public function getByMarque(string $marque)
+    {
+        return $this->like('marque', $marque)->findAll();
+    }
+
+    /**
+     * Renvoie une liste de produits par catégorie
+     * (fonctionne uniquement si la colonne existe)
+     */
+    public function getByCategorie(string $categorie)
+    {
+        return $this->like('categorie', $categorie)->findAll();
     }
 }

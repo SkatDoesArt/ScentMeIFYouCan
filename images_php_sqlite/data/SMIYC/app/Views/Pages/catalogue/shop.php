@@ -95,7 +95,10 @@ $liste_produits=$produits->getDisponibles();
         <h2>Parfums Hommes</h2>
         <div class="grid">
 <?php foreach ($liste_produits as $p): ?>
-    <a href="<?= base_url('product?id=' . $p->getId()) ?>" class="card">
+   <a href="<?= base_url(relativePath:'SMIYC/public/catalogue/product/' . $p->getId()) ?>" class="card">
+
+
+
         
         <img src="#" alt="<?= esc($p->getNom()) ?>">
 

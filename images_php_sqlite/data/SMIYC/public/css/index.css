@@ -19,7 +19,7 @@ body {
     background-color: #333;
 }
 
-.title h1 {
+#accueil .title h1 {
     text-align: center;
     margin: 2%;
     width: fit-content;
@@ -109,9 +109,49 @@ body {
     text-decoration: underline;
 }
 
+/* BEST SITE SECTION */
+
+
 #best-site {
-    height: 200vh;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-image: url(../pictures/background1.jpg);
+    background-size: cover;
+    height: 90vh;
+    color: #eee;
+    width: 100%;
 }
+
+.contentOnRight {
+    width: 40%;
+    margin: 0 10rem;
+}
+
+#best-site .title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: "Playfair-Display", "sans-serif";
+    width: 100%;
+    font-size: x-large;
+}
+
+#best-site .title h1 {
+    margin: 10px;
+}
+
+#best-site .title span {
+    display: inline-block;
+    height: 2px;
+    width: 500px;
+    background-color: #eee;
+}
+
+
+
+
+
 
 
 /* ====== RESPONSIVE MEDIA QUERIES ====== */

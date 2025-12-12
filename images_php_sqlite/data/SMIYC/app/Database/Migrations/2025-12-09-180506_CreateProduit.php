@@ -3,31 +3,64 @@
 namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
+use PHPUnit\Framework\Constraint\Constraint;
 
 class CreateProduit extends Migration
 {
     public function up()
     {
-        // Supprime la table si elle existe
-        $this->forge->dropTable('produit', true);
 
-        // Recréation de la table
+
+        // Création de la table php spark migrate:refresh 
         $this->forge->addField([
-            'id'               => ['type' => 'INT', 'auto_increment' => true],
-            'name'             => ['type' => 'VARCHAR', 'constraint' => 255],
-            'price'            => ['type' => 'FLOAT'],
-            'description'      => ['type' => 'VARCHAR', 'constraint' => 255],
-            'notation'   => ['type' => 'INT'],
-            'taille'           => ['type' => 'INT'],
-            'quantiteRestante' => ['type' => 'INT'],
+            'id_produit' => [
+                'type'           => 'INT',
+                'auto_increment' => true,
+                 'unsigned'       => true,
+            ],
+            'name' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 255,
+            ],
+            'price' => [
+                'type'       => 'DECIMAL',
+                'constraint' => '10,2',
+            ],
+            'description' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 255,
+            ],
+            'niveauPrestige' => [
+                'type' => 'INT',
+            ],
+            'notation' => [
+                'type' => 'INT',
+            ],
+            'taille' => [
+                'type' => 'INT',
+            ],
+            'quantiteRestante' => [
+                'type' => 'INT',
+            ],
+            'marque'=>[
+                'type'=>'VARCHAR',
+                'constraint'=>255,
+            ],
+            'catégorie'=>[
+                'type'=>'VARCHAR',
+                'constraint'=>255,
+            ]
         ]);
-        $this->forge->addKey('id', true);
+
+        // Clé primaire
+        $this->forge->addKey('id_produit', true);
+        // Création de la table
         $this->forge->createTable('produit');
     }
-
+    //php spark migrate:rollback
     public function down()
     {
-        // Supprime la table pour rollback
         $this->forge->dropTable('produit', true);
     }
 }
+

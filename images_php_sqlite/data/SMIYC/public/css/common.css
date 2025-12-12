@@ -39,6 +39,11 @@ body {
     animation: clignotementShadow 2s infinite;
 }
 
+#bigname a {
+    text-decoration: none;
+    color: white !important;
+}
+
 @keyframes clignotementShadow {
 
     0%,

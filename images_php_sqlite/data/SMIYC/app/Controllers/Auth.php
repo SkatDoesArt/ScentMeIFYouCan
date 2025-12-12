@@ -9,7 +9,7 @@ class Auth extends BaseController
 {
     public function login()
     {
-        return view('Pages/auth/login');
+        return view('Shield/login');
     }
 
 

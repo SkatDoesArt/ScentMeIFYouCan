@@ -9,16 +9,17 @@ use CodeIgniter\Router\RouteCollection;
 // ---------- Page d’accueil ----------
 $routes->get('/', 'Home::index');
 
+service('auth')->routes($routes);
+
 
 // ====================================================================
 // AUTHENTIFICATION
 // ====================================================================
 $routes->group('auth', function($routes) {
-    $routes->get('login', 'Auth::login');
-    $routes->get('register', 'Auth::register');
+    $routes->get('login', '\CodeIgniter\Shield\Controllers\LoginController::loginView');
+    $routes->get('register', '\CodeIgniter\Shield\Controllers\RegisterController::registerView');
     $routes->get('forgot-password', 'Auth::forgotPassword');    
-
-    $routes->get('profile', 'Auth::profile');
+    $routes->get('profile', 'Auth::profile', ['as' => 'user-profile']);
     $routes->get('profile/edit', 'Auth::editProfile');
 });
 
@@ -77,3 +78,6 @@ $routes->group('admin', function($routes) {
 $routes->group('emails', function($routes) {
     $routes->get('order-confirmation', 'Emails::orderConfirmation');
 });
+
+
+/* service('auth')->routes($routes); */

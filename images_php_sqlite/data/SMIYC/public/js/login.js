@@ -1,4 +1,4 @@
-/*
+/* 
  * Script pour gérer l'animation de bascule entre les formulaires (Sign In/Sign Up)
  */
 
@@ -31,28 +31,33 @@ const preventDefaultAction = (e) => e.preventDefault();
 /**
  * Gère le changement d'état (bascule entre Inscription et Connexion)
  */
+let isSignIn = true; // État initial: true = Sign In, false = Sign Up
 const changeForm = () => {
 
     // 1. Déclenche l'animation 'is-gx' (animation de pulsation du switch)
     switchCtn.classList.add("is-gx");
-    setTimeout(function() {
+    setTimeout(function () {
         switchCtn.classList.remove("is-gx");
-    }, 1500); // La durée doit correspondre à la durée de l'animation CSS (1.25s + marge)
+    }, 100); // La durée doit correspondre à la durée de l'animation CSS (1.25s + marge)
 
     // 2. Bascule les classes pour le mouvement principal et les cercles
     switchCtn.classList.toggle("is-txr"); // Déplacement du panneau switch vers la droite
-    
-    switchCircle.forEach(circle => {
+
+    /* switchCircle.forEach(circle => {
         circle.classList.toggle("is-txr"); // Déplacement des cercles
-    });
-    
+    }); */
+
     // 3. Bascule la visibilité des textes d'accueil
     switchC1.classList.toggle("is-hidden");
     switchC2.classList.toggle("is-hidden");
 
     // 4. Déplace et change la profondeur des conteneurs de formulaires
-    aContainer.classList.toggle("is-txl"); // Déplacement des conteneurs de formulaires
+    aContainer.classList.toggle("hidden");
+    bContainer.classList.toggle("hidden");
     bContainer.classList.toggle("is-txl");
+    aContainer.classList.toggle("is-txl"); // Déplacement des conteneurs de formulaires
+
+    isSignIn = !isSignIn; // Inverse l'état
     bContainer.classList.toggle("is-z200"); // Met le conteneur B au-dessus (z-index)
 }
 
@@ -62,9 +67,9 @@ const changeForm = () => {
  */
 const mainF = () => {
     // Empêche la soumission des formulaires (pour l'animation)
-    allSubmitButtons.forEach(button => {
+    /* allSubmitButtons.forEach(button => {
         button.addEventListener("click", preventDefaultAction);
-    });
+    }); */
 
     // Attache l'événement de bascule aux boutons "SIGN IN" et "SIGN UP" du panneau switch
     toSignInButton.addEventListener("click", changeForm);

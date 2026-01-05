@@ -18,9 +18,9 @@ class ProduitEntity extends Entity
         'taille'           => 'int',
         'quantiteRestante' => 'int',
         'marque'           =>'string',
-        'catégorie'        =>'string',
+        'categorie'        =>'string',
     ];
-    public function getId() { return $this->attributes['id_produit']; }
+    public function getId(){return $this->attributes['id_produit'];}
     public function getNom() { return $this->attributes['name']; }
     public function getPrix() { return $this->attributes['price']; }
     public function getDescription(){return $this->attributes['description'];}
@@ -28,5 +28,5 @@ class ProduitEntity extends Entity
     public function getTaile(){return $this->attributes['taille'];}
     public function getQuantiteRestante(){return $this->attributes['quantiteRestante'];}
     public function getMarque(){return $this->attributes['marque'];}
-    public function getCategorie(){return $this->attributes['catégorie'];}
+    public function getCategorie(){return $this->attributes['categorie'];}
 }

@@ -7,12 +7,38 @@ use App\Entities\NoCapEntity;
 
 class NoCapModel extends Model
 {
-    protected $table = 'nocap';
-    protected $primaryKey = 'id';
+    // On pointe désormais vers la table collective
+    protected $table = 'produit';
 
-    // Autorise l'insertion de ces colonnes via le Seeder
-    protected $allowedFields = ['image_name', 'title', 'order'];
+    // Ta migration utilise 'id_produit' comme clé primaire
+    protected $primaryKey = 'id_produit';
 
+    // Liste complète des colonnes pour autoriser les insertions via Seeder
+// Dans App/Models/NoCapModel.php
+    protected $allowedFields = [
+        'name',
+        'price',
+        'description',
+        'niveauPrestige',
+        'notation',
+        'taille',
+        'quantiteRestante',
+        'marque',
+        'categorie',
+        'image_name'
+        // Ne pas mettre 'order' ici s'il n'est pas dans la migration
+    ];
+
+    // On garde l'Entity pour pouvoir utiliser la méthode getUrl()
     protected $returnType = NoCapEntity::class;
+
     protected $useTimestamps = false;
+
+    /**
+     * Optionnel : Méthode pour ne récupérer que les parfums No Cap
+     */
+    public function getNoCapPerfumes()
+    {
+        return $this->where('marque', 'No Cap')->findAll();
+    }
 }

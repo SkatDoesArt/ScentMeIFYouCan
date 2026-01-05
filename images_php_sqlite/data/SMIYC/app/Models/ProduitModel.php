@@ -23,7 +23,8 @@ class ProduitModel extends Model
         'taille',
         'quantiteRestante',
         'marque',
-        'categorie'
+        'categorie',
+        'image_name'
     ];
 
     protected bool $allowEmptyInserts = false;

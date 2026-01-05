@@ -9,24 +9,36 @@ class NoCapSeeder extends Seeder
     public function run()
     {
         $data = [
-            ['image_name' => 'Bat.jpg', 'title' => 'Bat'],
-            ['image_name' => 'BookPerfume.jpg', 'title' => 'Book Perfume'],
-            ['image_name' => 'Dirt.jpg', 'title' => 'Dirt'],
-            ['image_name' => 'Dorian.png', 'title' => 'Dorian'],
-            ['image_name' => 'FatElectrician.jpg', 'title' => 'Fat Electrician'],
-            ['image_name' => 'Flame.jpeg', 'title' => 'Flame'],
-            ['image_name' => 'FuneralHome.jpg', 'title' => 'Funeral Home'],
-            ['image_name' => 'KFC.jpg', 'title' => 'KFC'],
-            ['image_name' => 'NewCar.jpg', 'title' => 'New Car'],
-            ['image_name' => 'Odeur53.png', 'title' => 'Odeur 53'],
-            ['image_name' => 'Odeur71.jpg', 'title' => 'Odeur 71'],
-            ['image_name' => 'Pizza.jpg', 'title' => 'Pizza'],
-            ['image_name' => 'PlayDoh.jpg', 'title' => 'Play-Doh'],
-            ['image_name' => 'SecretionMagnifique.jpg', 'title' => 'Sécrétions Magnifiques'],
-            ['image_name' => 'Squid.jpg', 'title' => 'Squid'],
+            // Demeter Fragrance Library
+            ['name' => 'Dirt', 'price' => 30.00, 'description' => 'Odeur de terre humide', 'niveauPrestige' => 2, 'notation' => 3, 'taille' => 30, 'quantiteRestante' => 15, 'marque' => 'Demeter Fragrance Library', 'categorie' => 'NoCap', 'image_name' => 'Dirt.jpg'],
+            ['name' => 'Funeral Home', 'price' => 35.00, 'description' => 'Salon funéraire (lys, fleurs, bois ciré)', 'niveauPrestige' => 3, 'notation' => 3, 'taille' => 30, 'quantiteRestante' => 10, 'marque' => 'Demeter Fragrance Library', 'categorie' => 'NoCap', 'image_name' => 'FuneralHome.jpg'],
+            ['name' => 'Play-Doh', 'price' => 30.00, 'description' => 'Odeur exacte de pâte à modeler', 'niveauPrestige' => 2, 'notation' => 5, 'taille' => 30, 'quantiteRestante' => 30, 'marque' => 'Demeter Fragrance Library', 'categorie' => 'NoCap', 'image_name' => 'PlayDoh.jpg'],
+            ['name' => 'Pizza', 'price' => 25.00, 'description' => 'Mozzarella, tomate et pâte chaude', 'niveauPrestige' => 1, 'notation' => 2, 'taille' => 30, 'quantiteRestante' => 15, 'marque' => 'Demeter Fragrance Library', 'categorie' => 'NoCap', 'image_name' => 'Pizza.jpg'],
+            ['name' => 'New Car Smell', 'price' => 20.00, 'description' => 'Odeur de voiture neuve', 'niveauPrestige' => 2, 'notation' => 4, 'taille' => 30, 'quantiteRestante' => 25, 'marque' => 'Demeter Fragrance Library', 'categorie' => 'NoCap', 'image_name' => 'NewCar.jpg'],
+
+            // Comme des Garçons
+            ['name' => 'Odeur 53', 'price' => 120.00, 'description' => 'Métal chaud, air purifié, poussière', 'niveauPrestige' => 5, 'notation' => 5, 'taille' => 200, 'quantiteRestante' => 4, 'marque' => 'Comme des Garçons', 'categorie' => 'NoCap', 'image_name' => 'Odeur53.png'],
+            ['name' => 'Odeur 71', 'price' => 130.00, 'description' => 'Photocopieuse chaude, bois brûlé', 'niveauPrestige' => 5, 'notation' => 4, 'taille' => 200, 'quantiteRestante' => 2, 'marque' => 'Comme des Garçons', 'categorie' => 'NoCap', 'image_name' => 'Odeur71.jpg'],
+
+            // État Libre d’Orange
+            ['name' => 'Sécrétions Magnifiques', 'price' => 90.00, 'description' => 'Sang, lait, sueur, salive', 'niveauPrestige' => 5, 'notation' => 1, 'taille' => 50, 'quantiteRestante' => 6, 'marque' => 'État Libre d’Orange', 'categorie' => 'NoCap', 'image_name' => 'SecretionMagnifique.jpg'],
+            ['name' => 'Fat Electrician', 'price' => 85.00, 'description' => 'Vétiver, crème de marron, latex', 'niveauPrestige' => 5, 'notation' => 4, 'taille' => 50, 'quantiteRestante' => 3, 'marque' => 'État Libre d’Orange', 'categorie' => 'NoCap', 'image_name' => 'FatElectrician.jpg'],
+
+            // Black Phoenix Alchemy Lab
+            ['name' => 'Dorian', 'price' => 60.00, 'description' => 'Vieux livres et herbes sèches', 'niveauPrestige' => 4, 'notation' => 5, 'taille' => 100, 'quantiteRestante' => 5, 'marque' => 'Black Phoenix Alchemy Lab', 'categorie' => 'NoCap', 'image_name' => 'Dorian.png'],
+
+            // Zoologist Perfumes
+            ['name' => 'Bat', 'price' => 160.00, 'description' => 'Grotte humide, terre, fruits écrasés', 'niveauPrestige' => 5, 'notation' => 4, 'taille' => 60, 'quantiteRestante' => 12, 'marque' => 'Zoologist Perfumes', 'categorie' => 'NoCap', 'image_name' => 'Bat.jpg'],
+            ['name' => 'Squid', 'price' => 150.00, 'description' => 'Encre, embruns marins, résines sombres', 'niveauPrestige' => 5, 'notation' => 5, 'taille' => 60, 'quantiteRestante' => 3, 'marque' => 'Zoologist Perfumes', 'categorie' => 'NoCap', 'image_name' => 'Squid.jpg'],
+
+            // Food & Fast-Food
+            ['name' => 'KFC – Eau de Colonel', 'price' => 25.00, 'description' => 'L’odeur du poulet frit original', 'niveauPrestige' => 1, 'notation' => 2, 'taille' => 50, 'quantiteRestante' => 50, 'marque' => 'KFC', 'categorie' => 'NoCap', 'image_name' => 'KFC.jpg'],
+            ['name' => 'Flame', 'price' => 30.00, 'description' => 'L’odeur du Whopper grillé à la flamme', 'niveauPrestige' => 1, 'notation' => 2, 'taille' => 50, 'quantiteRestante' => 20, 'marque' => 'Burger King', 'categorie' => 'NoCap', 'image_name' => 'Flame.jpeg'],
+
+            // Autres
+            ['name' => 'PaperPassion', 'price' => 95.00, 'description' => 'Odeur de livre neuf et encre fraîche', 'niveauPrestige' => 4, 'notation' => 5, 'taille' => 50, 'quantiteRestante' => 8, 'marque' => 'PaperPassion', 'categorie' => 'NoCap', 'image_name' => 'BookPerfume.jpg'],
         ];
 
-        // On insère les données dans la table 'nocap'
-        $this->db->table('nocap')->insertBatch($data);
+        $this->db->table('produit')->insertBatch($data);
     }
 }

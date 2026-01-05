@@ -12,14 +12,18 @@ class NoCapEntity extends Entity
      */
     public function getUrl(): string
     {
-        // Utiliser ->image_name au lieu de ['image_name'] est plus sûr avec les Entities
+        // On conserve le chemin vers le dossier spécifique NoCap
+        // $this->image_name correspond à la colonne de la table 'produit'
         return base_url('pictures/parfums/NoCap/' . $this->image_name);
     }
+
     /**
-     * Optionnel : Retourne un titre par défaut si le champ title est vide
+     * Retourne le nom du produit (anciennement getFullTitle)
+     * Utilisation dans la vue : $img->getFullTitle()
      */
     public function getFullTitle(): string
     {
-        return $this->attributes['title'] ?? 'Parfum sans nom';
+        // On utilise désormais 'name' car 'title' n'existe plus dans la table produit
+        return $this->name ?? 'Parfum sans nom';
     }
 }

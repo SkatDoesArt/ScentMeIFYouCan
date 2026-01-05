@@ -49,7 +49,12 @@ class CreateProduit extends Migration
             'categorie'=>[
                 'type'=>'VARCHAR',
                 'constraint'=>255,
-            ]
+            ],
+            'image_name' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 255,
+                'null'       => true, // Autorise la valeur nulle si l'image est absente
+            ],
         ]);
 
         // Clé primaire

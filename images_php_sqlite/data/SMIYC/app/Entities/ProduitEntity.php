@@ -7,26 +7,64 @@ use CodeIgniter\Entity\Entity;
 class ProduitEntity extends Entity
 {
     protected $datamap = [];
-    protected $dates   = [];
-    protected $casts   = [
-        'id_produit'       => 'int',
-        'name'             => 'string',
-        'price'            => 'float',
-        'description'      => 'string',
-        'niveauPrestige'   =>'int',
-        'notation'         => 'int',
-        'taille'           => 'int',
+    protected $dates = [];
+    protected $casts = [
+        'id_produit' => 'int',
+        'name' => 'string',
+        'price' => 'float',
+        'description' => 'string',
+        'niveauPrestige' => 'int',
+        'notation' => 'int',
+        'taille' => 'int',
         'quantiteRestante' => 'int',
-        'marque'           =>'string',
-        'categorie'        =>'string',
+        'marque' => 'string',
+        'categorie' => 'string',
     ];
-    public function getId(){return $this->attributes['id_produit'];}
-    public function getNom() { return $this->attributes['name']; }
-    public function getPrix() { return $this->attributes['price']; }
-    public function getDescription(){return $this->attributes['description'];}
-    public function getNotation(){return $this->attributes['notation'];}
-    public function getTaile(){return $this->attributes['taille'];}
-    public function getQuantiteRestante(){return $this->attributes['quantiteRestante'];}
-    public function getMarque(){return $this->attributes['marque'];}
-    public function getCategorie(){return $this->attributes['categorie'];}
+    public function getId()
+    {
+        return $this->attributes['id_produit'];
+    }
+    public function getNom()
+    {
+        return $this->attributes['name'];
+    }
+    public function getPrix()
+    {
+        return $this->attributes['price'];
+    }
+    public function getDescription()
+    {
+        return $this->attributes['description'];
+    }
+    public function getNotation()
+    {
+        return $this->attributes['notation'];
+    }
+    public function getTaile()
+    {
+        return $this->attributes['taille'];
+    }
+    public function getQuantiteRestante()
+    {
+        return $this->attributes['quantiteRestante'];
+    }
+    public function getMarque()
+    {
+        return $this->attributes['marque'];
+    }
+    public function getCategorie()
+    {
+        return $this->attributes['categorie'];
+    }
+
+    public function getUrl(): string
+    {
+        // On pointe vers ton dossier d'images spécifique
+        return base_url('pictures/parfums/NoCap/' . ($this->attributes['image_name'] ?? 'default.jpg'));
+    }
+
+    public function getFullTitle(): string
+    {
+        return $this->attributes['name'] ?? 'Sans nom';
+    }
 }

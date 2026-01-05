@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="<?php echo base_url(); ?>SMIYC/public/css/common.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>SMIYC/public/css/index.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>css/common.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>css/index.css">
 
     <!-- FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,10 +24,10 @@
     <link rel="stylesheet" href="https://icons8.com/icons/set/kotlin">
 
     <!-- JAVASCRIPT -->
-    <script type="text/javascript" src="<?php echo base_url(); ?>SMIYC/public/js/index.js" defer></script>
-    <script type="text/javascript" src="<?php echo base_url(); ?>SMIYC/public/js/background.js" defer></script>
-    <script type="text/javascript" src="<?php echo base_url(); ?>SMIYC/public/js/reloadPage.js" defer></script>
-    <script type="text/javascript" src="<?php echo base_url(); ?>SMIYC/public/js/nocap.js" defer></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>js/index.js" defer></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>js/background.js" defer></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>js/reloadPage.js" defer></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>js/nocap.js" defer></script>
 
     <title>SMIYC</title>
 </head>
@@ -277,7 +277,6 @@
                 <div class="slides">
                     <?php if (!empty($images)): ?>
                         <?php foreach ($images as $img): ?>
-                            <code style="font-size: 10px;"><?= $img->getUrl() ?></code>
                             <img src="<?= $img->getUrl() ?>" alt="<?= $img->getFullTitle() ?>">
                         <?php endforeach; ?>
                     <?php else: ?>

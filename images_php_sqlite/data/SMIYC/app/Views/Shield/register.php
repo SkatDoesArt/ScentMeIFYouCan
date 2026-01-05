@@ -172,7 +172,7 @@
                 <button class="form__button button submit">Créer mon profil</button>
 
                 <p class="form__span" style="margin-top: 20px;">
-                    Vous avez déjà un compte ? <a href="<?= url_to('login') ?>" class="form__link" style="border: none;">Connectez-vous</a>
+                    Vous avez déjà un compte ? <a href="login" class="form__link" style="border: none;">Connectez-vous</a>
                 </p>
 
             </form>

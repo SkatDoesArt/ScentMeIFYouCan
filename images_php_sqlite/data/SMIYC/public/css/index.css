@@ -21,7 +21,7 @@ body {
 
 #accueil .title h1 {
     text-align: center;
-    margin: 2%;
+    margin: 1.5%;
     width: fit-content;
     text-wrap: nowrap;
     font-size: 40px;
@@ -39,7 +39,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    height: 535px;
+    height: 70vh; /* 535px */
     border: 1px solid black;
     margin: 0 2%;
     background-size: cover;
@@ -69,19 +69,18 @@ body {
 }
 
 #panel1 {
-    width: 665px;
+    width: 665px; /* 665px */
     background-image: url("../pictures/parfums/valentino_homme.jpg");
 }
 
 #panel2 {
-    width: 322px;
+    width: 40vh; /*322px*/
     background-image: url("../pictures/parfums/scandal-her-le-parfum.jpg");
 }
 
 #small-products-panels {
     display: flex;
     flex-direction: column;
-    
 }
 
 #small-products-panels a {
@@ -93,16 +92,16 @@ body {
 
 #small-products-panels .panel {
     margin: 4.5%;
-    width: 320px;
+    width: 40vh; /* 320px */
 }
 
 #panel-exotique {
-    height: 230px;
+    height: 33vh; /*230px*/
     background-image: url("../pictures/parfums/yara.jpg");
 }
 
 #panel-homme {
-    height: 273px;
+    height: 33vh; /* 273px */
     background-image: url("../pictures/parfums/jean_paul_geautier.jpeg");
 }
 
@@ -127,15 +126,29 @@ body {
 .contentOnRight {
     width: 40%;
     margin: 0 10rem;
+    text-align: center;
+    font-family: 'Playfair Display';
+    font-style: normal;
+    font-weight: bolder;
+}
+
+.contentOnRight > p {
+    font-size: 2vh !important;
 }
 
 #best-site .title {
     display: flex;
     flex-direction: column;
     align-items: center;
-    
     width: 100%;
     font-size: x-large;
+}
+
+#best-site .title span {
+    display: inline-block;
+    height: 2px;
+    width: 500px;
+    background-color: #eee;
 }
 
 #best-site .title h1 {
@@ -149,19 +162,28 @@ body {
 
 /* Le meilleur site de parfum */
 
-
-
-
-#best-site .title span {
-    display: inline-block;
-    height: 2px;
-    width: 500px;
-    background-color: #eee;
+#meilleur-icons-div {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8%;
+    margin-bottom: 2%;
 }
 
+.meilleur-icons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
+.meilleur-icons svg {
+    height: 6vh;
+    width: 6vh;
+}
 
-
+#best-site p {
+    font-size: 1.5vh;
+}
 
 
 

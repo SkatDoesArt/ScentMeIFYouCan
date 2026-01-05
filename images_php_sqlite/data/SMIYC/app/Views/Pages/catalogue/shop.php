@@ -91,12 +91,12 @@ $liste_produits = $produits->getDisponibles();
             <input type="range" min="0" max="500" step="5">
         </div>
 
-        <!-- Colonne droite : grille de produits -->
-        <div class="right">
-            <h2>Parfums Hommes</h2>
-            <div class="grid">
-                <?php foreach ($liste_produits as $p): ?>
-                    <a href="<?= base_url(relativePath: 'SMIYC/public/catalogue/product/' . $p->getId()) ?>" class="card">
+    <!-- Colonne droite : grille de produits -->
+    <div class="right">
+        <h2>Parfums Hommes</h2>
+        <div class="grid">
+<?php foreach ($liste_produits as $p): ?>
+   <a href="<?= base_url(relativePath:'SMIYC/public/catalogue/product/' . $p->getId()) ?>" class="card">
 
 
 

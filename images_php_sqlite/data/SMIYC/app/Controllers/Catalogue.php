@@ -32,4 +32,5 @@ class Catalogue extends BaseController
 
         return view('Pages/catalogue/product', $data);
     }
+
 }

@@ -28,9 +28,12 @@ $routes->group('auth', function($routes) {
 // CATALOGUE
 // ====================================================================
 $routes->group('catalogue', function($routes) {
-   $routes->get('/', 'Catalogue::shop'); 
-    $routes->get('product/(:num)', 'Catalogue::detail/$1');
+   $routes->get('/', 'Catalogue::shop'); //Pages Principale
+    $routes->get('product/(:num)', 'Catalogue::detail/$1');//Afficher un produit en particulier 
     $routes->get('search', 'Catalogue::search');
+    
+    $routes->get('/(:segment)/(:segment)','Catalogue::detail/$1/$2');
+    $routes->get('/(:segment)/(:segment)','Catalogue::detail/$1/$2');
 });
 
 
@@ -38,8 +41,18 @@ $routes->group('catalogue', function($routes) {
 // PANIER
 // ====================================================================
 $routes->group('cart', function($routes) {
-    $routes->get('/', 'Cart::index');
+    $routes->get('/', 'Cart::index'); // Affiche le panier
+
+    // Augmenter la quantité
+    $routes->match(['get', 'post'], 'increment/(:num)', 'Cart::addQuantite/$1');
+
+    // Diminuer la quantité
+    $routes->match(['get', 'post'], 'decrement/(:num)', 'Cart::decrementQuantite/$1');
+
+    // Supprimer une ligne du panier
+    $routes->match(['get', 'post'], 'delete/(:num)', 'Cart::delete/$1');
 });
+
 
 // ====================================================================
 // PAIEMENT
@@ -64,6 +77,9 @@ $routes->group('commande', function($routes) {
 // ADMINISTRATION
 // ====================================================================
 $routes->group('admin', function($routes) {
+    $routes->group('add',function($routes){
+        $routes->match(['get', 'post'], 'product', 'Admin::AddProduit');
+    });
     $routes->get('dashboard', 'Admin::dashboard');
     $routes->get('products', 'Admin::products');
     $routes->get('users', 'Admin::users');

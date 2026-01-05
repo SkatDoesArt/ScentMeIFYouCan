@@ -3,20 +3,20 @@
 namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
-use PHPUnit\Framework\Constraint\Constraint;
 
 class CreateProduit extends Migration
 {
+    //Création de la table 
+    //php spark migrate:refresh 
     public function up()
     {
 
 
-        // Création de la table php spark migrate:refresh 
         $this->forge->addField([
             'id_produit' => [
                 'type'           => 'INT',
                 'auto_increment' => true,
-                 'unsigned'       => true,
+                 'unsigned'      => true,
             ],
             'name' => [
                 'type'       => 'VARCHAR',
@@ -46,7 +46,7 @@ class CreateProduit extends Migration
                 'type'=>'VARCHAR',
                 'constraint'=>255,
             ],
-            'catégorie'=>[
+            'categorie'=>[
                 'type'=>'VARCHAR',
                 'constraint'=>255,
             ]

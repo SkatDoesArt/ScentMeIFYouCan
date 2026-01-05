@@ -289,3 +289,102 @@ body {
         padding: 0 0.5rem;
     }
 }
+
+
+/* SECTION NO-CAP (Placée naturellement après via le flux HTML) */
+#no-cap {
+    padding: 80px 0;
+    background-color: #fcfcfc;
+    width: 100%;
+    position: relative;
+    clear: both; /* S'assure de démarrer sous tout élément flottant précédent */
+}
+
+/* TITRE NO-CAP */
+#no-cap .title-nocap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    margin: 0 auto 40px auto;
+    gap: 20px;
+}
+
+#no-cap .title-nocap span {
+    height: 1px;
+    flex-grow: 1;
+    background-color: #333; 
+}
+
+#no-cap .title-nocap h1 {
+    font-family: "Playfair Display", serif;
+    font-size: 2.5rem;
+    color: #333;
+    white-space: nowrap;
+    margin: 0;
+}
+
+/* CARROUSEL */
+.carousel {
+    position: relative;
+    width: 80%; /* Ajusté pour laisser de la place aux flèches sur les côtés */
+    margin: 0 auto;
+    overflow: hidden; /* Cache les images qui ne sont pas dans la vue */
+}
+
+.slides {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.slides img {
+    flex: 0 0 33.333%; /* 3 images visibles */
+    width: 33.333%;
+    padding: 0 10px;
+    box-sizing: border-box;
+    height: 400px; /* Hauteur fixe pour l'uniformité */
+    object-fit: cover;
+}
+
+/* FLÈCHES */
+.fleche button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #000;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* Boutons ronds pour un look plus moderne */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 10;
+}
+
+#prev { left: -60px; }
+#next { right: -60px; }
+
+/* DOTS */
+.dots {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 20px 0;
+    gap: 8px;
+}
+
+.dots li {
+    width: 12px;
+    height: 12px;
+    background-color: #ccc;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+.dots li.active {
+    background-color: #333;
+    width: 30px;
+    border-radius: 10px;
+}

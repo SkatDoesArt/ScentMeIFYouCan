@@ -25,7 +25,8 @@ foreach ($panier as $ligne) {
     if ($produit) {
         $produitsDansPanier[] = [
             'produit' => $produit,
-            'quantite' => $ligne->getQuantite()
+            'quantite' => $ligne->getQuantite(),
+            'id_ligne_panier' => $ligne->getIdLignePanier() 
         ];
     }
 }
@@ -73,6 +74,7 @@ foreach ($panier as $ligne) {
             <?php foreach ($produitsDansPanier as $item): 
                 $produit = $item['produit'];
                 $quantite = $item['quantite'];
+                $id_ligne_panier=$item['id_ligne_panier'];
             ?>
                 <div class="card">
                     <div class="card-img"></div>
@@ -81,10 +83,13 @@ foreach ($panier as $ligne) {
                         <div>Prix unitaire : <?= number_format($produit->price, 2) ?> €</div>
                         <div class="quantity-control">
                             Quantité : 
-                            <button>-</button>
+<a href="<?= base_url('SMIYC/public/cart/decrement/'.$id_ligne_panier) ?>"><span class="delete-btn">-</span></a>
+                            
                             <span><?= $quantite ?></span>
-                            <button>+</button>
-                            <span class="delete-btn">🗑</span>
+<a href="<?= base_url('SMIYC/public/cart/increment/'. $id_ligne_panier) ?>"><button>+</button></a>
+<a href="<?= base_url('SMIYC/public/cart/delete/'. $id_ligne_panier )?>"><span class="delete-btn">🗑</span></a>
+
+
                         </div>
                         <div>Prix total : <?= number_format($produit->price * $quantite, 2) ?> €</div>
                     </div>

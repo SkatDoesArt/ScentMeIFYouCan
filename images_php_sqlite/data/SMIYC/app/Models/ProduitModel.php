@@ -18,9 +18,12 @@ class ProduitModel extends Model
         'name',
         'price',
         'description',
+        'niveauPrestige',
         'notation',
         'taille',
         'quantiteRestante',
+        'marque',
+        'categorie'
     ];
 
     protected bool $allowEmptyInserts = false;
@@ -70,8 +73,7 @@ class ProduitModel extends Model
     }
 
     /**
-     * Renvoie une liste de produits par marque
-     * (fonctionne uniquement si la colonne existe)
+     * Renvoie une liste de produits d'une marque
      */
     public function getByMarque(string $marque)
     {
@@ -79,11 +81,13 @@ class ProduitModel extends Model
     }
 
     /**
-     * Renvoie une liste de produits par catégorie
-     * (fonctionne uniquement si la colonne existe)
+     * Renvoie une liste de produits d'une  catégorie
      */
     public function getByCategorie(string $categorie)
     {
         return $this->like('categorie', $categorie)->findAll();
     }
+
+
+
 }

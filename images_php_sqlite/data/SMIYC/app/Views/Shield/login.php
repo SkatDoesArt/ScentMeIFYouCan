@@ -165,7 +165,7 @@
                 <button class="form__button button submit">Se connecter</button>
 
                 <p class="form__span" style="margin-top: 20px;">
-                    Pas encore de compte ? <a href="<?= url_to('register') ?>" class="form__link" style="border: none;">Inscrivez-vous</a>
+                    Pas encore de compte ? <a href="<?= "register" ?>" class="form__link" style="border: none;">Inscrivez-vous</a>
                 </p>
 
             </form>

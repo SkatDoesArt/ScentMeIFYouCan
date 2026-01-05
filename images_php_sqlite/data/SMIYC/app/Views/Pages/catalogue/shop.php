@@ -4,7 +4,7 @@ use App\Models\ProduitModel;
 
 // Liste de produits (à génerer  aprés avec la base de donné )
 $produits = new ProduitModel();
-$liste_produits=$produits->getDisponibles();
+$liste_produits = $produits->getDisponibles();
 
 ?>
 <!DOCTYPE html>
@@ -13,7 +13,7 @@ $liste_produits=$produits->getDisponibles();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
+
     <link rel="stylesheet" href="<?php echo base_url(); ?>SMIYC/public/css/common.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>SMIYC/public/css/index.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>SMIYC/public/css/separator_shop.css">
@@ -76,20 +76,20 @@ $liste_produits=$produits->getDisponibles();
             <span class="categorie" role="link">Crème</span>
         </nav>
     </header>
-<div class="container">
-    <!-- Colonne gauche : texte / filtre -->
-    <div class="left">
-        <h2>Catégories</h2>
-        <h3><strong>Marques</strong></h3>
-        <p>Serge Lutens</p>
-        <p>Guerlain</p>
-        <p>Dior</p>
-        <p>Armani</p>
-        <a href="#">Voir plus de marques</a>
+    <div class="container">
+        <!-- Colonne gauche : texte / filtre -->
+        <div class="left">
+            <h2>Catégories</h2>
+            <h3><strong>Marques</strong></h3>
+            <p>Serge Lutens</p>
+            <p>Guerlain</p>
+            <p>Dior</p>
+            <p>Armani</p>
+            <a href="#">Voir plus de marques</a>
 
-        <h4>Prix</h4>
-        <input type="range" min="0" max="500" step="5">
-    </div>
+            <h4>Prix</h4>
+            <input type="range" min="0" max="500" step="5">
+        </div>
 
     <!-- Colonne droite : grille de produits -->
     <div class="right">
@@ -100,20 +100,20 @@ $liste_produits=$produits->getDisponibles();
 
 
 
-        
-        <img src="#" alt="<?= esc($p->getNom()) ?>">
 
-        <div class="info">
-            <span><?= esc($p->getNom()) ?></span>
-            <strong><?= number_format($p->getPrix(), 2) ?> €</strong>
-        </div>
+                        <img src="#" alt="<?= esc($p->getNom()) ?>">
 
-    </a>
-<?php endforeach; ?>
+                        <div class="info">
+                            <span><?= esc($p->getNom()) ?></span>
+                            <strong><?= number_format($p->getPrix(), 2) ?> €</strong>
+                        </div>
 
+                    </a>
+                <?php endforeach; ?>
+
+            </div>
         </div>
     </div>
-</div>
 
 
 </body>

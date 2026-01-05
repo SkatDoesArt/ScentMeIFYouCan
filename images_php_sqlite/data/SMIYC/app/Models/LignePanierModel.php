@@ -55,6 +55,39 @@ class LignePanierModel extends Model
 {
     return $this->where('id_user', $idUser)->findAll();
 }
+  // --------------------------------------------
+    // Augmente la quantité d'une ligne
+    // --------------------------------------------
+    public function incrementQuantite(int $id_ligne_panier, int $amount = 1)
+    {
+        $ligne = $this->find($id_ligne_panier);
+        if ($ligne) {
+            $this->update($id_ligne_panier, [
+                'quantite' => $ligne->quantite + $amount
+            ]);
+        }
+    }
 
+    // --------------------------------------------
+    // Diminue la quantité d'une ligne
+    // --------------------------------------------
+    public function decrementQuantite(int $id_ligne_panier, int $amount = 1)
+    {
+        $ligne = $this->find($id_ligne_panier);
+        if ($ligne) {
+            $nouvelleQuantite = max(0, $ligne->quantite - $amount); // jamais négatif
+            $this->update($id_ligne_panier, [
+                'quantite' => $nouvelleQuantite
+            ]);
+        }
+    }
+
+    // --------------------------------------------
+    // Supprime une ligne du panier
+    // --------------------------------------------
+    public function deleteLigne(int $id_ligne_panier)
+    {
+        $this->delete($id_ligne_panier);
+    }
 
 }

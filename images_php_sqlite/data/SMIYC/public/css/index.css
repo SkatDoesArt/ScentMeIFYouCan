@@ -21,7 +21,7 @@ body {
 
 #accueil .title h1 {
     text-align: center;
-    margin: 1.5%;
+    margin: 2%;
     width: fit-content;
     text-wrap: nowrap;
     font-size: 40px;
@@ -39,7 +39,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    height: 70vh; /* 535px */
+    height: 535px;
     border: 1px solid black;
     margin: 0 2%;
     background-size: cover;
@@ -69,18 +69,19 @@ body {
 }
 
 #panel1 {
-    width: 665px; /* 665px */
+    width: 665px;
     background-image: url("../pictures/parfums/valentino_homme.jpg");
 }
 
 #panel2 {
-    width: 40vh; /*322px*/
+    width: 322px;
     background-image: url("../pictures/parfums/scandal-her-le-parfum.jpg");
 }
 
 #small-products-panels {
     display: flex;
     flex-direction: column;
+    
 }
 
 #small-products-panels a {
@@ -92,16 +93,16 @@ body {
 
 #small-products-panels .panel {
     margin: 4.5%;
-    width: 40vh; /* 320px */
+    width: 320px;
 }
 
 #panel-exotique {
-    height: 33vh; /*230px*/
+    height: 230px;
     background-image: url("../pictures/parfums/yara.jpg");
 }
 
 #panel-homme {
-    height: 33vh; /* 273px */
+    height: 273px;
     background-image: url("../pictures/parfums/jean_paul_geautier.jpeg");
 }
 
@@ -126,29 +127,15 @@ body {
 .contentOnRight {
     width: 40%;
     margin: 0 10rem;
-    text-align: center;
-    font-family: 'Playfair Display';
-    font-style: normal;
-    font-weight: bolder;
-}
-
-.contentOnRight > p {
-    font-size: 2vh !important;
 }
 
 #best-site .title {
     display: flex;
     flex-direction: column;
     align-items: center;
+    
     width: 100%;
     font-size: x-large;
-}
-
-#best-site .title span {
-    display: inline-block;
-    height: 2px;
-    width: 500px;
-    background-color: #eee;
 }
 
 #best-site .title h1 {
@@ -162,28 +149,19 @@ body {
 
 /* Le meilleur site de parfum */
 
-#meilleur-icons-div {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 8%;
-    margin-bottom: 2%;
+
+
+
+#best-site .title span {
+    display: inline-block;
+    height: 2px;
+    width: 500px;
+    background-color: #eee;
 }
 
-.meilleur-icons {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
 
-.meilleur-icons svg {
-    height: 6vh;
-    width: 6vh;
-}
 
-#best-site p {
-    font-size: 1.5vh;
-}
+
 
 
 
@@ -410,4 +388,78 @@ body {
     background-color: #333;
     width: 30px;
     border-radius: 10px;
+}
+
+/* Conteneur individuel */
+.slide-item {
+    flex: 0 0 33.333%;
+    position: relative;
+    padding: 0 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.slide-item img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    display: block;
+}
+
+/* Le bandeau permanent au bas de l'image */
+.info-bandeau {
+    position: absolute;
+    bottom: 0;
+    left: 10px;  /* Aligné avec le padding du slide-item */
+    right: 10px;
+    background: rgba(0, 0, 0, 0.6); /* Fond sombre constant */
+    backdrop-filter: blur(5px);    /* Effet de flou moderne sur l'image derrière */
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.text-content {
+    flex: 1;
+}
+
+.text-content h3 {
+    margin: 0;
+    font-family: "Playfair Display", serif;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+.text-content p {
+    margin: 3px 0 0 0;
+    font-size: 0.75rem;
+    opacity: 0.9;
+    font-weight: 300;
+}
+
+/* Bouton + stylisé */
+.add-btn {
+    background: #e6b496; /* Ta couleur thématique ou blanc */
+    color: #333;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 1.4rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 15px;
+    transition: all 0.3s ease;
+}
+
+.add-btn:hover {
+    background: white;
+    transform: scale(1.1);
 }

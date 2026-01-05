@@ -108,7 +108,7 @@ label.hidden{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 8vh;
+    height: 80px;
     padding: 0 1rem;
 }
 
@@ -125,7 +125,7 @@ label.hidden{
 
 .categorie {
     color: white;
-    font-size: 2vh !important;
+    font-size: 0.9rem;
     font-family: "Poppins";
     font-weight: bold;
     cursor: pointer;

@@ -32,6 +32,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 50%;
+    padding-bottom: 4em;
 }
 
 .panel {

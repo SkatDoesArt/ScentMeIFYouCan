@@ -131,7 +131,7 @@
                                 clip-rule="evenodd"></path>
                         </svg>
                     </a>
-                    <a href="">
+                    <a href="cart">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"
                             class="min-h-iconLarge min-w-iconLarge stroke-[0.125rem]" alt="" height="2rem" width="2rem">
                             <path fill="currentColor" fill-rule="evenodd"
@@ -143,15 +143,15 @@
             </nav>
         </div>
         <nav id="nav-list">
-            <span class="categorie" role="link">Homme</span>
-            <span class="categorie" role="link">Femme</span>
-            <span class="categorie" role="link">Unisexe</span>
-            <span class="categorie" role="link">Enfant</span>
-            <span class="categorie" role="link">Marques</span>
-            <span class="categorie" role="link">Saison</span>
-            <span class="categorie" role="link">Sniff&Chill</span>
-            <span class="categorie" role="link">Exotique</span>
-            <span class="categorie" role="link">Crème</span>
+            <a href="catalogue"><span class="categorie" role="link">Homme</span></a>
+            <a href=""><span class="categorie" role="link">Femme</span></a>
+            <a href=""><span class="categorie" role="link">Unisexe</span></a>
+            <a href=""><span class="categorie" role="link">Enfant</span></a>
+            <a href=""><span class="categorie" role="link">Marques</span></a>
+            <a href=""><span class="categorie" role="link">Saison</span></a>
+            <a href=""><span class="categorie" role="link">Sniff&Chill</span></a>
+            <a href=""><span class="categorie" role="link">Exotique</span></a>
+            <a href=""><span class="categorie" role="link">Crème</span></a>
         </nav>
     </header>
 

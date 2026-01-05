@@ -1,26 +1,10 @@
-<?php
-
-use App\Models\ProduitModel;
-
-// Liste de produits (à génerer  aprés avec la base de donné )
-$produits = new ProduitModel();
-$liste_produits = $produits->getDisponibles();
-
-?>
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" href="<?php echo base_url(); ?>SMIYC/public/css/common.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>SMIYC/public/css/index.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>SMIYC/public/css/separator_shop.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>SMIYC/public/css/card_produit.css">
-
-    <script type="text/javascript" src="<?php echo base_url(); ?>SMIYC/public/js/reloadPage.js" defer></script>
-
+    <title>Document</title>
 </head>
 
 <body>
@@ -53,7 +37,7 @@ $liste_produits = $produits->getDisponibles();
                                 clip-rule="evenodd"></path>
                         </svg>
                     </a>
-                    <a href="">
+                    <a href="cart">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"
                             class="min-h-iconLarge min-w-iconLarge stroke-[0.125rem]" alt="" height="2rem" width="2rem">
                             <path fill="currentColor" fill-rule="evenodd"
@@ -64,58 +48,53 @@ $liste_produits = $produits->getDisponibles();
                 </div>
             </nav>
         </div>
-        <nav id="nav-list">
-            <span class="categorie" role="link">Homme</span>
-            <span class="categorie" role="link">Femme</span>
-            <span class="categorie" role="link">Unisexe</span>
-            <span class="categorie" role="link">Enfant</span>
-            <span class="categorie" role="link">Marques</span>
-            <span class="categorie" role="link">Saison</span>
-            <span class="categorie" role="link">Sniff&Chill</span>
-            <span class="categorie" role="link">Exotique</span>
-            <span class="categorie" role="link">Crème</span>
-        </nav>
     </header>
-    <div class="container">
-        <!-- Colonne gauche : texte / filtre -->
-        <div class="left">
-            <h2>Catégories</h2>
-            <h3><strong>Marques</strong></h3>
-            <p>Serge Lutens</p>
-            <p>Guerlain</p>
-            <p>Dior</p>
-            <p>Armani</p>
-            <a href="#">Voir plus de marques</a>
 
-            <h4>Prix</h4>
-            <input type="range" min="0" max="500" step="5">
-        </div>
+    <div id="body">
+        <h1>Votre Compte</h1>
+        <div>
+            <div id="categories">
+                <ul>
+                    <li>Informations personnelles</li>
+                    <li>Langue et Région</li>
+                    <li>Carnet d'adresses</li>
+                    <li>Informations de payement</li>
+                    <li>Suivis de commande</li>
+                    <li>Historique de commandes</li>
+                </ul>
+            </div>
+            <div id="info-perso">
+                <h2>Langue et Région</h2>
+                <div id="list-adress">
 
-        <!-- Colonne droite : grille de produits -->
-        <div class="right">
-            <h2>Parfums Hommes</h2>
-            <div class="grid">
-                <?php foreach ($liste_produits as $p): ?>
-                    <a href="<?= base_url(relativePath: 'SMIYC/public/catalogue/product/' . $p->getId()) ?>" class="card">
+                </div>
+                <div id="add-adress">
+                    <form action="">
+                        <label for="destinataire">Destinataire :</label>
+                        <input id="destinataire" name="destinataire" type="text">
+                        <br>
+                        <label for="adress">Adresse :</label>
+                        <input id="adress" name="adress" type="text">
+                        <br>
+                        <label for="ville">Ville :</label>
+                        <input id="ville" name="ville" type="text">
+                        <br>
+                        <label for="region">Région :</label>
+                        <input id="region" name="region" type="text">
+                        <br>
+                        <label for="code-postal">Code Postal :</label>
+                        <input id="code-postal" name="code-postal" type="text">
+                        <br>
+                        <label for="pays">Pays :</label>
+                        <input id="pays" name="pays" type="text">
+                    </form>
 
-
-
-
-                        <img src="#" alt="<?= esc($p->getNom()) ?>">
-
-                        <div class="info">
-                            <span><?= esc($p->getNom()) ?></span>
-                            <strong><?= number_format($p->getPrix(), 2) ?> €</strong>
-                        </div>
-
-                    </a>
-                <?php endforeach; ?>
+                    <button id="modify-info">Modifier vos informations</button>
+                </div>
 
             </div>
         </div>
     </div>
-
-
 </body>
 
 </html>

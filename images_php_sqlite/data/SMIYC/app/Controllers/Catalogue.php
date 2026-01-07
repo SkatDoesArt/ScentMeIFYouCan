@@ -7,20 +7,20 @@ use App\Models\ProduitModel;
 
 class Catalogue extends BaseController
 {
-    public function shop(string $categorie, ?string $marque = null): string
-    {
-        $produits = new ProduitModel();
+public function shop(string $categorie, ?string $marque = null): string
+{
+    $produits = new ProduitModel();
 
-        
-
-        if ($marque !== null) {
-            $query = $query->getByMarque($marque);
-        }
-
-        $data['liste_produits'] =  $produits->getByCategorie($categorie);
-        $data['categorie'] = $categorie;
-        return view('Pages/catalogue/shop', $data);
+    if ($marque !== null) {
+        $data['liste_produits'] = $produits->getByMarque( $marque);
+    } else {
+        $data['liste_produits'] = $produits->getByCategorie($categorie);
     }
+
+    $data['categorie'] = $categorie;
+    return view('Pages/catalogue/shop', $data);
+}
+
 
 
     public function detail($id = null)

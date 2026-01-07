@@ -14,37 +14,40 @@
     </div>
 <?php endif; ?>
 
-<form action="<?= base_url(relativePath:'SMIYC/public/admin/add/product') ?>" method="post">
+<form action="<?= base_url('admin/add/product') ?>" method="post" enctype="multipart/form-data">
     <?= csrf_field() ?>
 
-    <label>Nom</label>
+
+    <label for="name">Nom</label>
     <input type="text" name="name" required>
 
-    <label>Prix</label>
+    <label for="price">Prix</label>
     <input type="number" step="0.01" name="price" required>
 
-    <label>Description</label>
+    <label for="description">Description</label>
     <input type="text" name="description" required>
 
-    <label>Niveau prestige</label>
+    <label for="niveau_prestige">Niveau prestige</label>
     <input type="number" name="niveau_prestige" required>
 
-    <label>Notation</label>
+    <label for="notation">Notation</label>
     <input type="number" min="0" max="5" name="notation" required>
 
-    <label>Taille</label>
+    <label for="taille">Taille</label>
     <input type="text" name="taille" required>
 
-    <label>Quantité</label>
+    <label for="quantiteRestante">Quantité</label>
     <input type="number" name="quantiteRestante" required>
 
-    <label>Marque</label>
+    <label for="marque">Marque</label>
     <input type="text" name="marque" required>
 
-    <label>Categorie</label>
+    <label for="categorie">Categorie</label>
     <input type="text" name="categorie" required>
 
-    
+    <label for="image">Image du produit</label>
+    <input type="file" name="image" id="image" accept="image/png, image/jpeg" required>
 
     <button type="submit">Ajouter un produit</button>
 </form>
+

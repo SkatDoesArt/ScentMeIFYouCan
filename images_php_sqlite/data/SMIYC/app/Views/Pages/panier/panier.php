@@ -1,55 +1,53 @@
 <?php
+    use App\Models\User;
+    use App\Models\Role;
+    use App\Models\ProduitModel;
 
-use App\Models\User;
-use App\Models\Role;
-use App\Models\ProduitModel;
+    // Exemple d'utilisateur connecté
+    $client = new User(
+        2,
+        "Martin",
+        "Alice",
+        "client1",
+        "password",
+        Role::Client
+    );
 
-// Exemple d'utilisateur connecté
-$client = new User(
-    2,
-    "Martin",
-    "Alice",
-    "client1",
-    "password",
-    Role::Client
-);
+    // Récupération des produits dans le panier
+    $produitModel = new ProduitModel();
+    $produitsDansPanier = [];
 
-// Récupération des produits dans le panier
-$produitModel = new ProduitModel();
-$produitsDansPanier = [];
+    foreach ($panier as $ligne) {
+        $idProduit = $ligne->getIdProduit();
+        $produit = $produitModel->find($idProduit);
 
-foreach ($panier as $ligne) {
-    $idProduit = $ligne->getIdProduit();
-    $produit = $produitModel->find($idProduit);
-
-    if ($produit) {
-        $produitsDansPanier[] = [
-            'produit' => $produit,
-            'quantite' => $ligne->getQuantite(),
-            'id_ligne_panier' => $ligne->getIdLignePanier() 
-        ];
+        if ($produit) {
+            $produitsDansPanier[] = [
+                'produit' => $produit,
+                'quantite' => $ligne->getQuantite(),
+                'id_ligne_panier' => $ligne->getIdLignePanier() 
+            ];
+        }
     }
-}
-
-
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="<?= base_url(); ?>SMIYC/public/css/panier.css">
-    <link rel="stylesheet" type="text/css" href="<?= base_url(); ?>SMIYC/public/css/common.css">
+    <link rel="stylesheet" type="text/css" href="<?= base_url(); ?>css/panier.css">
+    <link rel="stylesheet" type="text/css" href="<?= base_url(); ?>css/common.css">
 
-    <script type="text/javascript" src="<?php echo base_url(); ?>SMIYC/public/js/reloadPage.js" defer></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>js/reloadPage.js" defer></script>
 </head>
 
 <body>
     <header id="header">
         <div id="header-container">
             <nav id="nav-upper">                
-                <h1 id="bigname"><a href="<?= base_url() ?>SMIYC/public/">SMIYC</a></h1>
+                <h1 id="bigname"><a href="<?= base_url(); ?>">SMIYC</a></h1>
             </nav>
         </div>
     </header>
@@ -58,17 +56,17 @@ foreach ($panier as $ligne) {
 
 
 
- <?php if (!$client): ?>
+    <?php if (!$client): ?>
     <div class="panier-vide">
         <h2>Veuillez vous connecter pour voir votre panier 😢</h2>
         <button class="btn-panier">Se connecter</button>
     </div>
-<?php elseif (empty($produitsDansPanier)): ?>
+    <?php elseif (empty($produitsDansPanier)): ?>
     <div class="panier-vide">
         <h2>Ton panier est vide 😢</h2>
-        <button class="btn-panier">Ajouter des produits</button>
+        <a href="<?= base_url()?>catalogue"><button class="btn-panier">Ajouter des produits</button></a>
     </div>
-<?php else: ?>
+    <?php else: ?>
     <div class="panier-container">
         <div class="panier">
             <?php foreach ($produitsDansPanier as $item): 
@@ -83,11 +81,11 @@ foreach ($panier as $ligne) {
                         <div>Prix unitaire : <?= number_format($produit->price, 2) ?> €</div>
                         <div class="quantity-control">
                             Quantité : 
-<a href="<?= base_url('SMIYC/public/cart/decrement/'.$id_ligne_panier) ?>"><span class="delete-btn">-</span></a>
+                            <a href="<?= base_url('cart/decrement/'.$id_ligne_panier); ?>"><span class="delete-btn">-</span></a>
                             
                             <span><?= $quantite ?></span>
-<a href="<?= base_url('SMIYC/public/cart/increment/'. $id_ligne_panier) ?>"><button>+</button></a>
-<a href="<?= base_url('SMIYC/public/cart/delete/'. $id_ligne_panier )?>"><span class="delete-btn">🗑</span></a>
+                            <a href="<?= base_url('cart/increment/'. $id_ligne_panier); ?>"><button>+</button></a>
+                            <a href="<?= base_url('cart/delete/'. $id_ligne_panier );?>"><span class="delete-btn">🗑</span></a>
 
 
                         </div>

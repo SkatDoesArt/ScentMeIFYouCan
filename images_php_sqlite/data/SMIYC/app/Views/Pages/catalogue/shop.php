@@ -14,12 +14,12 @@ $liste_produits = $produits->getDisponibles();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="<?php echo base_url(); ?>SMIYC/public/css/common.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>SMIYC/public/css/index.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>SMIYC/public/css/separator_shop.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>SMIYC/public/css/card_produit.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>css/common.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>css/index.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>css/separator_shop.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>css/card_produit.css">
 
-    <script type="text/javascript" src="<?php echo base_url(); ?>SMIYC/public/js/reloadPage.js" defer></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>js/reloadPage.js" defer></script>
 
 </head>
 
@@ -30,7 +30,7 @@ $liste_produits = $produits->getDisponibles();
                 <i class="fas fa-bars"></i>
             </div>
             <nav id="nav-upper">
-                <h1 id="bigname"><a href="<?= base_url() ?>SMIYC/public/">SMIYC</a></h1>
+                <h1 id="bigname"><a href="<?= base_url() ?>">SMIYC</a></h1>
                 <form class="recherche" role="search">
                     <label class="hidden" for="search">Recherche</label>
                     <input type="search" id="search" placeholder="Rechercher un produit, une marque" inputmode="search"
@@ -53,7 +53,7 @@ $liste_produits = $produits->getDisponibles();
                                 clip-rule="evenodd"></path>
                         </svg>
                     </a>
-                    <a href="">
+                    <a href="cart">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"
                             class="min-h-iconLarge min-w-iconLarge stroke-[0.125rem]" alt="" height="2rem" width="2rem">
                             <path fill="currentColor" fill-rule="evenodd"
@@ -65,17 +65,18 @@ $liste_produits = $produits->getDisponibles();
             </nav>
         </div>
         <nav id="nav-list">
-            <span class="categorie" role="link">Homme</span>
-            <span class="categorie" role="link">Femme</span>
-            <span class="categorie" role="link">Unisexe</span>
-            <span class="categorie" role="link">Enfant</span>
-            <span class="categorie" role="link">Marques</span>
-            <span class="categorie" role="link">Saison</span>
-            <span class="categorie" role="link">Sniff&Chill</span>
-            <span class="categorie" role="link">Exotique</span>
-            <span class="categorie" role="link">Crème</span>
+            <a href="<?= base_url()?>catalogue"><span class="categorie" role="link">Homme</span></a>
+            <a href="<?= base_url()?>catalogue"><span class="categorie" role="link">Femme</span></a>
+            <a href="<?= base_url()?>catalogue"><span class="categorie" role="link">Unisexe</span></a>
+            <a href="<?= base_url()?>catalogue"><span class="categorie" role="link">Enfant</span></a>
+            <a href="<?= base_url()?>catalogue"><span class="categorie" role="link">Marques</span></a>
+            <a href="<?= base_url()?>catalogue"><span class="categorie" role="link">Saison</span></a>
+            <a href="<?= base_url()?>catalogue"><span class="categorie" role="link">Sniff&Chill</span></a>
+            <a href="<?= base_url()?>catalogue"><span class="categorie" role="link">Exotique</span></a>
+            <a href="<?= base_url()?>catalogue"><span class="categorie" role="link">Crème</span></a>
         </nav>
     </header>
+    
     <div class="container">
         <!-- Colonne gauche : texte / filtre -->
         <div class="left">
@@ -91,12 +92,12 @@ $liste_produits = $produits->getDisponibles();
             <input type="range" min="0" max="500" step="5">
         </div>
 
-    <!-- Colonne droite : grille de produits -->
-    <div class="right">
-        <h2>Parfums Hommes</h2>
-        <div class="grid">
-<?php foreach ($liste_produits as $p): ?>
-   <a href="<?= base_url(relativePath:'SMIYC/public/catalogue/product/' . $p->getId()) ?>" class="card">
+        <!-- Colonne droite : grille de produits -->
+        <div class="right">
+            <h2>Parfums Hommes</h2>
+            <div class="grid">
+                <?php foreach ($liste_produits as $p): ?>
+                    <a href="<?= base_url(relativePath: 'catalogue/product/' . $p->getId()) ?>" class="card">
 
 
 

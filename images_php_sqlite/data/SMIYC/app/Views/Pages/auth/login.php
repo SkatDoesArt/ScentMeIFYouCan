@@ -3,12 +3,13 @@
 
 <head>
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
-    <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>SMIYC/public/css/common.css">
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>SMIYC/public/css/login.css">
+    <meta charset="UTF-8">
+    
+    <link rel="stylesheet" href="<?php echo base_url(); ?>css/common.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>css/index.css">
 
-    <script type="text/javascript" src="<?php echo base_url(); ?>SMIYC/public/js/background.js" defer></script>
-    <script type="text/javascript" src="<?php echo base_url(); ?>SMIYC/public/js/reloadPage.js" defer></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>js/background.js" defer></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>js/reloadPage.js" defer></script>
 
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
 </head>
@@ -95,7 +96,7 @@
                         <a href="javascript:history.back()" title="Retour à la page précédente">Retour</a>
                     </div>
                 </div>
-                <h1 id="bigname"><a href="<?= base_url() ?>SMIYC/public/">SMIYC</a></h1>
+                <h1 id="bigname"><a href="<?= base_url() ?>">SMIYC</a></h1>
             </nav>
         </div>
 
@@ -123,7 +124,7 @@
             </form>
         </div>
         <div class="container b-container" id="b-container">
-            <form class="form" id="b-form" method="POST" action="<?php echo base_url(); ?>">
+            <form class="form" id="b-form" method="POST" action="<?php echo base_url(); ?>auth/login/">
                 <h2 class="form_title title">Connexion à votre compte</h2>
                 <div class="form__icons">
                     <img class="form__icon"
@@ -159,7 +160,7 @@
             </div>
         </div>
     </div>
-    <script src="<?php echo base_url(); ?>SMIYC/public/js/login.js"></script>
+    <script src="<?php echo base_url(); ?>js/login.js"></script>
 </body>
 
 </html>

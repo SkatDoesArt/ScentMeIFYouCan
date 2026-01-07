@@ -94,7 +94,7 @@ label.hidden{
 }
 
 #nav-buttons a {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif !important;
     color: white;
     text-decoration: none;
     display: flex;
@@ -126,7 +126,7 @@ label.hidden{
 .categorie {
     color: white;
     font-size: 0.9rem;
-    font-family: "Poppins";
+    font-family: 'Poppins', sans-serif !important;
     font-weight: bold;
     cursor: pointer;
     padding: 0 0.5rem;

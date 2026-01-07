@@ -72,6 +72,17 @@ $routes->group('commande', function($routes) {
     $routes->get('history', 'Commande::history');
 });
 
+// ====================================================================
+// DASHBOARD
+// ====================================================================
+$routes->group('dashboard', function($routes) {
+    $routes->get('infos_perso', 'Dashboard::infos_perso');
+    $routes->get('langue_region', 'Dashboard::langue_region');
+    $routes->get('adresses', 'Dashboard::adresses');
+    $routes->get('moyen_paiement', 'Dashboard::moyen_paiement');
+    $routes->get('suivi_commande', 'Dashboard::suivi_commande');
+    $routes->get('historique_commandes', 'Dashboard::historique_commandes');
+});
 
 // ====================================================================
 // ADMINISTRATION

@@ -4,6 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="<?php echo base_url(); ?>css/common.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>css/index.css">
+
     <title>Document</title>
 </head>
 
@@ -14,7 +19,7 @@
                 <i class="fas fa-bars"></i>
             </div>
             <nav id="nav-upper">
-                <h1 id="bigname"><a href="<?= base_url() ?>SMIYC/public/">SMIYC</a></h1>
+                <h1 id="bigname"><a href="<?= base_url() ?>">SMIYC</a></h1>
                 <form class="recherche" role="search">
                     <label class="hidden" for="search">Recherche</label>
                     <input type="search" id="search" placeholder="Rechercher un produit, une marque" inputmode="search"
@@ -55,16 +60,16 @@
         <div>
             <div id="categories">
                 <ul>
-                    <li>Informations personnelles</li>
-                    <li>Langue et Région</li>
-                    <li>Carnet d'adresses</li>
-                    <li>Informations de payement</li>
-                    <li>Suivis de commande</li>
-                    <li>Historique de commandes</li>
+                    <a href="<?= base_url();?>dashboard/infos_perso"><li>Informations personnelles</li></a>
+                    <a href="<?= base_url();?>dashboard/langue_region"><li>Langue et Région</li></a>
+                    <a href="<?= base_url();?>dashboard/adresses"><li>Carnet d'adresses</li></a>
+                    <a href="<?= base_url();?>dashboard/moyen_paiement"><li>Informations de paiement</li></a>
+                    <a href="<?= base_url();?>dashboard/suivi_commande"><li>Suivis de commande</li></a>
+                    <a href="<?= base_url();?>dashboard/historique_commandes"><li>Historique de commandes</li></a>
                 </ul>
             </div>
             <div id="info-perso">
-                <h2>Langue et Région</h2>
+                <h2>Carnet d'adresses</h2>
                 <div id="list-adress">
 
                 </div>

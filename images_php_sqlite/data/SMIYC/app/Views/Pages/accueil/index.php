@@ -109,7 +109,7 @@
                 <i class="fas fa-bars"></i>
             </div>
             <nav id="nav-upper">
-                <h1 id="bigname"><a href="<?= base_url() ?>SMIYC/public/">SMIYC</a></h1>
+                <h1 id="bigname"><a href="<?= base_url() ?>">SMIYC</a></h1>
                 <form class="recherche" role="search">
                     <label class="hidden" for="search">Recherche</label>
                     <input type="search" id="search" placeholder="Rechercher un produit, une marque" inputmode="search"
@@ -144,15 +144,15 @@
             </nav>
         </div>
         <nav id="nav-list">
-            <a href="catalogue"><span class="categorie" role="link">Homme</span></a>
-            <a href=""><span class="categorie" role="link">Femme</span></a>
-            <a href=""><span class="categorie" role="link">Unisexe</span></a>
-            <a href=""><span class="categorie" role="link">Enfant</span></a>
-            <a href=""><span class="categorie" role="link">Marques</span></a>
-            <a href=""><span class="categorie" role="link">Saison</span></a>
-            <a href=""><span class="categorie" role="link">Sniff&Chill</span></a>
-            <a href=""><span class="categorie" role="link">Exotique</span></a>
-            <a href=""><span class="categorie" role="link">Crème</span></a>
+            <a href="<?= base_url()?>catalogue"><span class="categorie" role="link">Homme</span></a>
+            <a href="<?= base_url()?>catalogue"><span class="categorie" role="link">Femme</span></a>
+            <a href="<?= base_url()?>catalogue"><span class="categorie" role="link">Unisexe</span></a>
+            <a href="<?= base_url()?>catalogue"><span class="categorie" role="link">Enfant</span></a>
+            <a href="<?= base_url()?>catalogue"><span class="categorie" role="link">Marques</span></a>
+            <a href="<?= base_url()?>catalogue"><span class="categorie" role="link">Saison</span></a>
+            <a href="<?= base_url()?>catalogue"><span class="categorie" role="link">Sniff&Chill</span></a>
+            <a href="<?= base_url()?>catalogue"><span class="categorie" role="link">Exotique</span></a>
+            <a href="<?= base_url()?>catalogue"><span class="categorie" role="link">Crème</span></a>
         </nav>
     </header>
 

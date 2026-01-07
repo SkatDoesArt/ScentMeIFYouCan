@@ -11,13 +11,13 @@ class Catalogue extends BaseController
     {
         $produits = new ProduitModel();
 
-        $query = $produits->getByCategorie($categorie);
+        
 
         if ($marque !== null) {
             $query = $query->getByMarque($marque);
         }
 
-        $data['liste_produits'] = $query->findAll();
+        $data['liste_produits'] =  $produits->getByCategorie($categorie);
         $data['categorie'] = $categorie;
         return view('Pages/catalogue/shop', $data);
     }

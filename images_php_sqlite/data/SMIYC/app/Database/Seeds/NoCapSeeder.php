@@ -37,6 +37,10 @@ class NoCapSeeder extends Seeder
 
             // Autres
             ['name' => 'PaperPassion', 'price' => 95.00, 'description' => 'Odeur de livre neuf et encre fraîche', 'niveauPrestige' => 4, 'notation' => 5, 'taille' => 50, 'quantiteRestante' => 8, 'marque' => 'PaperPassion', 'categorie' => 'NoCap', 'image_name' => 'BookPerfume.jpg'],
+
+            ['name' => 'Produit A', 'price' => 19.99,'description'=>"Parfum",'niveauPrestige'=>5,'notation'=>5,'taille'=>4,'quantiteRestante'=>9,'marque'=>'Dior','categorie'=>'Homme','image_name' => 'KFC.jpg'],
+            ['name' => 'Produit A', 'price' => 19.99,'description'=>"Parfum",'niveauPrestige'=>4,'notation'=>5,'taille'=>4,'quantiteRestante'=>9,'marque'=>'Dior','categorie'=>'Femme','image_name' => 'KFC.jpg'],
+
         ];
 
         $this->db->table('produit')->insertBatch($data);

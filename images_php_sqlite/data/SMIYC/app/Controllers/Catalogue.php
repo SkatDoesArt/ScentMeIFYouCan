@@ -7,13 +7,21 @@ use App\Models\ProduitModel;
 
 class Catalogue extends BaseController
 {
-    public function shop(): string
+    public function shop(string $categorie, ?string $marque = null): string
     {
         $produits = new ProduitModel();
-        $data['liste_produits'] = $produits->getDisponibles();
 
+        $query = $produits->getByCategorie($categorie);
+
+        if ($marque !== null) {
+            $query = $query->getByMarque($marque);
+        }
+
+        $data['liste_produits'] = $query->findAll();
+        $data['categorie'] = $categorie;
         return view('Pages/catalogue/shop', $data);
     }
+
 
     public function detail($id = null)
     {
@@ -33,4 +41,11 @@ class Catalogue extends BaseController
         return view('Pages/catalogue/product', $data);
     }
 
+    public function marques()
+    {
+        return view('Pages/catalogue/marques');
+    }
+    public function filter(){
+        return  redirect()->back();
+    } 
 }

@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
     <meta charset="UTF-8">
     
-    <link rel="stylesheet" href="<?php echo base_url(); ?>css/common.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>css/index.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>../../css/common.css">
+    <link rel="stylesheet" href="<?= base_url(); ?>css/index.css">
 
-    <script type="text/javascript" src="<?php echo base_url(); ?>js/background.js" defer></script>
-    <script type="text/javascript" src="<?php echo base_url(); ?>js/reloadPage.js" defer></script>
+    <script type="text/javascript" src="<?= base_url(); ?>js/background.js" defer></script>
+    <script type="text/javascript" src="<?= base_url(); ?>js/reloadPage.js" defer></script>
 
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
 </head>

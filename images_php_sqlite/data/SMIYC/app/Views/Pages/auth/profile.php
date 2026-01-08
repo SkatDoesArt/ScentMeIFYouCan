@@ -1,4 +1,4 @@
-<?php 
+<?php
 use App\Models\User;
 use App\Models\Role;
 $client = new User(
@@ -16,7 +16,7 @@ $client = new User(
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
+
     <link rel="stylesheet" href="<?php echo base_url(); ?>css/common.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>css/index.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>css/separator_profile.css">
@@ -69,29 +69,29 @@ $client = new User(
         </div>
 
     </header>
-      <h1>Votre compte</h1>
-<div class="container">
-    <!-- Colonne gauche : menu -->
-    <div class="left">
-        <p><strong>Informations personnelles</strong></p>
-        <p>Langues et régions</p>
-        <p>Carnet d'adresse</p>
-        <p>Suivis de commande</p>
-        <p>Historique des commandes</p>
-    </div>
+    <h1>Votre compte</h1>
+    <div class="container">
+        <!-- Colonne gauche : menu -->
+        <div class="left">
+            <p><strong>Informations personnelles</strong></p>
+            <p>Langues et régions</p>
+            <p>Carnet d'adresse</p>
+            <p>Suivis de commande</p>
+            <p>Historique des commandes</p>
+        </div>
 
-    <!-- Colonne droite : infos utilisateur -->
-    <div class="right">
-        <div class="right-content">
-            <h2>Informations personnelles</h2>
-            <h3>Nom : <?= htmlspecialchars($client->getNom()) ?></h3>
-            <h3>Prénom : <?= htmlspecialchars($client->getPrenom()) ?></h3>
-            <h3>Adresse mail : <?= htmlspecialchars($client->getLogin()) ?></h3>
-            <h3>Mot de passe : <?= htmlspecialchars($client->getMdp()) ?></h3>
-            <button id="button_modif">Modifier vos informations</button>
+        <!-- Colonne droite : infos utilisateur -->
+        <div class="right">
+            <div class="right-content">
+                <h2>Informations personnelles</h2>
+                <h3>Nom : <?= htmlspecialchars($client->getNom()) ?></h3>
+                <h3>Prénom : <?= htmlspecialchars($client->getPrenom()) ?></h3>
+                <h3>Adresse mail : <?= htmlspecialchars($client->getLogin()) ?></h3>
+                <h3>Mot de passe : <?= htmlspecialchars($client->getMdp()) ?></h3>
+                <button id="button_modif">Modifier vos informations</button>
+            </div>
         </div>
     </div>
-</div>
 
 
 
@@ -99,4 +99,3 @@ $client = new User(
 </body>
 
 </html>
-

@@ -124,7 +124,7 @@
             </form>
         </div>
         <div class="container b-container" id="b-container">
-            <form class="form" id="b-form" method="POST" action="<?php echo base_url(); ?>auth/login/">
+            <form class="form" id="b-form" method="POST" action="<?= base_url(); ?>auth/login/">
                 <h2 class="form_title title">Connexion à votre compte</h2>
                 <div class="form__icons">
                     <img class="form__icon"

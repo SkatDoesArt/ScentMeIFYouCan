@@ -27,17 +27,15 @@ $routes->group('auth', function($routes) {
 // ====================================================================
 // CATALOGUE
 // ====================================================================
-
 $routes->group('catalogue', function($routes) {
-    // Routes fixes / spécifiques en premier
-    $routes->get('product/(:num)', 'Catalogue::detail/$1'); // Afficher un produit
-    $routes->get('search', 'Catalogue::search'); //
-    $routes->get('marques','Catalogue::marques'); //Affiche la liste des marques
-
-    // Routes dynamiques après
-    $routes->get('(:segment)/(:segment)', 'Catalogue::shop/$1/$2'); 
-    $routes->get('(:segment)', 'Catalogue::shop/$1');
+   $routes->get('/', 'Catalogue::shop'); //Pages Principale
+    $routes->get('product/(:num)', 'Catalogue::detail/$1');//Afficher un produit en particulier 
+    $routes->get('search', 'Catalogue::search');
+    
+    $routes->get('/(:segment)/(:segment)','Catalogue::detail/$1/$2');
+    $routes->get('/(:segment)/(:segment)','Catalogue::detail/$1/$2');
 });
+
 
 // ====================================================================
 // PANIER
@@ -91,7 +89,9 @@ $routes->group('dashboard', function($routes) {
 // ====================================================================
 $routes->group('admin', function($routes) {
     $routes->group('add',function($routes){
-        $routes->match(['get', 'post'], 'product', 'Admin::AddProduit');
+        $routes->post('product', 'Admin::AddProduit');
+        
+        $routes->get( 'product', 'Admin::AddProduit');
     });
     $routes->get('dashboard', 'Admin::dashboard');
     $routes->get('products', 'Admin::products');

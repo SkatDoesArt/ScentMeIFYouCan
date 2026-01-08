@@ -63,13 +63,64 @@
     font-size: 1.5rem;
 }
 
+
 /* Grille produits */
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
 }
 
+.product-card {
+    height: 270px;
+    width: 250px;
+    margin-bottom: 30px;
+}
+
+/* Carte produit */
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100%;
+    padding: 15px;
+    color: #333;
+    background: #f8f8f8;
+    border-radius: 10px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.25);
+}
+
+.card-bottom {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.card img {
+    width: 100%;
+    height: 200px;
+    background: #ddd;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.card .info span {
+    display: block;
+    font-weight: 500;
+}
+
+.card .info strong {
+    color: #a33;
+    font-size: 1rem;
+}
 
 
 /* Responsive pour mobiles */

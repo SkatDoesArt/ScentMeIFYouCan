@@ -16,8 +16,7 @@ $liste_produits = $produits->getDisponibles();
 
     <link rel="stylesheet" href="<?php echo base_url(); ?>css/common.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>css/index.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>css/separator_shop.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>css/card_produit.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>css/shop.css">
 
     <script type="text/javascript" src="<?php echo base_url(); ?>js/reloadPage.js" defer></script>
 
@@ -65,18 +64,18 @@ $liste_produits = $produits->getDisponibles();
             </nav>
         </div>
         <nav id="nav-list">
-            <a href="<?= base_url()?>catalogue"><span class="categorie" role="link">Homme</span></a>
-            <a href="<?= base_url()?>catalogue"><span class="categorie" role="link">Femme</span></a>
-            <a href="<?= base_url()?>catalogue"><span class="categorie" role="link">Unisexe</span></a>
-            <a href="<?= base_url()?>catalogue"><span class="categorie" role="link">Enfant</span></a>
-            <a href="<?= base_url()?>catalogue"><span class="categorie" role="link">Marques</span></a>
-            <a href="<?= base_url()?>catalogue"><span class="categorie" role="link">Saison</span></a>
-            <a href="<?= base_url()?>catalogue"><span class="categorie" role="link">Sniff&Chill</span></a>
-            <a href="<?= base_url()?>catalogue"><span class="categorie" role="link">Exotique</span></a>
-            <a href="<?= base_url()?>catalogue"><span class="categorie" role="link">Crème</span></a>
+            <a href="<?= base_url() ?>catalogue"><span class="categorie" role="link">Homme</span></a>
+            <a href="<?= base_url() ?>catalogue"><span class="categorie" role="link">Femme</span></a>
+            <a href="<?= base_url() ?>catalogue"><span class="categorie" role="link">Unisexe</span></a>
+            <a href="<?= base_url() ?>catalogue"><span class="categorie" role="link">Enfant</span></a>
+            <a href="<?= base_url() ?>catalogue"><span class="categorie" role="link">Marques</span></a>
+            <a href="<?= base_url() ?>catalogue"><span class="categorie" role="link">Saison</span></a>
+            <a href="<?= base_url() ?>catalogue"><span class="categorie" role="link">Sniff&Chill</span></a>
+            <a href="<?= base_url() ?>catalogue"><span class="categorie" role="link">Exotique</span></a>
+            <a href="<?= base_url() ?>catalogue"><span class="categorie" role="link">Crème</span></a>
         </nav>
     </header>
-    
+
     <div class="container">
         <!-- Colonne gauche : texte / filtre -->
         <div class="left">
@@ -97,21 +96,20 @@ $liste_produits = $produits->getDisponibles();
             <h2>Parfums Hommes</h2>
             <div class="grid">
                 <?php foreach ($liste_produits as $p): ?>
-                    <a href="<?= base_url(relativePath: 'catalogue/product/' . $p->getId()) ?>" class="card">
+                    <div class="product-card">
+                        <a href="<?= base_url(relativePath: 'catalogue/product/' . $p->getId()) ?>" class="card">
 
-
-
-
-                        <img src="#" alt="<?= esc($p->getNom()) ?>">
-
-                        <div class="info">
-                            <span><?= esc($p->getNom()) ?></span>
-                            <strong><?= number_format($p->getPrix(), 2) ?> €</strong>
-                        </div>
-
-                    </a>
+                            <img src="#" alt="<?= esc($p->getNom()) ?>">
+                            <div class="card-bottom">
+                                <div class="info">
+                                    <span><?= esc($p->getNom()) ?></span>
+                                    <strong><?= number_format($p->getPrix(), 2) ?> €</strong>
+                                </div>
+                                <button class="add-btn" title="Ajouter au panier">+</button>
+                            </div>
+                        </a>
+                    </div>
                 <?php endforeach; ?>
-
             </div>
         </div>
     </div>

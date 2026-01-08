@@ -1,0 +1,221 @@
+@startuml "DC_IMPLEMENTATION_FACTORY"
+title Diagramme de classes – Implémentation (Delegate, Strategy, COR, Factory)
+
+' ==================================================
+' PACKAGE UTILISATEURS
+' ==================================================
+
+package Utilisateurs {
+
+    enum Role {
+        Admin
+        Client
+    }
+
+    enum MoyenPaiement {
+        Carte
+        PayPal
+    }
+
+    class User {
+        - idUser : int
+        - email : String
+        - login : String
+        - passwordHash : String
+        - actif : bool
+        - role : Role
+        --
+        + isAdmin() : bool
+        + isClient() : bool
+    }
+
+    class Acheteur {
+        - email : String
+        - adresseLivraison : String
+        - adresseFacturation : String
+        - moyenPaiement : MoyenPaiement
+        - user : User
+        --
+        + estAuthentifie() : bool
+        + getIdentite() : String
+    }
+
+    class SessionAchat {
+        - idSession : int
+        - dateCreation : Date
+        - dateDerniereActivite : Date
+        --
+        + estActive() : bool
+    }
+
+    class Admin {
+        - userDelegate : User
+        --
+        + gererProduits()
+        + gererCommandes()
+        + gererUtilisateurs()
+    }
+
+    Acheteur --> User : delegue
+    SessionAchat *-- Acheteur : contient
+    Admin --> User : delegue
+}
+
+' ==================================================
+' PACKAGE PRODUITS + FACTORY
+' ==================================================
+
+package Produits {
+
+    abstract class Produit {
+        - idProduit : int
+        - nom : String
+        - prix : double
+        - description : String
+        - niveauPrestige : int
+        - notationProduit : float
+        - quantiteRestante : int
+    }
+
+    class Parfum {
+        - contenance : int
+        - familleOlfactive : String
+    }
+
+    class Encens {
+        - origine : String
+        - dureeCombustion : int
+    }
+
+    class Creme {
+        - typePeau : String
+        - volume : int
+    }
+
+    Produit <|-- Parfum
+    Produit <|-- Encens
+    Produit <|-- Creme
+
+    class Avis {
+        - titre : String
+        - contenu : String
+        - date : Date
+    }
+
+    Acheteur --> Avis : redige
+    Produit --> Avis : concerne
+
+    class ProduitFactory {
+        + build(type : String, data : Map) : Produit
+    }
+
+    ProduitFactory ..> Produit : cree
+    ProduitFactory ..> Parfum
+    ProduitFactory ..> Encens
+    ProduitFactory ..> Creme
+}
+
+' ==================================================
+' STRATEGY – TRI DU CATALOGUE
+' ==================================================
+
+package Catalogue {
+
+    interface CatalogSortStrategy {
+        + sort(produits : List<Produit>) : List<Produit>
+    }
+
+    class SortByPrice
+    class SortByRating
+    class SortByPrestige
+
+    CatalogSortStrategy <|.. SortByPrice
+    CatalogSortStrategy <|.. SortByRating
+    CatalogSortStrategy <|.. SortByPrestige
+
+    class CatalogueService {
+        - strategy : CatalogSortStrategy
+        --
+        + setStrategy(strategy : CatalogSortStrategy)
+        + getCatalogue() : List<Produit>
+    }
+
+    CatalogueService --> CatalogSortStrategy : utilise
+    CatalogueService --> Produit
+}
+
+' ==================================================
+' PACKAGE COMMANDES
+' ==================================================
+
+package Commandes {
+
+    enum StatutCommande {
+        Brouillon
+        EnAttentePaiement
+        Payee
+        Expediee
+        Annulee
+    }
+
+    class Panier {
+        - idPanier : int
+    }
+
+    class LignePanier {
+        - quantite : int
+    }
+
+    class Commande {
+        - idCommande : int
+        - date : Date
+        - statut : StatutCommande
+    }
+
+    class LigneCommande {
+        - quantite : int
+        - prixUnitaire : double
+    }
+
+    Panier *-- LignePanier
+    LignePanier --> Produit
+
+    Commande *-- LigneCommande
+    LigneCommande --> Produit
+
+    Acheteur --> Panier
+    Acheteur --> Commande
+}
+
+' ==================================================
+' CHAIN OF RESPONSIBILITY – VALIDATION COMMANDE
+' ==================================================
+
+package Validation {
+
+    abstract class ValidationHandler {
+        - next : ValidationHandler
+        --
+        + setNext(handler : ValidationHandler) : ValidationHandler
+        + handle(commande : Commande) : bool
+    }
+
+    class StockValidationHandler
+    class PaymentValidationHandler
+    class AddressValidationHandler
+
+    ValidationHandler <|-- StockValidationHandler
+    ValidationHandler <|-- PaymentValidationHandler
+    ValidationHandler <|-- AddressValidationHandler
+
+    class CommandeValidator {
+        - firstHandler : ValidationHandler
+        --
+        + validate(commande : Commande) : bool
+    }
+
+    CommandeValidator --> ValidationHandler : orchestre
+    ValidationHandler --> Commande
+}
+
+@enduml

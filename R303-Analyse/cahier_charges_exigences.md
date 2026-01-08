@@ -21,18 +21,19 @@
 ### Fonctionalités secondaires
 
 - Pouvoir liker/mettre en favoris des produits
-- Pouvoir faire des collections de produits (comme sur Pinterest)
 - Pouvoir changer la couleur du site (lightmode/darkmode)
 - Avoir accès à nos anciens achats
-- Recevoir des suggestions de produits
+
 
 ### Bonus
 
 - Shopping à plusieurs (paiement partagé)
+- Pouvoir faire des collections de produits (comme sur Pinterest)
 - Pouvoir mettre un avis
 - Pouvoir chercher des Users
 - Système de points de fidélités
 - Sons de validations (Merci_pour_le_paiement.wav & Acheté.wav)
+- Recevoir des suggestions de produits
 
 ## Cahier des Exigences
 

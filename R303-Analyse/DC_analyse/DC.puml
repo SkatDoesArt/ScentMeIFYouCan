@@ -3,39 +3,90 @@ title Diagramme de classes – Plateforme de vente en ligne
 
 package Utilisateurs {
 
+    ' =========================
+    ' ENUMS
+    ' =========================
+
     enum Role {
         Admin
         Client
     }
+    
+    enum MoyenPaiement {
+        - Carte
+        - PayPal
+    }
+
+
+    ' =========================
+    ' AUTHENTIFICATION
+    ' =========================
 
     class User {
         - idUser : int
-        - nom : String
-        - prenom : String
+        - email : String
         - login : String
-        - mdp : String
+        - passwordHash : String
+        - actif : bool
         - role : Role
+        --
+        + isAdmin() : bool
+        + isClient() : bool
     }
-    
+
     User ..> Role : <<uses>>
 
-    class Client {
-        - adresse : String
-        - moyenPaiement : String
+    ' =========================
+    ' METIER ACHAT
+    ' =========================
+
+    class Acheteur {
+        - email : String
+        - adresseLivraison : String
+        - adresseFacturation : String
+        - moyenPaiement : MoyenPaiement
+        --
+        + estAuthentifie() : bool
+        + getIdentite() : String
     }
 
-    class Admin {  }
+    Acheteur ..> MoyenPaiement : <<uses>>
 
-    Client --|> User
-    Admin --|> User
+    class SessionAchat {
+        - idSession : int
+        - dateCreation : Date
+        - dateDerniereActivite : Date
+        --
+        + estActive() : bool
+    }
+
+    ' =========================
+    ' ADMINISTRATION
+    ' =========================
+
+    class Admin {
+        --
+        + gererProduits()
+        + gererCommandes()
+        + gererUtilisateurs()
+    }
+
+    ' =========================
+    ' RELATIONS
+    ' =========================
+
+    ' Délégation d'identité
+    Acheteur "0..1" --> User : delegueIdentite
+
+    ' Composition transactionnelle
+    SessionAchat "1" *-- "1" Acheteur : contient
+
+    ' Rôle applicatif
+    Admin --> User : utilise
 }
 
-enum MoyenPayement {
-    - Carte
-    - PayPal
-}
 
-Client "0..*"-->"0..*" MoyenPayement : "- utilise"
+
 
 package Produits {
 
@@ -56,22 +107,22 @@ package Produits {
         - date
     }
 
-    User "0..*" --> "1" Avis : à laisse
-    Produit "0..*" -- "0..*" Avis : avis
+    Acheteur "0..*" --> "1" Avis : redige
+    Produit "1" --> "0..*" Avis : a
 
-    class Catalogue {
-        - idCatalogue : int
-        - nom : String
-    }
+    
+    
 
-    Catalogue "1" o-- "0..*" Produit : contient
 }
+
+
 
 package Commandes {
 
     class Panier {
         - idPanier : int
     }
+    
 
     class LignePanier {
         - quantite : int
@@ -80,24 +131,34 @@ package Commandes {
     class Commande {
         - idCommande : int
         - date : Date
-        - statut : String
     }
+    Commande "0..*" --> "1" StatutCommande : statut
+
 
     class LigneCommande {
         - quantite : int
         - prixUnitaire : double
     }
+    
+    enum StatutCommande {
+        Brouillon
+        EnAttentePaiement
+        Payee
+        Expediee
+        Annulee
+    }
+
 
     ' Relations internes
     Panier "1" *-- "0..*" LignePanier : contient
-    LignePanier "1" --> "1" Produit : concerne
+    LignePanier "0..*" --> "1" Produit : concerne
 
     Commande "1" *-- "1..*" LigneCommande : contient
-    LigneCommande "1" --> "1" Produit : concerne
+    LigneCommande "0..*" --> "1" Produit : concerne
 }
 
-Client "1" --> "1" Panier : possède
-Client "0..*" --> "1" Commande : effectue
+Acheteur "1" --> "1" Panier : possède
+Acheteur "0..*" --> "1" Commande : effectue
 
 @enduml
 

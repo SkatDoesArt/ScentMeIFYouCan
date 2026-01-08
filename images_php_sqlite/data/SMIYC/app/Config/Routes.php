@@ -89,7 +89,9 @@ $routes->group('dashboard', function($routes) {
 // ====================================================================
 $routes->group('admin', function($routes) {
     $routes->group('add',function($routes){
-        $routes->match(['get', 'post'], 'product', 'Admin::AddProduit');
+        $routes->post('product', 'Admin::AddProduit');
+        
+        $routes->get( 'product', 'Admin::AddProduit');
     });
     $routes->get('dashboard', 'Admin::dashboard');
     $routes->get('products', 'Admin::products');

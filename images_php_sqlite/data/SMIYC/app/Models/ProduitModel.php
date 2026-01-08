@@ -88,7 +88,13 @@ class ProduitModel extends Model
     {
         return $this->like('categorie', $categorie)->findAll();
     }
-
+    /**
+     * Renvoie la liste des produits des produits
+     * @return array
+     */
+    public function getListePorduit(){
+        return $this->findAll();
+    }
 
 
 }

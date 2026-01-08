@@ -2,7 +2,7 @@
 
 ## Conception et Modélisation d’un Système de Vente en Ligne
 
-**Groupe_X_Y**
+**Groupe_1_03**
 
 **Membres :**
 
@@ -15,11 +15,11 @@
 
 ## 1. Introduction et Contexte
 
-Ce document constitue le livrable final de la phase d’analyse de la SAE R3.03. Il a pour objectif de formaliser de manière rigoureuse les exigences nécessaires à la conception d’une plateforme de vente en ligne. Avant toute phase de développement, il est indispensable de comprendre précisément les attentes du client, d’identifier les acteurs impliqués et de définir clairement le périmètre fonctionnel et technique du système.
+Ce document constitue le livrable final de la phase d'analyse pour le projet de conception d'une plateforme de vente en ligne de parfums. L'objectif est de développer une marketplace dynamique et évolutive, spécialisée dans les parfums de marques originales ou alternatives, ainsi que des produits complémentaires tels que des crèmes parfumées et de l’encens.
 
-Le système étudié correspond à une plateforme e-commerce classique permettant à des clients de consulter un catalogue de produits, de gérer un panier, de passer commande et d’effectuer un paiement en ligne. Il intègre également un volet administratif permettant la gestion des produits, des utilisateurs et le suivi des commandes. Des systèmes externes, tels qu’un prestataire de paiement et un serveur de messagerie, complètent l’architecture afin d’assurer un fonctionnement réaliste et cohérent.
+Cette architecture complexe a pour vocation de mettre en relation des vendeurs spécialisés avec une clientèle recherchant des produits authentiques et de qualité. Le système centralise l’offre via une interface unique tout en permettant aux vendeurs de gérer leurs stocks et leurs produits, sous la supervision stricte des administrateurs pour garantir la cohérence et la qualité de la marketplace.
 
-Cette phase d’analyse vise à produire une base solide et exploitable pour la suite du projet, en s’appuyant sur des modèles UML normalisés et une démarche méthodologique structurée.
+La phase d’analyse vise à formaliser les besoins fonctionnels et techniques, identifier les acteurs et définir le périmètre du système. Les modèles UML produits permettent de fournir une base solide et exploitable pour la conception détaillée et le développement futur de la plateforme.
 
 ---
 
@@ -120,32 +120,148 @@ Le cas d’utilisation central est **« Passer une commande »**, qui inclut la 
 ---
 
 ## 5. Modélisation Dynamique – Diagrammes d’Activités
+### 5.1 Objectifs de l’analyse dynamique
 
-Les diagrammes d’activités permettent de décrire le comportement dynamique du système pour les processus critiques, tels que :
+Afin de valider la faisabilité des fonctionnalités identifiées et de clarifier la logique métier du système, une analyse dynamique a été menée à l’aide de diagrammes d’activités UML. Ces diagrammes permettent de représenter de manière précise les enchaînements d’actions, les prises de décision, les responsabilités des acteurs ainsi que les interactions avec les systèmes externes.
 
-* La consultation du catalogue
-* La gestion du panier
-* La passation et le paiement d’une commande
-* Les opérations d’administration
+Les scénarios modélisés correspondent aux cas d’utilisation critiques du système de vente en ligne. Ils traduisent les parcours réels des utilisateurs et mettent en évidence les traitements normaux, alternatifs et d’erreur.
 
-Ces diagrammes mettent en évidence les décisions importantes, les boucles de traitement et les interactions avec les systèmes externes.
+### 5.2 Scénario : S’authentifier (UC1)
+
+Ce diagramme d’activité modélise le processus d’authentification d’un utilisateur existant. Le scénario débute lorsque l’utilisateur accède à la page de connexion et saisit ses identifiants. Le système vérifie la correspondance entre l’identifiant et le mot de passe stocké de manière sécurisée.
+
+En cas de succès, l’utilisateur est authentifié et redirigé vers son espace personnel. En cas d’échec, un message d’erreur est affiché et l’utilisateur peut réessayer. Le diagramme intègre également le scénario alternatif « Mot de passe oublié », dans lequel le système déclenche l’envoi d’un lien de réinitialisation par e-mail via le serveur de messagerie.
+
+### 5.3 Scénario : Créer un compte (UC2)
+
+Ce diagramme décrit le processus d’inscription d’un nouvel utilisateur. Après la saisie des informations requises, le système vérifie la validité des données et l’unicité de l’adresse e-mail.
+
+Si l’adresse e-mail est déjà utilisée, la création du compte est refusée et un message d’erreur est retourné à l’utilisateur. Dans le cas contraire, le compte est créé avec succès et une confirmation est affichée. Les champs facultatifs n’empêchent pas la création du compte, ce qui garantit une inscription fluide tout en respectant les contraintes métier.
+
+### 5.4 Scénario : Consulter le catalogue (UC3)
+
+Ce diagramme modélise la navigation d’un client ou d’un visiteur au sein du catalogue de produits. Le système charge les produits disponibles et les affiche sous forme de liste.
+
+Le diagramme intègre des décisions permettant l’application de filtres (prix, catégorie) et la gestion des cas où aucun produit ne correspond aux critères de recherche. Dans ce cas, un message informatif est affiché à l’utilisateur.
+
+### 5.5 Scénario : Gérer le panier (UC5)
+
+Ce diagramme représente les différentes actions possibles lors de la gestion du panier. Le client peut ajouter un produit, modifier les quantités ou supprimer des articles.
+
+Lors de l’ajout d’un produit, le système vérifie la disponibilité du stock. Si le produit est déjà présent dans le panier, la quantité est simplement incrémentée. En cas de stock insuffisant, le système bloque l’ajout et affiche un message d’erreur. À chaque modification, le total du panier est automatiquement recalculé afin de garantir la cohérence des montants affichés.
+
+### 5.6 Scénario : Passer une commande (UC8)
+
+Ce diagramme d’activité modélise le flux principal de transformation d’un panier en commande. Le client valide son panier, puis le système effectue une vérification finale des stocks.
+
+Le client choisit ensuite une adresse de livraison (préenregistrée ou nouvelle) ainsi qu’un mode de paiement. Un récapitulatif détaillé est affiché avant confirmation. En cas de rupture de stock détectée à cette étape, le client est redirigé vers son panier afin d’ajuster sa commande.
+
+### 5.7 Scénario : Payer la commande (UC9)
+
+Ce diagramme décrit l’interaction entre le système et le prestataire de paiement externe. Une demande de paiement est transmise, puis le client saisit ses informations bancaires.
+
+Si le paiement est accepté, le système valide la transaction, enregistre la commande comme payée et déclenche l’envoi d’un e-mail de confirmation. En cas de refus, un message d’échec est affiché et le client doit sélectionner un autre moyen de paiement.
+
+### 5.8 Scénario : Recevoir une confirmation par e-mail (UC12)
+
+Ce diagramme modélise le processus automatique d’envoi d’un e-mail de confirmation après la validation d’une commande. Le système génère le message et le transmet au serveur de messagerie.
+
+Le diagramme prend en compte le cas d’erreur où l’adresse e-mail serait invalide ou inaccessible, situation dans laquelle une erreur est remontée au système.
+
+### 5.9 Scénario : Consulter l’état d’une commande (UC13)
+
+Ce diagramme décrit le suivi des commandes depuis l’espace personnel du client. Le client accède à la liste de ses commandes et peut sélectionner l’une d’entre elles pour en consulter le détail et le statut.
+
+Si la commande est livrée, le système propose le téléchargement de la facture. En cas de commande introuvable ou non attribuée au client, un message d’erreur est affiché et l’accès est refusé.
+
+### 5.10 Scénario : Gérer les produits (UC14)
+
+Ce diagramme décrit l’interaction entre l’administrateur et le système pour la gestion des produits. L’administrateur peut ajouter, modifier ou supprimer un produit depuis le module de gestion.
+
+Si les données saisies sont valides, le système enregistre les modifications et confirme l’opération. En cas d’erreur (données invalides), le système refuse la validation et affiche un message d’erreur. L’administrateur peut également appliquer des filtres pour trier ou rechercher des produits existants.
+
+### 5.11 Scénario : Gérer les utilisateurs (UC15)
+
+Ce diagramme décrit la gestion des utilisateurs par l’administrateur. L’administrateur peut ajouter, modifier, supprimer ou rechercher un utilisateur depuis le module correspondant.
+
+Si l’action est valide, le système met à jour la base de données et affiche un message de confirmation. En cas de tentative de suppression d’un utilisateur critique ou de données invalides, le système bloque l’opération et affiche un message d’erreur. L’administrateur peut également ajouter des rôles ou permissions supplémentaires.
+
+### 5.12 Scénario : Suivre les commandes (UC17)
+
+Ce diagramme décrit le suivi des commandes par l’administrateur ou un employé interne. L’utilisateur sélectionne une commande pour modifier son statut (préparation, expédiée, annulée, etc.).
+
+Si le statut est mis à jour correctement, le système enregistre la modification et affiche la commande actualisée. En cas de commande introuvable ou déjà traitée par un autre employé, un message d’erreur est affiché. L’utilisateur peut appliquer des filtres pour visualiser les commandes par date, statut ou client.
 
 ---
 
 ## 6. Modélisation Structurelle – Diagramme de Classes d’Analyse
 
-Le diagramme de classes d’analyse est organisé en plusieurs packages afin d’améliorer la lisibilité :
+Le diagramme de classes d’analyse représente la structure statique des données et formalise les règles métier principales du système. Il est organisé en plusieurs packages afin de clarifier les responsabilités et les relations entre les classes.
 
-* **Utilisateurs** : User, Acheteur, Admin, SessionAchat
-* **Produits** : Produit, Avis
-* **Commandes** : Panier, LignePanier, Commande, LigneCommande, StatutCommande
+### 6.1 Packages et classes principales
 
-Un choix de conception important consiste à distinguer clairement le panier (structure temporaire) de la commande (structure persistante). Le prix unitaire est stocké dans la ligne de commande afin de garantir la cohérence des factures, même en cas de modification ultérieure du catalogue.
+#### Package Utilisateurs :
+
+- User : classe de base pour tous les utilisateurs, contenant les informations de connexion et le rôle (Admin ou Client).
+
+- Acheteur : héritier de User, gère les informations de facturation, de livraison et le mode de paiement.
+
+- Admin : héritier de User, responsable de la gestion des produits, utilisateurs et suivi des commandes.
+
+- SessionAchat : représente une session de navigation et de panier temporaire.
+
+#### Package Produits :
+
+- Produit : informations principales (nom, description, prix, niveau de prestige, quantité disponible, etc.).
+
+- Avis : note et commentaire rédigé par un client après réception d’un produit.
+
+#### Package Commandes :
+
+- Panier : panier temporaire du client.
+
+- LignePanier : chaque produit ajouté avec sa quantité.
+
+- Commande : structure persistante représentant une commande validée.
+
+- LigneCommande : détails des produits commandés, prix et quantité figés au moment de l’achat.
+
+- StatutCommande : énumération des différents statuts (Brouillon, EnAttentePaiement, Payee, Expediee, Annulee).
+
+### 6.2 Relations et associations clés
+
+- Délégation d’identité : un Acheteur déléguant son identité à un User.
+
+- Composition transactionnelle : SessionAchat contient exactement un Acheteur.
+
+- Possession et commandes : un Acheteur possède un Panier et peut effectuer plusieurs Commandes.
+
+- Association produit / avis : un produit peut avoir plusieurs avis, chaque avis est rédigé par un client.
+
+- Composition commande / ligne de commande : une Commande contient une ou plusieurs LigneCommande, chacune liée à un Produit.
+
+### 6.3 Choix de conception majeurs
+
+- Distinction Panier / Commande :
+Le panier est temporaire et modifiable, tandis que la commande est persistante et figée une fois validée.
+
+- Traçabilité ({addOnly}) :
+L’historique des commandes est immuable : seules de nouvelles commandes peuvent être ajoutées, garantissant l’intégrité des données.
+
+- Immuabilité des commandes ({frozen}) :
+Les lignes de commande sont figées après validation pour garantir la cohérence avec la facturation et le stock.
+
+- Gestion des statuts via énumération :
+Les statuts des commandes, produits et utilisateurs sont centralisés via des énumérations, assurant une gestion stricte par l’administrateur.
+
+- Attributs relationnels spécifiques :
+La ligne de commande stocke prixUnitaire pour maintenir la cohérence des factures, même si le produit subit des modifications ultérieures.
 
 ---
 
 ## 7. Conclusion
 
-Cette phase d’analyse a permis d’identifier précisément les exigences du client et de modéliser le système de vente en ligne de manière cohérente et structurée. L’approche itérative inspirée de l’Unified Process, combinée à une organisation en sous-groupes Client/Analyste, a favorisé une compréhension approfondie du besoin et une modélisation UML robuste.
+Cette phase d'analyse approfondie a permis de définir un périmètre clair et robuste pour la plateforme de vente en ligne.
+Le rapport d'analyse constitue une base solide pour continuer la phase de conception détaillée du système. Les prochaines étapes consisteront à définir l’architecture technique (avec les frameworks et design patterns appropriés) et à commencer l’implémentation des fonctionnalités prioritaires identifiées lors de cette analyse, comme la gestion du catalogue, du panier, des commandes et des utilisateurs.
 
-Le travail réalisé constitue une base fiable pour la phase de conception et de développement du système.
+L’approche itérative, combinée à la répartition des rôles MOA/MOE, a garanti une compréhension complète des besoins et une modélisation UML fiable, assurant ainsi un développement futur structuré et efficace.

@@ -1,0 +1,68 @@
+#body-content {
+    display: flex;
+}
+
+#body h1 {
+    font-family: "Playfair Display";
+    font-size: 40px;
+    margin-bottom: 0;
+    margin-left: 2%;
+}
+
+#categories {
+    border-right: 2px solid grey;
+    padding-right: 3%;
+    padding-top: 1%;
+    margin-top: 1%;
+    margin-right: 3%;
+}
+
+#categories ul {
+    list-style: none;
+}
+
+#categories a {
+    color: black;
+    font-size: 20px;
+}
+
+#infos {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+}
+
+#infos h2 {
+    font-size: 30px;
+}
+
+form {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10%;
+}
+
+form div {
+    display: flex;
+    flex-direction: column;
+}
+
+form div:first-of-type {
+    margin-right: 50px;
+}
+
+form label {
+    margin: 5px;
+    font-size: 20px;
+}
+
+form input {
+    margin: 6px;
+}
+
+#modify-info{
+    font-size: large;
+    padding:1%;
+    margin: 0, ;
+    justify-self: center;
+}

@@ -71,16 +71,16 @@ Le système doit répondre aux besoins de plusieurs catégories d’utilisateurs
 * Effectuer des recherches par mots-clés et filtres
 * Consulter les fiches produits détaillées
 * Créer un compte client
-
-**Pour le Client (utilisateur authentifié) :**
-
-* S’authentifier et gérer son profil
 * Gérer un panier (ajout, modification, suppression d’articles)
 * Passer une commande via un processus structuré
 * Choisir une adresse de livraison et un mode de paiement
 * Payer la commande via un système de paiement externe
+
+**Pour le Client (utilisateur authentifié) :**
+
+* S’authentifier et gérer son profil (infos personnelles, adresses, paiement, ...)
 * Consulter et suivre l’état de ses commandes
-* Recevoir une confirmation par e-mail
+* Consulter l'historique des commandes
 
 **Pour l’Administrateur :**
 

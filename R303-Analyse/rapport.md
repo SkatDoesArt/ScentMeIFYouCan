@@ -20,6 +20,7 @@ Ce document constitue le livrable final de la phase d'analyse pour le projet de 
 Cette architecture complexe a pour vocation de mettre en relation des vendeurs spécialisés avec une clientèle recherchant des produits authentiques et de qualité. Le système centralise l’offre via une interface unique tout en permettant aux vendeurs de gérer leurs stocks et leurs produits, sous la supervision stricte des administrateurs pour garantir la cohérence et la qualité de la marketplace.
 
 La phase d’analyse vise à formaliser les besoins fonctionnels et techniques, identifier les acteurs et définir le périmètre du système. Les modèles UML produits permettent de fournir une base solide et exploitable pour la conception détaillée et le développement futur de la plateforme.
+
 ---
 
 ## 2. Démarche Méthodologique et Organisation

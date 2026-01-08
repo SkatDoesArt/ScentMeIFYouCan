@@ -34,7 +34,7 @@
                     </svg>
                 </form>
                 <div id="nav-buttons">
-                    <a href="auth/login">
+                    <a href="<?= base_url() ?>auth/login">
                         <p>Se connecter</p>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"
                             class="min-h-iconLarge min-w-iconLarge stroke-[0.125rem]" alt="" height="2rem" width="2rem">
@@ -43,7 +43,7 @@
                                 clip-rule="evenodd"></path>
                         </svg>
                     </a>
-                    <a href="cart">
+                    <a href="<?= base_url() ?>cart">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"
                             class="min-h-iconLarge min-w-iconLarge stroke-[0.125rem]" alt="" height="2rem" width="2rem">
                             <path fill="currentColor" fill-rule="evenodd"

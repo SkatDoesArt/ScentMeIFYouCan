@@ -162,7 +162,9 @@ Si l’adresse e-mail est déjà utilisée ou est invalide ua fomrat attendus, l
 
 Ce diagramme modélise la navigation d’un client ou d’un visiteur au sein du catalogue de produits. Le système charge les produits disponibles et les affiche sous forme de liste.
 
-Le diagramme intègre des décisions permettant l’application de filtres (prix, catégorie) et la gestion des cas où aucun produit ne correspond aux critères de recherche. Dans ce cas, un message informatif est affiché à l’utilisateur.
+Le diagramme intègre des décisions permettant l’application de filtres (prix, catégorie) et la gestion des cas où aucun produit ne correspond aux critères de recherche ou que l'utilisateur n'a pas trouver le produit qu'il desirait. Dans ce cas, un message informatif est affiché à l’utilisateur.
+
+![DA_cconsulter_catalogue](https://img.plantuml.biz/plantuml/png/RL9TJiCm37xFAInUsAHnWKs2JODNGEm4KUjsbj9anCu0QGVQph6BuMHqAx1AhHJN_lxYEOkDaZfdXCGXF99je-qwXFhMLa9RakC1fh0CdfCJZA1DbHNhGflGcDtI4NhPcTtgY-Muxt1dpA1Su4t43LfHcAUcmKgImYIF4B5QOzJNW3xJbIMcGk13Dm5dCz7nq8P82251GqwYZeuw6zyJycJmNm-RI9_ZMO4QY2d8RrZXDcHi2pLsrjVgRy0_C-U-Ko6hO4KCTI9XO7J1br8LDP1zHBvAH0sCNliXYI5jZmSUWwpHm-Wv-77fAeDzG7rX2ekceKBT8RDj4MuMgKg-Lz7ZtSpEConXKmxe664K4fq8qDVKN0tYp96zH1MdTsgbDpFKzCiAXxIsUHDo9lhLBeQ7VyPECbvw6LS4_15XmH5BlejBs1Tx0ozdQJ-RzB4cNHDbJbjqRd2JMHNnGCJTlMwJlsAmX3TN-Bpytm00)
 
 ### 5.5 Scénario : Gérer le panier (UC5)
 

@@ -1,5 +1,5 @@
 @startuml
-title Diagramme d'activité : Consulter le catalogue
+title Diagramme d'activité : Gerer le panier
 
 |Client|
 start
@@ -12,15 +12,17 @@ if (Panier vide ?) then (oui)
         if (Ajouter un article ?) then (oui)
             :Sélectionner article;
             |Systeme|
-            :Ajouter article;
+            :Ajouter article au panier;
+            stop
         else (non)
             |Client|
             stop
         endif
 
     else (non)
-        |Systeme|
-        :Se connecter;
+        |Client|
+        :Afficher message "Vous devez vous connectez pour pouvoir passer commande";
+        stop
     endif
 
 else (non)
@@ -35,6 +37,7 @@ else (non)
                 :Sélectionner article;
                 |Systeme|
                 :Ajouter article au panier;
+                stop
 
             else (non)
 
@@ -42,26 +45,31 @@ else (non)
                 if (Modifier article existant ?) then (oui)
                     :Sélectionner article;
 
-                    if (Supprimer ?) then (oui)
-                        |Systeme|
-                        :Supprimer l'article;
-                    else (non)
+                    if (Supprimer ?) then (Non)
                         |Client|
                         :Sélectionner spécifications;
                         |Systeme|
                         :Modifier article;
+                        stop
+                    else (Oui)
+                        |Systeme|
+                        :Supprimer l'article;
+                        stop
+                        
                     endif
-
+                
                 else (non)
+                    |Systeme|
                     ' Aucune modification
                 endif
 
             endif
-
+        
         else (non)
+            
             break
         endif
-
+    
     repeat while (Modifier encore ?)
 
 endif

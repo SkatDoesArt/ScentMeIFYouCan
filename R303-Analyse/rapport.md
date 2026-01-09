@@ -131,10 +131,13 @@ Le système doit répondre aux besoins de plusieurs catégories d’utilisateurs
 
 ## 4. Modélisation Fonctionnelle – Diagramme de Cas d’Utilisation
 
-Le diagramme de cas d’utilisation fournit une vision synthétique du périmètre fonctionnel du système. 
-Il met en évidence les acteurs principaux (Client, Administrateur) ainsi que les acteurs secondaires externes (Système de paiement, Serveur mail).
+Le diagramme de cas d’utilisation présente une vue globale et synthétique du périmètre fonctionnel de la plateforme de vente en ligne. Il met en évidence les acteurs principaux du système, à savoir le Visiteur, le Client et l’Administrateur, ainsi que les acteurs externes indispensables au fonctionnement du système, tels que le Système de paiement et le Serveur mail.
 
-Le cas d’utilisation central est **« Passer une commande »**, qui inclut la gestion du panier, la sélection des informations de livraison et le paiement. Des relations d’inclusion et d’extension ont été utilisées afin de factoriser les comportements communs et de représenter les scénarios conditionnels, notamment l’envoi de notifications par e-mail.
+Le diagramme illustre également une hiérarchie d’acteurs, où le Client hérite des droits du Visiteur et l’Administrateur de ceux du Client, permettant de factoriser les comportements communs.
+
+Le cas d’utilisation central est « Passer une commande » (UC8). Celui-ci inclut la gestion du panier, la modification de l’adresse de livraison, le choix du mode de paiement ainsi que la consultation de l’état de la commande. Le paiement déclenche, en cas de succès, l’envoi d’une confirmation par e-mail, modélisé par une relation d’inclusion avec le cas d’utilisation correspondant.
+
+Des relations d’inclusion et d’extension ont été utilisées afin de structurer les fonctionnalités, de mutualiser les traitements communs et de représenter les comportements conditionnels, notamment le suivi des commandes et l’envoi de notifications.
 
 ![Diagramme de Cas d'Utilisation](https://img.plantuml.biz/plantuml/png/VPLTQXin4CVV3Rx3u1Ut3qwx_aZi4apC5leKC0tnkzWTEofQQT67QMWBlKClqPp3D-b9EfAyNgyIZ36Cz__xQqSp8_dEMAQjgqI_PxaL29yvssbMLGWbGiuCbCD7omKtp78buT_lFx0MpE9MwSZiKLe4b23uJYAyOtiie6OSAn80BKXb-PONmM_Uzti2jnQi0irtJnPAhh7mKh_72giq33RSS0e6G2_Vd9xcWjDwuM5-UhWgAowviPeISj6nEeaFpyOU_iOactm2icuHr7ioGiMu2D9zlxU1sv-ZaNz97YDQqQV8v8xAqrcrk_K1_EZt09p1WXaY7_CCHl0mPCu-4KWrm9WY2Gau9Z3NXnVKu2GKggej7j5nWauyIeLqmX9D6L5XcL0xrnWcYM5AXgzOFA7sNxz-hLNfk3toquIV4V_byABZwZMJRTgp1BqcTFLDEPy9SrtsEc5lV2rSNMjU4Lqcz4r2pubUCsD2mkWhKZ5PDbkS9_GYqCy-OvQoYxGd7mc-LsLeXzzXfShN8-Avr9XrZ4DMQgG4lLNmlMRSADbuq_vcuzW4t2lUx4XkkQxYeQhPsGXwEhKdJHyUNYopuSslzfkb_S-cvmqrJVTDmwVzpsPTtXrFFvsJauS68NN5_b8XCBYQh4wMq67_7L8XHBmCwEXOxIVOtpAklMKyvWVnwchf9ma-mUqjbuLmjDvosLLltbJdHtLsKLrSL6bIBihPPNdofhnevF4hEG9Ko0w1totACW2_-htpuj4Tvdi27zugO0wZqJBUD9jZE6x3IHjEMtRMXlEp5IPdCNLnrSJJipWCnFhuYuxSVIFGI-ye__074p__0G00)
 
@@ -148,6 +151,7 @@ Afin de valider la faisabilité des fonctionnalités identifiées et de clarifie
 
 Les scénarios modélisés correspondent aux cas d’utilisation critiques du système de vente en ligne. Ils traduisent les parcours réels des utilisateurs et mettent en évidence les traitements normaux, alternatifs et d’erreur.
 
+---
 
 ### 5.2 Scénario : Créer un compte (UC2)
 
@@ -157,6 +161,7 @@ Si l’adresse e-mail est déjà utilisée ou est invalide ua fomrat attendus, l
 
 ![DA_creer_un_compte](https://img.plantuml.biz/plantuml/png/bP9DJiCm48NtFiM8JTiL-sJHLeKT0aGbzgupeIFPas1FAf2wu0vSWfmZD-4aJ1p-XDG5NdaqxxtvDFOgYOtI1M-4n2DSa7s8DWI4QcQTq85awE7zvHLkRKeOeMC4ruHWkK9ZZXjFo78qESOKMZvsgZhRZYfcT8BnFCs8auiKyQnKpRwXHAhPnA7FYMDWAxbvXw7rsgoR63flrQ8Wb5ZThL33fSxSFYSPtW8UJN4_z95gqfI3zLHbM0oMV6ceXZbSZlUfXx241SWU6URN3IyCwFdc7ujYNTVazXg6CMAdX9ETU0fGlb6Mf6aD-eGml-beSOAdejGsJ3loVw6cq2lQHLp-5sYJ5mNuHBfmbXD4EUY7AaTzBdlQD4nJIeDSKVth6OkrSqEV05DhtPSCA8IXhyYgGK-UjbBd-6i-0000)
 
+---
 
 ### 5.3 Scénario : Consulter le catalogue (UC3)
 
@@ -168,6 +173,8 @@ Dans le cas contraire, les résultats de la recherche sont affichés sous forme 
 
 ![DA_cconsulter_catalogue](https://img.plantuml.biz/plantuml/png/RL9TJiCm37xFAInUsAHnWKs2JODNGEm4KUjsbj9anCu0QGVQph6BuMHqAx1AhHJN_lxYEOkDaZfdXCGXF99je-qwXFhMLa9RakC1fh0CdfCJZA1DbHNhGflGcDtI4NhPcTtgY-Muxt1dpA1Su4t43LfHcAUcmKgImYIF4B5QOzJNW3xJbIMcGk13Dm5dCz7nq8P82251GqwYZeuw6zyJycJmNm-RI9_ZMO4QY2d8RrZXDcHi2pLsrjVgRy0_C-U-Ko6hO4KCTI9XO7J1br8LDP1zHBvAH0sCNliXYI5jZmSUWwpHm-Wv-77fAeDzG7rX2ekceKBT8RDj4MuMgKg-Lz7ZtSpEConXKmxe664K4fq8qDVKN0tYp96zH1MdTsgbDpFKzCiAXxIsUHDo9lhLBeQ7VyPECbvw6LS4_15XmH5BlejBs1Tx0ozdQJ-RzB4cNHDbJbjqRd2JMHNnGCJTlMwJlsAmX3TN-Bpytm00)
 
+---
+
 ### 5.4 Scénario : Gérer le panier (UC5)
 
 Ce diagramme d’activité décrit le fonctionnement de la gestion du panier du point de vue du client. Celui-ci accède à son panier afin d’ajouter de nouveaux articles ou de modifier son contenu.
@@ -176,8 +183,10 @@ Si le panier est vide, le système vérifie si le client est authentifié. Dans 
 
 Lorsque le panier contient déjà des articles, le client peut choisir de le modifier. Il peut alors ajouter un nouvel article, modifier les caractéristiques d’un produit existant ou le supprimer. À chaque action effectuée, le système met à jour le contenu du panier afin de refléter les changements demandés. Si aucune modification n’est souhaitée, le client peut quitter le panier.
 
-![DA_gerer_panier](https://img.plantuml.biz/plantuml/png/dLLBZjim3Dth5CHiahb2Pj49fjjf2mJeNYCpYQRw6FguxI0NoZboiLBssB7yIOnoaKG2oVVuA3BFFd0NebOioA0Glaf-S5nhX6B5HP2L39SpRE356XzLG0Va97ZWoXuYCdPwKH9DEB4w3zjiXRYS2tBZ4Kfk9BednkGUrZ_g0rIoGFZo2E681jOsoaV6W2ov48P1aV1o1_Yq3gkzI47RTniJhMY024YXXkcXPvlTvQm8GYOarmOyPJwdtLyVKECfZsnnMf1UVNq_7spPNQ3o26jZJSvYLCSuq1HotmWpaMCKlzdkzr8SYPr6x_a1uU6dZHuAhF03glHJDDhIiRJHfO_AIlhctbEOi5fpK-33jPYEpoUN7e_wsc69FB2i5w-MN5EN6sMc-dnJWqNzp2AMDhM6d6niez-ovdQwPBT3PUwMEPAhXSK_aiR8X1il-5xHayu9R1VBqadTxygtuSDSn7o6WIylPq7bq6wW6pyMhaiysuOkyr2O-MJPrFIjQShtEVaM4hcAfbR_poNPDCbwjEwwpgoHrcxNiO9j5D4Ww5hKfZrZYEl2cIPtRwTbXpU7_DTWcNLEpUA0tqT9B_uw0sY4TMdMQTKqP6ezd-cG_ft-0G00)
+![DA_gerer_panier](/R303-Analyse/DA_swimlanes/Gerer%20Panier.jpg)
 
+
+---
 
 ### 5.5 Scénario : Passer une commande (UC8)
 
@@ -189,8 +198,9 @@ Une fois la vérification réussie, le client sélectionne un mode de paiement e
 
 ![DA_passer_commande](https://img.plantuml.biz/plantuml/png/NP5DJiCm48NtFiMe6z8h90kAoXfGAtLluaapmZ_HU189AGlkm2N8EN8JJi8aYAXYxUzzViy-PB4iVV16I3p28zahsn0Gt9sjXGQIUOBlZqzuiJaZGnyHwXI2ZGwD6O-UCCfeLeqfBzQJKwgpaP0hKnxRH9aOh6FKF3W4JmDRoYbMcZ-_Pvc_0ewAyZnfz4-kuSiyCJKg0aUvIv5UoQzzEawk9ybge0QAiwJw3NBVD9Hj5BZVWxGOeNZkQMy0ojCyQVTXARObqMkTuYd5XTXsAFoWchfL5fcnPzZzwYbk5-mgvRAapc1qrDmymxOt9BUExInXqAD_Mq_eYEcgbsYfV4kjseDwbp_v0G00)
 
+---
 
-### 5.7 Scénario : Payer la commande (UC9)
+### 5.6 Scénario : Payer la commande (UC9)
 
 Ce diagramme d’activité décrit le processus de paiement d’une commande. Le client choisit un mode de paiement et le système vérifie sa validité. Si le mode de paiement est invalide, un message d’erreur est affiché et le processus s’arrête.
 
@@ -200,24 +210,27 @@ Si le paiement est accepté, la transaction est confirmée et un e-mail de confi
 
 ![DA_payer_commande](https://img.plantuml.biz/plantuml/png/bLHBRi8m4Dtx51QRmX6QB4f5k-YYBHAY-r6Om4Z-8Dk9X9H5xz1Bb7DmavwajcaIqm1LhKYHdPdtthmPPseT65T9mHmvWVo1O6r0IkIh6oWSrUGEU_xr_i7di4F3AuMyq5A2MY4VBsUt4yQQcI1Khc4HYsLpiDQ7jc4vosORJPP2DfVQ9_fd2uJIP-K-Vx6pxl0fiM5Kyl7phmXUWo2_lvjmjq75nozQJHZtgoCEc-o-BAdOU6A9ri8Qu-beW4RgY3VAOu1rUijGM5_DQqM-cd0OP3ofKXi9ZhIoAK0CG6LmJTQPmnvjhwn76CXhOPUE10LxX4-aXAEBkeRDavKj89egGaUyG8k5GPVtEB6epgnXsWN-i4uQz2zIjQBoQC4P_e4ZVuevA-IQY4J0wNYynQx7f6JsObmxVobRqmt2l9qSA0hSXkjmlYVPJAkIZ0mSm9q1PSCDqYfFHcA1fiRApoYGI6nuLBNUnJiJ8Q89tLUeU14hwHs8Ktl1v0uiS8II39QLlOvoDEtdDVNly4Vu1W00)
 
+---
 
-### 5.8 Scénario : Gérer les produits (UC14)
 
-Ce diagramme décrit l’interaction entre l’administrateur et le système pour la gestion des produits. L’administrateur peut ajouter, modifier ou supprimer un produit depuis le module de gestion.
+### 5.7 Scénario : Gérer les produits (UC14)
 
-Si les données saisies sont valides, le système enregistre les modifications et confirme l’opération. En cas d’erreur (données invalides), le système refuse la validation et affiche un message d’erreur. L’administrateur peut également appliquer des filtres pour trier ou rechercher des produits existants.
+Ce diagramme d’activité décrit la gestion des produits par l’administrateur. Après s’être connecté, celui-ci accède au module dédié et peut ajouter, modifier, supprimer ou rechercher des produits.
 
-### 5.11 Scénario : Gérer les utilisateurs (UC15)
+Pour chaque action, le système met à jour les données correspondantes et confirme l’opération lorsque les informations sont valides. En cas d’erreur ou de données incorrectes, la validation est refusée et un message d’erreur est affiché. L’administrateur peut répéter ces actions jusqu’à la fin de la session de gestion.
 
-Ce diagramme décrit la gestion des utilisateurs par l’administrateur. L’administrateur peut ajouter, modifier, supprimer ou rechercher un utilisateur depuis le module correspondant.
+![DA_gerer_pdt](img.plantuml.biz/plantuml/png/ZLJDReCm3BxdANnR-mhqiB9MsccRj3v11ARr10bApAP9FCoEvJbuiJdG7sXBDsw9xU_7E5vwrewh8bTCd2EiIM-TBWg4z44dJ9_4RGCHFBUDGmSvUYYTJIjYhrGTfmKPykmqO-LgrO6fQ8EGM6CmONGB5SL9qZQfLBS_a6lOecUo1j81raB0Dj-Usts1jLHa6IMxm2VWU9dfi4JD2kIxKX0kezNEaYS7bK489goHgX2X36RnXwr45ppEWNTeOFPgpRoB7ZDUR4eP3LFUAZgdT1IRjicnWpQIU12t6EUSS5B9QXlqutZzf7tm1kj3kBueHsQ7eMcY-0O7vb8-LZ_Pag6zJLMMZegx_lxhyHy-UgWJvqsO2Ij_sZbQUiSmBTt4tFVKYz7TT2HEPdllyDfHntiUnviW0yh9pg2H0L3JD-EJEdTYf7so0qSZQTkmfjnV2xdpQwALauiByRsWWVN-gS7NZcGtpE8g36J_eaAZoH-aNc-2i0D4rs0DUBQbKakX2Dlc5m00)
 
-Si l’action est valide, le système met à jour la base de données et affiche un message de confirmation. En cas de tentative de suppression d’un utilisateur critique ou de données invalides, le système bloque l’opération et affiche un message d’erreur. L’administrateur peut également ajouter des rôles ou permissions supplémentaires.
+---
 
-### 5.12 Scénario : Suivre les commandes (UC17)
 
-Ce diagramme décrit le suivi des commandes par l’administrateur ou un employé interne. L’utilisateur sélectionne une commande pour modifier son statut (préparation, expédiée, annulée, etc.).
+### 5.8 Scénario : Gérer les utilisateurs (UC15)
 
-Si le statut est mis à jour correctement, le système enregistre la modification et affiche la commande actualisée. En cas de commande introuvable ou déjà traitée par un autre employé, un message d’erreur est affiché. L’utilisateur peut appliquer des filtres pour visualiser les commandes par date, statut ou client.
+Ce diagramme d’activité décrit la gestion des utilisateurs par l’administrateur. Après s’être connecté, celui-ci accède au module de gestion et peut ajouter, modifier, supprimer ou rechercher un utilisateur.
+
+Pour chaque action, le système met à jour la base de données et affiche une confirmation lorsque l’opération est réussie. L’administrateur peut enchaîner plusieurs actions au cours de la même session avant de se déconnecter.
+
+![DA_gerer_user](https://img.plantuml.biz/plantuml/png/fPHBRi9038RtSmhlW4Kl058BfLLNg5AHkXyb3d4r3pGFs72ORhFl3NAnpan2IG11IqVA9l7yzlVRyTGwRfoNWZbo0k69-CfmAH7o0SySRSZL5OpXfQuC6X1emJiIPBb3RonZkrakIP5r9htPiTqZj-5saD9ArHNks9cWb9MDbmXPYCBCePamPd2Dt5t81k7OBRciXE6yr6J9W5S8iLAjHkbxF5aiOJZxq3u8XuYkoY4gdl6I9vMOYbIXZUHHoaBkGMc_GT6zE-dTFINjAJyhWwl8d4Ykgnrxr1DxvuBoA3JWaMfoXBhGEHLqbRMk12QhL9BgH4Bz2R8LwTSr_j4-zkXFRYpG1ITYcb3_ER-nNz1Dvl2M8KkYnoOj_NfjIFxJ9RjN-HF-8VVDb7Ej2ZAouKnLeBLdCDymAz74vrUJhxG4xS7KNmAlTU4oOoVnpP2p8dIlR8VDr9Nrmd7NZXgglFdxzvjYMvA8FxgFezKiWTWYB8hGG1zK7aP05eQldXhuk_l0EpdTHt4JvNNLMKRMwJMRXenXDtu3)
 
 ---
 
@@ -230,59 +243,45 @@ Le diagramme de classes d’analyse représente la structure statique des donné
 #### Package Utilisateurs :
 
 - User : classe de base pour tous les utilisateurs, contenant les informations de connexion et le rôle (Admin ou Client).
-
 - Acheteur : héritier de User, gère les informations de facturation, de livraison et le mode de paiement.
-
 - Admin : héritier de User, responsable de la gestion des produits, utilisateurs et suivi des commandes.
-
 - SessionAchat : représente une session de navigation et de panier temporaire.
 
 #### Package Produits :
 
 - Produit : informations principales (nom, description, prix, niveau de prestige, quantité disponible, etc.).
-
 - Avis : note et commentaire rédigé par un client après réception d’un produit.
 
 #### Package Commandes :
 
 - Panier : panier temporaire du client.
-
 - LignePanier : chaque produit ajouté avec sa quantité.
-
 - Commande : structure persistante représentant une commande validée.
-
 - LigneCommande : détails des produits commandés, prix et quantité figés au moment de l’achat.
-
 - StatutCommande : énumération des différents statuts (Brouillon, EnAttentePaiement, Payee, Expediee, Annulee).
 
 ### 6.2 Relations et associations clés
 
 - Délégation d’identité : un Acheteur déléguant son identité à un User.
-
 - Composition transactionnelle : SessionAchat contient exactement un Acheteur.
-
 - Possession et commandes : un Acheteur possède un Panier et peut effectuer plusieurs Commandes.
-
 - Association produit / avis : un produit peut avoir plusieurs avis, chaque avis est rédigé par un client.
-
 - Composition commande / ligne de commande : une Commande contient une ou plusieurs LigneCommande, chacune liée à un Produit.
 
 ### 6.3 Choix de conception majeurs
 
 - Distinction Panier / Commande :
 Le panier est temporaire et modifiable, tandis que la commande est persistante et figée une fois validée.
-
 - Traçabilité ({addOnly}) :
 L’historique des commandes est immuable : seules de nouvelles commandes peuvent être ajoutées, garantissant l’intégrité des données.
-
 - Immuabilité des commandes ({frozen}) :
 Les lignes de commande sont figées après validation pour garantir la cohérence avec la facturation et le stock.
-
 - Gestion des statuts via énumération :
 Les statuts des commandes, produits et utilisateurs sont centralisés via des énumérations, assurant une gestion stricte par l’administrateur.
-
 - Attributs relationnels spécifiques :
 La ligne de commande stocke prixUnitaire pour maintenir la cohérence des factures, même si le produit subit des modifications ultérieures.
+
+![DC](https://img.plantuml.biz/plantuml/png/bLRDRXCn4BxlKrYvj81ImO5BL2AM9AYHcX3bvm5CTf9QUErWUmC8LU8TU0bwvyQ1Gzw45-0L6DlxuzriHBg7DfuPZsU--MRilxz-lzQ6AfEbd7I6WqvacE50Xenk5KrJ80cGDQTQWoP_ldqdCquDRAJocZq80mG4uMmh88fsTFs1Re6i3EDCesMcDFaQHGI_2_Bgr9VhHzFLPF5VMsS08al9N6AaNztQVd6ICb6k1fnXS6vvx_vM-oRo2uWPPP2YHU2WImQ810Jh6VqoepntScuQyMfvCvekns_7WtWvVZSzBoC7CbbfKBM8ME94FSBoPBmOKieuIXT6CR4D55nkcMXJxD3z9wcI6whlslHqRTW65U-bv85OMOnx3kfAsYr_FYDCEzmldpJtMfKlGbrtx_DrQLrTzNqLU-JwEaEEzVldeZmPBSUZEOa7D_7oCGZ7wpkmlAoXV19EcYX0xj-olQ9CorPaSvktY62cg67jLccDTBqw2TkX1MtYpDoXdcqOj26y1JDEhDvuTN1g3dEPheLwqeYXZhd7Pu6vO0guZve64tFL4HaJRFI1WYBr8QtraDKEGGa62c8asHw3FR9gfctje9KtP_JVS3AUZXVB-QExpp4vJBfRmrg1cYcPPCpeooTDpK2cAHK9jAZ2QPXhpqvcFhfrQPmv5o_8yF303mzRNupaWdbw71xgREWylxfwqS44-oIVBmbms6PGqAbmXsdjf6REcr5KQ3idf130yu5Guqi7VJxjTjt_ygmUMKlqQMbU97NuYJrFTplErXZeniVcm0yYoXni4Dd9MrqjHGMAQyLNBfSs25j8cuGLCcqTaOfzjaZ8x3slCHZqMh7TgSuMI5MQpN0868O1NlWrqPZwozgXnXKb3ohG61m-jGC_PjGLOOukyHU4bCcPkcUwbYoQgz25XHmlksOZjeu6IuQddWokSDPtZoX8C1rdMU3OoIcJRyWDQLJThv6lLb6iiYaQrQ9s6ZIBvOLLhV9hEzXtQryPBPiBl6gRWtr568qJIt7RG0j7b8-aD6_WjS2wPYPmffqWEegyDOoMs2ishWH3SYYeixBvdca4K7b_esI6r9BLgsWaOcFie-tevi6d3bHi6NtUOVa3GIn4ng7aJz78m1sdjOqTPpnepnTVed8QUBp2wWKpmMu8LGrqgnx67MjxHjIeHZbpgbE2OXoVSwgEBITXfbMNl0XCYonmDkh3ZmIYKyqKH0AR3U0J0UD_3IB11tSK_GC0)
 
 ---
 

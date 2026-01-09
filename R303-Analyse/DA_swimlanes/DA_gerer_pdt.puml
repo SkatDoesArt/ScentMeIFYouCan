@@ -13,31 +13,35 @@ repeat
     |Administrateur|
     :Choisir une action;
 
-    if (Ajouter ?) then (Oui)
-        :Saisir détails produit;
-        |Base de Données|
-        :Créer produit;
-    else (Non)
+    if (Ajouter ?) then (Non)
         if (Modifier ?) then (Oui)
             :Sélectionner produit;
             :Modifier données;
             |Base de Données|
             :Mettre à jour produit;
         else (Non)
+            |Administrateur|
             if (Supprimer ?) then (Oui)
                 :Sélectionner produit;
                 |Base de Données|
                 :Supprimer produit;
             else (Non)
+                |Administrateur|
                 if (Rechercher ?) then (Oui)
                     :Saisir critère;
-                    |Base de Données|
+                    |Système|
                     :Rechercher produit;
                 endif
             endif
         endif
+        
+    else (Oui)
+        |Administrateur|
+        :Saisir détails produit;
+        |Base de Données|
+        :Créer produit;
     endif
-
+|Système|
 repeat while (Autre action ?) is (Oui)
 
 |Administrateur|

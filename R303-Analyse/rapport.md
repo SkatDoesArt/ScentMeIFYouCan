@@ -15,11 +15,13 @@
 
 ## 1. Introduction et Contexte
 
-Ce document constitue le livrable final de la phase d'analyse pour le projet de conception d'une plateforme de vente en ligne de parfums. L'objectif est de développer une marketplace dynamique et évolutive, spécialisée dans les parfums de marques originales ou alternatives, ainsi que des produits complémentaires tels que des crèmes parfumées et de l’encens.
+Ce document constitue le livrable final de la phase d'analyse pour le projet de conception d'une plateforme de vente en ligne de parfums ( type e-commerce ). 
+L'objectif est de développer une marketplace dynamique et évolutive, spécialisée dans les parfums de marques originales ou alternatives, ainsi que des produits complémentaires tels que des crèmes parfumées et de l’encens.
 
-Cette architecture complexe a pour vocation de mettre en relation des vendeurs spécialisés avec une clientèle recherchant des produits authentiques et de qualité. Le système centralise l’offre via une interface unique tout en permettant aux vendeurs de gérer leurs stocks et leurs produits, sous la supervision stricte des administrateurs pour garantir la cohérence et la qualité de la marketplace.
+Cette architecture complexe a pour vocation de mettre en relation des vendeurs spécialisés avec une clientèle recherchant des produits authentiques et de qualité. Le système centralise l’offre via une interface unique tout en permettant aux admins du site de gérer les utilisateurs et les produits du site avec une supervision stricte pour garantir la cohérence et la qualité de la marketplace.
 
-La phase d’analyse vise à formaliser les besoins fonctionnels et techniques, identifier les acteurs et définir le périmètre du système. Les modèles UML produits permettent de fournir une base solide et exploitable pour la conception détaillée et le développement futur de la plateforme.
+La phase d’analyse vise à formaliser les besoins fonctionnels et techniques, identifier les acteurs et définir le périmètre du système. 
+Les modèles UML produits permettent de fournir une base solide et exploitable pour la conception détaillée et le développement futur de la plateforme.
 
 ---
 
@@ -45,12 +47,13 @@ Afin de respecter les consignes pédagogiques et de reproduire une situation pro
   * Vérifier la cohérence globale du modèle
 
 Une phase commune a ensuite permis de consolider l’analyse et de valider collectivement l’ensemble des modèles produits.
+Ainsi tout les membres ont pus tout de meme modifier et toucher a tout les diagrammes produits.
 
 ### 2.2 Démarche itérative et incrémentale
 
 Conformément aux principes de l’**Unified Process**, notre travail s’est inscrit dans une démarche itérative et incrémentale. L’analyse a été construite progressivement selon les phases suivantes :
 
-* **Phase de recueil et de cadrage** : identification des acteurs (client, administrateur, systèmes externes) et délimitation précise du périmètre fonctionnel du système.
+* **Phase de recueil et de cadrage** : identification des acteurs (client, administrateur, systèmes externes) et délimitation précise du périmètre fonctionnel du système, ainsi que d'un cahier d'éxigence qui nous a servit de premiere base pour pouvoir definir un cahier des charges par la suite.
 * **Phase de formalisation** : rédaction des exigences fonctionnelles et non-fonctionnelles à partir des échanges client/analyste et du cahier des charges.
 * **Phase de modélisation fonctionnelle** : élaboration du diagramme de cas d’utilisation afin de représenter les interactions entre les acteurs et le système.
 * **Phase d’analyse détaillée** : approfondissement de l’analyse à travers les diagrammes d’activités (vision dynamique) et le diagramme de classes d’analyse (vision structurelle).
@@ -63,22 +66,23 @@ Chaque itération a permis de valider un incrément avant de passer au suivant, 
 
 ### 3.1 Besoins fonctionnels détaillés
 
+Lors du Brainstorming, nous avons etablis les specificités que le sites devait avoir.
 Le système doit répondre aux besoins de plusieurs catégories d’utilisateurs.
 
 **Pour le Visiteur (utilisateur non authentifié) :**
 
 * Accéder au catalogue des produits
-* Effectuer des recherches par mots-clés et filtres
+* Effectuer des recherches par mots-clés/filtres/catégories
 * Consulter les fiches produits détaillées
 * Créer un compte client
-* Gérer un panier (ajout, modification, suppression d’articles)
-* Passer une commande via un processus structuré
-* Choisir une adresse de livraison et un mode de paiement
-* Payer la commande via un système de paiement externe
 
 **Pour le Client (utilisateur authentifié) :**
 
 * S’authentifier et gérer son profil (infos personnelles, adresses, paiement, ...)
+* Gérer un panier (ajout, modification, suppression d’articles)
+* Passer une commande via un processus structuré
+* Choisir une adresse de livraison et un mode de paiement
+* Payer la commande via un système de paiement externe
 * Consulter et suivre l’état de ses commandes
 * Consulter l'historique des commandes
 
@@ -88,21 +92,35 @@ Le système doit répondre aux besoins de plusieurs catégories d’utilisateurs
 * Gérer les utilisateurs
 * Suivre et mettre à jour le statut des commandes
 
-### 3.2 Besoins non-fonctionnels et contraintes
+### 3.3 Besoins secondaires et tertiaire ( bonus )
+
+**Pour le Client (utilisateur authentifié) :**
+
+* Pouvoir liker/mettre en favoris des produits
+* Shopping à plusieurs (paiement partagé)
+* Pouvoir faire des collections de produits (comme sur Pinterest)
+* Pouvoir mettre un avis
+* Pouvoir chercher des Users
+* Système de points de fidélités
+* Sons de validations ( lors du paiement et de l'achat )
+* Recevoir des suggestions de produits
+
+### 3.3 Besoins non-fonctionnels et contraintes
 
 * **Sécurité et confidentialité** :
 
-  * Stockage sécurisé des mots de passe par hachage
+  * Authentification forte des utilisateurs, chiffrement des données sensibles (mots de passe, données bancaires), conformité stricte au RGPD.
   * Gestion des rôles et des droits d’accès
 
 * **Fiabilité et intégrité des données** :
 
   * Vérification du stock avant validation d’une commande
-  * Réservation des produits afin d’éviter le sur-achat
+  * Mise à jour des stocks en temps réel juste après l’achat.
 
 * **Traçabilité** :
 
   * Conservation de l’historique des commandes et de leurs statuts
+  * Contrainte {addOnly} appliquée à l'historique des commandes.
 
 * **Ergonomie et accessibilité** :
 
@@ -113,30 +131,32 @@ Le système doit répondre aux besoins de plusieurs catégories d’utilisateurs
 
 ## 4. Modélisation Fonctionnelle – Diagramme de Cas d’Utilisation
 
-Le diagramme de cas d’utilisation fournit une vision synthétique du périmètre fonctionnel du système. Il met en évidence les acteurs principaux (Client, Administrateur) ainsi que les acteurs secondaires externes (Système de paiement, Serveur mail).
+Le diagramme de cas d’utilisation fournit une vision synthétique du périmètre fonctionnel du système. 
+Il met en évidence les acteurs principaux (Client, Administrateur) ainsi que les acteurs secondaires externes (Système de paiement, Serveur mail).
 
 Le cas d’utilisation central est **« Passer une commande »**, qui inclut la gestion du panier, la sélection des informations de livraison et le paiement. Des relations d’inclusion et d’extension ont été utilisées afin de factoriser les comportements communs et de représenter les scénarios conditionnels, notamment l’envoi de notifications par e-mail.
+
+![Diagramme de Cas d'Utilisation](https://img.plantuml.biz/plantuml/png/VPLTQXin4CVV3Rx3u1Ut3qwx_aZi4apC5leKC0tnkzWTEofQQT67QMWBlKClqPp3D-b9EfAyNgyIZ36Cz__xQqSp8_dEMAQjgqI_PxaL29yvssbMLGWbGiuCbCD7omKtp78buT_lFx0MpE9MwSZiKLe4b23uJYAyOtiie6OSAn80BKXb-PONmM_Uzti2jnQi0irtJnPAhh7mKh_72giq33RSS0e6G2_Vd9xcWjDwuM5-UhWgAowviPeISj6nEeaFpyOU_iOactm2icuHr7ioGiMu2D9zlxU1sv-ZaNz97YDQqQV8v8xAqrcrk_K1_EZt09p1WXaY7_CCHl0mPCu-4KWrm9WY2Gau9Z3NXnVKu2GKggej7j5nWauyIeLqmX9D6L5XcL0xrnWcYM5AXgzOFA7sNxz-hLNfk3toquIV4V_byABZwZMJRTgp1BqcTFLDEPy9SrtsEc5lV2rSNMjU4Lqcz4r2pubUCsD2mkWhKZ5PDbkS9_GYqCy-OvQoYxGd7mc-LsLeXzzXfShN8-Avr9XrZ4DMQgG4lLNmlMRSADbuq_vcuzW4t2lUx4XkkQxYeQhPsGXwEhKdJHyUNYopuSslzfkb_S-cvmqrJVTDmwVzpsPTtXrFFvsJauS68NN5_b8XCBYQh4wMq67_7L8XHBmCwEXOxIVOtpAklMKyvWVnwchf9ma-mUqjbuLmjDvosLLltbJdHtLsKLrSL6bIBihPPNdofhnevF4hEG9Ko0w1totACW2_-htpuj4Tvdi27zugO0wZqJBUD9jZE6x3IHjEMtRMXlEp5IPdCNLnrSJJipWCnFhuYuxSVIFGI-ye__074p__0G00)
 
 ---
 
 ## 5. Modélisation Dynamique – Diagrammes d’Activités
+
 ### 5.1 Objectifs de l’analyse dynamique
 
 Afin de valider la faisabilité des fonctionnalités identifiées et de clarifier la logique métier du système, une analyse dynamique a été menée à l’aide de diagrammes d’activités UML. Ces diagrammes permettent de représenter de manière précise les enchaînements d’actions, les prises de décision, les responsabilités des acteurs ainsi que les interactions avec les systèmes externes.
 
 Les scénarios modélisés correspondent aux cas d’utilisation critiques du système de vente en ligne. Ils traduisent les parcours réels des utilisateurs et mettent en évidence les traitements normaux, alternatifs et d’erreur.
 
-### 5.2 Scénario : S’authentifier (UC1)
 
-Ce diagramme d’activité modélise le processus d’authentification d’un utilisateur existant. Le scénario débute lorsque l’utilisateur accède à la page de connexion et saisit ses identifiants. Le système vérifie la correspondance entre l’identifiant et le mot de passe stocké de manière sécurisée.
-
-En cas de succès, l’utilisateur est authentifié et redirigé vers son espace personnel. En cas d’échec, un message d’erreur est affiché et l’utilisateur peut réessayer. Le diagramme intègre également le scénario alternatif « Mot de passe oublié », dans lequel le système déclenche l’envoi d’un lien de réinitialisation par e-mail via le serveur de messagerie.
-
-### 5.3 Scénario : Créer un compte (UC2)
+### 5.2 Scénario : Créer un compte (UC2)
 
 Ce diagramme décrit le processus d’inscription d’un nouvel utilisateur. Après la saisie des informations requises, le système vérifie la validité des données et l’unicité de l’adresse e-mail.
 
-Si l’adresse e-mail est déjà utilisée, la création du compte est refusée et un message d’erreur est retourné à l’utilisateur. Dans le cas contraire, le compte est créé avec succès et une confirmation est affichée. Les champs facultatifs n’empêchent pas la création du compte, ce qui garantit une inscription fluide tout en respectant les contraintes métier.
+Si l’adresse e-mail est déjà utilisée ou est invalide ua fomrat attendus, la création du compte est refusée et un message d’erreur est retourné à l’utilisateur. Dans le cas contraire, le compte est créé avec succès et une confirmation est affichée. Les champs facultatifs n’empêchent pas la création du compte, ce qui garantit une inscription fluide tout en respectant les contraintes métier.
+
+![DA_creer_un_compte](https://img.plantuml.biz/plantuml/png/bP9DJiCm48NtFiM8JTiL-sJHLeKT0aGbzgupeIFPas1FAf2wu0vSWfmZD-4aJ1p-XDG5NdaqxxtvDFOgYOtI1M-4n2DSa7s8DWI4QcQTq85awE7zvHLkRKeOeMC4ruHWkK9ZZXjFo78qESOKMZvsgZhRZYfcT8BnFCs8auiKyQnKpRwXHAhPnA7FYMDWAxbvXw7rsgoR63flrQ8Wb5ZThL33fSxSFYSPtW8UJN4_z95gqfI3zLHbM0oMV6ceXZbSZlUfXx241SWU6URN3IyCwFdc7ujYNTVazXg6CMAdX9ETU0fGlb6Mf6aD-eGml-beSOAdejGsJ3loVw6cq2lQHLp-5sYJ5mNuHBfmbXD4EUY7AaTzBdlQD4nJIeDSKVth6OkrSqEV05DhtPSCA8IXhyYgGK-UjbBd-6i-0000)
+
 
 ### 5.4 Scénario : Consulter le catalogue (UC3)
 

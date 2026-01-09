@@ -158,45 +158,50 @@ Si l’adresse e-mail est déjà utilisée ou est invalide ua fomrat attendus, l
 ![DA_creer_un_compte](https://img.plantuml.biz/plantuml/png/bP9DJiCm48NtFiM8JTiL-sJHLeKT0aGbzgupeIFPas1FAf2wu0vSWfmZD-4aJ1p-XDG5NdaqxxtvDFOgYOtI1M-4n2DSa7s8DWI4QcQTq85awE7zvHLkRKeOeMC4ruHWkK9ZZXjFo78qESOKMZvsgZhRZYfcT8BnFCs8auiKyQnKpRwXHAhPnA7FYMDWAxbvXw7rsgoR63flrQ8Wb5ZThL33fSxSFYSPtW8UJN4_z95gqfI3zLHbM0oMV6ceXZbSZlUfXx241SWU6URN3IyCwFdc7ujYNTVazXg6CMAdX9ETU0fGlb6Mf6aD-eGml-beSOAdejGsJ3loVw6cq2lQHLp-5sYJ5mNuHBfmbXD4EUY7AaTzBdlQD4nJIeDSKVth6OkrSqEV05DhtPSCA8IXhyYgGK-UjbBd-6i-0000)
 
 
-### 5.4 Scénario : Consulter le catalogue (UC3)
+### 5.3 Scénario : Consulter le catalogue (UC3)
 
-Ce diagramme modélise la navigation d’un client ou d’un visiteur au sein du catalogue de produits. Le système charge les produits disponibles et les affiche sous forme de liste.
+Ce diagramme d’activité décrit le processus de consultation du catalogue par un client ou un visiteur. L’utilisateur peut effectuer une recherche en saisissant un nom de produit ou en appliquant différents filtres tels que la marque, la catégorie ou le prix.
 
-Le diagramme intègre des décisions permettant l’application de filtres (prix, catégorie) et la gestion des cas où aucun produit ne correspond aux critères de recherche ou que l'utilisateur n'a pas trouver le produit qu'il desirait. Dans ce cas, un message informatif est affiché à l’utilisateur.
+Le système reçoit la demande, applique les critères de recherche et analyse les produits disponibles. Si aucun produit ne correspond aux critères saisis, un message informatif indiquant « Aucun produit trouvé » est affiché et le processus s’arrête.
+
+Dans le cas contraire, les résultats de la recherche sont affichés sous forme de liste. L’utilisateur peut alors vérifier si les produits proposés correspondent à ses attentes. S’il souhaite affiner sa recherche, il peut relancer une nouvelle recherche avec d’autres critères. Ce processus se répète jusqu’à ce que l’utilisateur trouve un produit satisfaisant ou décide de quitter le catalogue.
 
 ![DA_cconsulter_catalogue](https://img.plantuml.biz/plantuml/png/RL9TJiCm37xFAInUsAHnWKs2JODNGEm4KUjsbj9anCu0QGVQph6BuMHqAx1AhHJN_lxYEOkDaZfdXCGXF99je-qwXFhMLa9RakC1fh0CdfCJZA1DbHNhGflGcDtI4NhPcTtgY-Muxt1dpA1Su4t43LfHcAUcmKgImYIF4B5QOzJNW3xJbIMcGk13Dm5dCz7nq8P82251GqwYZeuw6zyJycJmNm-RI9_ZMO4QY2d8RrZXDcHi2pLsrjVgRy0_C-U-Ko6hO4KCTI9XO7J1br8LDP1zHBvAH0sCNliXYI5jZmSUWwpHm-Wv-77fAeDzG7rX2ekceKBT8RDj4MuMgKg-Lz7ZtSpEConXKmxe664K4fq8qDVKN0tYp96zH1MdTsgbDpFKzCiAXxIsUHDo9lhLBeQ7VyPECbvw6LS4_15XmH5BlejBs1Tx0ozdQJ-RzB4cNHDbJbjqRd2JMHNnGCJTlMwJlsAmX3TN-Bpytm00)
 
-### 5.5 Scénario : Gérer le panier (UC5)
+### 5.4 Scénario : Gérer le panier (UC5)
 
-Ce diagramme représente les différentes actions possibles lors de la gestion du panier. Le client peut ajouter un produit, modifier les quantités ou supprimer des articles.
+Ce diagramme d’activité décrit le fonctionnement de la gestion du panier du point de vue du client. Celui-ci accède à son panier afin d’ajouter de nouveaux articles ou de modifier son contenu.
 
-Lors de l’ajout d’un produit, le système vérifie la disponibilité du stock. Si le produit est déjà présent dans le panier, la quantité est simplement incrémentée. En cas de stock insuffisant, le système bloque l’ajout et affiche un message d’erreur. À chaque modification, le total du panier est automatiquement recalculé afin de garantir la cohérence des montants affichés.
+Si le panier est vide, le système vérifie si le client est authentifié. Dans le cas contraire, un message l’informe qu’il doit se connecter pour pouvoir passer commande. Une fois connecté, le client peut sélectionner un produit et l’ajouter au panier.
 
-### 5.6 Scénario : Passer une commande (UC8)
+Lorsque le panier contient déjà des articles, le client peut choisir de le modifier. Il peut alors ajouter un nouvel article, modifier les caractéristiques d’un produit existant ou le supprimer. À chaque action effectuée, le système met à jour le contenu du panier afin de refléter les changements demandés. Si aucune modification n’est souhaitée, le client peut quitter le panier.
 
-Ce diagramme d’activité modélise le flux principal de transformation d’un panier en commande. Le client valide son panier, puis le système effectue une vérification finale des stocks.
+![DA_gerer_panier](https://img.plantuml.biz/plantuml/png/dLLBZjim3Dth5CHiahb2Pj49fjjf2mJeNYCpYQRw6FguxI0NoZboiLBssB7yIOnoaKG2oVVuA3BFFd0NebOioA0Glaf-S5nhX6B5HP2L39SpRE356XzLG0Va97ZWoXuYCdPwKH9DEB4w3zjiXRYS2tBZ4Kfk9BednkGUrZ_g0rIoGFZo2E681jOsoaV6W2ov48P1aV1o1_Yq3gkzI47RTniJhMY024YXXkcXPvlTvQm8GYOarmOyPJwdtLyVKECfZsnnMf1UVNq_7spPNQ3o26jZJSvYLCSuq1HotmWpaMCKlzdkzr8SYPr6x_a1uU6dZHuAhF03glHJDDhIiRJHfO_AIlhctbEOi5fpK-33jPYEpoUN7e_wsc69FB2i5w-MN5EN6sMc-dnJWqNzp2AMDhM6d6niez-ovdQwPBT3PUwMEPAhXSK_aiR8X1il-5xHayu9R1VBqadTxygtuSDSn7o6WIylPq7bq6wW6pyMhaiysuOkyr2O-MJPrFIjQShtEVaM4hcAfbR_poNPDCbwjEwwpgoHrcxNiO9j5D4Ww5hKfZrZYEl2cIPtRwTbXpU7_DTWcNLEpUA0tqT9B_uw0sY4TMdMQTKqP6ezd-cG_ft-0G00)
 
-Le client choisit ensuite une adresse de livraison (préenregistrée ou nouvelle) ainsi qu’un mode de paiement. Un récapitulatif détaillé est affiché avant confirmation. En cas de rupture de stock détectée à cette étape, le client est redirigé vers son panier afin d’ajuster sa commande.
+
+### 5.5 Scénario : Passer une commande (UC8)
+
+Ce diagramme d’activité décrit le processus de passage d’une commande à partir d’un panier validé. Le client confirme son panier et choisit une adresse de livraison.
+
+Le système crée ensuite la commande et vérifie la disponibilité des produits. En cas de stock suffisant, les articles sont réservés ; sinon, un message d’erreur est affiché et le processus s’arrête.
+
+Une fois la vérification réussie, le client sélectionne un mode de paiement et le système le redirige vers l’étape de paiement pour finaliser la commande.
+
+![DA_passer_commande](https://img.plantuml.biz/plantuml/png/NP5DJiCm48NtFiMe6z8h90kAoXfGAtLluaapmZ_HU189AGlkm2N8EN8JJi8aYAXYxUzzViy-PB4iVV16I3p28zahsn0Gt9sjXGQIUOBlZqzuiJaZGnyHwXI2ZGwD6O-UCCfeLeqfBzQJKwgpaP0hKnxRH9aOh6FKF3W4JmDRoYbMcZ-_Pvc_0ewAyZnfz4-kuSiyCJKg0aUvIv5UoQzzEawk9ybge0QAiwJw3NBVD9Hj5BZVWxGOeNZkQMy0ojCyQVTXARObqMkTuYd5XTXsAFoWchfL5fcnPzZzwYbk5-mgvRAapc1qrDmymxOt9BUExInXqAD_Mq_eYEcgbsYfV4kjseDwbp_v0G00)
+
 
 ### 5.7 Scénario : Payer la commande (UC9)
 
-Ce diagramme décrit l’interaction entre le système et le prestataire de paiement externe. Une demande de paiement est transmise, puis le client saisit ses informations bancaires.
+Ce diagramme d’activité décrit le processus de paiement d’une commande. Le client choisit un mode de paiement et le système vérifie sa validité. Si le mode de paiement est invalide, un message d’erreur est affiché et le processus s’arrête.
 
-Si le paiement est accepté, le système valide la transaction, enregistre la commande comme payée et déclenche l’envoi d’un e-mail de confirmation. En cas de refus, un message d’échec est affiché et le client doit sélectionner un autre moyen de paiement.
+Si le mode de paiement est valide, le client peut utiliser des informations de paiement déjà enregistrées ou en saisir de nouvelles, puis valide le paiement. La demande est alors transmise au système de paiement externe.
 
-### 5.8 Scénario : Recevoir une confirmation par e-mail (UC12)
+Si le paiement est accepté, la transaction est confirmée et un e-mail de confirmation est envoyé au client. En cas de refus, un e-mail de refus est transmis au client et le paiement est annulé.
 
-Ce diagramme modélise le processus automatique d’envoi d’un e-mail de confirmation après la validation d’une commande. Le système génère le message et le transmet au serveur de messagerie.
+![DA_payer_commande](https://img.plantuml.biz/plantuml/png/bLHBRi8m4Dtx51QRmX6QB4f5k-YYBHAY-r6Om4Z-8Dk9X9H5xz1Bb7DmavwajcaIqm1LhKYHdPdtthmPPseT65T9mHmvWVo1O6r0IkIh6oWSrUGEU_xr_i7di4F3AuMyq5A2MY4VBsUt4yQQcI1Khc4HYsLpiDQ7jc4vosORJPP2DfVQ9_fd2uJIP-K-Vx6pxl0fiM5Kyl7phmXUWo2_lvjmjq75nozQJHZtgoCEc-o-BAdOU6A9ri8Qu-beW4RgY3VAOu1rUijGM5_DQqM-cd0OP3ofKXi9ZhIoAK0CG6LmJTQPmnvjhwn76CXhOPUE10LxX4-aXAEBkeRDavKj89egGaUyG8k5GPVtEB6epgnXsWN-i4uQz2zIjQBoQC4P_e4ZVuevA-IQY4J0wNYynQx7f6JsObmxVobRqmt2l9qSA0hSXkjmlYVPJAkIZ0mSm9q1PSCDqYfFHcA1fiRApoYGI6nuLBNUnJiJ8Q89tLUeU14hwHs8Ktl1v0uiS8II39QLlOvoDEtdDVNly4Vu1W00)
 
-Le diagramme prend en compte le cas d’erreur où l’adresse e-mail serait invalide ou inaccessible, situation dans laquelle une erreur est remontée au système.
 
-### 5.9 Scénario : Consulter l’état d’une commande (UC13)
-
-Ce diagramme décrit le suivi des commandes depuis l’espace personnel du client. Le client accède à la liste de ses commandes et peut sélectionner l’une d’entre elles pour en consulter le détail et le statut.
-
-Si la commande est livrée, le système propose le téléchargement de la facture. En cas de commande introuvable ou non attribuée au client, un message d’erreur est affiché et l’accès est refusé.
-
-### 5.10 Scénario : Gérer les produits (UC14)
+### 5.8 Scénario : Gérer les produits (UC14)
 
 Ce diagramme décrit l’interaction entre l’administrateur et le système pour la gestion des produits. L’administrateur peut ajouter, modifier ou supprimer un produit depuis le module de gestion.
 

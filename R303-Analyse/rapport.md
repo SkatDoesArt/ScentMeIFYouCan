@@ -145,6 +145,24 @@ Des relations d’inclusion et d’extension ont été utilisées afin de struct
 
 ## 5. Modélisation Dynamique – Diagrammes d’Activités
 
+## 5.0.1 Scénarios non modélisés
+
+Certains scénarios, bien que décrits dans les cas d’utilisation, n’ont pas été représentés par des diagrammes d’activités. Les raisons sont les suivantes :
+
+* Scénarios secondaires ou très simples :
+  - UC1 – Mot de passe oublié : la séquence est linéaire et courte, sans décision complexe. Représenter ce scénario dans un diagramme d’activité aurait apporté peu d’information supplémentaire.
+
+* Scénarios d’erreur très ponctuels :
+  - UC1 – Identifiants incorrects, UC12 – Adresse e-mail invalide, UC13 – Commande introuvable, :
+  Ces scénarios sont des cas d’erreur spécifiques et ne changent pas radicalement la logique principale. 
+  Dans les diagrammes, ils ont été intégrés via des décisions ou messages d’erreur plutôt que représentés par un diagramme séparé.
+
+* Scénarios d’extension très ponctuels : 
+  - UC17 – Suivi des commandes par un employé : la logique est similaire à UC13, avec ajout d’un filtrage, et ne justifie pas un diagramme distinct.
+
+
+## 5.0.2 Scénarios modélisés
+
 ### 5.1 Objectifs de l’analyse dynamique
 
 Afin de valider la faisabilité des fonctionnalités identifiées et de clarifier la logique métier du système, une analyse dynamique a été menée à l’aide de diagrammes d’activités UML. Ces diagrammes permettent de représenter de manière précise les enchaînements d’actions, les prises de décision, les responsabilités des acteurs ainsi que les interactions avec les systèmes externes.

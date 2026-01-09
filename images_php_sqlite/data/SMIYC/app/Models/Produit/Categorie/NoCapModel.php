@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Produit\Categorie;
 
 use CodeIgniter\Model;
 use App\Entities\NoCapEntity;

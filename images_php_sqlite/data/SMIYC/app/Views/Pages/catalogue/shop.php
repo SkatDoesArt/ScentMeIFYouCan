@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\ProduitModel;
+use App\Models\Produit\ProduitModel;
 
 // Liste de produits (à génerer  aprés avec la base de donné )
 $produits = new ProduitModel();

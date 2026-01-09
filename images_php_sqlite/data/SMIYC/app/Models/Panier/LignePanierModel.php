@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Panier;
 
 use App\Entities\LignePanierEntity;
 use CodeIgniter\Model;

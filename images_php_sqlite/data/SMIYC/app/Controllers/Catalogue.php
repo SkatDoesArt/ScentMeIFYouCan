@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\AvisModel;
-use App\Models\ProduitModel;
+use App\Models\Produit\ProduitModel;
 
 class Catalogue extends BaseController
 {

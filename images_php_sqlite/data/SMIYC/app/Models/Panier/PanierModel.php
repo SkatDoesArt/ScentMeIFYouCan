@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Panier;
 
-use App\Entities\PanierEntity;
+use App\Entities\Panier\PanierEntity;
 use CodeIgniter\Model;
 
 class PanierModel extends Model
@@ -97,7 +97,7 @@ class PanierModel extends Model
 // Dans PanierModel ou dans LignePanierModel
 public function getPanierComplet(int $id_panier)
 {
-    $lignePanierModel = new \App\Models\LignePanierModel();
+    $lignePanierModel = new \App\Models\Panier\LignePanierModel();
 
     return $lignePanierModel
         ->select('ligne_panier.*, produit.name, produit.price')

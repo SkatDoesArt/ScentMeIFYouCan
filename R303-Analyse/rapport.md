@@ -145,6 +145,24 @@ Des relations d’inclusion et d’extension ont été utilisées afin de struct
 
 ## 5. Modélisation Dynamique – Diagrammes d’Activités
 
+## 5.0.1 Scénarios non modélisés
+
+Certains scénarios, bien que décrits dans les cas d’utilisation, n’ont pas été représentés par des diagrammes d’activités. Les raisons sont les suivantes :
+
+* Scénarios secondaires ou très simples :
+  - UC1 – Mot de passe oublié : la séquence est linéaire et courte, sans décision complexe. Représenter ce scénario dans un diagramme d’activité aurait apporté peu d’information supplémentaire.
+
+* Scénarios d’erreur très ponctuels :
+  - UC1 – Identifiants incorrects, UC12 – Adresse e-mail invalide, UC13 – Commande introuvable, :
+  Ces scénarios sont des cas d’erreur spécifiques et ne changent pas radicalement la logique principale. 
+  Dans les diagrammes, ils ont été intégrés via des décisions ou messages d’erreur plutôt que représentés par un diagramme séparé.
+
+* Scénarios d’extension très ponctuels : 
+  - UC17 – Suivi des commandes par un employé : la logique est similaire à UC13, avec ajout d’un filtrage, et ne justifie pas un diagramme distinct.
+
+
+## 5.0.2 Scénarios modélisés
+
 ### 5.1 Objectifs de l’analyse dynamique
 
 Afin de valider la faisabilité des fonctionnalités identifiées et de clarifier la logique métier du système, une analyse dynamique a été menée à l’aide de diagrammes d’activités UML. Ces diagrammes permettent de représenter de manière précise les enchaînements d’actions, les prises de décision, les responsabilités des acteurs ainsi que les interactions avec les systèmes externes.
@@ -230,7 +248,7 @@ Ce diagramme d’activité décrit la gestion des utilisateurs par l’administr
 
 Pour chaque action, le système met à jour la base de données et affiche une confirmation lorsque l’opération est réussie. L’administrateur peut enchaîner plusieurs actions au cours de la même session avant de se déconnecter.
 
-![DA_gerer_user](https://img.plantuml.biz/plantuml/png/fPHBRi9038RtSmhlW4Kl058BfLLNg5AHkXyb3d4r3pGFs72ORhFl3NAnpan2IG11IqVA9l7yzlVRyTGwRfoNWZbo0k69-CfmAH7o0SySRSZL5OpXfQuC6X1emJiIPBb3RonZkrakIP5r9htPiTqZj-5saD9ArHNks9cWb9MDbmXPYCBCePamPd2Dt5t81k7OBRciXE6yr6J9W5S8iLAjHkbxF5aiOJZxq3u8XuYkoY4gdl6I9vMOYbIXZUHHoaBkGMc_GT6zE-dTFINjAJyhWwl8d4Ykgnrxr1DxvuBoA3JWaMfoXBhGEHLqbRMk12QhL9BgH4Bz2R8LwTSr_j4-zkXFRYpG1ITYcb3_ER-nNz1Dvl2M8KkYnoOj_NfjIFxJ9RjN-HF-8VVDb7Ej2ZAouKnLeBLdCDymAz74vrUJhxG4xS7KNmAlTU4oOoVnpP2p8dIlR8VDr9Nrmd7NZXgglFdxzvjYMvA8FxgFezKiWTWYB8hGG1zK7aP05eQldXhuk_l0EpdTHt4JvNNLMKRMwJMRXenXDtu3)
+![DA_gerer_user](/R303-Analyse/DA_swimlanes/Gérer%20Users.jpg)
 
 ---
 

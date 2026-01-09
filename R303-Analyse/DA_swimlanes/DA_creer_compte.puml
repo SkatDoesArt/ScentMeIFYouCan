@@ -1,0 +1,34 @@
+@startuml
+title Diagramme d'activité – Passer une commande
+
+|Client|
+start
+:Cliquer "Se connecter/s'inscrire";
+:Choisir "Créer un compte";
+:Remplir formulaire d'isncription;
+
+|Système|
+:Vérifier validité email;
+if ( Email valide ? ) then (Non)
+    |Client|
+    :Afficher erreur "Email invalide";
+    stop
+else (Oui)
+|Système|
+:Vérifier disponibilité email;
+if (Email Libre?) then (Non)
+    |Client|
+    :Afficher erreur "Compte existant";
+    stop
+else (Oui)
+    |Système|
+    :Créer compte Client;
+endif
+
+|Client|
+:Accés espace Client immédiat;
+
+
+
+stop
+@enduml

@@ -148,17 +148,14 @@ Afin de valider la faisabilité des fonctionnalités identifiées et de clarifie
 
 Les scénarios modélisés correspondent aux cas d’utilisation critiques du système de vente en ligne. Ils traduisent les parcours réels des utilisateurs et mettent en évidence les traitements normaux, alternatifs et d’erreur.
 
-### 5.2 Scénario : S’authentifier (UC1)
 
-Ce diagramme d’activité modélise le processus d’authentification d’un utilisateur existant. Le scénario débute lorsque l’utilisateur accède à la page de connexion et saisit ses identifiants. Le système vérifie la correspondance entre l’identifiant et le mot de passe stocké de manière sécurisée.
-
-En cas de succès, l’utilisateur est authentifié et redirigé vers son espace personnel. En cas d’échec, un message d’erreur est affiché et l’utilisateur peut réessayer. Le diagramme intègre également le scénario alternatif « Mot de passe oublié », dans lequel le système déclenche l’envoi d’un lien de réinitialisation par e-mail via le serveur de messagerie.
-
-### 5.3 Scénario : Créer un compte (UC2)
+### 5.2 Scénario : Créer un compte (UC2)
 
 Ce diagramme décrit le processus d’inscription d’un nouvel utilisateur. Après la saisie des informations requises, le système vérifie la validité des données et l’unicité de l’adresse e-mail.
 
 Si l’adresse e-mail est déjà utilisée, la création du compte est refusée et un message d’erreur est retourné à l’utilisateur. Dans le cas contraire, le compte est créé avec succès et une confirmation est affichée. Les champs facultatifs n’empêchent pas la création du compte, ce qui garantit une inscription fluide tout en respectant les contraintes métier.
+
+
 
 ### 5.4 Scénario : Consulter le catalogue (UC3)
 

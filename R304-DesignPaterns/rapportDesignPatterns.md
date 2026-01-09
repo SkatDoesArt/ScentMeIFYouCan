@@ -84,7 +84,6 @@ Emplacement réel des classes :
 - `app/Entities/Users/User.php`
 - `app/Entities/Users/Acheteur.php`
 - `app/Entities/Users/Admin.php`
-- `app/Entities/Users/Client.php`
 
 Extraits de code pertinents (simplifiés) :
 
@@ -197,7 +196,7 @@ But : permettre de changer l'algorithme de tri sans modifier `CatalogueService` 
 ![DC_Strategy](https://img.plantuml.biz/plantuml/png/XLBD2e904BuBliCSbR07496eQuV09nXqMfPCOsOCf7htLapH5DpRpdpp_UpiGHHPctlfUm_CRsW8JgXOrgOXUFcUxu4xjbBYA-PZCwjPCsLKCcq7Wz_PWRXEyE2wQAmAn72seicblwVXVw6V_0mwUOaYq94VsmlRd9RbKwTPSxli71chOes7HAsXGMCjGVBUxvUo6yY9tWPoxddJmDnldsLSIaRyT0wdZnw133pn6ljiFJIMWs4gd08CwQWLX7_xMRY8edGrJmoDsjAAI-663rGLxejz0G00)
 
 Explication concise :
-- Problème traité : multiples critères de tri qui doivent pouvoir évoluer indépendamment du service de catalogue.
+- Problème traité : multiples critères de tri qui doivent pouvoir évoluer indépendamment du service de catalogue. Comme un des objectif du site est de proposer des produits divers et originaux, les critieres de tri peuvent rapidement évoluer en fonctions de nouveaux produit ou bien de nouvelles catégories ajoutées.
 - Solution : encapsuler chaque algorithme dans une implémentation de `CatalogSortStrategy` et injecter la stratégie choisie dans `CatalogueService`.
 - Pertinence e‑commerce : permet d'ajouter des tris métier (ex. par popularité ou marques) sans toucher au service ni aux contrôleurs.
 

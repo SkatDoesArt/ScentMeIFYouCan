@@ -43,35 +43,7 @@ L’entité **Acheteur** devient centrale pour le métier, tandis que l’entit�
 
 But : déléguer les responsabilités liées à l'identité et à l'authentification à un objet `User` réutilisable.
 
-Diagramme UML (niveau conception) :
-
-@startuml
-package Utilisateurs {
-
-    class User {
-        - id : int
-        - email : string
-        - role : Role
-        + isAdmin() : bool
-        + isClient() : bool
-    }
-
-    class Admin {
-        - user : User
-        + gererProduits()
-        + gererCommandes()
-    }
-
-    class Client {
-        - user : User
-        + passerCommande()
-        + gererPanier()
-    }
-
-    Admin --> User : délègue
-    Client --> User : délègue
-}
-@enduml
+![DC_Delegate](https://img.plantuml.biz/plantuml/png/ZP5D2i8m48NtXTvXbXRf1RgGYXSeWWU8PYY3-IapoKgyZvx3YnbjiQrruMm2xvlCUvdK4XI7Q4sUTUfqLYt28P0XKG4Z2rpoBCyWrSae4JW8yak3eKeW3HMG2rCDhIAJP0bChfqIzWOJsATZbDT0ijMMtAf8xEYzcRET8NJX2rxdmTxtvydYAslrZZoTro8ZD-nrf22hOe5stbhbD7xObrEVvY-hBlMF0tzuDSeHyiAeVqnPRlfzLw0VT_EujN5OsX3XTqEQKgFJwKkV)
 
 Explication concise :
 - Problème traité : éviter de dupliquer les informations d'identité et l'authentification dans chaque rôle métier (Admin, Client, Acheteur), et permettre de représenter des visiteurs non authentifiés.
@@ -186,37 +158,12 @@ Le tri est donc externalisé dans des stratégies interchangeables, utilisées p
 
 But : permettre de changer l'algorithme de tri sans modifier `CatalogueService` ni les consommateurs.
 
-Diagramme PlantUML :
-
-@startuml
-package Catalogue {
-
-    interface CatalogSortStrategy {
-        + sort(produits : List<Produit>) : List<Produit>
-    }
-
-    class SortByPrice
-    class SortByRating
-    class SortByPrestige
-
-    CatalogSortStrategy <|.. SortByPrice
-    CatalogSortStrategy <|.. SortByRating
-    CatalogSortStrategy <|.. SortByPrestige
-
-    class CatalogueService {
-        - strategy : CatalogSortStrategy
-        + setStrategy(strategy)
-        + getCatalogue()
-    }
-
-    CatalogueService --> CatalogSortStrategy : utilise
-}
-@enduml
+![DC_Strategy](https://img.plantuml.biz/plantuml/png/XLBD2e904BuBliCSbR07496eQuV09nXqMfPCOsOCf7htLapH5DpRpdpp_UpiGHHPctlfUm_CRsW8JgXOrgOXUFcUxu4xjbBYA-PZCwjPCsLKCcq7Wz_PWRXEyE2wQAmAn72seicblwVXVw6V_0mwUOaYq94VsmlRd9RbKwTPSxli71chOes7HAsXGMCjGVBUxvUo6yY9tWPoxddJmDnldsLSIaRyT0wdZnw133pn6ljiFJIMWs4gd08CwQWLX7_xMRY8edGrJmoDsjAAI-663rGLxejz0G00)
 
 Explication concise :
 - Problème traité : multiples critères de tri qui doivent pouvoir évoluer indépendamment du service de catalogue.
 - Solution : encapsuler chaque algorithme dans une implémentation de `CatalogSortStrategy` et injecter la stratégie choisie dans `CatalogueService`.
-- Pertinence e‑commerce : permet d'ajouter des tris métier (ex. par popularité ou promotions) sans toucher au service ni aux contrôleurs.
+- Pertinence e‑commerce : permet d'ajouter des tris métier (ex. par popularité ou marques) sans toucher au service ni aux contrôleurs.
 
 ---
 
@@ -226,7 +173,8 @@ Emplacement réel des classes :
 
 - `app/Services/Catalogue/Sorting/CatalogSortStrategy.php`
 - `app/Services/Catalogue/Sorting/SortByPrice.php`
-- `app/Services/Catalogue/Sorting/SortByRating.php`
+- `app/Services/Catalogue/Sorting/SortByBrand.php`
+- `app/Services/Catalogue/Sorting/SortByCategory.php`
 - `app/Services/Catalogue/Sorting/SortByPrestige.php`
 - `app/Services/Catalogue/CatalogueService.php`
 
@@ -323,34 +271,7 @@ Ce pattern permet de modéliser un pipeline de validation clair et extensible.
 
 But : valider une `CommandeEntity` via une suite de validations indépendantes et chaînées.
 
-Diagramme PlantUML :
-
-@startuml
-package Validation {
-
-    abstract class ValidationHandler {
-        - next : ValidationHandler
-        + setNext(handler) : ValidationHandler
-        + handle(commande) : bool
-    }
-
-    class StockValidationHandler
-    class PaymentValidationHandler
-    class AddressValidationHandler
-
-    ValidationHandler <|-- StockValidationHandler
-    ValidationHandler <|-- PaymentValidationHandler
-    ValidationHandler <|-- AddressValidationHandler
-
-    class CommandeValidator {
-        - firstHandler : ValidationHandler
-        + validate(commande) : bool
-    }
-
-    CommandeValidator --> ValidationHandler : déclenche
-    ValidationHandler --> ValidationHandler : transmet
-}
-@enduml
+![DC_COR](https://img.plantuml.biz/plantuml/png/XP9DIaD13CVt0tE7B5jaBb2aLDou4a5mdyv4--Xyb4ai5Us1F8SNwvHvHV5rtiiga5-IVpwqMh5WblVWjTgXtU8RmGlwpg5qASAdLbf1CLopPBG2rYFp7-G1e_EKpoJqPY3IGM0nf7wP6s2InuBDDZKqd-8hDxCfXEBHcL-dv2jolEYiyfubsMsZMYMUy2DGb57cphbCp5UOIWsNSFjbp6ZpHigucaRIbBmwn7s_hnvB_oxrscMMIzc92-nhSF86mvR6BAzCiG3tysqzHRkXrgIjpFACaGE9LgNjYg8h7tm2)
 
 Explication concise :
 - Problème traité : validations multiples (stock, paiement, adresse, etc.) avec ordre flexible et possibilité d'ajout/suppression de règles.

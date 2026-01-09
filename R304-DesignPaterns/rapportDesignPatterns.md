@@ -87,7 +87,6 @@ Emplacement réel des classes :
 - `app/Entities/Users/User.php`
 - `app/Entities/Users/Acheteur.php`
 - `app/Entities/Users/Admin.php`
-- `app/Entities/Users/Client.php`
 
 Extraits de code pertinents (simplifiés) :
 
@@ -214,7 +213,7 @@ package Catalogue {
 @enduml
 
 Explication concise :
-- Problème traité : multiples critères de tri qui doivent pouvoir évoluer indépendamment du service de catalogue.
+- Problème traité : multiples critères de tri qui doivent pouvoir évoluer indépendamment du service de catalogue. Comme un des objectif du site est de proposer des produits divers et originaux, les critieres de tri peuvent rapidement évoluer en fonctions de nouveaux produit ou bien de nouvelles catégories ajoutées.
 - Solution : encapsuler chaque algorithme dans une implémentation de `CatalogSortStrategy` et injecter la stratégie choisie dans `CatalogueService`.
 - Pertinence e‑commerce : permet d'ajouter des tris métier (ex. par popularité ou promotions) sans toucher au service ni aux contrôleurs.
 

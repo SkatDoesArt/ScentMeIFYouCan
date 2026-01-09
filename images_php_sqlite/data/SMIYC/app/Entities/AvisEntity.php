@@ -15,6 +15,16 @@ class AvisEntity extends Entity
         'contenu'=>'string',
         'date'=>'string',
     ];
+
+    public function __construct(?Acheteur $auteur, Produit $produit, string $titre, string $contenu, int $note){
+//        $avis = new AvisEntity();
+//        $avis->attributes['id_user'] = $auteur ? $auteur->getId() : null;
+//        $avis->attributes['titre'] = $titre;
+//        $avis->attributes['contenu'] = $contenu;
+//        $avis->attributes['date'] = date('Y-m-d H:i:s');
+//        return $avis;
+    }
+
     public function getIdAvis(){return $this->attributes['id_avis'];}
     public function getIdUser(){return $this->attributes['id_user'];}
     public function getTitre(){return $this->attributes['titre'];}

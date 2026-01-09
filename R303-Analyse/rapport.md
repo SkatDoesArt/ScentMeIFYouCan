@@ -139,7 +139,7 @@ Le cas d’utilisation central est « Passer une commande » (UC8). Celui-ci inc
 
 Des relations d’inclusion et d’extension ont été utilisées afin de structurer les fonctionnalités, de mutualiser les traitements communs et de représenter les comportements conditionnels, notamment le suivi des commandes et l’envoi de notifications.
 
-![Diagramme de Cas d'Utilisation](https://img.plantuml.biz/plantuml/png/VPLTQXin4CVV3Rx3u1Ut3qwx_aZi4apC5leKC0tnkzWTEofQQT67QMWBlKClqPp3D-b9EfAyNgyIZ36Cz__xQqSp8_dEMAQjgqI_PxaL29yvssbMLGWbGiuCbCD7omKtp78buT_lFx0MpE9MwSZiKLe4b23uJYAyOtiie6OSAn80BKXb-PONmM_Uzti2jnQi0irtJnPAhh7mKh_72giq33RSS0e6G2_Vd9xcWjDwuM5-UhWgAowviPeISj6nEeaFpyOU_iOactm2icuHr7ioGiMu2D9zlxU1sv-ZaNz97YDQqQV8v8xAqrcrk_K1_EZt09p1WXaY7_CCHl0mPCu-4KWrm9WY2Gau9Z3NXnVKu2GKggej7j5nWauyIeLqmX9D6L5XcL0xrnWcYM5AXgzOFA7sNxz-hLNfk3toquIV4V_byABZwZMJRTgp1BqcTFLDEPy9SrtsEc5lV2rSNMjU4Lqcz4r2pubUCsD2mkWhKZ5PDbkS9_GYqCy-OvQoYxGd7mc-LsLeXzzXfShN8-Avr9XrZ4DMQgG4lLNmlMRSADbuq_vcuzW4t2lUx4XkkQxYeQhPsGXwEhKdJHyUNYopuSslzfkb_S-cvmqrJVTDmwVzpsPTtXrFFvsJauS68NN5_b8XCBYQh4wMq67_7L8XHBmCwEXOxIVOtpAklMKyvWVnwchf9ma-mUqjbuLmjDvosLLltbJdHtLsKLrSL6bIBihPPNdofhnevF4hEG9Ko0w1totACW2_-htpuj4Tvdi27zugO0wZqJBUD9jZE6x3IHjEMtRMXlEp5IPdCNLnrSJJipWCnFhuYuxSVIFGI-ye__074p__0G00)
+![Diagramme de Cas d'Utilisation](/R303-Analyse/DCU/DCU_final.jpg)
 
 ---
 
@@ -237,7 +237,7 @@ Ce diagramme d’activité décrit la gestion des produits par l’administrateu
 
 Pour chaque action, le système met à jour les données correspondantes et confirme l’opération lorsque les informations sont valides. En cas d’erreur ou de données incorrectes, la validation est refusée et un message d’erreur est affiché. L’administrateur peut répéter ces actions jusqu’à la fin de la session de gestion.
 
-![DA_gerer_pdt](img.plantuml.biz/plantuml/png/ZLJDReCm3BxdANnR-mhqiB9MsccRj3v11ARr10bApAP9FCoEvJbuiJdG7sXBDsw9xU_7E5vwrewh8bTCd2EiIM-TBWg4z44dJ9_4RGCHFBUDGmSvUYYTJIjYhrGTfmKPykmqO-LgrO6fQ8EGM6CmONGB5SL9qZQfLBS_a6lOecUo1j81raB0Dj-Usts1jLHa6IMxm2VWU9dfi4JD2kIxKX0kezNEaYS7bK489goHgX2X36RnXwr45ppEWNTeOFPgpRoB7ZDUR4eP3LFUAZgdT1IRjicnWpQIU12t6EUSS5B9QXlqutZzf7tm1kj3kBueHsQ7eMcY-0O7vb8-LZ_Pag6zJLMMZegx_lxhyHy-UgWJvqsO2Ij_sZbQUiSmBTt4tFVKYz7TT2HEPdllyDfHntiUnviW0yh9pg2H0L3JD-EJEdTYf7so0qSZQTkmfjnV2xdpQwALauiByRsWWVN-gS7NZcGtpE8g36J_eaAZoH-aNc-2i0D4rs0DUBQbKakX2Dlc5m00)
+![DA_gerer_pdt](/R303-Analyse/DA_swimlanes/rapport/gererProduits_colors.png)
 
 ---
 
@@ -289,11 +289,13 @@ Le diagramme de classes d’analyse représente la structure statique des donné
 ### 6.3 Choix de conception majeurs
 
 - Distinction Panier / Commande :
-Le panier est temporaire et modifiable, tandis que la commande est persistante et figée une fois validée.
-- Traçabilité ({addOnly}) :
-L’historique des commandes est immuable : seules de nouvelles commandes peuvent être ajoutées, garantissant l’intégrité des données.
-- Immuabilité des commandes ({frozen}) :
-Les lignes de commande sont figées après validation pour garantir la cohérence avec la facturation et le stock.
+Le panier est temporaire et modifiable, tandis que la commande est persistante une fois validée.
+- Contrairement à une approche strictement immuable, le système autorise la modification contrôlée de l’état d’une commande.
+La traçabilité est assurée par :  
+un cycle de vie explicite (statuts successifs),  
+des règles métier strictes encadrant les transitions possibles.  
+
+Les données structurelles de la commande (lignes, prix unitaires) restent stables, tandis que seul le statut évolue (ex. : En attente → Payée → Expédiée).
 - Gestion des statuts via énumération :
 Les statuts des commandes, produits et utilisateurs sont centralisés via des énumérations, assurant une gestion stricte par l’administrateur.
 - Attributs relationnels spécifiques :

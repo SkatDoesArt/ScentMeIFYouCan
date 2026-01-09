@@ -257,11 +257,11 @@
                     </p>
                 </div>
             </div>
-            <p>
+            <p><strong>
                 Le parfum n’a jamais été aussi simple à choisir. <br>
                 Avec Scent Me If You Can, explorez, comparez, vibrez. <br>
                 Votre odeur, votre style, votre signature.
-            </p>
+            </strong></p>
         </div>
     </section>
     <section id="no-cap">

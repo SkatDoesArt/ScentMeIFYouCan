@@ -29,9 +29,6 @@ package Utilisateurs {
         - passwordHash : String
         - actif : bool
         - role : Role
-        --
-        + isAdmin() : bool
-        + isClient() : bool
     }
 
     User ..> Role : <<uses>>
@@ -45,20 +42,9 @@ package Utilisateurs {
         - adresseLivraison : String
         - adresseFacturation : String
         - moyenPaiement : MoyenPaiement
-        --
-        + estAuthentifie() : bool
-        + getIdentite() : String
     }
 
     Acheteur ..> MoyenPaiement : <<uses>>
-
-    class SessionAchat {
-        - idSession : int
-        - dateCreation : Date
-        - dateDerniereActivite : Date
-        --
-        + estActive() : bool
-    }
 
     ' =========================
     ' ADMINISTRATION
@@ -66,9 +52,6 @@ package Utilisateurs {
 
     class Admin {
         --
-        + gererProduits()
-        + gererCommandes()
-        + gererUtilisateurs()
     }
 
     ' =========================
@@ -77,9 +60,6 @@ package Utilisateurs {
 
     ' Délégation d'identité
     Acheteur "0..1" --> User : delegueIdentite
-
-    ' Composition transactionnelle
-    SessionAchat "1" *-- "1" Acheteur : contient
 
     ' Rôle applicatif
     Admin --> User : utilise

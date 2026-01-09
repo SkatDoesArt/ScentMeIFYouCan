@@ -153,8 +153,9 @@ Les scénarios modélisés correspondent aux cas d’utilisation critiques du sy
 
 Ce diagramme décrit le processus d’inscription d’un nouvel utilisateur. Après la saisie des informations requises, le système vérifie la validité des données et l’unicité de l’adresse e-mail.
 
-Si l’adresse e-mail est déjà utilisée, la création du compte est refusée et un message d’erreur est retourné à l’utilisateur. Dans le cas contraire, le compte est créé avec succès et une confirmation est affichée. Les champs facultatifs n’empêchent pas la création du compte, ce qui garantit une inscription fluide tout en respectant les contraintes métier.
+Si l’adresse e-mail est déjà utilisée ou est invalide ua fomrat attendus, la création du compte est refusée et un message d’erreur est retourné à l’utilisateur. Dans le cas contraire, le compte est créé avec succès et une confirmation est affichée. Les champs facultatifs n’empêchent pas la création du compte, ce qui garantit une inscription fluide tout en respectant les contraintes métier.
 
+![DA_creer_un_compte](https://img.plantuml.biz/plantuml/png/bP9DJiCm48NtFiM8JTiL-sJHLeKT0aGbzgupeIFPas1FAf2wu0vSWfmZD-4aJ1p-XDG5NdaqxxtvDFOgYOtI1M-4n2DSa7s8DWI4QcQTq85awE7zvHLkRKeOeMC4ruHWkK9ZZXjFo78qESOKMZvsgZhRZYfcT8BnFCs8auiKyQnKpRwXHAhPnA7FYMDWAxbvXw7rsgoR63flrQ8Wb5ZThL33fSxSFYSPtW8UJN4_z95gqfI3zLHbM0oMV6ceXZbSZlUfXx241SWU6URN3IyCwFdc7ujYNTVazXg6CMAdX9ETU0fGlb6Mf6aD-eGml-beSOAdejGsJ3loVw6cq2lQHLp-5sYJ5mNuHBfmbXD4EUY7AaTzBdlQD4nJIeDSKVth6OkrSqEV05DhtPSCA8IXhyYgGK-UjbBd-6i-0000)
 
 
 ### 5.4 Scénario : Consulter le catalogue (UC3)

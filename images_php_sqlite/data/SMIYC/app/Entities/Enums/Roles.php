@@ -1,6 +1,7 @@
 <?php
 
-enum Role: string {
+namespace App\Entities\Enums;
+enum Roles: string {
     case ADMIN = 'admin';
     case CLIENT = 'client';
 }

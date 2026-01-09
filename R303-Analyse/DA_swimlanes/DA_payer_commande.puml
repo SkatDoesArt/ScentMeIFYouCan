@@ -1,18 +1,40 @@
 @startuml
-title Diagramme d'activité : Payer une commande (UC9)
+title Diagramme d'activité – Payer une commande (UC9)
 
 |Client|
 start
 :Passer commande;
 :Choisir un mode de paiement;
 
-if (Mode de paiement valide ?) then (Oui)
-    if (Infos enregistrées ?) then (Oui)
-        :Utiliser les informations enregistrées;
+|Système|
+if (Mode de paiement valide ?) then (Non)
+    |Client|
+    :Afficher message
+    "Mode de paiement invalide";
+    stop
+else (Oui)
+
+    if (Informations de paiement
+    enregistrées ?) then (Oui)
+
+        |Client|
+        if (Utiliser les informations
+        enregistrées ?) then (Oui)
+            :Saisir le code secret;
+        else (Non)
+            :Saisir les informations
+            de paiement;
+            :Saisir le code secret;
+        endif
+
     else (Non)
-        :Saisir les informations de paiement;
+        |Client|
+        :Saisir les informations
+        de paiement;
+        :Saisir le code secret;
     endif
-    :Saisir le code secret;
+
+    |Client|
     :Valider le paiement;
 
     |Système de paiement|
@@ -20,19 +42,14 @@ if (Mode de paiement valide ?) then (Oui)
         :Confirmer la transaction;
 
         |Serveur mail|
-        :Envoyer confirmation au client;
+        :Envoyer confirmation
+        au client;
         stop
     else (Non)
-        :Refuser la transaction;
-
-        |Client|
-        :Afficher message d'erreur;
+        :Envoyer mail de refus au client;
         stop
     endif
 
-else (Non)
-    :Afficher message d'erreur;
-    stop
 endif
 
 @enduml

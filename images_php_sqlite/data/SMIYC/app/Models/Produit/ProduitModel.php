@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Produit;
 
 use App\Entities\ProduitEntity;
 use CodeIgniter\Model;

@@ -6,19 +6,17 @@ use CodeIgniter\Entity\Entity;
 use App\Entities\ProduitEntity;
 
 /**
- * Représente une ligne d'une commande
+ * Représente une ligne du panier
  */
-class LigneCommandeEntity extends Entity
+class LignePanierEntity extends Entity
 {
     protected int $quantite;
-    protected float $prixUnitaire;
     protected ProduitEntity $produit;
 
     public function __construct(ProduitEntity $produit, int $quantite = 1)
     {
         $this->produit = $produit;
         $this->quantite = $quantite;
-        $this->prixUnitaire = $produit->getPrix();
     }
 
     public function getQuantite(): int
@@ -31,13 +29,13 @@ class LigneCommandeEntity extends Entity
         $this->quantite = $quantite;
     }
 
-    public function getPrixUnitaire(): float
-    {
-        return $this->prixUnitaire;
-    }
-
     public function getProduit(): ProduitEntity
     {
         return $this->produit;
+    }
+
+    public function getPrixUnitaire(): float
+    {
+        return $this->produit->getPrix();
     }
 }

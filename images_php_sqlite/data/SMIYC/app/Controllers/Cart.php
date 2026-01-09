@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\LignePanierModel;
-use App\Models\PanierModel;
+use App\Models\Panier\PanierModel;
 use Config\View;
 
 class Cart extends BaseController

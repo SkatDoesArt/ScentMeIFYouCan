@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Models\ProduitModel; // On utilise le modèle principal
+use App\Models\Produit\ProduitModel;
 
 class Home extends BaseController
 {
@@ -11,8 +11,6 @@ class Home extends BaseController
         $model = new ProduitModel();
 
         $data = [
-            // On utilise la méthode que tu as créée dans ProduitModel
-            // Note : bien écrire 'NoCap' sans espace comme dans ton Seeder
             'images' => $model->getByCategorie('NoCap')
         ];
 

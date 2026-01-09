@@ -1,24 +1,41 @@
 <?php
 
-namespace App\Entities;
+namespace App\Entities\Panier;
 
 use CodeIgniter\Entity\Entity;
+use App\Entities\ProduitEntity;
 
+/**
+ * Représente une ligne du panier
+ */
 class LignePanierEntity extends Entity
 {
-    protected $datamap = [];
-    protected $dates   = ['created_at', 'updated_at', 'deleted_at'];
-    protected $casts   = [
-        'id_ligne_panier'=>'int',
-        'id_produit'=>'int',
-        'id_panier'=>'int',
-        'id_user'=>'int',
-        'quantite'=>'int',
-    ];
-public function getIdLignePanier(){return $this->attributes['id_ligne_panier'];}
-public function getIdProduit(){return $this->attributes['id_produit'];}
-public function getIdPanier(){return $this->attributes['id_panier'];}
-public function getIdUser(){return $this->attributes['id_user'];}
-public function getQuantite(){return $this->attributes['quantite'];}
+    protected int $quantite;
+    protected ProduitEntity $produit;
 
+    public function __construct(ProduitEntity $produit, int $quantite = 1)
+    {
+        $this->produit = $produit;
+        $this->quantite = $quantite;
+    }
+
+    public function getQuantite(): int
+    {
+        return $this->quantite;
+    }
+
+    public function setQuantite(int $quantite): void
+    {
+        $this->quantite = $quantite;
+    }
+
+    public function getProduit(): ProduitEntity
+    {
+        return $this->produit;
+    }
+
+    public function getPrixUnitaire(): float
+    {
+        return $this->produit->getPrix();
+    }
 }

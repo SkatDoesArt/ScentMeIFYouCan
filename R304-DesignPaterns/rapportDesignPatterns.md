@@ -2,6 +2,18 @@
 
 ## Designs Patterns utilisés et implémentés
 
+## Introduction générale
+
+Dans le cadre du développement de notre site de e-commerce, plusieurs **design patterns** ont été étudiés afin de structurer le code de façon plus simple et efficace.
+L’objectif principal est de produire une architecture **modulaire, évolutive et maintenable facilement**, capable de s’adapter à l’évolution des règles métier sans remettre en cause l’existant.
+
+Les patterns retenus ont été sélectionnés en fonction :
+- des problématiques concrètes du domaine e-commerce,
+- de la séparation des responsabilités,
+- du respect de ceratins principes (SOLID / Clean Architecture).
+
+---
+
 ### Possibilités identifiées
 
 * Delegate
@@ -17,9 +29,20 @@
 
 ### Justification du choix
 
-Le pattern **Delegate** a été retenu afin de séparer clairement les responsabilités entre l'identité d’un utilisateur et son rôle métier dans le processus d’achat. Dans le cadre d’une plateforme e-commerce, l’acte d’achat ne doit pas dépendre directement de l’authentification.
+Dans le contexte du projet, plusieurs types d’utilisateurs existent :
+- des visiteurs non authentifiés,
+- des acheteurs authentifiés,
+- des clients enregistrés,
+- des administrateurs.
+
+Ainsi le pattern Delegate permet de **dissocier clairement l’identité (`User`) de l’acteur métier (`Acheteur`, `Client`, `Admin`)**. L’entité `User` devient un support technique d’authentification et d’autorisation, tandis que l’entité métier conserve sa cohérence fonctionnelle indépendamment de l’état de connexion.
 
 L’entité **Acheteur** devient centrale pour le métier, tandis que l’entité **User** est déléguée uniquement lorsque l’acheteur est authentifié.
+
+Grâce à cette approche :
+- un **Acheteur** peut exister avec ou sans `User`,
+- la logique métier liée au panier ou à la commande ne dépend jamais directement de l’authentification,
+- l’évolution des mécanismes de connexion n’impacte pas le cœur métier.
 
 ---
 
@@ -27,6 +50,7 @@ L’entité **Acheteur** devient centrale pour le métier, tandis que l’entit�
 
 * Découplage fort entre authentification et logique métier
 * Support natif des visiteurs (acheteurs non authentifiés)
+* Réduction des dépendances entre couches techniques et fonctionnelles 
 * Meilleure évolutivité du modèle
 * Alignement avec les principes de Clean Architecture
 
@@ -36,6 +60,7 @@ L’entité **Acheteur** devient centrale pour le métier, tandis que l’entit�
 
 * Augmentation légère du nombre de classes
 * Lecture initiale moins intuitive pour un développeur junior
+* Nécessite une bonne documentation pour éviter les confusions entre rôles et identités 
 
 ---
 
@@ -132,6 +157,16 @@ Choix techniques et adaptations :
 
 ### Justification du choix
 
+Le catalogue produit constitue un élément central de toute plateforme e-commerce. Or, les critères de tri applicables à ce catalogue sont :
+- nombreux,
+- variables,
+- dépendants du contexte utilisateur ou métier.
+
+Implémenter ces règles de tri directement dans les contrôleurs ou dans un service unique aurait conduit à :
+- une multiplication des structures conditionnelles,
+- une forte dépendance entre le tri et le reste du système,
+- une difficulté d’évolution à moyen terme.
+
 Le pattern **Strategy** a été utilisé pour gérer les comportements variables du tri du catalogue produit. Dans un contexte e-commerce, les règles de tri évoluent fréquemment (prix, notation, prestige, etc.) et ne doivent pas être codées en dur dans les contrôleurs.
 
 Le tri est donc externalisé dans des stratégies interchangeables, utilisées par un service applicatif.
@@ -144,6 +179,7 @@ Le tri est donc externalisé dans des stratégies interchangeables, utilisées p
 * Ajout de nouveaux tris sans modifier le code existant
 * Respect du principe Open/Closed
 * Logique métier claire et centralisée
+* Meilleure testabilité des comportements 
 
 ---
 
@@ -245,7 +281,15 @@ Choix techniques et adaptations :
 
 ### Justification du choix
 
-Le pattern **Chain of Responsibility** a été retenu pour la validation des commandes lors du processus de checkout. Une commande doit passer par plusieurs règles successives avant d’être validée, et ces règles peuvent évoluer ou changer d’ordre.
+Le processus de validation d’une commande est composé de **plusieurs règles successives** :
+- disponibilité du stock,
+- validité du paiement,
+- cohérence des informations de livraison,
+- règles métier spécifiques.
+
+Or ces règles peuvent evoluer au fil du temps. 
+
+Le pattern **Chain of Responsibility** a donc été retenu pour la validation des commandes lors du processus de checkout. Une commande doit passer par plusieurs règles successives avant d’être validée, et ces règles peuvent évoluer ou changer d’ordre.
 
 Ce pattern permet de modéliser un pipeline de validation clair et extensible.
 
@@ -264,6 +308,7 @@ Ce pattern permet de modéliser un pipeline de validation clair et extensible.
 
 * Débogage parfois plus complexe
 * Nécessite une bonne documentation de la chaîne
+* Risque de chaîne trop longue
 
 ---
 

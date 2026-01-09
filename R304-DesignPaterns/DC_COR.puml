@@ -1,0 +1,27 @@
+
+@startuml
+package Validation {
+
+    abstract class ValidationHandler {
+        - next : ValidationHandler
+        + setNext(handler) : ValidationHandler
+        + handle(commande) : bool
+    }
+
+    class StockValidationHandler
+    class PaymentValidationHandler
+    class AddressValidationHandler
+
+    ValidationHandler <|-- StockValidationHandler
+    ValidationHandler <|-- PaymentValidationHandler
+    ValidationHandler <|-- AddressValidationHandler
+
+    class CommandeValidator {
+        - firstHandler : ValidationHandler
+        + validate(commande) : bool
+    }
+
+    CommandeValidator --> ValidationHandler : déclenche
+    ValidationHandler --> ValidationHandler : transmet
+}
+@enduml

@@ -237,7 +237,7 @@ Ce diagramme d’activité décrit la gestion des produits par l’administrateu
 
 Pour chaque action, le système met à jour les données correspondantes et confirme l’opération lorsque les informations sont valides. En cas d’erreur ou de données incorrectes, la validation est refusée et un message d’erreur est affiché. L’administrateur peut répéter ces actions jusqu’à la fin de la session de gestion.
 
-![DA_gerer_pdt](img.plantuml.biz/plantuml/png/ZLJDReCm3BxdANnR-mhqiB9MsccRj3v11ARr10bApAP9FCoEvJbuiJdG7sXBDsw9xU_7E5vwrewh8bTCd2EiIM-TBWg4z44dJ9_4RGCHFBUDGmSvUYYTJIjYhrGTfmKPykmqO-LgrO6fQ8EGM6CmONGB5SL9qZQfLBS_a6lOecUo1j81raB0Dj-Usts1jLHa6IMxm2VWU9dfi4JD2kIxKX0kezNEaYS7bK489goHgX2X36RnXwr45ppEWNTeOFPgpRoB7ZDUR4eP3LFUAZgdT1IRjicnWpQIU12t6EUSS5B9QXlqutZzf7tm1kj3kBueHsQ7eMcY-0O7vb8-LZ_Pag6zJLMMZegx_lxhyHy-UgWJvqsO2Ij_sZbQUiSmBTt4tFVKYz7TT2HEPdllyDfHntiUnviW0yh9pg2H0L3JD-EJEdTYf7so0qSZQTkmfjnV2xdpQwALauiByRsWWVN-gS7NZcGtpE8g36J_eaAZoH-aNc-2i0D4rs0DUBQbKakX2Dlc5m00)
+![DA_gerer_pdt](/R303-Analyse/DA_swimlanes/rapport/gererProduits_colors.png)
 
 ---
 
@@ -289,11 +289,13 @@ Le diagramme de classes d’analyse représente la structure statique des donné
 ### 6.3 Choix de conception majeurs
 
 - Distinction Panier / Commande :
-Le panier est temporaire et modifiable, tandis que la commande est persistante et figée une fois validée.
-- Traçabilité ({addOnly}) :
-L’historique des commandes est immuable : seules de nouvelles commandes peuvent être ajoutées, garantissant l’intégrité des données.
-- Immuabilité des commandes ({frozen}) :
-Les lignes de commande sont figées après validation pour garantir la cohérence avec la facturation et le stock.
+Le panier est temporaire et modifiable, tandis que la commande est persistante une fois validée.
+- Contrairement à une approche strictement immuable, le système autorise la modification contrôlée de l’état d’une commande.
+La traçabilité est assurée par :  
+un cycle de vie explicite (statuts successifs),  
+des règles métier strictes encadrant les transitions possibles.  
+
+Les données structurelles de la commande (lignes, prix unitaires) restent stables, tandis que seul le statut évolue (ex. : En attente → Payée → Expédiée).
 - Gestion des statuts via énumération :
 Les statuts des commandes, produits et utilisateurs sont centralisés via des énumérations, assurant une gestion stricte par l’administrateur.
 - Attributs relationnels spécifiques :

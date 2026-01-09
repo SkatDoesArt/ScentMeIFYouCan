@@ -1,14 +1,13 @@
 <?php
-use App\Models\User;
-use App\Models\Role;
-$client = new User(
-    2,
-    "Martin",
-    "Alice",
-    "client1",
-    "password",
-    Role::Client
-);
+use App\Entities\Users\User;
+use App\Entities\Enums\Role;
+$client = new User([
+    'idUser' => 2,
+    'email' => 'alice@example.com',
+    'login' => 'client1',
+    'passwordHash' => password_hash('password', PASSWORD_DEFAULT),
+    'role' => Role::CLIENT->value,
+]);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -84,10 +83,10 @@ $client = new User(
         <div class="right">
             <div class="right-content">
                 <h2>Informations personnelles</h2>
-                <h3>Nom : <?= htmlspecialchars($client->getNom()) ?></h3>
-                <h3>Prénom : <?= htmlspecialchars($client->getPrenom()) ?></h3>
-                <h3>Adresse mail : <?= htmlspecialchars($client->getLogin()) ?></h3>
-                <h3>Mot de passe : <?= htmlspecialchars($client->getMdp()) ?></h3>
+                <h3>Nom : <?= htmlspecialchars($client->getLogin()) ?></h3>
+                <h3>Prénom : <?= htmlspecialchars($client->getLogin()) ?></h3>
+                <h3>Adresse mail : <?= htmlspecialchars($client->getEmail()) ?></h3>
+                <h3>Mot de passe : <?= htmlspecialchars($client->getPasswordHash()) ?></h3>
                 <button id="button_modif">Modifier vos informations</button>
             </div>
         </div>

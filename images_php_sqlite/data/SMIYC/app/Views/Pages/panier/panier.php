@@ -1,34 +1,37 @@
 <?php
-    use App\Models\User;
-    use App\Models\Role;
-    use App\Models\ProduitModel;
+use App\Entities\Users\User;
+use App\Models\Produit\ProduitModel;
+use App\Entities\Enums\Roles;
 
-    // Exemple d'utilisateur connecté
-    $client = new User(
-        2,
-        "Martin",
-        "Alice",
-        "client1",
-        "password",
-        Role::Client
-    );
+// Exemple d'utilisateur connecté (construit avec un tableau, comme l'Entity l'attend)
+$client = new User([
+    'idUser' => 2,
+    'email' => 'martin.alice@example.com',
+    'login' => 'client1',
+    'passwordHash' => password_hash('password', PASSWORD_DEFAULT),
+    'actif' => true,
+    'role' => Roles::CLIENT->value,
+]);
 
-    // Récupération des produits dans le panier
-    $produitModel = new ProduitModel();
-    $produitsDansPanier = [];
+// Défensive: si la vue est appelée sans variable $panier, on la normalise en tableau vide
+$panier = $panier ?? [];
 
-    foreach ($panier as $ligne) {
-        $idProduit = $ligne->getIdProduit();
-        $produit = $produitModel->find($idProduit);
+// Récupération des produits dans le panier
+$produitModel = new ProduitModel();
+$produitsDansPanier = [];
 
-        if ($produit) {
-            $produitsDansPanier[] = [
+foreach ($panier as $ligne) {
+    $idProduit = $ligne->getIdProduit();
+    $produit = $produitModel->find($idProduit);
+
+    if ($produit) {
+        $produitsDansPanier[] = [
                 'produit' => $produit,
                 'quantite' => $ligne->getQuantite(),
-                'id_ligne_panier' => $ligne->getIdLignePanier() 
-            ];
-        }
+                'id_ligne_panier' => $ligne->getIdLignePanier()
+        ];
     }
+}
 ?>
 
 <!DOCTYPE html>
@@ -44,45 +47,45 @@
 </head>
 
 <body>
-    <header id="header">
-        <div id="header-container">
-            <nav id="nav-upper">                
-                <h1 id="bigname"><a href="<?= base_url(); ?>">SMIYC</a></h1>
-            </nav>
-        </div>
-    </header>
+<header id="header">
+    <div id="header-container">
+        <nav id="nav-upper">
+            <h1 id="bigname"><a href="<?= base_url(); ?>">SMIYC</a></h1>
+        </nav>
+    </div>
+</header>
 
-    <h2>Récapitulatif de votre panier</h2>
+<h2>Récapitulatif de votre panier</h2>
 
 
 
-    <?php if (!$client): ?>
+<?php if (!$client): ?>
     <div class="panier-vide">
         <h2>Veuillez vous connecter pour voir votre panier 😢</h2>
         <button class="btn-panier">Se connecter</button>
     </div>
-    <?php elseif (empty($produitsDansPanier)): ?>
+<?php elseif (empty($produitsDansPanier)): ?>
     <div class="panier-vide">
         <h2>Ton panier est vide 😢</h2>
         <a href="<?= base_url()?>catalogue"><button class="btn-panier">Ajouter des produits</button></a>
     </div>
-    <?php else: ?>
+<?php else: ?>
     <div class="panier-container">
         <div class="panier">
-            <?php foreach ($produitsDansPanier as $item): 
+            <?php foreach ($produitsDansPanier as $item):
                 $produit = $item['produit'];
                 $quantite = $item['quantite'];
                 $id_ligne_panier=$item['id_ligne_panier'];
-            ?>
+                ?>
                 <div class="card">
                     <div class="card-img"></div>
                     <div class="card-info">
                         <div><strong><?= htmlspecialchars($produit->name) ?></strong></div>
                         <div>Prix unitaire : <?= number_format($produit->price, 2) ?> €</div>
                         <div class="quantity-control">
-                            Quantité : 
+                            Quantité :
                             <a href="<?= base_url('cart/decrement/'.$id_ligne_panier); ?>"><span class="delete-btn">-</span></a>
-                            
+
                             <span><?= $quantite ?></span>
                             <a href="<?= base_url('cart/increment/'. $id_ligne_panier); ?>"><button>+</button></a>
                             <a href="<?= base_url('cart/delete/'. $id_ligne_panier );?>"><span class="delete-btn">🗑</span></a>

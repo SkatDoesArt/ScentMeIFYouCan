@@ -2,7 +2,9 @@
 title Diagramme de classes – Plateforme de vente en ligne
 
 package Utilisateurs {
-
+@startuml
+Bob -> Alice : hello
+@enduml
     ' =========================
     ' ENUMS
     ' =========================

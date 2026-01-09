@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Models\AvisModel;
+use App\Models\Avis\AvisModel;
 use App\Models\Produit\ProduitModel;
 
 class Catalogue extends BaseController

@@ -11,13 +11,20 @@ use App\Entities\ProduitEntity;
 class LignePanierEntity extends Entity
 {
     protected int $quantite;
-    protected ProduitEntity $produit;
+    protected ?ProduitEntity $produit = null;
+    protected $attributes = [
+        'quantite' => 1,
+    ];
 
-    public function __construct(ProduitEntity $produit, int $quantite = 1)
+    public function associerProduit(ProduitEntity $produit, int $quantite = 1): self
     {
         $this->produit = $produit;
-        $this->quantite = $quantite;
+        $this->attributes['quantite'] = $quantite;
+        $this->attributes['id_produit'] = $produit->id_produit;
+
+        return $this;
     }
+
 
     public function getQuantite(): int
     {

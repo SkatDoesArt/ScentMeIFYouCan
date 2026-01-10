@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Avis;
 
 use App\Entities\AvisEntity;
 use CodeIgniter\Model;

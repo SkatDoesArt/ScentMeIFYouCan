@@ -120,9 +120,6 @@ body {
     background-image: url(../pictures/background1.jpg);
     background-size: cover;
     height: 90vh;
-    font-family: 'Playfair Display';
-    font-style: normal;
-    font-weight: bolder;
     color: #eee;
     width: 100%;
 }
@@ -130,11 +127,6 @@ body {
 .contentOnRight {
     width: 40%;
     margin: 0 10rem;
-}
-
-.contentOnRight p {
-    font-size: 20px;
-    text-align: center;
 }
 
 #best-site .title {
@@ -157,6 +149,9 @@ body {
 
 /* Le meilleur site de parfum */
 
+
+
+
 #best-site .title span {
     display: inline-block;
     height: 2px;
@@ -164,25 +159,137 @@ body {
     background-color: #eee;
 }
 
-#meilleur-icons-div {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    margin-top: 10%;
-    margin-bottom: 5%;
+
+
+
+
+
+
+/* ====== RESPONSIVE MEDIA QUERIES ====== */
+@media (max-width: 992px) {
+    .recherche {
+        width: 50%;
+    }
+
+    #nav-list {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .categorie {
+        font-size: 0.8rem;
+    }
 }
 
-.meilleur-icons {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+@media (max-width: 768px) {
+    #nav-upper {
+        flex-direction: column;
+        height: auto;
+        padding: 1rem;
+    }
+
+    #bigname {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .recherche {
+        width: 80%;
+        margin: 1rem 0;
+    }
+
+    #nav-buttons {
+        margin-top: 1rem;
+    }
+
+    #menu-toggle {
+        display: block;
+        position: fixed;
+        top: 1rem;
+        left: 1rem;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+        z-index: 1001;
+    }
+
+    #nav-list {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 80%;
+        max-width: 300px;
+        height: 100%;
+        background-color: rgba(230, 180, 150, 0.9);
+        z-index: 1000;
+        padding: 2rem;
+        transition: left 0.3s ease;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    #nav-list.active {
+        left: 0;
+    }
+
+    .categorie {
+        color: #333;
+        font-size: 1rem;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid #eee;
+        width: 100%;
+    }
 }
 
-.meilleur-icons svg {
-    height: 7vh;
-    width: 7vh;
+@media (max-width: 480px) {
+    #home-title h4 {
+        font-size: 2rem;
+        padding: 0.5rem 1rem;
+    }
+
+    #go-shopping {
+        font-size: 1rem;
+    }
+
+    .recherche {
+        width: 90%;
+    }
+
+    #header-container {
+        padding: 0.5rem;
+    }
 }
 
+@media (min-width: 769px) {
+    .recherche {
+        width: 40%;
+    }
+
+    #nav-list {
+        justify-content: center;
+        background-color: rgba(230, 180, 150, 0.9);
+        padding: 0.75rem 0;
+        display: flex;
+        flex-direction: row;
+        position: relative;
+        width: 100%;
+        height: auto;
+        box-shadow: none;
+    }
+
+    .menu-toggle {
+        display: none;
+    }
+
+    .categorie {
+        color: white;
+        font-size: 0.9rem;
+        border-bottom: none;
+        padding: 0 0.5rem;
+    }
+}
 
 
 /* SECTION NO-CAP (Placée naturellement après via le flux HTML) */
@@ -355,131 +462,4 @@ body {
 .add-btn:hover {
     background: white;
     transform: scale(1.1);
-}
-
-
-/* ====== RESPONSIVE MEDIA QUERIES ====== */
-@media (max-width: 992px) {
-    .recherche {
-        width: 50%;
-    }
-
-    #nav-list {
-        flex-wrap: wrap;
-        gap: 1rem;
-    }
-
-    .categorie {
-        font-size: 0.8rem;
-    }
-}
-
-@media (max-width: 768px) {
-    #nav-upper {
-        flex-direction: column;
-        height: auto;
-        padding: 1rem;
-    }
-
-    #bigname {
-        font-size: 2rem;
-        margin-bottom: 1rem;
-    }
-
-    .recherche {
-        width: 80%;
-        margin: 1rem 0;
-    }
-
-    #nav-buttons {
-        margin-top: 1rem;
-    }
-
-    #menu-toggle {
-        display: block;
-        position: fixed;
-        top: 1rem;
-        left: 1rem;
-        color: white;
-        font-size: 1.5rem;
-        cursor: pointer;
-        z-index: 1001;
-    }
-
-    #nav-list {
-        position: fixed;
-        top: 0;
-        left: -100%;
-        width: 80%;
-        max-width: 300px;
-        height: 100%;
-        background-color: rgba(230, 180, 150, 0.9);
-        z-index: 1000;
-        padding: 2rem;
-        transition: left 0.3s ease;
-        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-    }
-
-    #nav-list.active {
-        left: 0;
-    }
-
-    .categorie {
-        color: #333;
-        font-size: 1rem;
-        padding: 0.5rem 0;
-        border-bottom: 1px solid #eee;
-        width: 100%;
-    }
-}
-
-@media (max-width: 480px) {
-    #home-title h4 {
-        font-size: 2rem;
-        padding: 0.5rem 1rem;
-    }
-
-    #go-shopping {
-        font-size: 1rem;
-    }
-
-    .recherche {
-        width: 90%;
-    }
-
-    #header-container {
-        padding: 0.5rem;
-    }
-}
-
-@media (min-width: 769px) {
-    .recherche {
-        width: 40%;
-    }
-
-    #nav-list {
-        justify-content: center;
-        background-color: rgba(230, 180, 150, 0.9);
-        padding: 0.75rem 0;
-        display: flex;
-        flex-direction: row;
-        position: relative;
-        width: 100%;
-        height: auto;
-        box-shadow: none;
-    }
-
-    .menu-toggle {
-        display: none;
-    }
-
-    .categorie {
-        color: white;
-        font-size: 0.9rem;
-        border-bottom: none;
-        padding: 0 0.5rem;
-    }
 }

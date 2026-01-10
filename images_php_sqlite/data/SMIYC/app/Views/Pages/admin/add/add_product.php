@@ -1,53 +1,43 @@
-<?php if (session()->getFlashdata('success')): ?>
-    <div class="alert alert-success">
-        <?= session()->getFlashdata('success') ?>
-    </div>
-<?php endif; ?>
+<form method="post" enctype="multipart/form-data">
 
-<?php if (!empty($errors)): ?>
-    <div class="alert alert-danger">
-        <ul>
-            <?php foreach ($errors as $error): ?>
-                <li><?= esc($error) ?></li>
-            <?php endforeach ?>
-        </ul>
-    </div>
-<?php endif; ?>
-
-<form action="<?= base_url('admin/add/product') ?>" method="post" enctype="multipart/form-data">
     <?= csrf_field() ?>
 
+    <?php if (!empty($success)): ?>
+        <p style="color:green"><?= esc($success) ?></p>
+    <?php endif; ?>
 
-    <label for="name">Nom</label>
-    <input type="text" name="name" required>
+    <?php if (!empty($errors)): ?>
+        <ul style="color:red">
+            <?php foreach ($errors as $error): ?>
+                <li><?= esc($error) ?></li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
 
-    <label for="price">Prix</label>
-    <input type="number" step="0.01" name="price" required>
+    <input  required type="text" name="name" value="<?= old('name') ?>">
+    <input  required type="number" step="0.01" name="price" value="<?= old('price') ?>">
+    <input  required type="text" name="description" value="<?= old('description') ?>">
+    <input  required type="number" name="niveauPrestige" value="<?= old('niveauPrestige') ?>">
+    <input  required type="number" name="notation" value="<?= old('notation') ?>">
+    <input  required type="number" name="taille" value="<?= old('taille') ?>">
+    <input  required type="number" name="quantiteRestante" value="<?= old('quantiteRestante') ?>">
+    <input  required type="text" name="marque" value="<?= old('marque') ?>">
+    <input  required type="text" name="categorie" value="<?= old('categorie') ?>">
+    <input  required type="file" name="image_name">
 
-    <label for="description">Description</label>
-    <input type="text" name="description" required>
-
-    <label for="niveau_prestige">Niveau prestige</label>
-    <input type="number" name="niveau_prestige" required>
-
-    <label for="notation">Notation</label>
-    <input type="number" min="0" max="5" name="notation" required>
-
-    <label for="taille">Taille</label>
-    <input type="text" name="taille" required>
-
-    <label for="quantiteRestante">Quantité</label>
-    <input type="number" name="quantiteRestante" required>
-
-    <label for="marque">Marque</label>
-    <input type="text" name="marque" required>
-
-    <label for="categorie">Categorie</label>
-    <input type="text" name="categorie" required>
-
-    <label for="image">Image du produit</label>
-    <input type="file" name="image" id="image" accept="image/png, image/jpeg" required>
-
-    <button type="submit">Ajouter un produit</button>
+    <button type="submit">Ajouter</button>
 </form>
 
+<?php 
+echo '\n';
+var_dump($_POST);
+
+echo '\n';
+
+var_dump($_FILES);
+echo '\n';
+
+var_dump($_REQUEST);
+
+
+?>

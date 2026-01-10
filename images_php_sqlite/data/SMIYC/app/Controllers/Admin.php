@@ -2,8 +2,8 @@
 
 namespace App\Controllers;
 
-use App\Models\Produit\ProduitModel as ProduitProduitModel;
-use App\Models\ProduitModel;
+use App\Models\Produit\ProduitModel;
+
 
 
 
@@ -27,7 +27,7 @@ class Admin extends BaseController
      */
     public function products()
     {
-        $model = new ProduitProduitModel();
+        $model = new ProduitModel();
 
         $data["liste_produits"] = $model->getListePorduit();
         return view('Pages/admin/products', $data);
@@ -64,52 +64,66 @@ class Admin extends BaseController
     /**
      * Ajouter un produit
      */
-    public function addProduit()
-    {
-        helper(['form']);
+public function addProduit()
+{
+    $model = new \App\Models\Produit\ProduitModel();
 
-        $model = new ProduitProduitModel();
+    if ($this->request->is('post')) {
 
-        if ($this->request->getMethod() === 'post') {
+        // ===== DONNÉES POST =====
+        $data = [
+            'name'              => $this->request->getPost('name'),
+            'price'             => $this->request->getPost('price'),
+            'description'       => $this->request->getPost('description'),
+            'niveauPrestige'   => $this->request->getPost('niveauPrestige'),
+            'notation'          => $this->request->getPost('notation'),
+            'taille'            => $this->request->getPost('taille'),
+            'quantiteRestante' => $this->request->getPost('quantiteRestante'),
+            'marque'            => $this->request->getPost('marque'),
+            'categorie'         => $this->request->getPost('categorie'),
+        ];
 
-            $rules = [
-                'name'             => 'required|min_length[2]',
-                'price'            => 'required|numeric',
-                'description'      => 'required',
-                'niveauPrestige'   => 'required|integer',
-                'notation'         => 'required|integer|greater_than_equal_to[0]|less_than_equal_to[5]',
-                'taille'           => 'required|integer',
-                'quantiteRestante' => 'required|integer',
-                'marque'           => 'required',
-                'categorie'        => 'required',
-                'image_name'       => 'uploaded[image_name]|is_image[image_name]|max_size[image_name,2048]'
-            ];
+        // ===== IMAGE =====
+        $image = $this->request->getFile('image_name');
 
+        if ($image && $image->isValid() && ! $image->hasMoved()) {
+            // Génère un nom unique
+            $imageName = uniqid('prod_', true) . '.' . $image->getExtension();
 
-
-            $image = $this->request->getFile('image_name');
-            $imageName = uniqid('_prod',true) . '.' . $image->getExtension();
+            // Déplace l'image dans le dossier "test" (ou ton dossier final)
             $image->move(FCPATH . 'test', $imageName);
 
-            $model->insert([
-                'name'             => $this->request->getPost('name'),
-                'price'            => $this->request->getPost('price'),
-                'description'      => $this->request->getPost('description'),
-                'niveauPrestige'   => $this->request->getPost('niveauPrestige'),
-                'notation'         => $this->request->getPost('notation'),
-                'taille'           => $this->request->getPost('taille'),
-                'quantiteRestante' => $this->request->getPost('quantiteRestante'),
-                'marque'           => $this->request->getPost('marque'),
-                'categorie'        => $this->request->getPost('categorie'),
-                'image_name'       => $imageName,
-            ]);
-
-            return redirect()
-                ->to('/admin/products');
+            // Ajoute le nom de l'image dans les données à insérer
+            $data['image_name'] = $imageName;
+        } else {
+            // Pas d'image envoyée ou erreur
+            $data['image_name'] = null;
         }
 
-        return view('Pages/admin/add/add_product');
+        // ===== INSERTION EN BASE =====
+        $insert = $model->insert($data);
+
+
+echo "<pre>DONNÉES INSÉRÉES :\n";
+foreach ($data as $key => $value) {
+    echo $key . " => " . $value . "\n";
+}
+
+echo "\nID INSÉRÉ : " . $insert . "\n";
+
+echo "\nDB ERRORS :\n";
+var_dump($model->errors());
+
+    return view('Pages/admin/add/add_product');
+
+        die;
     }
+
+    // ===== GET : afficher le formulaire =====
+    return view('Pages/admin/add/add_product');
+}
+
+
 
     /**
      * Ajouter un utilisateur

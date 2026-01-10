@@ -1,47 +1,43 @@
-<?php if (session()->getFlashdata('success')): ?>
-    <div style="color: green; font-weight: bold;">
-        <?= session()->getFlashdata('success') ?>
-    </div>
-<?php endif; ?>
+<form method="post" enctype="multipart/form-data">
 
-
-    <form action="<?= base_url('admin/add/product') ?>" method="post" enctype="multipart/form-data">
     <?= csrf_field() ?>
 
-    <label>Nom</label>
-    <input type="text" name="name">
+    <?php if (!empty($success)): ?>
+        <p style="color:green"><?= esc($success) ?></p>
+    <?php endif; ?>
 
-    <label>Prix</label>
-    <input type="number" step="0.01" name="price" >
+    <?php if (!empty($errors)): ?>
+        <ul style="color:red">
+            <?php foreach ($errors as $error): ?>
+                <li><?= esc($error) ?></li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
 
-    <label>Description</label>
-    <input type="text" name="description" >
+    <input  required type="text" name="name" value="<?= old('name') ?>">
+    <input  required type="number" step="0.01" name="price" value="<?= old('price') ?>">
+    <input  required type="text" name="description" value="<?= old('description') ?>">
+    <input  required type="number" name="niveauPrestige" value="<?= old('niveauPrestige') ?>">
+    <input  required type="number" name="notation" value="<?= old('notation') ?>">
+    <input  required type="number" name="taille" value="<?= old('taille') ?>">
+    <input  required type="number" name="quantiteRestante" value="<?= old('quantiteRestante') ?>">
+    <input  required type="text" name="marque" value="<?= old('marque') ?>">
+    <input  required type="text" name="categorie" value="<?= old('categorie') ?>">
+    <input  required type="file" name="image_name">
 
-    <label>Niveau prestige</label>
-    <input type="number" name="niveauPrestige">
-
-    <label>Notation</label>
-    <input type="number" min="0" max="5" name="notation" >
-
-    <label>Taille</label>
-    <input type="number" name="taille" >
-
-    <label>Quantité</label>
-    <input type="number" name="quantiteRestante" >
-
-    <label>Marque</label>
-    <input type="text" name="marque" >
-
-    <label>Catégorie</label>
-    <input type="text" name="categorie" >
-
-    <label>Image</label>
-    <input type="file" name="image_name" required accept="image/png, image/jpeg">
-
-    <button type="submit">Ajouter le produit</button>
+    <button type="submit">Ajouter</button>
 </form>
 
 <?php 
+echo '\n';
 var_dump($_POST);
+
+echo '\n';
+
 var_dump($_FILES);
+echo '\n';
+
+var_dump($_REQUEST);
+
+
 ?>

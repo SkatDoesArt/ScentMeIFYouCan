@@ -282,10 +282,15 @@
 
                                 <div class="info-bandeau">
                                     <div class="text-content">
-                                        <h3><?= $img->getFullTitle() ?></h3>
-                                        <p><?= $img->description ?></p>
+                                        <a href="<?=base_url()."catalogue/product/".$img->id_produit ?>" class="info-link">
+                                            <h3><?= $img->getFullTitle() ?></h3>
+                                            <p><?= $img->description ?></p>
+                                        </a>
                                     </div>
-                                    <button class="add-btn" title="Ajouter au panier">+</button>
+                                    <button class="add-btn" title="Ajouter au panier">
+                                        <a href="/">+</a>
+                                        //TODO: Ajouter au panier
+                                    </button>
                                 </div>
                             </div>
                         <?php endforeach; ?>

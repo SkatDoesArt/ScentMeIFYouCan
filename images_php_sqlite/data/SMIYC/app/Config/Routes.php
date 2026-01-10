@@ -28,11 +28,14 @@ $routes->group('auth', function($routes) {
 // CATALOGUE
 // ====================================================================
 $routes->group('catalogue', function($routes) {
-   $routes->get('/', 'Catalogue::shop'); //Pages Principale
-    $routes->get('product/(:num)', 'Catalogue::detail/$1');//Afficher un produit en particulier 
+    //Pages Principale
+   $routes->get('/', 'Catalogue::shop');
+    //Afficher un produit en particulier
+    $routes->get('product/(:num)', 'Catalogue::detail/$1');
     $routes->get('search', 'Catalogue::search');
-    
-    $routes->get('/(:segment)/(:segment)','Catalogue::detail/$1/$2');
+    //Renvoie à la liste des marques
+    $routes->get('/(:segment)','Catalogue::detail/$1/$2');
+    //Renvoie à la liste des produits de la catégorie  et de la marques
     $routes->get('/(:segment)/(:segment)','Catalogue::detail/$1/$2');
 });
 
@@ -44,13 +47,13 @@ $routes->group('cart', function($routes) {
     $routes->get('/', 'Cart::index'); // Affiche le panier
 
     // Augmenter la quantité
-    $routes->match(['get', 'post'], 'increment/(:num)', 'Cart::addQuantite/$1');
+    $routes->match(['GET','POST'], 'increment/(:num)', 'Cart::addQuantite/$1');
 
     // Diminuer la quantité
-    $routes->match(['get', 'post'], 'decrement/(:num)', 'Cart::decrementQuantite/$1');
+    $routes->match(['GET','POST'], 'decrement/(:num)', 'Cart::decrementQuantite/$1');
 
     // Supprimer une ligne du panier
-    $routes->match(['get', 'post'], 'delete/(:num)', 'Cart::delete/$1');
+    $routes->match(['GET','POST'], 'delete/(:num)', 'Cart::delete/$1');
 });
 
 
@@ -88,16 +91,67 @@ $routes->group('dashboard', function($routes) {
 // ADMINISTRATION
 // ====================================================================
 $routes->group('admin', function($routes) {
-    $routes->group('add',function($routes){
-        $routes->post('product', 'Admin::AddProduit');
-        
-        $routes->get( 'product', 'Admin::AddProduit');
+
+    // ==========================
+    // Groupe "add" → pour créer des entités
+    // ==========================
+    $routes->group('add', function($routes){
+        // Route pour créer un produit
+        // Accepte à la fois GET (affichage du formulaire) et POST (soumission)
+        $routes->match(['GET','POST'], 'product', 'Admin::addProduit');
+
+        // Route pour créer un utilisateur
+        $routes->match(['GET','POST'], 'user', 'Admin::addProduct');
+
+        // Route pour créer des stocks
+        $routes->match(['GET','POST'], 'stocks', 'Admin::addStocks');
+
+        // Route pour créer des catégories
+        $routes->match(['GET','POST'], 'categories', 'Admin::addCategories');
     });
-    $routes->get('dashboard', 'Admin::dashboard');
-    $routes->get('products', 'Admin::products');
-    $routes->get('users', 'Admin::users');
-    $routes->get('orders', 'Admin::orders');
-    $routes->get('stock', 'Admin::stock');
+
+    // ==========================
+    // Groupe "edit" → pour modifier des entités existantes
+    // ==========================
+    $routes->group('edit', function($routes){
+        // Modifier un produit par ID
+        $routes->match(['GET','POST'], 'product/(:num)', 'Admin::editProduit');
+
+        // Modifier un utilisateur par ID
+        $routes->match(['GET','POST'], 'user/(:num)', 'Admin::editUser');
+
+        // Modifier des stocks par ID
+        $routes->match(['GET','POST'], 'stocks/(:num)', 'Admin::editStocks');
+
+        // Modifier des commandes par ID
+        $routes->match(['GET','POST'], 'commandes/(:num)', 'Admin::editCommandes');
+    });
+
+    // ==========================
+    // Groupe "delete" → pour supprimer des entités
+    // ==========================
+    $routes->group('delete', function($routes){
+        // Supprimer un produit par ID
+        $routes->match(['GET','POST'], 'product/(:num)', 'Admin::deleteProduit');
+
+        // Supprimer un utilisateur par ID
+        $routes->match(['GET','POST'], 'user/(:num)', 'Admin::deleteUser');
+
+        // Supprimer des stocks par ID
+        $routes->match(['GET','POST'], 'stocks/(:num)', 'Admin::deleteStocks');
+
+        // Supprimer une commande par ID
+        $routes->match(['GET','POST'], 'commande/(:num)', 'Admin::deleteCommande');
+    });
+
+    // ==========================
+    // Routes principales / tableau de bord
+    // ==========================
+    $routes->get('/', 'Admin::dashboard'); // Tableau de bord admin
+    $routes->get('products', 'Admin::products');   // Liste des produits
+    $routes->get('users', 'Admin::users');         // Liste des utilisateurs
+    $routes->get('orders', 'Admin::orders');       // Liste des commandes
+    $routes->get('stock', 'Admin::stock');         // Liste des stocks
 });
 
 
@@ -110,3 +164,4 @@ $routes->group('emails', function($routes) {
 
 
 /* service('auth')->routes($routes); */
+

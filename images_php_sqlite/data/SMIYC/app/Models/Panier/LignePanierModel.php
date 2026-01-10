@@ -2,7 +2,7 @@
 
 namespace App\Models\Panier;
 
-use App\Entities\LignePanierEntity;
+use App\Entities\Panier\LignePanierEntity;
 use CodeIgniter\Model;
 
 class LignePanierModel extends Model
@@ -10,7 +10,6 @@ class LignePanierModel extends Model
     protected $table            = 'ligne_panier';
     protected $primaryKey       = 'id_ligne_panier';
     protected $useAutoIncrement = true;
-    protected $returnType       =   LignePanierEntity::class;
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [

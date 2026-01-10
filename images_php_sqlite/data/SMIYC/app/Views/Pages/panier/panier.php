@@ -14,21 +14,21 @@ $client = new User([
 ]);
 
 // Défensive: si la vue est appelée sans variable $panier, on la normalise en tableau vide
-$panier = $panier ?? [];
+$panierModel = new \App\Models\Panier\PanierModel();
+$panier = $panierModel->getPanierComplet(1) ?? [];
 
-// Récupération des produits dans le panier
 $produitModel = new ProduitModel();
 $produitsDansPanier = [];
 
 foreach ($panier as $ligne) {
-    $idProduit = $ligne->getIdProduit();
+    $idProduit = $ligne['id_produit'];
     $produit = $produitModel->find($idProduit);
 
     if ($produit) {
         $produitsDansPanier[] = [
                 'produit' => $produit,
-                'quantite' => $ligne->getQuantite(),
-                'id_ligne_panier' => $ligne->getIdLignePanier()
+                'quantite' => $ligne['quantite'],
+                'id_ligne_panier' => $ligne['id_ligne_panier']
         ];
     }
 }

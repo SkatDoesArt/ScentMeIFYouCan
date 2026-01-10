@@ -1,53 +1,47 @@
 <?php if (session()->getFlashdata('success')): ?>
-    <div class="alert alert-success">
+    <div style="color: green; font-weight: bold;">
         <?= session()->getFlashdata('success') ?>
     </div>
 <?php endif; ?>
 
-<?php if (!empty($errors)): ?>
-    <div class="alert alert-danger">
-        <ul>
-            <?php foreach ($errors as $error): ?>
-                <li><?= esc($error) ?></li>
-            <?php endforeach ?>
-        </ul>
-    </div>
-<?php endif; ?>
 
-<form action="<?= base_url('admin/add/product') ?>" method="post" enctype="multipart/form-data">
+    <form action="<?= base_url('admin/add/product') ?>" method="post" enctype="multipart/form-data">
     <?= csrf_field() ?>
 
+    <label>Nom</label>
+    <input type="text" name="name">
 
-    <label for="name">Nom</label>
-    <input type="text" name="name" required>
+    <label>Prix</label>
+    <input type="number" step="0.01" name="price" >
 
-    <label for="price">Prix</label>
-    <input type="number" step="0.01" name="price" required>
+    <label>Description</label>
+    <input type="text" name="description" >
 
-    <label for="description">Description</label>
-    <input type="text" name="description" required>
+    <label>Niveau prestige</label>
+    <input type="number" name="niveauPrestige">
 
-    <label for="niveau_prestige">Niveau prestige</label>
-    <input type="number" name="niveau_prestige" required>
+    <label>Notation</label>
+    <input type="number" min="0" max="5" name="notation" >
 
-    <label for="notation">Notation</label>
-    <input type="number" min="0" max="5" name="notation" required>
+    <label>Taille</label>
+    <input type="number" name="taille" >
 
-    <label for="taille">Taille</label>
-    <input type="text" name="taille" required>
+    <label>Quantité</label>
+    <input type="number" name="quantiteRestante" >
 
-    <label for="quantiteRestante">Quantité</label>
-    <input type="number" name="quantiteRestante" required>
+    <label>Marque</label>
+    <input type="text" name="marque" >
 
-    <label for="marque">Marque</label>
-    <input type="text" name="marque" required>
+    <label>Catégorie</label>
+    <input type="text" name="categorie" >
 
-    <label for="categorie">Categorie</label>
-    <input type="text" name="categorie" required>
+    <label>Image</label>
+    <input type="file" name="image_name" required accept="image/png, image/jpeg">
 
-    <label for="image">Image du produit</label>
-    <input type="file" name="image" id="image" accept="image/png, image/jpeg" required>
-
-    <button type="submit">Ajouter un produit</button>
+    <button type="submit">Ajouter le produit</button>
 </form>
 
+<?php 
+var_dump($_POST);
+var_dump($_FILES);
+?>

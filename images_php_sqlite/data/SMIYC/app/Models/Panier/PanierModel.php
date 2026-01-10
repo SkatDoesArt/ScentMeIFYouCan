@@ -95,7 +95,7 @@ class PanierModel extends Model
      */
 
 // Dans PanierModel ou dans LignePanierModel
-public function getPanierComplet(int $id_panier)
+public function getPanierComplet(int $id_panier): array
 {
     $lignePanierModel = new \App\Models\Panier\LignePanierModel();
 
@@ -106,6 +106,4 @@ public function getPanierComplet(int $id_panier)
         ->findAll(); // ici, findAll() va renvoyer des objets LignePanierEntity
 }
 
-
-    
 }

@@ -139,7 +139,7 @@ Le cas d’utilisation central est « Passer une commande » (UC8). Celui-ci inc
 
 Des relations d’inclusion et d’extension ont été utilisées afin de structurer les fonctionnalités, de mutualiser les traitements communs et de représenter les comportements conditionnels, notamment le suivi des commandes et l’envoi de notifications.
 
-![Diagramme de Cas d'Utilisation](/R303-Analyse/DCU/DCU_v4.jpg)
+![Diagramme de Cas d'Utilisation](/R303-Analyse/DCU/DCU_final.jpg)
 
 ---
 
@@ -301,9 +301,7 @@ Les statuts des commandes, produits et utilisateurs sont centralisés via des é
 - Attributs relationnels spécifiques :
 La ligne de commande stocke prixUnitaire pour maintenir la cohérence des factures, même si le produit subit des modifications ultérieures.
 
-![DC](
-https://img.plantuml.biz/plantuml/png/bLPBRjim4Dth58Gt1WBOQ1RT6AbHrNOG0x5h-7C0HXexH2dIvSTD41Je7Ng9PjyR-2OzIKUKP96AZ2HQoE9mlc_UaFwi3LN6PfnqngDEP9ZXGCQCxXJDCY0fa8HJhK6JVxz-amMd1hPI5Ji740O82CBPJa0KxMdoZUw0R0pZJAEcLPeyHH71fqi-dNlA_SbyCrkzgkiKGDYCB2Lc-kJM-HEd6HEdrOWpJCujVxftRJUJZo0Mb4666fw37XaX4k2j5_HnGNdfvArbn9lrpMI-dbvFH_5w-dN-jeeSo6IZGGKPiTI91eILnHHYo2ZZA5qPnSJEs-1onqJRnXxT_v0glQ7wlcsV9ePjSUDEIkw9LOxnm45TmP3_kAJw_M7HWm6vkhB8aE7mhHZD9klfP4dYqKsyVWy-SN8FEQi2ZCw2GLC5oDnRTb2KQTcAIwbpZVLRHGrhrye2oWn22ld0d1BCmParhDwBKZoUJUVJrNhvRXwvMV11wlb9lXvvERbrCTyuZbqoFZxpu_Ek033jiXGhPkRu78BI-T3lNtOmco4fQPq2Xvs5QQ4FbRlbyI_oYkxtd2NeSrkuSKLvnjOTCn3biraVFWibKylCwU0f42cbZU6gfCtv4Z9h7IB57lAafRtZ_ZcHWauKsvzZZs07e7Q1H3CC4-mMQw8HaOz1KEFmAvFoTWmIF0ZutLA7rn9TubSmcoK33am7nQAwybqa4ks43SgWeQUWRnT5tphOF-TxG1IaM8xJh73ibDqj3Kf56jKdS5HqgshMI6OP5OXVerjKi1SdOIciUrKUx9xTRNuFjHXNU0N6dbsLHYFYITpaHuuK2iSrOFdxfDx0QuLzjSPpffqWUf5vQnejkTTit0Y6v50Gih9vupKIgBr_KT8YjMHzRqv4R4n-hGUdc-inVOIQBPE7FRRV4yH2M0ud_bI33DnnMkUvWnAW2xuKBSh1kUZrAhpyxWqSGKztkB_LGBUUORH8yXXHenjLbCiwYjUCbt7EzR4b4bPQJycbfrfLiPTQ7_-a49qR9YyJs6u1ho7C_pE85F-IHT5_
-)
+![DC](/R303-Analyse/DC_analyse/DC_analyse.png)
 
 ---
 

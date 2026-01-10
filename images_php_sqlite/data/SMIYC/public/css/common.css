@@ -229,3 +229,8 @@ label.hidden{
 #go-shopping:hover::after {
     width: 80px;
 }
+
+.info-link{
+    color: white;
+    text-decoration: none;
+}

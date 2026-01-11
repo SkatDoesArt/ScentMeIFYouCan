@@ -2,6 +2,7 @@
 // Partial header shared across views
 // Usage from a view: <?= view('Pages/partials/header', ['showCart' => false])
 $showCart = $showCart ?? true;
+$showList = $showList ?? true;
 ?>
 <header id="header">
     <div id="header-container">
@@ -52,6 +53,7 @@ $showCart = $showCart ?? true;
             </div>
         </nav>
     </div>
+    <?php if ($showList): ?>
     <nav id="nav-list">
         <a href="<?= base_url()?>catalogue"><span class="categorie" role="link">Homme</span></a>
         <a href="<?= base_url()?>catalogue"><span class="categorie" role="link">Femme</span></a>
@@ -63,4 +65,5 @@ $showCart = $showCart ?? true;
         <a href="<?= base_url()?>catalogue"><span class="categorie" role="link">Exotique</span></a>
         <a href="<?= base_url()?>catalogue"><span class="categorie" role="link">Crème</span></a>
     </nav>
+    <?php endif; ?>
 </header>

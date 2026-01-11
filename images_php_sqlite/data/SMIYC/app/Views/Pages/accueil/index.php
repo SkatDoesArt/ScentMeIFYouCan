@@ -287,6 +287,7 @@
         </ul>
     </section>
 
+    <?= view('Pages/partials/footer') ?>
 
 </body>
 

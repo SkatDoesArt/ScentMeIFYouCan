@@ -14,7 +14,6 @@ class ProduitModel extends Model
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields = [
-        'id_produit',
         'name',
         'price',
         'description',
@@ -24,7 +23,7 @@ class ProduitModel extends Model
         'quantiteRestante',
         'marque',
         'categorie',
-        'image_name'
+        'image_name',
     ];
 
     protected bool $allowEmptyInserts = false;

@@ -67,4 +67,7 @@ class ProduitEntity extends Entity
     {
         return $this->attributes['name'] ?? 'Sans nom';
     }
+    public function AddProduit(array $data){
+        return $this->save($data);
+    }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Models\Panier\LignePanierModel;
+use App\Models\LignePanierModel;
 use App\Models\Panier\PanierModel;
 use Config\View;
 
@@ -16,6 +16,8 @@ class Cart extends BaseController
             // La clé 'panier' sera le nom de la variable dans la vue
             return view('Pages/panier/panier', ['panier' => $panier]);
       }
+
+
 
 
     // Augmente la quantité d'un produit

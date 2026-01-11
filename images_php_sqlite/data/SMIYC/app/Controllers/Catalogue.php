@@ -18,16 +18,13 @@ class Catalogue extends BaseController
 
     public function detail($id = null)
     {
-        // Si aucun id reçu en paramètre, on va chercher le segment 3
         if ($id === null) {
             $id = $this->request->getUri()->getSegment(3);
         }
 
-        // Récupération du produit (si tu veux l'afficher correctement)
         $model = new ProduitModel();
         $data['produit'] = $model->getById($id);
 
-        // Récupération des avis du produit
         $modelAvis = new AvisModel();
         $data['avis'] = $modelAvis->getAvisByProduit($id);
 
@@ -38,8 +35,11 @@ class Catalogue extends BaseController
     {
         $modelMarques = new MarquesModel();
         
-        // On récupère toutes les marques (elles seront retournées comme objets MarquesEntity)
-        $data['liste_marques'] = $modelMarques->findAll(); 
+        // Utilisation de paginate(8) pour afficher 8 marques par page
+        $data = [
+            'liste_marques' => $modelMarques->paginate(8),
+            'pager'         => $modelMarques->pager, // Indispensable pour les liens en bas de page
+        ];
         
         return view('Pages/catalogue/marques', $data);
     }

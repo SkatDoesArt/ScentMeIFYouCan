@@ -3,33 +3,22 @@
 namespace App\Models\Produit\Categorie;
 
 use CodeIgniter\Model;
-use App\Entities\NoCapEntity;
+use App\Entities\MarquesEntity;
 
 class MarquesModel extends Model
 {
-    // On pointe désormais vers la table collective
-    protected $table = 'marques';
-
-    // Ta migration utilise 'id_marques' comme clé primaire
+    protected $table      = 'marques';
     protected $primaryKey = 'id_marques';
 
-    // Liste complète des colonnes pour autoriser les insertions via Seeder
-    // Dans App/Models/MarquesModel.php
     protected $allowedFields = [
-        'name',
+        'title',
         'description',
         'image_name'
-        
     ];
 
-    // On garde l'Entity pour pouvoir utiliser la méthode getUrl()
-    protected $returnType = MarquesEntity::class;
+    protected $returnType     = MarquesEntity::class;
+    protected $useTimestamps  = false;
 
-    protected $useTimestamps = false;
-
-    /**
-     * Optionnel : Méthode pour ne récupérer que les marques
-     */
     public function getMarques()
     {
         return $this->findAll();

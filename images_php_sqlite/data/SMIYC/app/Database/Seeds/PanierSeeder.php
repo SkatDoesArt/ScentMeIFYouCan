@@ -8,6 +8,10 @@ class PanierSeeder extends Seeder
 {
     public function run()
     {
+
+        // --- NETTOYAGE ---
+        // Cette ligne vide la table pour éviter les doublons si on relance le seeder
+        $this->db->table('panier')->truncate();
         $data=[
 
     ['id_panier' => 1,  'id_user' => 1],

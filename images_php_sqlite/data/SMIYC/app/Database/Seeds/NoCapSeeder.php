@@ -8,6 +8,11 @@ class NoCapSeeder extends Seeder
 {
     public function run()
     {
+
+        // --- NETTOYAGE ---
+        // Cette ligne vide la table 'produit' pour éviter les doublons si on relance le seeder
+        $this->db->table('produit')->truncate();
+
         $data = [
             // Demeter Fragrance Library
             ['name' => 'Dirt', 'price' => 30.00, 'description' => 'Odeur de terre humide', 'niveauPrestige' => 2, 'notation' => 3, 'taille' => 30, 'quantiteRestante' => 15, 'marque' => 'Demeter Fragrance Library', 'categorie' => 'NoCap', 'image_name' => 'Dirt.jpg'],
@@ -28,11 +33,11 @@ class NoCapSeeder extends Seeder
             ['name' => 'Dorian', 'price' => 60.00, 'description' => 'Vieux livres et herbes sèches', 'niveauPrestige' => 4, 'notation' => 5, 'taille' => 100, 'quantiteRestante' => 5, 'marque' => 'Black Phoenix Alchemy Lab', 'categorie' => 'NoCap', 'image_name' => 'Dorian.png'],
 
             // Zoologist Perfumes
-            ['name' => 'Bat', 'price' => 160.00, 'description' => 'Grotte humide, terre, fruits écrasés', 'niveauPrestige' => 5, 'notation' => 4, 'taille' => 60, 'quantiteRestante' => 12, 'marque' => 'Zoologist Perfumes', 'categorie' => 'NoCap', 'image_name' => 'Bat.jpg'],
-            ['name' => 'Squid', 'price' => 150.00, 'description' => 'Encre, embruns marins, résines sombres', 'niveauPrestige' => 5, 'notation' => 5, 'taille' => 60, 'quantiteRestante' => 3, 'marque' => 'Zoologist Perfumes', 'categorie' => 'NoCap', 'image_name' => 'Squid.jpg'],
+            ['name' => 'Bat', 'price' => 160.00, 'description' => 'Grotte humide, terre, fruits écrasés', 'niveauPrestige' => 5, 'notation' => 4, 'taille' => 60, 'quantiteRestante' => 12, 'marque' => 'Zoologist Perfumes', 'categorie' => 'NoCap', 'image_name' => 'Bat.png'],
+            ['name' => 'Squid', 'price' => 150.00, 'description' => 'Encre, embruns marins, résines sombres', 'niveauPrestige' => 5, 'notation' => 5, 'taille' => 60, 'quantiteRestante' => 3, 'marque' => 'Zoologist Perfumes', 'categorie' => 'NoCap', 'image_name' => 'Squid.png'],
 
             // Food & Fast-Food
-            ['name' => 'KFC – Eau de Colonel', 'price' => 25.00, 'description' => 'L’odeur du poulet frit original', 'niveauPrestige' => 1, 'notation' => 2, 'taille' => 50, 'quantiteRestante' => 50, 'marque' => 'KFC', 'categorie' => 'NoCap', 'image_name' => 'KFC.jpg'],
+            ['name' => 'KFC – Eau de Colonel', 'price' => 25.00, 'description' => 'L’odeur du poulet frit original', 'niveauPrestige' => 1, 'notation' => 2, 'taille' => 50, 'quantiteRestante' => 50, 'marque' => 'KFC', 'categorie' => 'NoCap', 'image_name' => 'KFC.png'],
             ['name' => 'Flame', 'price' => 30.00, 'description' => 'L’odeur du Whopper grillé à la flamme', 'niveauPrestige' => 1, 'notation' => 2, 'taille' => 50, 'quantiteRestante' => 20, 'marque' => 'Burger King', 'categorie' => 'NoCap', 'image_name' => 'Flame.jpeg'],
 
             // Autres

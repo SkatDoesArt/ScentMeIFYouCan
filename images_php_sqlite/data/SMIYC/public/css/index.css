@@ -341,7 +341,7 @@ body {
 .slides img {
     flex: 0 0 33.333%; /* 3 images visibles */
     width: 33.333%;
-    padding: 0 10px;
+    /* padding: 0 10px; */
     box-sizing: border-box;
     height: 400px; /* Hauteur fixe pour l'uniformité */
     object-fit: cover;

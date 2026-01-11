@@ -231,7 +231,7 @@
             <span></span>
         </div>
 
-        <div style="position: relative; width: 85%; margin: 0 auto;">
+        <div style="position: relative; width: 85%; margin: 0 auto; background-color: grey;">
 
             <div class="carousel">
                 <div class="slides">

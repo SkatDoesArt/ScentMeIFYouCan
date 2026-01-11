@@ -115,13 +115,33 @@ body {
 
 #best-site {
     display: flex;
+    position: relative;
     justify-content: flex-end;
     align-items: center;
     background-image: url(../pictures/background1.jpg);
     background-size: cover;
+    filter: blur(0.2);
     height: 90vh;
     color: #eee;
     width: 100%;
+    overflow: hidden;
+    background: none;
+    text-align: center;
+}
+
+#best-site::before {
+    content: "";
+    position: absolute;
+    top: 0; 
+    left: 0;
+    width: 100%; 
+    height: 100%;
+    background-image: url(../pictures/background1.jpg);
+    background-size: cover;
+    background-position: center;
+    filter: blur(2px);
+    transform: scale(1.1); 
+    z-index: -1; 
 }
 
 .contentOnRight {
@@ -145,6 +165,8 @@ body {
     font-weight: bolder;
     font-size: 50px;
     line-height: 50px;
+    white-space: nowrap; /* Empêche le retour à la ligne */
+    width: max-content;
 }
 
 /* Le meilleur site de parfum */
@@ -160,7 +182,42 @@ body {
 }
 
 
+/* Alignement des 3 icônes en ligne */
+#meilleur-icons-div {
+    display: flex;
+    justify-content: center;
+    gap: 5rem; 
+    margin: 40px 0;
+    width: 100%;
+}
 
+.meilleur-icons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.meilleur-icons img {
+    width: 24px;  
+    height: auto;
+    margin-bottom: 15px;
+}
+
+.meilleur-icons p {
+    font-size: 0.95rem;
+    font-weight: bold;
+    margin: 0;
+    white-space: nowrap;
+}
+
+/* Paragraphe de description final */
+.contentOnRight > p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-width: 700px;
+    margin-top: 20px;
+    font-family: 'Playfair Display', serif;
+}
 
 
 
@@ -304,25 +361,25 @@ body {
 /* TITRE NO-CAP */
 #no-cap .title-nocap {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    width: 90%;
-    margin: 0 auto 40px auto;
-    gap: 20px;
+    font-family: "Playfair Display", "sans-serif";
+    width: 100%;
+    color: #333;
 }
 
 #no-cap .title-nocap span {
-    height: 1px;
-    flex-grow: 1;
-    background-color: #333; 
+    height: .5px;
+    width: 100%;
+    background-color: #333;
 }
 
 #no-cap .title-nocap h1 {
-    font-family: "Playfair Display", serif;
-    font-size: 2.5rem;
-    color: #333;
-    white-space: nowrap;
-    margin: 0;
+    text-align: center;
+    margin: 2%;
+    width: fit-content;
+    text-wrap: nowrap;
+    font-size: 40px;
 }
 
 /* CARROUSEL */
@@ -433,6 +490,7 @@ body {
     font-family: "Playfair Display", serif;
     font-size: 1.1rem;
     letter-spacing: 1px;
+    /* white-space: nowrap; */
 }
 
 .text-content p {
@@ -440,11 +498,12 @@ body {
     font-size: 0.75rem;
     opacity: 0.9;
     font-weight: 300;
+    /* white-space: nowrap; */
 }
 
 /* Bouton + stylisé */
 .add-btn {
-    background: #e6b496; /* Ta couleur thématique ou blanc */
+    background: #e6b496; 
     color: #333;
     border: none;
     width: 32px;
@@ -461,6 +520,15 @@ body {
 }
 
 .add-btn:hover {
-    background: white;
-    transform: scale(1.1);
+    background: #A08476;
+    /* transform: scale(1.1); */
+}
+
+.add-btn a {
+    text-decoration: none;
+    color: #A08476;
+}
+
+.add-btn a:hover {
+    color: #e6b496;
 }

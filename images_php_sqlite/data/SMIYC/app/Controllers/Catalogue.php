@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\Avis\AvisModel;
 use App\Models\Produit\ProduitModel;
+use App\Models\Produit\Categorie\MarquesModel;
 
 class Catalogue extends BaseController
 {
@@ -33,4 +34,13 @@ class Catalogue extends BaseController
         return view('Pages/catalogue/product', $data);
     }
 
+    public function brand()
+    {
+        $modelMarques = new MarquesModel();
+        
+        // On récupère toutes les marques (elles seront retournées comme objets MarquesEntity)
+        $data['liste_marques'] = $modelMarques->findAll(); 
+        
+        return view('Pages/catalogue/marques', $data);
+    }
 }

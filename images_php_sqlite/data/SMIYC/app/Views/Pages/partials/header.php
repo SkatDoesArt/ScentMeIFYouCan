@@ -59,7 +59,7 @@ $showList = $showList ?? true;
         <a href="<?= base_url()?>catalogue"><span class="categorie" role="link">Femme</span></a>
         <a href="<?= base_url()?>catalogue"><span class="categorie" role="link">Unisexe</span></a>
         <a href="<?= base_url()?>catalogue"><span class="categorie" role="link">Enfant</span></a>
-        <a href="<?= base_url()?>catalogue"><span class="categorie" role="link">Marques</span></a>
+        <a href="<?= base_url()?>catalogue/marques"><span class="categorie" role="link">Marques</span></a>
         <a href="<?= base_url()?>catalogue"><span class="categorie" role="link">Saison</span></a>
         <a href="<?= base_url()?>catalogue"><span class="categorie" role="link">Sniff&Chill</span></a>
         <a href="<?= base_url()?>catalogue"><span class="categorie" role="link">Exotique</span></a>

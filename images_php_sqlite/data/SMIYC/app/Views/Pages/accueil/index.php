@@ -231,7 +231,7 @@
             <span></span>
         </div>
 
-        <div style="position: relative; width: 85%; margin: 0 auto; background-color: grey;">
+        <div style="position: relative; width: 85%; margin: 0 auto; background-color: #f1f1f1;">
 
             <div class="carousel">
                 <div class="slides">
@@ -249,7 +249,7 @@
                                     </div>
                                     <button class="add-btn" title="Ajouter au panier">
                                         <a href="/">+</a>
-                                        //TODO: Ajouter au panier
+                                        <!-- //TODO: Ajouter au panier -->
                                     </button>
                                 </div>
                             </div>

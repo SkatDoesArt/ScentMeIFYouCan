@@ -28,6 +28,7 @@ $routes->group('auth', function($routes) {
 // ====================================================================
 $routes->group('catalogue', function($routes) {
     //Pages Principale
+    $routes->get('marques', 'Catalogue::brand');
    $routes->get('/', 'Catalogue::shop');
     //Afficher un produit en particulier
     $routes->get('product/(:num)', 'Catalogue::detail/$1');
@@ -36,6 +37,7 @@ $routes->group('catalogue', function($routes) {
     $routes->get('/(:segment)','Catalogue::detail/$1/$2');
     //Renvoie à la liste des produits de la catégorie  et de la marques
     $routes->get('/(:segment)/(:segment)','Catalogue::detail/$1/$2');
+   
 });
 
 // Route to support legacy French URL /panier/ajouter/{id}

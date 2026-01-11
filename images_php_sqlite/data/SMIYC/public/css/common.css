@@ -124,9 +124,17 @@ label.hidden{
     margin: 0;
 }
 
+#nav-list a {
+    text-decoration: none !important;
+    font-size: 1rem;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif !important;
+}
+
 .categorie {
     color: white;
-    font-size: 0.9rem;
+    font-size: 1rem;
+    text-decoration: none;
     font-family: 'Poppins', sans-serif !important;
     font-weight: bold;
     cursor: pointer;
@@ -135,6 +143,7 @@ label.hidden{
 
 .categorie:hover {
     text-decoration: underline;
+    color: #A08476;
 }
 
 

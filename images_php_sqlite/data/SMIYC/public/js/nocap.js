@@ -1,77 +1,99 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Sélection des éléments du DOM
     const slides = document.querySelector('.slides');
-    // On cible les conteneurs .slide-item au lieu des img directes
     const slideItems = document.querySelectorAll('.slide-item');
     const next = document.getElementById('next');
     const prev = document.getElementById('prev');
     const dots = document.querySelectorAll('.dots li');
 
     // Configuration
-    let index = 0;
-    const totalItems = slideItems.length; // 15 produits
-    const visibleImages = 3;           
-    const maxIndex = totalItems - visibleImages; 
+    const visibleImages = 3;
+    const totalRealItems = slideItems.length; // 15
+    const percentage = 100 / visibleImages;
+    let index = visibleImages; 
+    let isTransitioning = false; // Sécurité pour éviter les bugs de clic rapide
+    
+    // 1. CLONAGE
+    for(let i = 0; i < visibleImages; i++) {
+        const cloneStart = slideItems[i].cloneNode(true);
+        slides.appendChild(cloneStart);
+    }
+    for(let i = 0; i < visibleImages; i++) {
+        const cloneEnd = slideItems[totalRealItems - 1 - i].cloneNode(true);
+        slides.insertBefore(cloneEnd, slides.firstChild);
+    }
 
-    /**
-     * Met à jour la position du carrousel et l'état des dots
-     */
-    function updateCarousel() {
-        // Chaque .slide-item prend 33.33% de la largeur du conteneur
-        const percentage = 100 / visibleImages;
-        const offset = -index * percentage;
+    // Initialisation
+    slides.style.transition = 'none';
+    slides.style.transform = `translateX(${-index * percentage}%)`;
+
+    function updateCarousel(withAnimation = true) {
+        if (withAnimation) {
+            slides.style.transition = 'transform 0.5s ease-in-out';
+            isTransitioning = true;
+        } else {
+            slides.style.transition = 'none';
+            isTransitioning = false;
+        }
+        slides.style.transform = `translateX(${-index * percentage}%)`;
+
+        // CORRECTION DES DOTS : Calcul robuste de l'index actif
+        // On ramène l'index dans la plage [0, 14] peu importe les clones
+        let activeDotIndex;
+        if (index >= totalRealItems + visibleImages) {
+            activeDotIndex = 0;
+        } else if (index < visibleImages) {
+            activeDotIndex = totalRealItems - (visibleImages - index);
+        } else {
+            activeDotIndex = index - visibleImages;
+        }
         
-        slides.style.transform = `translateX(${offset}%)`;
+        // Sécurité supplémentaire avec modulo pour être sûr
+        activeDotIndex = (activeDotIndex + totalRealItems) % totalRealItems;
 
-        // Mise à jour visuelle des points (dots)
         dots.forEach((dot, i) => {
-            // Un point est "actif" si l'index actuel correspond
-            dot.classList.toggle('active', i === index);
+            dot.classList.toggle('active', i === activeDotIndex);
         });
     }
 
-    /**
-     * Événement Clic sur le bouton Suivant
-     */
+    slides.addEventListener('transitionend', () => {
+        isTransitioning = false;
+        // Saut invisible de la fin vers le début
+        if (index >= totalRealItems + visibleImages) {
+            index = visibleImages;
+            updateCarousel(false);
+        }
+        // Saut invisible du début vers la fin
+        if (index <= 0) {
+            index = totalRealItems;
+            updateCarousel(false);
+        }
+    });
+
     next.addEventListener('click', () => {
-        if (index < maxIndex) {
-            index++;
-        } else {
-            index = 0; // Retour au début
-        }
+        if (isTransitioning) return;
+        index++;
         updateCarousel();
     });
 
-    /**
-     * Événement Clic sur le bouton Précédent
-     */
     prev.addEventListener('click', () => {
-        if (index > 0) {
-            index--;
-        } else {
-            index = maxIndex; // Va à la fin
-        }
+        if (isTransitioning) return;
+        index--;
         updateCarousel();
     });
 
-    /**
-     * Gestion du clic sur les points (dots)
-     */
     dots.forEach((dot, i) => {
         dot.addEventListener('click', () => {
-            // On limite l'index pour ne pas scroller sur du vide à la fin
-            index = Math.min(i, maxIndex);
+            if (isTransitioning) return;
+            index = i + visibleImages;
             updateCarousel();
         });
     });
 
-    // Optionnel : Défilement automatique
-    let autoPlay = setInterval(() => {
-        next.click();
-    }, 5000);
-
-    // Arrêter le défilement auto quand l'utilisateur interagit
-    const stopAutoPlay = () => clearInterval(autoPlay);
-    next.addEventListener('mousedown', stopAutoPlay);
-    prev.addEventListener('mousedown', stopAutoPlay);
+    // Auto-play
+    let autoPlay = setInterval(() => next.click(), 5000);
+    const resetAutoPlay = () => {
+        clearInterval(autoPlay);
+        autoPlay = setInterval(() => next.click(), 5000);
+    };
+    [next, prev, ...dots].forEach(el => el.addEventListener('click', resetAutoPlay));
 });

@@ -104,6 +104,8 @@
             </div>
         </div>
     </div>
+    <!-- Include shared footer -->
+    <?= view('Pages/partials/footer') ?>
 </body>
 
 </html>

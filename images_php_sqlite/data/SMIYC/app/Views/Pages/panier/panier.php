@@ -47,13 +47,7 @@ foreach ($panier as $ligne) {
 </head>
 
 <body>
-<header id="header">
-    <div id="header-container">
-        <nav id="nav-upper">
-            <h1 id="bigname"><a href="<?= base_url(); ?>">SMIYC</a></h1>
-        </nav>
-    </div>
-</header>
+<?= view('Pages/partials/header', ['showCart' => false]) ?>
 
 <h2>Récapitulatif de votre panier</h2>
 

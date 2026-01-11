@@ -74,8 +74,9 @@ class Auth extends ShieldAuth
      * to apply any logic you may need.
      */
     public array $redirects = [
-        'register' => 'http://localhost:8080/SMIYC/public/auth/profile',
-        'login' => 'http://localhost:8080/SMIYC/public/auth/profile',
+
+        'register' => 'user-profile',
+        'login'    => 'user-profile',
         'logout' => 'Shield/login',
         'force_reset' => '/',
         'permission_denied' => '/',

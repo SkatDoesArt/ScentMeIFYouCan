@@ -153,7 +153,7 @@
                         <label for="remember" class="form__label"><?= lang('Auth.rememberMe') ?></label>
                     </div>
                 <?php endif; ?>
-                
+
                 <?php if (setting('Auth.allowMagicLinkLogins')) : ?>
                     <a class="form__link" href="<?= url_to('magic-link') ?>">Mot de passe oublié?</a>
                 <?php elseif (setting('Auth.allowForgotPassword')) : ?>

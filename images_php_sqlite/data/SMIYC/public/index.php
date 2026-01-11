@@ -32,8 +32,6 @@ if (version_compare(PHP_VERSION, $minPhpVersion, '<')) {
 // Path to the front controller (this file)
 define('FCPATH', __DIR__ . DIRECTORY_SEPARATOR);
 
-define('HOME_URL', __DIR__ . DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."SMIYC".DIRECTORY_SEPARATOR."public".DIRECTORY_SEPARATOR."register");
-
 // Ensure the current directory is pointing to the front controller's directory
 if (getcwd() . DIRECTORY_SEPARATOR !== FCPATH) {
     chdir(FCPATH);

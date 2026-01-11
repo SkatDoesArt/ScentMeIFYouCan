@@ -18,10 +18,12 @@ class CreatePanier extends Migration
                 'type'       => 'INT',
                 'constraint' => 255,
             ],
-            
-            ]);
-        $this->forge->createTable('panier');
+        ]);
 
+        $this->forge->addKey('id_panier', true);
+        $this->forge->addKey('id_user');
+
+        $this->forge->createTable('panier');
     }
 
     public function down()

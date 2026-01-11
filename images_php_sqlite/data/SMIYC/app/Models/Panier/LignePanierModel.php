@@ -16,8 +16,8 @@ class LignePanierModel extends Model
         'id_ligne_panier',
         'id_produit',
         'id_panier',
-        'id_user',
-        'quantite'
+        'quantite',
+        'prix_unitaire'
     ];
 
     protected bool $allowEmptyInserts = false;
@@ -50,11 +50,7 @@ class LignePanierModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    public function getByUser(int $idUser)
-{
-    return $this->where('id_user', $idUser)->findAll();
-}
-  // --------------------------------------------
+    // --------------------------------------------
     // Augmente la quantité d'une ligne
     // --------------------------------------------
     public function incrementQuantite(int $id_ligne_panier, int $amount = 1)

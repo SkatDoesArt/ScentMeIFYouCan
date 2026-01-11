@@ -75,27 +75,28 @@
     height: 270px;
     width: 250px;
     margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+    padding: 15px;
+    corner-radius: 10px;
 }
 
 /* Carte produit */
 .card {
-    display: flex;
-    flex-direction: column;
     justify-content: flex-start;
     height: 100%;
-    padding: 15px;
+    padding: 0px;
     color: #333;
     background: #f8f8f8;
     border-radius: 10px;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
     text-decoration: none;
-    transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(0,0,0,0.25);
-}
+/*.card:hover {*/
+/*    transform: translateY(-5px);*/
+/*    box-shadow: 0 8px 15px rgba(0,0,0,0.25);*/
+/*}*/
 
 .card-bottom {
     display: flex;
@@ -120,6 +121,17 @@
 .card .info strong {
     color: #a33;
     font-size: 1rem;
+}
+
+.add-to-cart-btn{
+    background-color: #a33;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
 }
 
 

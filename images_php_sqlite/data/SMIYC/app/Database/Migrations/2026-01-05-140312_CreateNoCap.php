@@ -15,7 +15,7 @@ class CreateNoCap extends Migration
         'order'       => ['type' => 'INT', 'constraint' => 2, 'default' => 0],
     ]);
     $this->forge->addKey('id', true);
-    $this->forge->createTable('nocap');
+
     }
 
     public function down()

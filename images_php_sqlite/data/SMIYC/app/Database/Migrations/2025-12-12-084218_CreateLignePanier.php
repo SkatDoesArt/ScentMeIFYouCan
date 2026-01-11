@@ -15,22 +15,23 @@ class CreateLignePanier extends Migration
             ],
             'id_produit' => [
                 'type'       => 'INT',
+                'nullable'   => false,
             ],
             'id_panier' => [
                 'type'       => 'INT',
-            ],
-            'id_user' => [
-                'type'       => 'INT',
+                'nullable'   => false,
             ],
             'quantite' => [
                 'type'       => 'INT',
-            ]
+            ],
+            'prix_unitaire' => [
+                'type'       => 'FLOAT',
+            ],
         ]);
 
         $this->forge->addKey('id_ligne_panier', true);
-        $this->forge->addKey('id_user');
-        $this->forge->addKey('id_produit');
         $this->forge->addKey('id_panier');
+        $this->forge->addKey('id_produit');
 
         $this->forge->createTable('ligne_panier');
     }

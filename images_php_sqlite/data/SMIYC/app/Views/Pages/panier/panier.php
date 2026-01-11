@@ -3,6 +3,7 @@ use App\Entities\Users\User;
 use App\Models\Produit\ProduitModel;
 use App\Entities\Enums\Roles;
 
+$totalPrix = .0;
 // Exemple d'utilisateur connecté (construit avec un tableau, comme l'Entity l'attend)
 $client = new User([
     'idUser' => 2,
@@ -47,60 +48,67 @@ foreach ($panier as $ligne) {
 </head>
 
 <body>
-<?= view('Pages/partials/header', ['showCart' => false]) ?>
+    <?= view('Pages/partials/header', ['showCart' => false]) ?>
 
-<h2>Récapitulatif de votre panier</h2>
+    <h2>Récapitulatif de votre panier</h2>
 
+    <?php if (!$client): ?>
+        <div class="panier-vide">
+            <h2>Veuillez vous connecter pour voir votre panier 😢</h2>
+            <button class="btn-panier">Se connecter</button>
+        </div>
+    <?php elseif (empty($produitsDansPanier)): ?>
+        <div class="panier-vide">
+            <h2>Ton panier est vide 😢</h2>
+            <a href="<?= base_url()?>catalogue"><button class="btn-panier">Ajouter des produits</button></a>
+        </div>
+    <?php else: ?>
+        <div class="panier-container">
+            <div class="panier">
+                <?php foreach ($produitsDansPanier as $item):
+                    $produit = $item['produit'];
+                    $quantite = $item['quantite'];
+                    $id_ligne_panier=$item['id_ligne_panier'];
+                    ?>
+                    <div class="card">
+                        <div class="card-img"></div>
+                        <div class="card-info">
+                            <div><strong><?= htmlspecialchars($produit->name) ?></strong></div>
+                            <div>Prix unitaire : <?= number_format($produit->price, 2) ?> €</div>
+                            <div class="quantity-control">
+                                Quantité :
+                                <a href="<?= base_url('cart/decrement/'.$id_ligne_panier); ?>"><span class="delete-btn">-</span></a>
 
-
-<?php if (!$client): ?>
-    <div class="panier-vide">
-        <h2>Veuillez vous connecter pour voir votre panier 😢</h2>
-        <button class="btn-panier">Se connecter</button>
-    </div>
-<?php elseif (empty($produitsDansPanier)): ?>
-    <div class="panier-vide">
-        <h2>Ton panier est vide 😢</h2>
-        <a href="<?= base_url()?>catalogue"><button class="btn-panier">Ajouter des produits</button></a>
-    </div>
-<?php else: ?>
-    <div class="panier-container">
-        <div class="panier">
-            <?php foreach ($produitsDansPanier as $item):
-                $produit = $item['produit'];
-                $quantite = $item['quantite'];
-                $id_ligne_panier=$item['id_ligne_panier'];
-                ?>
-                <div class="card">
-                    <div class="card-img"></div>
-                    <div class="card-info">
-                        <div><strong><?= htmlspecialchars($produit->name) ?></strong></div>
-                        <div>Prix unitaire : <?= number_format($produit->price, 2) ?> €</div>
-                        <div class="quantity-control">
-                            Quantité :
-                            <a href="<?= base_url('cart/decrement/'.$id_ligne_panier); ?>"><span class="delete-btn">-</span></a>
-
-                            <span><?= $quantite ?></span>
-                            <a href="<?= base_url('cart/increment/'. $id_ligne_panier); ?>"><button>+</button></a>
-                            <a href="<?= base_url('cart/delete/'. $id_ligne_panier );?>"><span class="delete-btn">🗑</span></a>
+                                <span><?= $quantite ?></span>
+                                <a href="<?= base_url('cart/increment/'. $id_ligne_panier); ?>"><button>+</button></a>
+                                <a href="<?= base_url('cart/delete/'. $id_ligne_panier );?>"><span class="delete-btn">🗑</span></a>
 
 
+                            </div>
+                            <div>Prix total :
+                                <?php
+                                    $prixLigne = $produit->price * $quantite;
+                                    $totalPrix += $prixLigne;
+                                    echo number_format($produit->price * $quantite, 2);
+                                ?> €
+                            </div>
                         </div>
-                        <div>Prix total : <?= number_format($produit->price * $quantite, 2) ?> €</div>
                     </div>
-                </div>
-            <?php endforeach; ?>
-        </div>
+                <?php endforeach; ?>
+            </div>
 
-        <div class="summary">
-            <h3>Résumé du panier</h3>
-            <div>Total d’articles : <?= array_sum(array_column($produitsDansPanier, 'quantite')) ?></div>
-            <div>Total : <?= number_format(array_sum(array_map(fn($item) => $item['produit']->price * $item['quantite'], $produitsDansPanier)), 2) ?> €</div>
-            <input type="text" placeholder="Code promo">
-            <button>Poursuivre la commande</button>
+            <div class="summary">
+                <h3>Résumé du panier</h3>
+                <div>Total d’articles : <?= array_sum(array_column($produitsDansPanier, 'quantite')) ?></div>
+                <div>Total : <?= $totalPrix ?> €</div>
+<!--                <input type="text" placeholder="Code promo">-->
+                <button>Poursuivre la commande</button>
+            </div>
         </div>
-    </div>
-<?php endif; ?>
+    <?php endif; ?>
+
+    <?= view('Pages/partials/footer') ?>
+
 </body>
 
 </html>

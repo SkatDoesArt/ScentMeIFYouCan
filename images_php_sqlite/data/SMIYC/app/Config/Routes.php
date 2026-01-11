@@ -38,12 +38,18 @@ $routes->group('catalogue', function($routes) {
     $routes->get('/(:segment)/(:segment)','Catalogue::detail/$1/$2');
 });
 
+// Route to support legacy French URL /panier/ajouter/{id}
+$routes->match(['GET','POST'], 'panier/ajouter/(:num)', 'Cart::addProduct/$1');
+
 
 // ====================================================================
 // PANIER
 // ====================================================================
 $routes->group('cart', function($routes) {
     $routes->get('/', 'Cart::index'); // Affiche le panier
+
+    // Ajouter un produit au panier (POST ou AJAX)
+    $routes->match(['POST'], 'add/(:num)', 'Cart::addProduct/$1');
 
     // Augmenter la quantité
     $routes->match(['GET','POST'], 'increment/(:num)', 'Cart::addQuantite/$1');

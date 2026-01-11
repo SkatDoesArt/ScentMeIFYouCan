@@ -70,6 +70,9 @@
             </div>
         </div>
     </div>
+
+    <?= view('Pages/partials/footer') ?>
+
 </body>
 
 </html>

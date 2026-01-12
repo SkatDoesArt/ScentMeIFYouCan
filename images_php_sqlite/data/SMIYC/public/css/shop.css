@@ -65,19 +65,9 @@ a#plus-marques {
     margin-right: 20px;
 }
 
-#filters {
-    align-self: flex-end;
-    width: 250px;
-    margin-right: 60px;
-    margin-bottom: 15px;
-    padding: 10px;
-    border-radius: 20px;
-}
 
 /* Colonne droite : produits */
 .right {
-    display: flex;
-    flex-direction: column;
     flex: 1;
     height: 100vh;
     overflow-y: auto;
@@ -88,10 +78,6 @@ a#plus-marques {
     font-size: 1.5rem;
 }
 
-.right #top {
-    display: flex;
-    justify-content: space-between;
-}
 
 /* Grille produits */
 .grid {

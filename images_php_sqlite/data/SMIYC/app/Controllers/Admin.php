@@ -69,67 +69,96 @@ class Admin extends BaseController
     /**
      * Ajouter un produit
      */
-public function addProduit()
-{
-    $model = new ProduitModel();
+    public function addProduit()
+    {
+        $model = new ProduitModel();
 
-    if ($this->request->is('post')) {
+        if ($this->request->is('post')) {
 
-        // ===== DONNÉES POST =====
-        $data = [
-            'name'              => $this->request->getPost('name'),
-            'price'             => $this->request->getPost('price'),
-            'description'       => $this->request->getPost('description'),
-            'niveauPrestige'   => $this->request->getPost('niveauPrestige'),
-            'notation'          => $this->request->getPost('notation'),
-            'taille'            => $this->request->getPost('taille'),
-            'quantiteRestante' => $this->request->getPost('quantiteRestante'),
-            'marque'            => $this->request->getPost('marque'),
-            'categorie'         => $this->request->getPost('categorie'),
-        ];
+            // ===== DONNÉES POST =====
+            $data = [
+                'name'              => $this->request->getPost('name'),
+                'price'             => $this->request->getPost('price'),
+                'description'       => $this->request->getPost('description'),
+                'niveauPrestige'   => $this->request->getPost('niveauPrestige'),
+                'notation'          => $this->request->getPost('notation'),
+                'taille'            => $this->request->getPost('taille'),
+                'quantiteRestante' => $this->request->getPost('quantiteRestante'),
+                'marque'            => $this->request->getPost('marque'),
+                'categorie'         => $this->request->getPost('categorie'),
+            ];
 
-        // ===== IMAGE =====
-        $image = $this->request->getFile('image_name');
+            // ===== IMAGE =====
+            $image = $this->request->getFile('image_name');
 
-        if ($image && $image->isValid() && ! $image->hasMoved()) {
-            // Génère un nom unique
-            $imageName = uniqid('prod_', true) . '.' . $image->getExtension();
+            if ($image && $image->isValid() && ! $image->hasMoved()) {
+                // Génère un nom unique
+                $imageName = uniqid('prod_', true) . '.' . $image->getExtension();
 
-            // Déplace l'image dans le dossier "test" (ou ton dossier final)
-            $image->move(FCPATH . 'test', $imageName);
+                // Déplace l'image dans le dossier "test" (ou ton dossier final)
+                $image->move(FCPATH . 'test', $imageName);
 
-            // Ajoute le nom de l'image dans les données à insérer
-            $data['image_name'] = $imageName;
-        } else {
-            // Pas d'image envoyée ou erreur
-            $data['image_name'] = null;
+                // Ajoute le nom de l'image dans les données à insérer
+                $data['image_name'] = $imageName;
+            } else {
+                // Pas d'image envoyée ou erreur
+                $data['image_name'] = null;
+            }
+
+            // ===== INSERTION EN BASE =====
+            $insert = $model->insert($data);
+
+
+            session()->setFlashdata('success', 'Produit modifié avec succès');
+
+
+        return view('Pages/admin/add/add_product');
+
+            die;
         }
 
-        // ===== INSERTION EN BASE =====
-        $insert = $model->insert($data);
-
-
-        session()->setFlashdata('success', 'Produit modifié avec succès');
-
-
-    return view('Pages/admin/add/add_product');
-
-        die;
+        // ===== GET : afficher le formulaire =====
+        return view('Pages/admin/add/add_product');
     }
-
-    // ===== GET : afficher le formulaire =====
-    return view('Pages/admin/add/add_product');
-}
 
 
 
     /**
      * Ajouter un utilisateur
      */
-    public function addUser()
-    {
-        // TODO: formulaire et insertion utilisateur
+use CodeIgniter\Shield\Models\UserModel;
+
+public function addUser()
+{
+    $userModel = new UserModel();
+
+    if ($this->request->is('post')) {
+
+        $data = [
+            'username' => $this->request->getPost('name'),
+            'email'    => $this->request->getPost('email'),
+            'password' => $this->request->getPost('password'),
+        ];
+
+        // Insertion utilisateur (Shield hash le mot de passe)
+        if ($userModel->insert($data)) {
+
+            $userId = $userModel->getInsertID();
+
+            // Ajouter au groupe "user" par défaut
+            $user = $userModel->find($userId);
+            $user->addGroup('user');
+
+            session()->setFlashdata('success', 'Utilisateur ajouté avec succès');
+            return redirect()->back();
+        }
+
+        session()->setFlashdata('error', 'Erreur lors de la création');
+        return redirect()->back();
     }
+
+    return view('Pages/add/add_user');
+}
 
     /**
      * Ajouter des stocks
@@ -283,7 +312,7 @@ public function addProduit()
      */
     public function editRoleUser($id,$statut)
     {
-    // 🔐 Sécurité : seul un admin peut modifier les rôles
+    //  Sécurité : seul un admin peut modifier les rôles
 
 
     $userModel = new UserModel();
@@ -299,12 +328,12 @@ public function addProduit()
 
     if ($statut === 'admin') {
 
-        // 🧹 Supprimer le groupe "user"
+        //  Supprimer le groupe "user"
         if ($user->inGroup('user')) {
             $user->removeGroup('user');
         }
 
-        // ⭐ Ajouter le groupe "admin"
+        //  Ajouter le groupe "admin"
         if (! $user->inGroup('admin')) {
             $user->addGroup('admin');
         }
@@ -313,12 +342,12 @@ public function addProduit()
 
     } else {
 
-        // 🧹 Supprimer le groupe "admin"
+        //  Supprimer le groupe "admin"
         if ($user->inGroup('admin')) {
             $user->removeGroup('admin');
         }
 
-        // ⭐ Ajouter le groupe "user"
+        //  Ajouter le groupe "user"
         if (! $user->inGroup('user')) {
             $user->addGroup('user');
         }

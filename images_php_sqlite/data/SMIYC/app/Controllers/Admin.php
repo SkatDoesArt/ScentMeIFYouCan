@@ -126,7 +126,7 @@ class Admin extends BaseController
     /**
      * Ajouter un utilisateur
      */
-use CodeIgniter\Shield\Models\UserModel;
+
 
 public function addUser()
 {

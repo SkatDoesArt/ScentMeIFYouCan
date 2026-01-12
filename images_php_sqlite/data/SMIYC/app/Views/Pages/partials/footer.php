@@ -58,6 +58,7 @@
         padding: 3rem 1rem;
         margin-top: 2rem;
         border-top: 4px solid rgba(255, 255, 255, 0.03);
+        z-index  : 1;
     }
 
     .site-footer .footer-top {

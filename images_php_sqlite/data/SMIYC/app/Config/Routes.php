@@ -29,6 +29,7 @@ $routes->group('auth', function($routes) {
 $routes->group('catalogue', function($routes) {
     //Pages Principale
     $routes->get('marques', 'Catalogue::brand');
+    $routes->get('saison', 'Catalogue::season');
    $routes->get('/', 'Catalogue::shop');
     //Afficher un produit en particulier
     $routes->get('product/(:num)', 'Catalogue::detail/$1');

@@ -103,8 +103,7 @@ h1{
     font-family: 'Playfair Display', serif;
     font-size: 0.85rem;
     line-height: 1.6;
-    /* margin: 1.5rem 0; */
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.5rem;
     color: #fff;
     text-align: center;
     white-space: pre-line;
@@ -252,6 +251,7 @@ h1{
     margin: 4rem 0;
     text-align: center;
     font-family: 'Montserrat', sans-serif;
+    width: 100%;
 }
 
 .pagination-container ul {
@@ -261,7 +261,7 @@ h1{
     gap: 8px; /* Espace entre les boutons */
 }
 
-/* Style de base pour les liens et les spans */
+/* Style de base pour TOUS les éléments (liens et spans) */
 .pagination-container a, 
 .pagination-container span {
     display: flex;
@@ -269,10 +269,10 @@ h1{
     justify-content: center;
     min-width: 40px;
     height: 40px;
-    padding: 0 15px;
-    border-radius: 8px; /* Coins légèrement arrondis comme vos cartes */
+    /* padding: 0 15px; */
+    border-radius: 8px;
     background: #fff;
-    color: #b0917e; /* Votre couleur taupe */
+    color: #b0917e; 
     text-decoration: none;
     font-weight: 500;
     font-size: 0.9rem;
@@ -282,34 +282,40 @@ h1{
 }
 
 /* État Actif (Page en cours) */
-.pagination-container li.active span {
-    background: #b0917e; /* Le beige taupe du site */
-    color: #ffffff;
+.pagination-container li.active span,
+.pagination-container li.active a {
+    background: #b0917e; /* Le beige taupe foncé */
+    color: #ffffff !important;
     border-color: #b0917e;
     box-shadow: 0 4px 8px rgba(176, 145, 126, 0.3);
 }
 
-/* État Hover (Survol) */
+/* ÉTAT HOVER UNIFIÉ : Pour les chiffres, Next et Last */
 .pagination-container a:hover {
-    background: #fdfaf8;
-    color: #8a6d5a;
+    background: #b0917e; /* Devient foncé au survol */
+    color: #ffffff !important; /* Texte passe en blanc */
     border-color: #b0917e;
-    transform: translateY(-2px); /* Petit effet de levée */
+    transform: translateY(-2px); /* Effet de levée */
+    box-shadow: 0 4px 8px rgba(176, 145, 126, 0.3);
 }
 
-/* Style spécifique pour "Next" et "Last" (plus larges) */
+/* Style spécifique pour "Next" et "Last" (majuscules et espacement) */
+/* On cible les liens qui contiennent du texte ou les derniers li */
 .pagination-container li:last-child a,
 .pagination-container li:nth-last-child(2) a {
     font-weight: bold;
     text-transform: uppercase;
     font-size: 0.75rem;
     letter-spacing: 1px;
+    padding: 0%;
 }
 
-/* Désactivation des boutons (si applicable) */
+/* État désactivé (quand on est sur la dernière page pour Next) */
 .pagination-container li.disabled span {
     background: #f5f5f5;
     color: #ccc;
     border-color: #eee;
     cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
 }

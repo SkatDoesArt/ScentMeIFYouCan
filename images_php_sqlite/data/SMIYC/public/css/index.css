@@ -4,6 +4,10 @@ body {
 
 /* ACCUEIL */
 
+#accueil{
+    padding-top: 3%;
+}
+
 #accueil .title {
     display: flex;
     justify-content: space-between;
@@ -11,17 +15,18 @@ body {
     font-family: "Playfair Display", "sans-serif";
     width: 100%;
     color: #333;
+    margin-bottom: 2%;
 }
 
 .title span {
-    height: .5px;
-    width: 100%;
+    height: 1px; 
+    flex-grow: 1;
     background-color: #333;
 }
 
 #accueil .title h1 {
     text-align: center;
-    margin: 2%;
+    margin: 0 20px;
     width: fit-content;
     text-wrap: nowrap;
     font-size: 40px;
@@ -81,7 +86,6 @@ body {
 #small-products-panels {
     display: flex;
     flex-direction: column;
-    
 }
 
 #small-products-panels a {
@@ -111,7 +115,6 @@ body {
 }
 
 /* BEST SITE SECTION */
-
 
 #best-site {
     display: flex;
@@ -153,7 +156,6 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    
     width: 100%;
     font-size: x-large;
 }
@@ -165,24 +167,18 @@ body {
     font-weight: bolder;
     font-size: 50px;
     line-height: 50px;
-    white-space: nowrap; /* Empêche le retour à la ligne */
+    white-space: nowrap;
     width: max-content;
 }
-
-/* Le meilleur site de parfum */
-
-
-
 
 #best-site .title span {
     display: inline-block;
     height: 2px;
-    width: 500px;
+    width: 100%;
+    max-width: 500px;
     background-color: #eee;
 }
 
-
-/* Alignement des 3 icônes en ligne */
 #meilleur-icons-div {
     display: flex;
     justify-content: center;
@@ -210,7 +206,6 @@ body {
     white-space: nowrap;
 }
 
-/* Paragraphe de description final */
 .contentOnRight > p {
     font-size: 1.1rem;
     line-height: 1.6;
@@ -219,149 +214,20 @@ body {
     font-family: 'Playfair Display', serif;
 }
 
+/* SECTION NO-CAP */
 
-
-
-/* ====== RESPONSIVE MEDIA QUERIES ====== */
-@media (max-width: 992px) {
-    .recherche {
-        width: 50%;
-    }
-
-    #nav-list {
-        flex-wrap: wrap;
-        gap: 1rem;
-    }
-
-    .categorie {
-        font-size: 0.8rem;
-    }
-}
-
-@media (max-width: 768px) {
-    #nav-upper {
-        flex-direction: column;
-        height: auto;
-        padding: 1rem;
-    }
-
-    #bigname {
-        font-size: 2rem;
-        margin-bottom: 1rem;
-    }
-
-    .recherche {
-        width: 80%;
-        margin: 1rem 0;
-    }
-
-    #nav-buttons {
-        margin-top: 1rem;
-    }
-
-    #menu-toggle {
-        display: block;
-        position: fixed;
-        top: 1rem;
-        left: 1rem;
-        color: white;
-        font-size: 1.5rem;
-        cursor: pointer;
-        z-index: 1001;
-    }
-
-    #nav-list {
-        position: fixed;
-        top: 0;
-        left: -100%;
-        width: 80%;
-        max-width: 300px;
-        height: 100%;
-        background-color: rgba(230, 180, 150, 0.9);
-        z-index: 1000;
-        padding: 2rem;
-        transition: left 0.3s ease;
-        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-    }
-
-    #nav-list.active {
-        left: 0;
-    }
-
-    .categorie {
-        color: #333;
-        font-size: 1rem;
-        padding: 0.5rem 0;
-        border-bottom: 1px solid #eee;
-        width: 100%;
-    }
-}
-
-@media (max-width: 480px) {
-    #home-title h4 {
-        font-size: 2rem;
-        padding: 0.5rem 1rem;
-    }
-
-    #go-shopping {
-        font-size: 1rem;
-    }
-
-    .recherche {
-        width: 90%;
-    }
-
-    #header-container {
-        padding: 0.5rem;
-    }
-}
-
-@media (min-width: 769px) {
-    .recherche {
-        width: 40%;
-    }
-
-    #nav-list {
-        justify-content: center;
-        background-color: rgba(230, 180, 150, 0.9);
-        padding: 0.75rem 0;
-        display: flex;
-        flex-direction: row;
-        position: relative;
-        width: 100%;
-        height: auto;
-        box-shadow: none;
-    }
-
-    .menu-toggle {
-        display: none;
-    }
-
-    .categorie {
-        color: white;
-        font-size: 0.9rem;
-        border-bottom: none;
-        padding: 0 0.5rem;
-    }
-}
-
-
-/* SECTION NO-CAP (Placée naturellement après via le flux HTML) */
 #no-cap {
     padding: 80px 0;
     background-color: #fcfcfc;
     width: 100%;
     position: relative;
-    clear: both; /* S'assure de démarrer sous tout élément flottant précédent */
+    clear: both;
 }
 
-/* TITRE NO-CAP */
 #no-cap .title-nocap {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 3%;
     align-items: center;
     font-family: "Playfair Display", "sans-serif";
     width: 100%;
@@ -369,25 +235,26 @@ body {
 }
 
 #no-cap .title-nocap span {
-    height: .5px;
-    width: 100%;
+    height: 1px;
+    flex-grow: 1;
     background-color: #333;
 }
 
 #no-cap .title-nocap h1 {
     text-align: center;
-    margin: 2%;
+    margin: 0 20px;
     width: fit-content;
     text-wrap: nowrap;
     font-size: 40px;
 }
 
 /* CARROUSEL */
+
 .carousel {
     position: relative;
-    width: 80%; /* Ajusté pour laisser de la place aux flèches sur les côtés */
+    width: 80%;
     margin: 0 auto;
-    overflow: hidden; /* Cache les images qui ne sont pas dans la vue */
+    overflow: hidden;
 }
 
 .slides {
@@ -396,16 +263,89 @@ body {
     width: 100%;
 }
 
-.slides img {
-    flex: 0 0 33.333%; /* 3 images visibles */
-    width: 33.333%;
-    /* padding: 0 10px; */
+.slide-item {
+    flex: 0 0 33.333%;
+    position: relative;
+    padding: 0 10px;
     box-sizing: border-box;
-    height: 400px; /* Hauteur fixe pour l'uniformité */
-    object-fit: cover;
+    display: block; /* Nécessaire pour superposer le bandeau */
 }
 
-/* FLÈCHES */
+.slide-item img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    display: block;
+}
+
+/* BANDEAU : Superposé sur l'image */
+.info-bandeau {
+    position: absolute;
+    bottom: 0;
+    left: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 5;
+}
+
+.text-content {
+    flex: 1;
+}
+
+.text-content h3 {
+    margin: 0;
+    font-family: "Playfair Display", serif;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+.text-content p {
+    margin: 3px 0 0 0;
+    font-size: 0.75rem;
+    opacity: 0.9;
+    font-weight: 300;
+}
+
+/* BOUTON ADD : Style original rétabli */
+.add-btn {
+    background: #e6b496; 
+    color: #333;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 1.4rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 15px;
+    transition: all 0.3s ease;
+}
+
+.add-btn:hover {
+    background: #A08476;
+    /* transform: scale(1.1); */
+}
+
+.add-btn a {
+    text-decoration: none;
+    color: #A08476;
+}
+
+.add-btn a:hover {
+    color: #e6b496;
+}
+
+/* FLÈCHES : Inchangées */
 .fleche button {
     position: absolute;
     top: 50%;
@@ -414,7 +354,7 @@ body {
     border: none;
     width: 50px;
     height: 50px;
-    border-radius: 50%; /* Boutons ronds pour un look plus moderne */
+    border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -446,89 +386,4 @@ body {
     background-color: #333;
     width: 30px;
     border-radius: 10px;
-}
-
-/* Conteneur individuel */
-.slide-item {
-    flex: 0 0 33.333%;
-    position: relative;
-    padding: 0 10px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-}
-
-.slide-item img {
-    width: 100%;
-    height: 400px;
-    object-fit: cover;
-    display: block;
-}
-
-/* Le bandeau permanent au bas de l'image */
-.info-bandeau {
-    position: absolute;
-    bottom: 0;
-    left: 10px;  /* Aligné avec le padding du slide-item */
-    right: 10px;
-    background: rgba(0, 0, 0, 0.6); /* Fond sombre constant */
-    backdrop-filter: blur(5px);    /* Effet de flou moderne sur l'image derrière */
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.text-content {
-    flex: 1;
-}
-
-.text-content h3 {
-    margin: 0;
-    font-family: "Playfair Display", serif;
-    font-size: 1.1rem;
-    letter-spacing: 1px;
-    /* white-space: nowrap; */
-}
-
-.text-content p {
-    margin: 3px 0 0 0;
-    font-size: 0.75rem;
-    opacity: 0.9;
-    font-weight: 300;
-    /* white-space: nowrap; */
-}
-
-/* Bouton + stylisé */
-.add-btn {
-    background: #e6b496; 
-    color: #333;
-    border: none;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    font-size: 1.4rem;
-    font-weight: bold;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 15px;
-    transition: all 0.3s ease;
-}
-
-.add-btn:hover {
-    background: #A08476;
-    /* transform: scale(1.1); */
-}
-
-.add-btn a {
-    text-decoration: none;
-    color: #A08476;
-}
-
-.add-btn a:hover {
-    color: #e6b496;
 }

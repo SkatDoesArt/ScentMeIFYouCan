@@ -37,10 +37,15 @@ class Catalogue extends BaseController
         
         // Utilisation de paginate(8) pour afficher 8 marques par page
         $data = [
-            'liste_marques' => $modelMarques->paginate(8),
+            'liste_marques' => $modelMarques->paginate(12),
             'pager'         => $modelMarques->pager, // Indispensable pour les liens en bas de page
         ];
         
         return view('Pages/catalogue/marques', $data);
+    }
+
+    public function season()
+    {
+        return view('Pages/catalogue/saison');
     }
 }

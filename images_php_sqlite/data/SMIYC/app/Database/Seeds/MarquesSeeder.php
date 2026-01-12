@@ -129,7 +129,7 @@ class MarquesSeeder extends Seeder
                 'description'=> "1 Million\nOlympea\nPhantom"
             ],
             [
-                'image_name' => 'https://logo.clearbit.com/dolcegabbana.com', 
+                'image_name' => 'https://www.dolcegabbana.com/dw/image/v2/BKDB_PRD/on/demandware.static/-/Sites-15/default/dwd72e3365/images/zoom/G8PN9TG7M1C_N0000_2.jpg?sw=740&sh=944', 
                 'title'      => 'Dolce & Gabbana',
                 'description'=> "Light Blue\nThe One\nK by D&G"
             ],
@@ -142,6 +142,149 @@ class MarquesSeeder extends Seeder
                 'image_name' => 'https://imgs.search.brave.com/h5uZi2wuId7hKHYLE3pHVCJimOeJ_ykQX5st-KxY_QA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/Y3JlYWRzLmNvbS93/cC1jb250ZW50L3Vw/bG9hZHMvMjAyMS8w/Ni9MYWNvc3RlLUxv/Z28tMjAxMS1wcmVz/ZW50LnBuZw', 
                 'title'      => 'Lacoste',
                 'description'=> "Lacoste Blanc,\nTouch of Pink,\nLacoste Pour Femme ..."
+            ],
+            [
+                'image_name' => 'https://upload.wikimedia.org/wikipedia/fr/9/9c/Ralph_Lauren_%28parfums%29.png', 
+                'title'      => 'Ralph Lauren',
+                'description'=> "Polo Blue\nPolo Black\nRomance"
+            ],
+            [
+                'image_name' => 'https://fimgs.net/mdimg/dizajneri/o.1289.jpg', 
+                'title'      => 'Zadig & Voltaire',
+                'description'=> "This Is Her!\nThis Is Him!\nGirls Can Do Anything"
+            ],
+            [
+                'image_name' => 'https://www.gisada.com/cdn/shop/files/Logo-Gisada.jpg?v=1741966498', 
+                'title'      => 'Gisada',
+                'description'=> "Ambassador\nAmbassador Intense\nImperial"
+            ],
+            [
+                'image_name' => 'https://fimgs.net/mdimg/dizajneri/o.1979.jpg', 
+                'title'      => 'Lattafa',
+                'description'=> "Oud for Glory\nKhamrah\nAna Abiyedh Rouge"
+            ],
+            [
+                'image_name' => 'https://fimgs.net/mdimg/dizajneri/o.18.jpg', 
+                'title'      => 'Calvin Klein',
+                'description'=> "CK One\nEuphoria\nEternity"
+            ],
+            
+            [ 
+                'image_name' => 'https://logowik.com/content/uploads/images/967_kenzo.jpg', 
+                'title'      => 'Kenzo',
+                'description'=> "Flower by Kenzo\nKenzo Homme\nKenzo World"
+            ],
+            [
+                'image_name' => 'https://fimgs.net/mdimg/dizajneri/o.35.jpg', 
+                'title'      => 'Chloé',
+                'description'=> "Chloé Signature\nNomade\nLove Story"
+            ],
+            [
+                'image_name' => 'https://sodasound.fr/wp-content/uploads/Nina-Ricci-avatar-300x300.jpg', 
+                'title'      => 'Nina Ricci',
+                'description'=> "Nina\nRicci Ricci\nL’Air du Temps"
+            ],
+            [
+                'image_name' => 'https://www.pagesjaunes.fr/media/newdam/6c/c5/30/00/00/18/00/80/5e/7f/66f56cc53000001800805e7f/66f56cc630000074d6805e8a.png', 
+                'title'      => 'Rituals',
+                'description'=> "Sakura\nAyurveda\nHammam"
+            ],
+            [
+                'image_name' => 'https://fimgs.net/mdimg/dizajneri/o.83.jpg', 
+                'title'      => 'Lolita Lempicka',
+                'description'=> "Le Premier Parfum\nSi Lolita\nSweet"
+            ],
+            [
+                'image_name' => 'https://auparfum.bynez.com/IMG/moton48.jpg', 
+                'title'      => 'Cacharel',
+                'description'=> "Amor Amor\nAnaïs Anaïs\nYes I Am"
+            ],
+            [
+                'image_name' => 'https://www.fragrantica.fr/mdimg/dizajneri/o.85.jpg', 
+                'title'      => 'Moschino',
+                'description'=> "Toy 2\nI Love Love\nFresh Couture"
+            ],
+            [
+                'image_name' => 'https://fimgs.net/mdimg/dizajneri/o.169.jpg', 
+                'title'      => 'Yves Rocher',
+                'description'=> "Comme une Evidence\nMon Evidence\nSel d’Azur"
+            ],
+
+            // --- ENFANTS / BÉBÉ ---
+            [
+                'image_name' => 'https://www.fragrantica.fr/mdimg/dizajneri/o.1491.jpg', 
+                'title'      => 'Disney',
+                'description'=> "Princess\nFrozen\nCars"
+            ],
+            [
+                'image_name' => 'https://www.cosmetis.pt/pub/media/brands/mustela_SWEB.jpg', 
+                'title'      => 'Mustela',
+                'description'=> "Musti\nEau de Soin\nMustela Douceur"
+            ],
+            [
+                'image_name' => 'https://hebammen-testen.de/uploads/2023/12/Logo_NIVEA-BABY_RGB_PNG_800x800.png', 
+                'title'      => 'Nivea Baby',
+                'description'=> "Baby Moments\nEau de Soin Douce\nFresh Baby"
+            ],
+            [
+                'image_name' => 'https://i0.wp.com/www.freefonts.io/wp-content/uploads/2025/07/Hello-Kitty-Font-2.png?fit=780%2C520&ssl=1', 
+                'title'      => 'Hello Kitty',
+                'description'=> "Hello Kitty Flowers\nHello Kitty Pink\nHello Kitty Soft"
+            ],
+            [
+                'image_name' => 'https://priveperfumes.com/cdn/shop/collections/benetton-prive-perfumes-banner.webp?v=1741500472&width=1024', 
+                'title'      => 'Benetton Kids',
+                'description'=> "Kids Boy\nKids Girl\nColors Kids"
+            ],
+            [
+                'image_name' => 'https://s3.ap-southeast-1.amazonaws.com/cdn1.sgliteasset.com/rasignat/images/texteditor/4_1706512589.jpg', 
+                'title'      => 'Asdaaf',
+                'description'=> "Musk Collection\nOud Collection\nWhite Musk"
+            ],
+            [
+                'image_name' => 'https://excellenceimp.com.br/images/stories/virtuemart/manufacturer/resized/0-al-wataniah_0x400.jpg', 
+                'title'      => 'AL Wataniah',
+                'description'=> "Arba Wardat\nVelvet Oud\nYara"
+            ],
+            [
+                'image_name' => 'https://bogart-april-be-storage.omn.proximis.com/Imagestorage/imagesSynchro/0/0/83fca49c4696772e6d56487f17c3a5b5d4adf9d3_ikks_fr.png', 
+                'title'      => 'IKKS',
+                'description'=> "Little Woman\nYoung Man\nBaby"
+            ],
+            [
+                'image_name' => 'https://www.encorebeauty.com.au/cdn/shop/collections/Adopt_logo.png?v=1719491661', 
+                'title'      => 'Adopt',
+                'description'=> "Musc Blanc\nFleur de Cerisier\nVanille Bourbon"
+            ],
+            [
+                'image_name' => 'https://www.fragrantica.fr/mdimg/dizajneri/o.2295.jpg', 
+                'title'      => 'Little Marcel',
+                'description'=> "Vanilla Kids\nBubblegum Kids\nFruits Mix Kids"
+            ],
+            [
+                'image_name' => 'https://www.corinedefarme.fr/content/uploads/sites/2/2025/11/Parfum-Corine-de-Farme.png', 
+                'title'      => 'Corine de Farme',
+                'description'=> "Princess\nPat’Patrouille\nHello Kitty"
+            ],
+            [
+                'image_name' => 'https://comandkids.fr/wp-content/uploads/2025/08/LOGO-KALOO.png', 
+                'title'      => 'Kaloo',
+                'description'=> "Kaloo Blue\nKaloo Lilirose\nKaloo Dragée"
+            ],
+            [
+                'image_name' => 'https://paravital.fr/wp-content/uploads/2016/11/Klorane-BB-logo-ph.png', 
+                'title'      => 'Klorane Bébé',
+                'description'=> "Eau Parfumée Bébé\nPetit Brin\nEau Fraîche Bébé"
+            ],
+            [
+                'image_name' => 'https://p.ventesprivees-fr.com/natura-siberica.png', 
+                'title'      => 'Natura Siberica Kids',
+                'description'=> "Little Siberica Eau Douce\nFruits\nFlowers"
+            ],
+            [
+                'image_name' => 'https://www.lahabitaciondejulieta.com/wp-content/uploads/2018/01/10300175_1409813512639905_7653019964121904874_n.jpg', 
+                'title'      => 'Baby Tous',
+                'description'=> "Tous Kids Boy\nTous Kids Girl\nBaby Tous"
             ],
         ];
 

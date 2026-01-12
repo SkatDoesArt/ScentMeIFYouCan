@@ -113,3 +113,85 @@ POUR LES CARD DES MARQUES TKT :
 | Natura Siberica Kids   | Little Siberica Eau Douce | Fruits                    | Flowers                   |
 | Baby Tous / Tous Kids  | Tous Kids Boy             | Tous Kids Girl            | Baby Tous                 |
 | Benetton Kids          | Kids Boy                  | Kids Girl                 | Colors Kids               |
+
+
+🌸 Printemps — Frais, Fleuris & Poudrés
+
+| Marque            | Parfums                          |
+| ----------------- | -------------------------------- |
+| Prada             | Infusion d’Iris, Prada Paradoxe  |
+| Chloé             | Chloé Signature, Love Story      |
+| Narciso Rodriguez | For Her, Narciso Poudrée         |
+| Kenzo             | Flower by Kenzo, Kenzo World     |
+| Hermès            | Twilly d’Hermès                  |
+| Dior              | Miss Dior                        |
+| Adopt’            | Musc Blanc, Fleur de Cerisier    |
+| Yves Rocher       | Comme une Evidence, Mon Evidence |
+| Nina Ricci        | Nina, L’Air du Temps             |
+| Rituals           | Sakura                           |
+| Boucheron         | Quatre                           |
+
+
+☀️ Été — Aquatiques, Agrumes & Fraîcheur
+
+| Marque          | Parfums                    |
+| --------------- | -------------------------- |
+| Hermès          | Un Jardin sur le Nil       |
+| Dolce & Gabbana | Light Blue                 |
+| Armani          | Acqua di Giò               |
+| Azzaro          | Chrome                     |
+| Versace         | Bright Crystal, Dylan Blue |
+| Lacoste         | Lacoste Blanc              |
+| Ralph Lauren    | Polo Blue                  |
+| Rochas          | Eau de Rochas              |
+| Calvin Klein    | CK One                     |
+| Moschino        | I Love Love, Fresh Couture |
+| Yves Rocher     | Sel d’Azur                 |
+| Nivea Baby      | Fresh Baby                 |
+
+
+🍂 Automne — Boisés, Cuirés & Épicés
+
+| Marque           | Parfums                        |
+| ---------------- | ------------------------------ |
+| Hermès           | Terre d’Hermès                 |
+| Tom Ford         | Oud Wood                       |
+| Montblanc        | Explorer, Legend               |
+| Dior             | Sauvage                        |
+| Chanel           | Bleu de Chanel                 |
+| Gisada           | Ambassador, Ambassador Intense |
+| Valentino        | Uomo                           |
+| Carolina Herrera | Bad Boy                        |
+| Rabanne          | Phantom                        |
+| Zadig & Voltaire | This Is Him!                   |
+| Lattafa          | Oud for Glory                  |
+
+❄️ Hiver — Orientaux, Gourmands & Ambrés
+
+| Marque             | Parfums                        |
+| ------------------ | ------------------------------ |
+| Serge Lutens       | Féminité du Bois, Ambre Sultan |
+| Tom Ford           | Black Orchid, Fucking Fabulous |
+| Mugler             | Alien, Angel, Aura             |
+| Guerlain           | Shalimar, La Petite Robe Noire |
+| Viktor & Rolf      | Flowerbomb, Spicebomb          |
+| Jean Paul Gaultier | Scandal, Classique, Le Mâle    |
+| Givenchy           | L’Interdit                     |
+| Carolina Herrera   | Good Girl                      |
+| Rabanne            | 1 Million                      |
+| Lattafa            | Khamrah                        |
+| Al Wataniah        | Velvet Oud                     |
+
+
+🧸 Enfants & Bébés — Toutes Saisons
+
+| Marque          | Parfums                                  |
+| --------------- | ---------------------------------------- |
+| Mustela         | Musti, Eau de Soin                       |
+| Kaloo           | Kaloo Blue, Kaloo Lilirose, Kaloo Dragée |
+| Klorane Bébé    | Petit Brin, Eau Parfumée                 |
+| Disney          | Princess, Frozen, Cars                   |
+| IKKS            | Little Woman, Young Man, Baby            |
+| Corine de Farme | Pat’Patrouille, Hello Kitty              |
+| Little Marcel   | Vanilla Kids, Bubblegum Kids             |
+

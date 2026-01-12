@@ -1,3 +1,7 @@
+<?php
+$user=auth()->user();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,11 +56,11 @@
                         <label for="password">Mot de passe :</label>
                     </div>
                     <div>
-                        <input id="nom" name="nom" type="text" value="" readonly>
-                        <input id="prenom" name="prenom" type="text" readonly>
-                        <input id="email" name="email" type="email" readonly>
-                        <input id="num_tel" name="num_tel" type="email" readonly>
-                        <input id="password" name="password" type="password" readonly>
+                        <input id="nom" name="nom" type="text" value="<?= $user->username ?>  " readonly>
+                        <input id="prenom" name="prenom" type="text" value="<?= $user->username ?>  "readonly>
+                        <input id="email" name="email" type="email" value="<?= $user->email ?>  "readonly>
+                        <input id="num_tel" name="num_tel" type="email" value="" readonly>
+                        <input id="password" name="password" type="password" value=" " readonly>
                     </div>
                 </form>
 

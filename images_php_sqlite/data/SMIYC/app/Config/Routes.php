@@ -89,7 +89,7 @@ $routes->group('dashboard', function($routes) {
 // ADMINISTRATION
 // ====================================================================
 
-$routes->group('admin', function ($routes) {
+$routes->group('admin', ['filter' => 'admin'], function ($routes) {
 
     // ==========================
     // Groupe "add" → pour créer des entités

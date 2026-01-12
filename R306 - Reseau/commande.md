@@ -225,9 +225,9 @@ chmod -R 775 /var/www/html/
 
 ## configuration du host-ext : 
 
-ip link set eth0 up
-ip addr add 192.168.1.10/24 dev eth0
-ip route add default via 192.168.1.254
+ip addr add 192.168.1.10/24 dev eth1
+ip route add default via 192.168.1.254 dev eth1
+ip link set eth1 up
 
 nano /etc/resolv.conf
 

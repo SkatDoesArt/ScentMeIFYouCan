@@ -12,13 +12,13 @@ class LignePanierModel extends Model
     protected $useAutoIncrement = true;
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [
-        'id_ligne_panier',
+    protected $allowedFields = [
         'id_produit',
         'id_panier',
         'quantite',
         'prix_unitaire'
     ];
+
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
@@ -50,32 +50,62 @@ class LignePanierModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
+
+    public function addProduit(int $id_panier, int $id_produit, int $quantite = 1): bool
+    {
+        $ligne = $this->where('id_panier', $id_panier)
+            ->where('id_produit', $id_produit)
+            ->first();
+
+        if ($ligne !== null) {
+            return (bool) $this->set(
+                'quantite',
+                "quantite + {$quantite}",
+                false
+            )
+                ->where('id_ligne_panier', $ligne['id_ligne_panier'])
+                ->update();
+        }
+
+        return (bool) $this->insert([
+            'id_panier'  => $id_panier,
+            'id_produit' => $id_produit,
+            'quantite'   => $quantite,
+        ]);
+    }
+
     // --------------------------------------------
     // Augmente la quantité d'une ligne
     // --------------------------------------------
-    public function incrementQuantite(int $id_ligne_panier, int $amount = 1)
+    public function incrementQuantite(int $id_ligne_panier, int $amount = 1): bool
     {
-        $ligne = $this->find($id_ligne_panier);
-        if ($ligne) {
-            $this->update($id_ligne_panier, [
-                'quantite' => $ligne->quantite + $amount
-            ]);
-        }
+        return (bool) $this->set(
+            'quantite',
+            "quantite + {$amount}",
+            false
+        )
+            ->where('id_ligne_panier', $id_ligne_panier)
+            ->update();
     }
+
 
     // --------------------------------------------
     // Diminue la quantité d'une ligne
     // --------------------------------------------
-    public function decrementQuantite(int $id_ligne_panier, int $amount = 1)
+    public function decrementQuantite(int $id_ligne_panier, int $amount = 1): bool
     {
-        $ligne = $this->find($id_ligne_panier);
-        if ($ligne) {
-            $nouvelleQuantite = max(0, $ligne->quantite - $amount); // jamais négatif
-            $this->update($id_ligne_panier, [
-                'quantite' => $nouvelleQuantite
-            ]);
-        }
+        return (bool) $this->set(
+            'quantite',
+            "CASE 
+            WHEN quantite - {$amount} < 0 THEN 0 
+            ELSE quantite - {$amount} 
+            END",
+            false
+        )
+            ->where('id_ligne_panier', $id_ligne_panier)
+            ->update();
     }
+
 
     // --------------------------------------------
     // Supprime une ligne du panier

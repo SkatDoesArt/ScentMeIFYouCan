@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    <?= view('Pages/partials/header', ['showCart' => true]) ?>
+    <?= view('Pages/partials/header', ['showCart' => true, 'showList' => false]) ?>
 
     <div id="body">
         <h1>Votre Compte</h1>

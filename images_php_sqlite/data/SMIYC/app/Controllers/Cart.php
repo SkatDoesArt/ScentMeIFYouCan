@@ -8,49 +8,46 @@ use Config\View;
 
 class Cart extends BaseController
 {
-      public function index(): string
-      {
-            $panierModel = new PanierModel();
-            $panier = $panierModel->getPanierComplet(1);
+    public function index()
+    {
+        if (!auth()->loggedIn()) {
+            return view('Pages/panier/panier', [
+                'isLoggedIn' => false,
+                'items' => [],
+                'totalPrix' => 0
+            ]);
+        }
 
-            // La clé 'panier' sera le nom de la variable dans la vue
-            return view('Pages/panier/panier', ['panier' => $panier]);
-      }
+        $panierModel = new PanierModel();
+        [$items, $total] = $panierModel->getPanierCompletByUser(auth()->id());
+
+        return view('Pages/panier/panier', [
+            'isLoggedIn' => true,
+            'items' => $items,
+            'totalPrix' => $total
+        ]);
+    }
 
 
     // Ajoute un produit au panier (créé la ligne ou incrémente la quantité)
-    public function addProduct(int $id_produit)
+    public function addProduct(int $idProduit)
     {
-        // Vérifie si l'utilisateur est connecté
-        if (auth()->loggedIn()) {
-            $id = user_id();
-
-            // Récupère le panier de l'utilisateur
-            $panierModel = new PanierModel();
-            $panier = $panierModel->where('id_user', $id)->first();
-            dd($panier);
-
-            // Redirige vers la page panier
-            return redirect()->to(base_url('cart'));
-        } else {
-            // ajouter les elements à une session temporaire
-            $session = session();
-
-            // Format: ['cart' => [id_produit => quantite, ...]]
-            $cart = $session->get('cart') ?? [];
-
-            if (isset($cart[$id_produit])) {
-                $cart[$id_produit] += 1;
-            } else {
-                $cart[$id_produit] = 1;
-            }
-
-            $session->set('cart', $cart);
-            $session->setFlashdata('message', 'Produit ajouté au panier (session)');
-
-            // Retourne à la page précédente
-            return redirect()->back();
+        if (!auth()->loggedIn()) {
+            return redirect()->to(base_url('auth/login'));
         }
+
+        $userId = auth()->id();
+
+        $panierModel = new \App\Models\Panier\PanierModel();
+        $ligneModel  = new \App\Models\Panier\LignePanierModel();
+
+        // 1. panier garanti
+        $idPanier = $panierModel->getOrCreatePanier($userId);
+
+        // 2. ajout produit
+        $ligneModel->addProduit($idPanier, $idProduit, 1);
+
+        return redirect()->to(base_url('cart'));
     }
 
     // Augmente la quantité d'un produit

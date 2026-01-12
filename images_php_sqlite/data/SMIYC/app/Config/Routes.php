@@ -23,7 +23,6 @@ $routes->group('auth', function($routes) {
     $routes->get('profile/edit', 'Auth::editProfile');
 });
 
-
 // ====================================================================
 // CATALOGUE
 // ====================================================================
@@ -39,12 +38,14 @@ $routes->group('catalogue', function($routes) {
     $routes->get('/marque', 'Catalogue::marque');
 });
 
-
 // ====================================================================
 // PANIER
 // ====================================================================
 $routes->group('cart', function($routes) {
     $routes->get('/', 'Cart::index'); // Affiche le panier
+
+    //Ajouter un produit au panier
+    $routes->match(['GET','POST'], 'add/(:num)', 'Cart::addProduct/$1');
 
     // Augmenter la quantité
     $routes->match(['GET','POST'], 'increment/(:num)', 'Cart::addQuantite/$1');
@@ -56,7 +57,6 @@ $routes->group('cart', function($routes) {
     $routes->match(['GET','POST'], 'delete/(:num)', 'Cart::delete/$1');
 });
 
-
 // ====================================================================
 // PAIEMENT
 // ====================================================================
@@ -65,7 +65,6 @@ $routes->group('payment', function($routes) {
     $routes->get('success', 'Payment::success');
     $routes->get('error', 'Payment::error');
 });
-
 
 // ====================================================================
 // COMMANDES
@@ -157,7 +156,6 @@ $routes->group('admin', ['filter' => 'admin'], function ($routes) {
     $routes->get('orders', 'Admin::orders');       // Liste des commandes
     $routes->get('stock', 'Admin::stock');         // Liste des stocks
 });
-
 
 // ====================================================================
 // EMAILS (pour test uniquement)

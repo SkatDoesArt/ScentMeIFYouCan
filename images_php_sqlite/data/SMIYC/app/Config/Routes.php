@@ -89,7 +89,7 @@ $routes->group('dashboard', function($routes) {
 // ADMINISTRATION
 // ====================================================================
 
-$routes->group('admin', ['filter' => 'group:admin'],function($routes) {
+$routes->group('admin',function($routes) {
 
     // ==========================
     // Groupe "add" → pour créer des entités
@@ -126,7 +126,7 @@ $routes->group('admin', ['filter' => 'group:admin'],function($routes) {
         $routes->match(['GET','POST'], 'commandes/(:num)', 'Admin::editCommandes');
 
         //Modifie le role d'un utilisateur
-        $routes->post('role/(:num)/(:segment)','Admin::editRoleUser/$1/$2');
+        $routes->get('role/(:num)/(:segment)','Admin::editRoleUser/$1/$2');
     });
 
     // ==========================

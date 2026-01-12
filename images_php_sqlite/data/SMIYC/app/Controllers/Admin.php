@@ -279,13 +279,10 @@ public function addProduit()
 /**
  * Modifier le rôle d'un utilisateur
  */
-public function editRoleUser($id = null)
+public function editRoleUser($id = null,$statut)
 {
     // 🔐 Sécurité : seul un admin peut modifier les rôles
-    $currentUser = auth()->user();
-    if (! $currentUser || ! $currentUser->inGroup('admin')) {
-        throw new PageNotFoundException();
-    }
+
 
     $userModel = new UserModel();
     $user = $userModel->find($id);
@@ -293,7 +290,6 @@ public function editRoleUser($id = null)
     if (! $user) {
         throw new PageNotFoundException('Utilisateur introuvable');
     }
-    $statut = $this->request->getPost('statut');
 
 if (! in_array($statut, ['admin', 'user'], true)) {
     return redirect()->back()->with('error', 'Rôle invalide');
@@ -329,4 +325,5 @@ if (! in_array($statut, ['admin', 'user'], true)) {
     }
 
     return redirect()->back()->with('success', $message);
+}
 }

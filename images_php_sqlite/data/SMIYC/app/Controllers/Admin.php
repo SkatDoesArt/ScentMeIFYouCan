@@ -3,13 +3,16 @@
 namespace App\Controllers;
 
 use App\Models\Produit\ProduitModel;
+use CodeIgniter\Shield\Models\UserModel;
 
-
-
+use CodeIgniter\Exceptions\PageNotFoundException;
 
 
 class Admin extends BaseController
 {
+
+
+
     // ==========================
     // Dashboard et listes
     // ==========================
@@ -66,7 +69,7 @@ class Admin extends BaseController
      */
 public function addProduit()
 {
-    $model = new \App\Models\Produit\ProduitModel();
+    $model = new ProduitModel();
 
     if ($this->request->is('post')) {
 
@@ -104,15 +107,8 @@ public function addProduit()
         $insert = $model->insert($data);
 
 
-echo "<pre>DONNÉES INSÉRÉES :\n";
-foreach ($data as $key => $value) {
-    echo $key . " => " . $value . "\n";
-}
+        session()->setFlashdata('success', 'Produit modifié avec succès');
 
-echo "\nID INSÉRÉ : " . $insert . "\n";
-
-echo "\nDB ERRORS :\n";
-var_dump($model->errors());
 
     return view('Pages/admin/add/add_product');
 
@@ -141,13 +137,8 @@ var_dump($model->errors());
         // TODO: formulaire et insertion stock
     }
 
-    /**
-     * Ajouter une catégorie
-     */
-    public function addCategories()
-    {
-        // TODO: formulaire et insertion catégorie
-    }
+
+
 
     // ==========================
     // CRUD → Modifier (Update)
@@ -158,8 +149,56 @@ var_dump($model->errors());
      */
     public function editProduit($id = null)
     {
-        // TODO: récupérer le produit $id et afficher formulaire modification
+        $model = new ProduitModel();
+
+        if ($id === null) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException();
+        }
+
+        $produit = $model->find($id);
+
+        if (! $produit) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Produit introuvable');
+        }
+
+        // ======================
+        // POST → update
+        // ======================
+        if ($this->request->is('post')) {
+
+            $data = [
+                'name'              => $this->request->getPost('name'),
+                'price'             => $this->request->getPost('price'),
+                'description'       => $this->request->getPost('description'),
+                'niveauPrestige'    => $this->request->getPost('niveauPrestige'),
+                'notation'          => $this->request->getPost('notation'),
+                'taille'            => $this->request->getPost('taille'),
+                'quantiteRestante'  => $this->request->getPost('quantiteRestante'),
+                'marque'            => $this->request->getPost('marque'),
+                'categorie'         => $this->request->getPost('categorie'),
+            ];
+
+            // IMAGE OPTIONNELLE
+            $image = $this->request->getFile('image_name');
+
+            if ($image && $image->isValid() && ! $image->hasMoved()) {
+                $imageName = uniqid('prod_', true) . '.' . $image->getExtension();
+                $image->move(FCPATH . 'test', $imageName);
+                $data['image_name'] = $imageName;
+            }
+
+            $model->update($id, $data);
+
+            session()->setFlashdata('success', 'Produit modifié avec succès');
+
+            return redirect()->to('/admin/edit/product/' . $id);
+        }
+
+        return view('Pages/admin/edit/edit_product', [
+            'produit' => $produit
+        ]);
     }
+
 
     /**
      * Modifier un utilisateur
@@ -168,6 +207,7 @@ var_dump($model->errors());
     {
         // TODO: récupérer l'utilisateur $id et afficher formulaire modification
     }
+
 
     /**
      * Modifier des stocks
@@ -194,8 +234,19 @@ var_dump($model->errors());
      */
     public function deleteProduit($id = null)
     {
-        // TODO: supprimer le produit $id
+        $model = new ProduitModel();
+
+        if ($id === null) {
+            return redirect()->to('/admin/products')->with('error', 'ID manquant');
+        }
+
+        // Supprime par ID
+        $model->delete($id);
+
+        session()->setFlashdata('success', 'Produit supprimé avec succès');
+        return redirect()->to('/admin/products');
     }
+
 
     /**
      * Supprimer un utilisateur
@@ -225,14 +276,57 @@ var_dump($model->errors());
     // Utilitaires / autres
     // ==========================
 
-    /**
-     * Modifier le rôle d'un utilisateur
-     */
-    public function editRoleUser($id = null)
-    {
-        // TODO: modifier le rôle de l'utilisateur $id
+/**
+ * Modifier le rôle d'un utilisateur
+ */
+public function editRoleUser($id = null)
+{
+    // 🔐 Sécurité : seul un admin peut modifier les rôles
+    $currentUser = auth()->user();
+    if (! $currentUser || ! $currentUser->inGroup('admin')) {
+        throw new PageNotFoundException();
     }
+
+    $userModel = new UserModel();
+    $user = $userModel->find($id);
+
+    if (! $user) {
+        throw new PageNotFoundException('Utilisateur introuvable');
+    }
+    $statut = $this->request->getPost('statut');
+
+if (! in_array($statut, ['admin', 'user'], true)) {
+    return redirect()->back()->with('error', 'Rôle invalide');
 }
 
+    if ($statut === 'admin') {
 
+        // 🧹 Supprimer le groupe "user"
+        if ($user->inGroup('user')) {
+            $user->removeGroup('user');
+        }
 
+        // ⭐ Ajouter le groupe "admin"
+        if (! $user->inGroup('admin')) {
+            $user->addGroup('admin');
+        }
+
+        $message = 'Utilisateur promu administrateur';
+
+    } else {
+
+        // 🧹 Supprimer le groupe "admin"
+        if ($user->inGroup('admin')) {
+            $user->removeGroup('admin');
+        }
+
+        // ⭐ Ajouter le groupe "user"
+        if (! $user->inGroup('user')) {
+            $user->addGroup('user');
+        }
+
+        $message = 'Utilisateur rétrogradé en utilisateur';
+    }
+
+    return redirect()->back()->with('success', $message);
+}

@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\RedirectResponse;
+use CodeIgniter\Shield\Models\UserModel;
 
 class Auth extends BaseController
 {
@@ -88,6 +89,7 @@ class Auth extends BaseController
         return view('Pages/auth/forgot_password');
     }
     public function profile():string{
+
         return view('Pages/dashboard/infos_perso');
     }
 }

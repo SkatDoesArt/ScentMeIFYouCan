@@ -32,7 +32,7 @@
                                         <a href="<?= base_url('catalogue/product/' . $encens->id_encens) ?>"
                                             class="btn-view">Voir le produit</a>
 
-                                        <form method="post" action="<?= base_url('panier/ajouter/' . $encens->id_encens) ?>">
+                                        <form method="post" action="<?= base_url('cart/add/' . $encens->id_encens) ?>">
                                             <?= csrf_field() ?>
                                             <button type="submit" class="btn-plus">+</button>
                                         </form>

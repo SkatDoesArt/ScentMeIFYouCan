@@ -1,4 +1,4 @@
-const value = document.querySelector("#value");
+const value = document.querySelector("#price-value");
 const input = document.querySelector("#pi_input");
 value.textContent = input.value;
 input.addEventListener("input", (event) => {

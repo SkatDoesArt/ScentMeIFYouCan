@@ -30,25 +30,26 @@
     transition: color 0.3s;
 }
 
-.left p:hover {
-    color: #a33;
-}
-
 .left a {
-    display: inline-block;
+    /* display: inline-block; */
     margin-top: 10px;
-    color: #0077cc;
+    color: #333;
     text-decoration: none;
     font-size: 0.9rem;
 }
 
 .left a:hover {
+    color: #a33;
     text-decoration: underline;
 }
 
 .left input[type="range"] {
     width: 100%;
     margin-top: 10px;
+}
+
+a#plus-marques {
+    color: #0077cc;
 }
 
 /* FILTERS */
@@ -98,9 +99,6 @@
 
 /* Carte produit */
 .card {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
     height: 100%;
     padding: 0px;
     color: #333;
@@ -108,24 +106,25 @@
     text-decoration: none;
 }
 
-/*.card:hover {*/
-/*    transform: translateY(-5px);*/
-/*    box-shadow: 0 8px 15px rgba(0,0,0,0.25);*/
-/*}*/
+.card img {
+    width: 100%;
+    height: 250px;
+    background: #ddd;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.product-card:hover {
+   transform: translateY(-5px);
+   box-shadow: 0 8px 15px rgba(0,0,0,0.25);
+   transition: ease-in-out 0.1s;
+}
 
 .card-bottom {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-top: 20px;
-}
-
-.card img {
-    width: 100%;
-    height: 200px;
-    background: #ddd;
-    border-radius: 8px;
-    object-fit: cover;
+    margin-top: 10px;
 }
 
 .info a {

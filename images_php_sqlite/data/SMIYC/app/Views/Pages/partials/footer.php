@@ -5,7 +5,8 @@
     <div class="footer-top">
         <div class="footer-brand">
             <a href="<?= base_url() ?>" class="brand-link"><strong>SMIYC</strong></a>
-            <p class="brand-tag">Le meilleur du parfum en ligne. Livraison rapide • Paiement sécurisé • Retours faciles</p>
+            <p class="brand-tag">Le meilleur du parfum en ligne. Livraison rapide • Paiement sécurisé • Retours faciles
+            </p>
         </div>
 
         <div class="footer-links">
@@ -37,7 +38,8 @@
     </div>
 
     <div class="footer-bottom">
-        <p>© <?= date('Y') ?> SMIYC — Tous droits réservés. <a href="<?= base_url('mentions') ?>">Mentions légales</a></p>
+        <p>© <?= date('Y') ?> SMIYC — Tous droits réservés. <a href="<?= base_url('mentions') ?>">Mentions légales</a>
+        </p>
         <div class="footer-socials">
             <a href="#" aria-label="facebook">Facebook</a>
             <a href="#" aria-label="instagram">Instagram</a>
@@ -47,12 +49,15 @@
 </footer>
 
 <style>
+    footer {}
+
     .site-footer {
         background: linear-gradient(180deg, #0b0b0b 0%, #1a1a1a 100%);
         color: #e9e6e0;
+        width: 100%;
         padding: 3rem 1rem;
         margin-top: 2rem;
-        border-top: 4px solid rgba(255,255,255,0.03);
+        border-top: 4px solid rgba(255, 255, 255, 0.03);
     }
 
     .site-footer .footer-top {
@@ -93,17 +98,60 @@
         color: #fff;
     }
 
-    .site-footer ul { list-style: none; padding: 0; margin: 0; }
-    .site-footer ul li { margin: 0.35rem 0; }
-    .site-footer a { color: #e6dcd1; text-decoration: none; }
-    .site-footer a:hover { text-decoration: underline; }
+    .site-footer ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
 
-    .newsletter-form { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
-    .newsletter-form input[type="email"]{ padding: 0.6rem 0.8rem; border-radius: 6px; border: none; outline: none; }
-    .newsletter-form button { background: #d9b99f; color: #111; border: none; padding: 0.6rem 0.9rem; border-radius: 6px; cursor: pointer; }
+    .site-footer ul li {
+        margin: 0.35rem 0;
+    }
 
-    .site-footer .footer-bottom { display: flex; justify-content: space-between; align-items: center; gap: 1rem; border-top: 1px solid rgba(255,255,255,0.03); padding-top: 1rem; max-width: 1200px; margin: 0 auto; }
-    .site-footer .footer-socials a{ margin-left: 0.6rem; color: #e6dcd1; }
+    .site-footer a {
+        color: #e6dcd1;
+        text-decoration: none;
+    }
 
+    .site-footer a:hover {
+        text-decoration: underline;
+    }
+
+    .newsletter-form {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+    }
+
+    .newsletter-form input[type="email"] {
+        padding: 0.6rem 0.8rem;
+        border-radius: 6px;
+        border: none;
+        outline: none;
+    }
+
+    .newsletter-form button {
+        background: #d9b99f;
+        color: #111;
+        border: none;
+        padding: 0.6rem 0.9rem;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+    .site-footer .footer-bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.03);
+        padding-top: 1rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .site-footer .footer-socials a {
+        margin-left: 0.6rem;
+        color: #e6dcd1;
+    }
 </style>
-

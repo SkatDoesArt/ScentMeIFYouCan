@@ -14,6 +14,7 @@ service('auth')->routes($routes);
 // ====================================================================
 // AUTHENTIFICATION
 // ====================================================================
+
 $routes->group('auth', function($routes) {
     $routes->get('login', '\CodeIgniter\Shield\Controllers\LoginController::loginView');
     $routes->get('register', '\CodeIgniter\Shield\Controllers\RegisterController::registerView');
@@ -34,15 +35,9 @@ $routes->group('catalogue', function($routes) {
     //Afficher un produit en particulier
     $routes->get('product/(:num)', 'Catalogue::detail/$1');
     $routes->get('search', 'Catalogue::search');
-    //Renvoie à la liste des marques
-    $routes->get('/(:segment)','Catalogue::detail/$1/$2');
-    //Renvoie à la liste des produits de la catégorie  et de la marques
-    $routes->get('/(:segment)/(:segment)','Catalogue::detail/$1/$2');
-   
-});
 
-// Route to support legacy French URL /panier/ajouter/{id}
-$routes->match(['GET','POST'], 'panier/ajouter/(:num)', 'Cart::addProduct/$1');
+    $routes->get('/marque', 'Catalogue::marque');
+});
 
 
 // ====================================================================
@@ -50,9 +45,6 @@ $routes->match(['GET','POST'], 'panier/ajouter/(:num)', 'Cart::addProduct/$1');
 // ====================================================================
 $routes->group('cart', function($routes) {
     $routes->get('/', 'Cart::index'); // Affiche le panier
-
-    // Ajouter un produit au panier (POST ou AJAX)
-    $routes->match(['POST'], 'add/(:num)', 'Cart::addProduct/$1');
 
     // Augmenter la quantité
     $routes->match(['GET','POST'], 'increment/(:num)', 'Cart::addQuantite/$1');
@@ -98,7 +90,8 @@ $routes->group('dashboard', function($routes) {
 // ====================================================================
 // ADMINISTRATION
 // ====================================================================
-$routes->group('admin', function($routes) {
+
+$routes->group('admin', function ($routes) {
 
     // ==========================
     // Groupe "add" → pour créer des entités
@@ -133,6 +126,9 @@ $routes->group('admin', function($routes) {
 
         // Modifier des commandes par ID
         $routes->match(['GET','POST'], 'commandes/(:num)', 'Admin::editCommandes');
+
+        //Modifie le role d'un utilisateur
+        $routes->get('role/(:num)/(:segment)','Admin::editRoleUser/$1/$2');
     });
 
     // ==========================

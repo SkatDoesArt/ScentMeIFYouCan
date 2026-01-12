@@ -13,6 +13,8 @@
     <!-- CSS -->
     <link rel="stylesheet" href="<?php echo base_url(); ?>css/common.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>css/index.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>css/product.css">
+
 
     <script type="text/javascript" src="<?php echo base_url(); ?>js/reloadPage.js" defer></script>
 
@@ -22,28 +24,50 @@
 <body>
     <?= view('Pages/partials/header') ?>
 
-    <h1><?= esc($produit->name) ?></h1>
+    
 
-    <p>Prix : <?= esc($produit->price) ?> €</p>
-    <p>Description : <?= esc($produit->description) ?></p>
-    <p>Notation : <?= esc($produit->notation) ?>/5</p>
-    <p>Taille : <?= esc($produit->taille) ?></p>
-    <p>Stock : <?= esc($produit->quantiteRestante) ?></p>
-    <p>Marque : <?= esc($produit->marque) ?></p>
-    <p>Catégorie : <?= esc($produit->catégorie) ?></p>
-
-    <h1>Avis</h1>
-    <?php if (empty($avis)): ?>
-        <h3>Aucun avis sur se produit</h3>
-    <?php else: ?>
-        <?php foreach ($avis as $a): ?>
-            <div class="avis">
-                <strong><?= esc($a->titre) ?></strong>
-                <p><?= esc($a->contenu) ?></p>
-                <small><?= esc($a->date) ?></small>
+    <div id="body">
+        <div id="top">
+            <img id="product-img" src="<?= esc($produit->getUrl()) ?>" alt="<?= esc($produit->getNom()) ?>">
+        
+            <div id="product-info">
+                <h1><?= esc($produit->name) ?></h1>
+                <p>Marque : <?= esc($produit->marque) ?></p>
+                <p>Catégorie : <?= esc($produit->categorie) ?></p>
+                <p>Description : <?= esc($produit->description) ?></p>
+                <p>Quantité : <?= esc($produit->taille) ?> ml</p>
             </div>
-        <?php endforeach; ?>
-    <?php endif; ?>
+
+            <div id="add-to-cart">
+                <p id="price"><?= esc($produit->price) ?> €</p>
+                <p>Stock : <?= esc($produit->quantiteRestante) ?></p>
+                <p>Notation : <?= esc($produit->notation) ?>/5</p>
+                <form method="post" action="<?= base_url('panier/ajouter/' . $produit->getId()) ?>" class="add-to-cart-form">
+                    <?= csrf_field() ?>
+                    <button type="submit" id="add-to-cart-btn" title="Ajouter au panier">Ajouter au panier</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="product-avis">
+            <h1>Avis</h1>
+            <?php if (empty($avis)): ?>
+                <h3>Aucun avis sur se produit</h3>
+            <?php else: ?>
+                <?php foreach ($avis as $a): ?>
+                    <div class="avis">
+                        <strong><?= esc($a->titre) ?></strong>
+                        <p><?= esc($a->contenu) ?></p>
+                        <small><?= esc($a->date) ?></small>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
+        
+        
+    </div>
+
+    
 </body>
 
 </html>

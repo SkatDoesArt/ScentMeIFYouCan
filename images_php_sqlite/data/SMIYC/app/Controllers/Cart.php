@@ -27,8 +27,7 @@ class Cart extends BaseController
 
             // Récupère le panier de l'utilisateur
             $panierModel = new PanierModel();
-            $panier = $panierModel->where('id_user', $id)->first();
-            dd($panier);
+            $panier = $panierModel->AddProduit($id, $id_produit);
 
             // Redirige vers la page panier
             return redirect()->to(base_url('cart'));

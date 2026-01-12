@@ -1,0 +1,60 @@
+#body {
+    margin: 2% 5%;
+}
+
+#body #top {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    width: 100%;
+}
+
+#product-img {
+    height: 400px;
+    width: 400px;
+    object-fit: cover;
+}
+
+#product-info {
+    font-family: "Playfair Display";
+    margin-left: 5%;
+}
+
+#product-info h1 {
+    font-size: 80px;
+    margin: 0;
+    margin-bottom: 50px;
+}
+
+#add-to-cart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 250px;
+    /* margin-left:15%; */
+    padding: 50px;
+    border-radius: 20px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+#add-to-cart p {
+    margin: 5px;
+}
+
+#price {
+    font-size: 30px;
+    font-weight: bold;
+    color: #a33;
+    margin: 20px !important;
+}
+
+#add-to-cart-btn {
+    width: 250px;
+    padding: 10px;
+    margin: 40px 0;
+}
+
+#product-avis {
+    margin-top: 50px;
+    border-top: 2px solid #ddd;
+}

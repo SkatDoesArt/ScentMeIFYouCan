@@ -41,7 +41,9 @@ class Admin extends BaseController
      */
     public function users()
     {
-        // TODO: récupérer et afficher les utilisateurs
+        $userModel = new UserModel();
+        $data['users'] = $userModel->findAll();
+        return view('Pages/admin/users', $data);
     }
 
     /**
@@ -276,11 +278,11 @@ public function addProduit()
     // Utilitaires / autres
     // ==========================
 
-/**
- * Modifier le rôle d'un utilisateur
- */
-public function editRoleUser($id = null,$statut)
-{
+    /**
+     * Modifier le rôle d'un utilisateur
+     */
+    public function editRoleUser($id,$statut)
+    {
     // 🔐 Sécurité : seul un admin peut modifier les rôles
 
 
@@ -291,9 +293,9 @@ public function editRoleUser($id = null,$statut)
         throw new PageNotFoundException('Utilisateur introuvable');
     }
 
-if (! in_array($statut, ['admin', 'user'], true)) {
-    return redirect()->back()->with('error', 'Rôle invalide');
-}
+    if (! in_array($statut, ['admin', 'user'], true)) {
+        return redirect()->back()->with('error', 'Rôle invalide');
+    }
 
     if ($statut === 'admin') {
 
@@ -325,5 +327,5 @@ if (! in_array($statut, ['admin', 'user'], true)) {
     }
 
     return redirect()->back()->with('success', $message);
-}
+    }
 }

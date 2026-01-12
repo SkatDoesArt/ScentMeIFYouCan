@@ -5,6 +5,7 @@ vm-add -d gw
 vm-run gw
 apt-get update
 apt install ntpdate
+apt install iptables
 // On utilise -u pour être sûr de passer le réseau de l'université
 ntpdate -u ntp.univ-nantes.fr
 ```
@@ -77,8 +78,7 @@ dev      IN  NS     srv-int.sae.com.
 ### Configuration du DHCP
 ```
 apt install isc-dhcp-server
-
-GNU nano 7.2                  /etc/bind/db.sae.com                           
+                      
 $TTL 604800
 @   IN  SOA ns1.sae.com. admin.sae.com. (
                   2026010701 ; Serial
@@ -162,14 +162,30 @@ systemctl status isc-dhcp-server
 
 ```
 
+## autorisation de la comunication
+```
+nano /etc/bind/named.conf.options
+```
+-> ajoutez ces lignes 
+```
+        listen-on { any; };
+        
+        // Autoriser tout le monde à poser des questions au DNS
+        allow-query { any; };
+```
+
 # Redirection du port 8080 (externe) vers le port 80 (interne srv-int)
+iptables -t nat -F
 iptables -t nat -A PREROUTING -p tcp --dport 8080 -j DNAT --to-destination 10.0.1.1:80
 
 # Autoriser le transfert de ces paquets
+iptables -A FORWARD -j ACCEPT
 iptables -A FORWARD -p tcp -d 10.0.1.1 --dport 80 -j ACCEPT
 
 # (Optionnel) Masquerade pour permettre à srv-int de sortir sur Internet
 iptables -t nat -A POSTROUTING -o eth1 -j MASQUERADE
+iptables -t nat -A POSTROUTING -j MASQUERADE
+
 
 ## Configuration de srv-int:
 ```
@@ -177,6 +193,12 @@ iptables -t nat -A POSTROUTING -o eth1 -j MASQUERADE
 ip link show eth0 | grep link/ether
 link/ether ea:5b:a4:17:30:b6 brd ff:ff:ff:ff:ff:ff link-netnsid 0
 ```
+
+### Installation du serveur HTTP et MVC
+
+apt install apache2 php php-sqlite3 libapache2-mod-php
+apt install git
+git clone https://gitlab.univ-nantes.fr/E245623G/mvc.git
 
 ### Montage du VLAN 
 ```
@@ -191,41 +213,24 @@ dhclient eth0.10
 ip addr show eth0.10 
 ```
 
-### Installation du serveur HTTP et MVC
-```
-cat /etc/resolv.conf 
-cp /etc/resolv.conf /etc/resolv.conf.tp
-nano /etc/resolv.conf
 
-nameserver 172.21.0.61
-nameserver 172.21.0.60
-nameserver 172.21.0.203
+### Déploiement du code MVC
+cp -r /mvc/* /var/www/html/
 
-apt update
-apt install apache2 php php-sqlite3 libapache2-mod-php
-cd /etc/
-mv resolv.conf.orig resolv.conf.tp
-mv resolv.conf resolv.conf.orig
-cp resolv.conf.tp resolv.conf
-
-```
-
-
-# Déploiement du code MVC
-# (Supposons que vous avez vos fichiers dans un dossier nommé 'mon_tp')
-cp -r /chemin/vers/votre/tp/* /var/www/html/
 
 # Gestion des droits pour SQLite (Crucial pour le TP R3.01)
 # Le serveur Web doit pouvoir écrire dans le dossier et sur le fichier .sqlite
 chown -R www-data:www-data /var/www/html/
 chmod -R 775 /var/www/html/
 
-
-SUR HOST EXT : 
+## configuration du host-ext : 
 
 ip link set eth0 up
 ip addr add 192.168.1.10/24 dev eth0
 ip route add default via 192.168.1.254
+
+nano /etc/resolv.conf
+
 
 # Test du DNS
 host www.sae.com 192.168.1.254

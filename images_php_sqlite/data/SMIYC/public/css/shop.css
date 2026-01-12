@@ -12,8 +12,8 @@
 /* Colonne gauche : filtre */
 .left {
     border-right: 2px solid #ddd;
-    padding-right: 30px;
-    max-width: 220px;
+    /* padding-right: 30px; */
+    width: 220px;
     height: 100vh;
     position: sticky;
     top: 0;
@@ -51,6 +51,20 @@
     margin-top: 10px;
 }
 
+/* FILTERS */
+
+#price-range {
+    display: flex;
+    flex-direction: row;
+}
+
+#price-range input {
+    width: 120px;
+    margin: 0;
+    margin-right: 20px;
+}
+
+
 /* Colonne droite : produits */
 .right {
     flex: 1;
@@ -67,28 +81,29 @@
 /* Grille produits */
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, 320px);
+    padding-bottom: 150px;
 }
 
 .product-card {
-    height: 270px;
-    width: 250px;
-    margin-bottom: 30px;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+    /* height: 260px; */
+    width: 250px;
+    margin-bottom: 30px;
     padding: 15px;
-    corner-radius: 10px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+    border-radius: 10px;
 }
 
 /* Carte produit */
 .card {
+    display: flex;
+    flex-direction: column;
     justify-content: flex-start;
     height: 100%;
     padding: 0px;
     color: #333;
-    background: #f8f8f8;
     border-radius: 10px;
     text-decoration: none;
 }
@@ -113,12 +128,17 @@
     object-fit: cover;
 }
 
-.card .info span {
+.info a {
+    text-decoration: none;
+    color: #333;
+}
+
+.info span {
     display: block;
     font-weight: 500;
 }
 
-.card .info strong {
+.info strong {
     color: #a33;
     font-size: 1rem;
 }

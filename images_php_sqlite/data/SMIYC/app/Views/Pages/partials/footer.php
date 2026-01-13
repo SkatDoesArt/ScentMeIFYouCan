@@ -12,7 +12,7 @@
         <div class="footer-links">
             <h4>Liens utiles</h4>
             <ul>
-                <li><a href="<?= base_url() ?>">Accueil</a></li>
+                <li><a href="<?= base_url() ?>#best-site">Accueil</a></li>
                 <li><a href="<?= base_url('catalogue') ?>">Catalogue</a></li>
                 <li><a href="<?= base_url('auth/login') ?>">Se connecter</a></li>
                 <li><a href="<?= base_url('cart') ?>">Panier</a></li>

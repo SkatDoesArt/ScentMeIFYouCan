@@ -29,6 +29,7 @@ abstract class AProduitEntity extends Entity
         'origine' => null,
         'dureeCombustion' => null,
         'categorie' => null,
+        'saison' => null,
     ];
 
     // --- GETTERS (Récupération des données) ---
@@ -69,6 +70,7 @@ abstract class AProduitEntity extends Entity
     {
         return (int) ($this->attributes['taille'] ?? 0);
     }
+
 
     /**
      * Retourne une chaîne d'étoiles basée sur le niveau de prestige

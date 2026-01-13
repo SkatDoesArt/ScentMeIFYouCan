@@ -63,6 +63,11 @@ class CreateProduit extends Migration
             'typePeau'        => ['type' => 'VARCHAR', 'constraint' => 255, 'null' => true],
             'origine'          => ['type' => 'VARCHAR', 'constraint' => 255, 'null' => true],
             'dureeCombustion'  => ['type' => 'INT', 'default' => 60, 'null' => true],
+            'saison'=>[
+                'type'=>'VARCHAR',
+                'constraint'=>255,
+                'null'=>true,
+            ],
         ]);
 
         // Clé primaire

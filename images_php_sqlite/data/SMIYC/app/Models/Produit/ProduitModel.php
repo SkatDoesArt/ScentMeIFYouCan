@@ -24,7 +24,8 @@ class ProduitModel extends Model
         'marque',
         'categorie',
         'image_name',
-        'type'
+        'type',
+        'saison',
     ];
 
     protected bool $allowEmptyInserts = false;
@@ -88,6 +89,15 @@ class ProduitModel extends Model
     {
         return $this->like('categorie', $categorie)->findAll();
     }
+
+    /**
+     * Renvoie une liste de produits d'une  saison
+     */
+    public function getBySaison(string $saison)
+    {
+        return $this->like('saison', $saison)->findAll();
+    }
+
     /**
      * Renvoie la liste des produits des produits
      * @return array

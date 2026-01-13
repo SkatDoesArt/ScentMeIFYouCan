@@ -300,7 +300,7 @@ class CremeSeeder extends Seeder
                 'notation' => 5,
                 'taille' => 175,
                 'quantiteRestante' => 8,
-                'image_name' => 'https://cdn2.parfumdreams.de/image/product/134399-216789-1-1.webp?box=528 '
+                'image_name' => 'https://cdn2.parfumdreams.de/image/product/134399-216789-1-1.webp?box=528'
             ],
             [
                 'marque' => 'Byredo',

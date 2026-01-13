@@ -55,4 +55,14 @@ class ProduitEntity extends AProduitEntity
     {
         $this->attributes['categorie'] = $categorie;
     }
+
+    public function getSaison(): string
+    {
+        return $this->attributes['saison'] ?? 'Toutes saisons';
+    }
+
+    public function setSaison(string $saison): void
+    {
+        $this->attributes['saison'] = $saison;
+    }
 }

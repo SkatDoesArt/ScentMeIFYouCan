@@ -13,27 +13,48 @@
 
 
 # Rapport de R3.02 Algorithme correct et efficace - SAE3.01
-**Groupe 3_02 :** <br>
-Estevan ROLLAND <br>
-Zahra SALOU <br>
-Mathis TONG-HATET <br>
-Yassar YMAMOU <br>
+**Groupe 3_02 :**  
+Estevan ROLLAND  
+Zahra SALOU  
+Mathis TONG-HATET  
+Yassar YMAMOU  
 
 
 ## 1. Mise en place de méthodes pour montrer que l'application est correcte
 
 ### Fonctionnalités attendues :
 
-- **Parcourir le catalogue :**<br>
-    Préconditions : <br>
+- **Parcourir le catalogue :**  
+    Préconditions :  
     - Avoir une liste de produits
-- **Passer une commande :**<br>
-    Préconditions : <br>
-    - Avoir un compte
-    - Ajouter des produits au panier
+    - Connexion à la base de données pour récupérer les produits
     - 
-- **Se connecter à son compte / Créer un compte / Modifier son compte :**
-- **Gérer les produits / utilisateurs / commandes en tant qu'admin :**
+
+- **Passer une commande :**  
+    Préconditions :  
+    - Avoir un compte et être connecté
+    - Vérifier le stock du produit
+    - Ajouter les produits au panier
+    - Avoir des informations utilisateurs valides (moyen de paiement, email, adresse, ...)
+
+- **Créer un compte**  
+    Préconditions :  
+    - Renseigner ses informations (username, email, mot de passe)
+    
+
+- **Se connecter à son compte :**  
+    Préconditions :  
+    - Renseigner ses informations (email, mot de passe)
+
+- **Modifier son compte :**  
+    Préconditions :  
+    - Renseigner ses informations (email, mot de passe) pour se connecter à son compte
+    - Accéder à la page de modification des informations du compte
+    
+- **Gérer les produits / utilisateurs / commandes en tant qu'admin :**  
+    Préconditions :  
+    - Avoir un compte admin et être connecté
+    - 
 
 ### Résultats obtenus :
 

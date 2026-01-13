@@ -62,8 +62,8 @@ $showList = $showList ?? true;
             <a href="<?= base_url() ?>catalogue/marques"><span class="categorie" role="link">Marques</span></a>
             <a href="<?= base_url() ?>catalogue/saison"><span class="categorie" role="link">Saison</span></a>
             <a href="<?= base_url() ?>catalogue/encens"><span class="categorie" role="link">Sniff&Chill</span></a>
-            <a href="<?= base_url() ?>catalogue?categorie=Exotique"><span class="categorie" role="link">Exotique</span></a>
-            <a href="<?= base_url() ?>catalogue?categorie=Creme"><span class="categorie" role="link">Crème</span></a>
+            <a href="<?= base_url() ?>catalogue#exotique"><span class="categorie" role="link">Exotique</span></a>
+            <a href="<?= base_url() ?>catalogue/creme"><span class="categorie" role="link">Crème</span></a>
         </nav>
     <?php endif; ?>
 </header>

@@ -251,7 +251,7 @@ systemctl restart isc-dhcp-server
 **Installation et configuration sur SRV-INT :**
 
 ```bash
-Activer le forwarding IP
+# Activer le forwarding IP
 echo 1 > /proc/sys/net/ipv4/ip_forward
 ```
 

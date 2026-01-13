@@ -8,7 +8,7 @@ class AllSeeder extends Seeder
 {
     public function run()
     {
-        // $this->call('ProduitSeeder');
+        
         // $this->call('UserSeeder');
         // $this->call('CommandeSeeder');
         $this->db->table('produit')->truncate();
@@ -16,5 +16,7 @@ class AllSeeder extends Seeder
         $this->call('NoCapSeeder');
         $this->call('MarquesSeeder');
         $this->call('EncensSeeder');
+        $this->call('CremeSeeder');
+        $this->call('ProduitSeeder');
     }
 }

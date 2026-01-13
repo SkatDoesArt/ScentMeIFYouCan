@@ -25,7 +25,8 @@ class EncensModel extends Model
         'quantiteRestante', 
         'marque',
         'origine',
-        'dureeCombustion'
+        'dureeCombustion',
+        'type'
     ];
 
     protected $useTimestamps = false;

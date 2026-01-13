@@ -29,10 +29,10 @@
                                 <div class="card" data-index="<?= $index ?>">
                                     <img src="<?= $encens->getUrl() ?>" alt="<?= esc($encens->getNom()) ?>">
                                     <div class="card-overlay">
-                                        <a href="<?= base_url('catalogue/product/' . $encens->id_encens) ?>"
+                                        <a href="<?= base_url('catalogue/product/' . $encens->id_produit) ?>"
                                             class="btn-view">Voir le produit</a>
 
-                                        <form method="post" action="<?= base_url('cart/add/' . $encens->id_encens) ?>">
+                                        <form method="post" action="<?= base_url('cart/add/' . $encens->id_produit) ?>">
                                             <?= csrf_field() ?>
                                             <button type="submit" class="btn-plus">+</button>
                                         </form>
@@ -81,12 +81,12 @@
     <script>
         const teamMembers = [
             <?php foreach ($lesEncens as $encens): ?>
-            {
+                {
                     name: "<?= addslashes($encens->getNom()) ?>",
                     brand: "<?= addslashes($encens->getMarque()) ?>",
-                    role: "<?= addslashes(mb_strimwidth($encens->getDescription(), 0, 120, '...')) ?>",
+                    role: "<?= addslashes(substr($encens->getDescription() ?? '', 0, 120)) ?>...",
                     prestige: "<?= $encens->getPrestigeStars() ?>",
-                    url: "<?= base_url('catalogue/product/' . $encens->id_encens) ?>"
+                    url: "<?= base_url('catalogue/product/' . $encens->id_produit) ?>"
                 },
             <?php endforeach; ?>
         ];

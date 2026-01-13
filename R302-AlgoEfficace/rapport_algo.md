@@ -31,6 +31,7 @@ Yassar YMAMOU*
     - avoir une liste de produits (table `products` existante)
     - le service de base de données est disponible
     - si pagination : paramètres `page` et `pageSize` valides (entiers > 0)
+    - Connexion à la base de données pour récupérer les produits  
 
 -> _POSTCONDITIONS_ :
 
@@ -151,3 +152,4 @@ assertions à placer dans le code/tests :
 
 
 ## 2. Montrer que l'application n'est pas coûteuse
+

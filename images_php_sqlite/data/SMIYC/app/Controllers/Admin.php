@@ -6,7 +6,7 @@ use App\Models\Produit\ProduitModel;
 use CodeIgniter\Shield\Models\UserModel;
 
 use CodeIgniter\Exceptions\PageNotFoundException;
-
+use CodeIgniter\Shield\Entities\User;
 
 class Admin extends BaseController
 {
@@ -22,7 +22,7 @@ class Admin extends BaseController
      */
     public function dashboard()
     {
-        // TODO: Afficher les statistiques / résumé
+        return view('Pages/admin/dashboard');
     }
 
     /**
@@ -112,7 +112,7 @@ class Admin extends BaseController
             session()->setFlashdata('success', 'Produit modifié avec succès');
 
 
-        return view('Pages/admin/add/add_product');
+            return view('Pages/admin/add/add_product');
 
             die;
         }
@@ -128,44 +128,25 @@ class Admin extends BaseController
      */
 
 
-public function addUser()
-{
-    $userModel = new UserModel();
+    public function addUser()
+    {
+        if ($this->request->is('post')) {
+            $users = auth()->getProvider();
 
-    if ($this->request->is('post')) {
-
-        $data = [
-            'username' => $this->request->getPost('name'),
-            'email'    => $this->request->getPost('email'),
-            'password' => $this->request->getPost('password'),
-
-        ];
-
-
-        $statut=$this->request->getPost('statut');
-        // Insertion utilisateur (Shield hash le mot de passe)
-        if ($userModel->insert($data)) {
-
-            $userId = $userModel->getInsertID();
-
-            // Ajouter au groupe "user" par défaut
-            $user = $userModel->find($userId);
-            if($statut!='admin'){
-            $user->addGroup('user');
+            if (! $users->insert([
+                'username' => $this->request->getPost('name'),
+                'email'    => $this->request->getPost('email'),
+                'password' => $this->request->getPost('password'),
+            ])) {
+                session()->setFlashdata('error', 'Erreur lors de la création de l’utilisateur');
+                return view('Pages/admin/add/add_user');
             }
-            else{
-                $user->addGroup('admin');
-            }
+            $user=$users->findById($users->getInsertID());
+            $user->addGroup($this->request->getPost('statut'));
             session()->setFlashdata('success', 'Utilisateur ajouté avec succès');
-            return redirect()->back();
         }
-
-        session()->setFlashdata('error', 'Erreur lors de la création');
-        return redirect()->back();
+        return view('Pages/admin/add/add_user');
     }
-
-    return view('Pages/admin/add/add_user');
-}
 
     /**
      * Ajouter des stocks
@@ -291,7 +272,13 @@ public function addUser()
      */
     public function deleteUser($id = null)
     {
-        // TODO: supprimer l'utilisateur $id
+        $users = auth()->getProvider();
+        if ($id === null) {
+            return redirect()->to('/admin/users')->with('error', 'ID manquant');
+        }
+        $users->delete($id, true);
+        session()->setFlashdata('success', 'Utilisateur supprimé avec succés');
+        return redirect()->to('/admin/users');
     }
 
     /**
@@ -317,51 +304,50 @@ public function addUser()
     /**
      * Modifier le rôle d'un utilisateur
      */
-    public function editRoleUser($id,$statut)
+    public function editRoleUser($id, $statut)
     {
-    //  Sécurité : seul un admin peut modifier les rôles
+        //  Sécurité : seul un admin peut modifier les rôles
 
 
-    $userModel = new UserModel();
-    $user = $userModel->find($id);
+        $userModel = new UserModel();
+        $user = $userModel->find($id);
 
-    if (! $user) {
-        throw new PageNotFoundException('Utilisateur introuvable');
-    }
-
-    if (! in_array($statut, ['admin', 'user'], true)) {
-        return redirect()->back()->with('error', 'Rôle invalide');
-    }
-
-    if ($statut === 'admin') {
-
-        //  Supprimer le groupe "user"
-        if ($user->inGroup('user')) {
-            $user->removeGroup('user');
+        if (! $user) {
+            throw new PageNotFoundException('Utilisateur introuvable');
         }
 
-        //  Ajouter le groupe "admin"
-        if (! $user->inGroup('admin')) {
-            $user->addGroup('admin');
+        if (! in_array($statut, ['admin', 'user'], true)) {
+            return redirect()->back()->with('error', 'Rôle invalide');
         }
 
-        $message = 'Utilisateur promu administrateur';
+        if ($statut === 'admin') {
 
-    } else {
+            //  Supprimer le groupe "user"
+            if ($user->inGroup('user')) {
+                $user->removeGroup('user');
+            }
 
-        //  Supprimer le groupe "admin"
-        if ($user->inGroup('admin')) {
-            $user->removeGroup('admin');
+            //  Ajouter le groupe "admin"
+            if (! $user->inGroup('admin')) {
+                $user->addGroup('admin');
+            }
+
+            $message = 'Utilisateur promu administrateur';
+        } else {
+
+            //  Supprimer le groupe "admin"
+            if ($user->inGroup('admin')) {
+                $user->removeGroup('admin');
+            }
+
+            //  Ajouter le groupe "user"
+            if (! $user->inGroup('user')) {
+                $user->addGroup('user');
+            }
+
+            $message = 'Utilisateur rétrogradé en utilisateur';
         }
 
-        //  Ajouter le groupe "user"
-        if (! $user->inGroup('user')) {
-            $user->addGroup('user');
-        }
-
-        $message = 'Utilisateur rétrogradé en utilisateur';
-    }
-
-    return redirect()->back()->with('success', $message);
+        return redirect()->back()->with('success', $message);
     }
 }

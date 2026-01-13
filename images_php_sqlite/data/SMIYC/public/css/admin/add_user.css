@@ -1,0 +1,68 @@
+    * {
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .admin-card {
+        max-width: 1100px;
+        margin: 30px auto;
+        background: #fff;
+        border: 1px solid #000;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        padding: 20px 25px 30px;
+    }
+
+    .admin-card h2 {
+        margin: 0 0 25px 0;
+        font-size: 26px;
+    }
+
+    /* ===== GRILLE FORM ===== */
+    .form-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 20px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-group label {
+        font-weight: bold;
+        margin-bottom: 6px;
+        font-size: 14px;
+    }
+
+    .form-group input,
+    .form-group select {
+        height: 28px;
+        border-radius: 6px;
+        border: 1px solid #aaa;
+        padding: 0 8px;
+    }
+
+
+
+    /* ===== BOUTON ===== */
+    .button-wrapper {
+        grid-column: 4 / 6;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+    }
+
+    button {
+        background: #36593c;
+        color: white;
+        border: none;
+        padding: 12px 50px;
+        font-size: 15px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #2e4c33;
+    }

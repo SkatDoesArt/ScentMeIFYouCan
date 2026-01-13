@@ -138,8 +138,11 @@ public function addUser()
             'username' => $this->request->getPost('name'),
             'email'    => $this->request->getPost('email'),
             'password' => $this->request->getPost('password'),
+
         ];
 
+
+        $statut=$this->request->getPost('statut');
         // Insertion utilisateur (Shield hash le mot de passe)
         if ($userModel->insert($data)) {
 
@@ -147,8 +150,12 @@ public function addUser()
 
             // Ajouter au groupe "user" par défaut
             $user = $userModel->find($userId);
+            if($statut!='admin'){
             $user->addGroup('user');
-
+            }
+            else{
+                $user->addGroup('admin');
+            }
             session()->setFlashdata('success', 'Utilisateur ajouté avec succès');
             return redirect()->back();
         }
@@ -157,7 +164,7 @@ public function addUser()
         return redirect()->back();
     }
 
-    return view('Pages/add/add_user');
+    return view('Pages/admin/add/add_user');
 }
 
     /**

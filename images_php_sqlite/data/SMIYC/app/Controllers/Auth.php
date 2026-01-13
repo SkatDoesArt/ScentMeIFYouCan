@@ -92,4 +92,9 @@ class Auth extends BaseController
 
         return view('Pages/dashboard/infos_perso');
     }
+    public function logout(){
+        auth()->logout();
+        return redirect()->to('/');
+    }
+
 }

@@ -3,35 +3,30 @@
 namespace App\Models\Produit\Categorie;
 
 use CodeIgniter\Model;
-use App\Entities\EncensEntity;
+use App\Entities\CremeEntity;
 
-class EncensModel extends Model
+class CremeModel extends Model
 {
     protected $table      = 'produit';
     protected $primaryKey = 'id_produit';
+    protected $returnType = CremeEntity::class;
 
-    // On indique au Model d'utiliser l'Entity pour les résultats
-    protected $returnType = EncensEntity::class;
-
-    // Tous les champs définis dans ta migration doivent être ici
     protected $allowedFields = [
         'image_name', 
         'name', 
         'description', 
         'price', 
-        'niveauPrestige', 
         'notation', 
         'taille', 
         'quantiteRestante', 
         'marque',
-        'origine',
-        'dureeCombustion'
+        'typePeau'
     ];
 
     protected $useTimestamps = false;
 
-    public function getEncens()
+    public function getCremes()
     {
-        return $this->where('type', 'encens')->findAll();
+        return $this->findAll();
     }
 }

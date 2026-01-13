@@ -48,12 +48,21 @@ class CreateProduit extends Migration
             'categorie'=>[
                 'type'=>'VARCHAR',
                 'constraint'=>255,
+                'null'=>true,
             ],
             'image_name' => [
                 'type'       => 'VARCHAR',
                 'constraint' => 255,
                 'null'       => true, // Autorise la valeur nulle si l'image est absente
             ],
+            'type' => [
+                'type'=>'VARCHAR',
+                'constraint'=>255,
+                'null'=>true,
+            ],
+            'typePeau'        => ['type' => 'VARCHAR', 'constraint' => 255, 'null' => true],
+            'origine'          => ['type' => 'VARCHAR', 'constraint' => 255, 'null' => true],
+            'dureeCombustion'  => ['type' => 'INT', 'default' => 60, 'null' => true],
         ]);
 
         // Clé primaire

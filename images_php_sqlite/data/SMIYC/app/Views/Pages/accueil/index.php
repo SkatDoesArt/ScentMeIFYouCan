@@ -235,6 +235,7 @@
 
             <div class="carousel">
                 <div class="slides">
+                    
                     <?php if (!empty($images)): ?>
                         <?php foreach ($images as $img): ?>
                             <div class="slide-item">
@@ -242,7 +243,7 @@
 
                                 <div class="info-bandeau">
                                     <div class="text-content">
-                                        <a href="<?=base_url()."catalogue/product/".$img->id_produit ?>" class="info-link">
+                                        <a href="<?=base_url()."catalogue/product/".$img->getId() ?>" class="info-link">
                                             <h3><?= $img->getFullTitle() ?></h3>
                                             <p><?= $img->description ?></p>
                                         </a>

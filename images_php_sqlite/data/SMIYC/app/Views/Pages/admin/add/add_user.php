@@ -1,23 +1,51 @@
-<form  method="post">
-    <?= csrf_field() ?>
+    <link rel="stylesheet" href="<?php echo base_url(); ?>css/admin/add_user.css">
 
-    <label for="username">Nom d'utilisateur</label>
-    <input type="text" name="username" id="username" required>
+<link rel="stylesheet" href="style.css">
+<div class="admin-card">
+    <h2>Ajouter un utilisateur</h2>
+    <form method="post">
+        <?= csrf_field() ?>
 
-    <label for="email">Email</label>
-    <input type="email" name="email" id="email" required>
+        <?php if (!empty($success)): ?>
+            <p style="color:green"><?= esc($success) ?></p>
+        <?php endif; ?>
 
-    <label for="password">Mot de passe</label>
-    <input type="password" name="password" id="password" required>
+        <?php if (!empty($errors)): ?>
+            <ul style="color:red">
+                <?php foreach ($errors as $error): ?>
+                    <li><?= esc($error) ?></li>
+                <?php endforeach; ?>
+            </ul>
+        <?php endif; ?>
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="username">Nom d'utilisateur</label>
+                <input type="text" name="username" id="username" required>
+            </div>
 
-    <label for="group">Groupe</label>
-    <select name="group" id="group">
-        <option value="user" selected>User</option>
-        <option value="admin">Admin</option>
-    </select>
 
-    <button type="submit">Créer</button>
-</form>
-<?php
-var_dump($_POST);
-?>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" required>
+            </div>
+
+
+            <div class="form-group"><label for="password">Mot de passe</label>
+                <input type="password" name="password" id="password" required>
+            </div>
+
+
+
+            <div class="form-group"> <label for="group">Groupe</label>
+                <select name="group" id="group">
+                    <option value="user" selected>User</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+
+
+            <button type="submit">Créer</button>
+        </div>
+
+    </form>
+</div>

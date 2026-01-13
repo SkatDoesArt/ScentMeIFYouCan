@@ -1,43 +1,70 @@
-<form method="post" enctype="multipart/form-data">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>css/admin/add_product.css">
+<div class="admin-card">
+    <h2>Ajouter un produit</h2>
 
-    <?= csrf_field() ?>
+    <form method="post" enctype="multipart/form-data">
+        <?= csrf_field() ?>
 
-    <?php if (!empty($success)): ?>
-        <p style="color:green"><?= esc($success) ?></p>
-    <?php endif; ?>
+        <div class="form-grid">
 
-    <?php if (!empty($errors)): ?>
-        <ul style="color:red">
-            <?php foreach ($errors as $error): ?>
-                <li><?= esc($error) ?></li>
-            <?php endforeach; ?>
-        </ul>
-    <?php endif; ?>
+            <div class="form-group">
+                <label>Nom</label>
+                <input type="text" name="name" required>
+            </div>
 
-    <input  required type="text" name="name" value="<?= old('name') ?>">
-    <input  required type="number" step="0.01" name="price" value="<?= old('price') ?>">
-    <input  required type="text" name="description" value="<?= old('description') ?>">
-    <input  required type="number" name="niveauPrestige" value="<?= old('niveauPrestige') ?>">
-    <input  required type="number" name="notation" value="<?= old('notation') ?>">
-    <input  required type="number" name="taille" value="<?= old('taille') ?>">
-    <input  required type="number" name="quantiteRestante" value="<?= old('quantiteRestante') ?>">
-    <input  required type="text" name="marque" value="<?= old('marque') ?>">
-    <input  required type="text" name="categorie" value="<?= old('categorie') ?>">
-    <input  required type="file" name="image_name">
+            <div class="form-group">
+                <label>Prix</label>
+                <input type="number" step="0.01" name="price" required>
+            </div>
 
-    <button type="submit">Ajouter</button>
-</form>
+            <div class="form-group">
+                <label>Taille</label>
+                <input type="number" name="taille" required>
+            </div>
 
-<?php 
-echo '\n';
-var_dump($_POST);
+            <div class="form-group">
+                <label>Description</label>
+                <input type="text" name="description" required>
+            </div>
 
-echo '\n';
+            <div class="form-group">
+                <label>Niveau Prestige</label>
+                <input type="number" name="niveauPrestige" required>
+            </div>
 
-var_dump($_FILES);
-echo '\n';
+            <div class="form-group">
+                <label>Notation</label>
+                <input type="number" min="0" max="5" name="notation" required>
+            </div>
 
-var_dump($_REQUEST);
+            <div class="form-group">
+                <label>Catégorie</label>
+                <input type="text" name="categorie" required>
+            </div>
 
+            <div class="form-group">
+                <label>Quantité</label>
+                <input type="number" name="quantiteRestante" required>
+            </div>
 
-?>
+            <div class="form-group">
+                <label>Marque</label>
+                <input type="text" name="marque" required>
+            </div>
+
+                   <div class="form-group image-group">
+                <label>Image</label>
+                <input type="file" name="image_name" required>
+                <div class="image-preview">
+                    
+                </div>
+            </div>
+  
+
+            <div class="button-wrapper">
+                <button type="submit">Ajouter</button>
+            </div>
+
+        </div>
+    </form>
+</div>

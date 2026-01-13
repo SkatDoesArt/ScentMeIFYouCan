@@ -6,11 +6,13 @@ class EncensEntity extends AProduitEntity
 {
     // On ajoute les champs spécifiques à l'encens
     protected $attributes = [
+        'id_encens'        => null,
         'origine'         => null,
         'dureeCombustion' => null,
         'taille'          => null
     ];
 
+    public function getId() { return $this->attributes['id_encens'] ?? 0; }
     public function getUrl(): string {
         $image = $this->attributes['image_name'] ?? 'default.jpg';
         if (filter_var($image, FILTER_VALIDATE_URL)) return $image;

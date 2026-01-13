@@ -9,7 +9,6 @@ abstract class AProduitEntity extends Entity
     // Indispensable pour la persistance en BDD via le Model
     protected $attributes = [
         'id_produit'       => null,
-        'id_encens'        => null,
         'name'             => null,
         'price'            => null,
         'description'      => null,

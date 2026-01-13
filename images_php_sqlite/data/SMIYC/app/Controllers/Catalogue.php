@@ -6,6 +6,7 @@ use App\Models\Avis\AvisModel;
 use App\Models\Produit\ProduitModel;
 use App\Models\Produit\Categorie\MarquesModel;
 use App\Models\Produit\Categorie\EncensModel;
+use CodeIgniter\HTTP\RedirectResponse;
 
 class Catalogue extends BaseController
 {
@@ -102,4 +103,16 @@ class Catalogue extends BaseController
 
         return view('Pages/catalogue/shop', $data);
     }
+
+    public function filters()
+    {
+        $query = $this->request->getGet('q');
+
+        if (empty($query)) {
+            return redirect()->to(base_url('catalogue'));
+        }
+
+        return view('Pages/catalogue/shop');
+    }
 }
+

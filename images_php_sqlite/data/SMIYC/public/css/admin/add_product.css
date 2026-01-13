@@ -1,62 +1,62 @@
-    * {
-    box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
+     * {
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #f4f4f4;
+        }
+
+        .admin-card {
+            max-width: 1100px;
+            margin: 40px auto;
+            background: #fff;
+            border: 1px solid #000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            padding: 25px 30px 35px;
+        }
+
+        .admin-card h2 {
+            margin-bottom: 25px;
+            font-size: 26px;
+            text-align: center;
+        }
+
+        /* ===== FORM GRID ===== */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+
+        .form-group input {
+            height: 30px;
+            border-radius: 6px;
+            border: 1px solid #aaa;
+            padding: 0 10px;
+        }
+
+        /* ===== IMAGE ===== */
+.image-group {
+    grid-column: 1 / 6; /* prend toute la largeur */
 }
 
-.admin-card {
-    max-width: 1100px;
-    margin: 30px auto;
-    background: #fff;
-    border: 1px solid #000;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    padding: 20px 25px 30px;
-}
-
-.admin-card h2 {
-    margin: 0 0 25px 0;
-    font-size: 26px;
-}
-
-/* ===== GRILLE FORM ===== */
-.form-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 20px;
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-}
-
-.form-group label {
-    font-weight: bold;
-    margin-bottom: 6px;
-    font-size: 14px;
-}
-
-.form-group input,
-.form-group select {
-    height: 28px;
-    border-radius: 6px;
-    border: 1px solid #aaa;
-    padding: 0 8px;
-}
-
-/* ===== IMAGE ===== */
-.images-wrapper {
-    display: flex;
-    gap: 15px;
-    margin-top: 10px;
-}
-
-.image-box {
-    flex: 1;
-}
 
 .image-preview {
+    margin-top: 10px;
     width: 100%;
-    height: 140px;
+    height: 200px;
     background: #e0e0e0;
     border-radius: 6px;
     overflow: hidden;
@@ -71,24 +71,27 @@
     object-fit: contain;
 }
 
-/* ===== BOUTON ===== */
+
+        /* ===== BOUTON ===== */
 .button-wrapper {
-    grid-column: 4 / 6;
+    grid-column: 1 / 6;
     display: flex;
-    align-items: flex-end;
     justify-content: center;
+    margin-top: 20px;
 }
 
-button {
-    background: #36593c;
-    color: white;
-    border: none;
-    padding: 12px 50px;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
-}
 
-button:hover {
-    background: #2e4c33;
-}
+        button {
+            background: #36593c;
+            color: white;
+            border: none;
+            padding: 14px 55px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 6px;
+        }
+
+        button:hover {
+            background: #2e4c33;
+        }

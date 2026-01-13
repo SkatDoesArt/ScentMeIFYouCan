@@ -207,6 +207,8 @@ class Admin extends BaseController
                 $image->move(FCPATH . 'test', $imageName);
                 $data['image_name'] = $imageName;
             }
+            //Supprimer l'ancienne image dans le dossier d'image
+            
 
             $model->update($id, $data);
 

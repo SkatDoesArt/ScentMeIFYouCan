@@ -82,7 +82,7 @@ $liste_produits = $produits->getDisponibles();
                                 <strong><?= number_format($p->getPrix(), 2) ?> €</strong>
                             </div>
                             <!-- Use POST form to call Cart::addProduit via route panier/ajouter/{id} -->
-                            <form method="post" action="<?= base_url('panier/ajouter/' . $p->getId()) ?>"
+                            <form method="post" action="<?= base_url('cart/add/' . $p->getId()) ?>"
                                 class="add-to-cart-form">
                                 <?= csrf_field() ?>
                                 <button type="submit" class="add-to-cart-btn" title="Ajouter au panier">+</button>

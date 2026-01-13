@@ -24,6 +24,7 @@ class ProduitModel extends Model
         'marque',
         'categorie',
         'image_name',
+        'type'
     ];
 
     protected bool $allowEmptyInserts = false;

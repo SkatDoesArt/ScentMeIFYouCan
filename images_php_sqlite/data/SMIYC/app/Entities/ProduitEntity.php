@@ -2,72 +2,57 @@
 
 namespace App\Entities;
 
-use CodeIgniter\Entity\Entity;
-
-class ProduitEntity extends Entity
+/**
+ * Entité pour les Parfums
+ * Hérite de AProduitEntity pour centraliser les getters/setters et le prestige
+ */
+class ProduitEntity extends AProduitEntity
 {
-    protected $datamap = [];
-    protected $dates = [];
-    protected $casts = [
-        'id_produit' => 'int',
-        'name' => 'string',
-        'price' => 'float',
-        'description' => 'string',
-        'niveauPrestige' => 'int',
-        'notation' => 'int',
-        'taille' => 'int',
-        'quantiteRestante' => 'int',
-        'marque' => 'string',
-        'categorie' => 'string',
-    ];
+    /**
+     * Attributs spécifiques à la table 'produit'
+     */
+    // protected $attributes = [
+    //     'id_produit' => null,
+    //     'categorie' => null,
+    // ];
+
     public function getId()
     {
-        return $this->attributes['id_produit'];
-    }
-    public function getNom()
-    {
-        return $this->attributes['name'];
-    }
-    public function getPrix()
-    {
-        return $this->attributes['price'];
-    }
-    public function getDescription()
-    {
-        return $this->attributes['description'];
-    }
-    public function getNotation()
-    {
-        return $this->attributes['notation'];
-    }
-    public function getTaile()
-    {
-        return $this->attributes['taille'];
-    }
-    public function getQuantiteRestante()
-    {
-        return $this->attributes['quantiteRestante'];
-    }
-    public function getMarque()
-    {
-        return $this->attributes['marque'];
-    }
-    public function getCategorie()
-    {
-        return $this->attributes['categorie'];
+        return $this->attributes['id_produit'] ?? 0;
     }
 
+    /**
+     * Retourne l'URL de l'image. 
+     * Gère les liens externes (http) et les images locales.
+     */
     public function getUrl(): string
     {
-        // On pointe vers ton dossier d'images spécifique
-        return base_url('pictures/parfums/NoCap/' . ($this->attributes['image_name'] ?? 'default.jpg'));
+        $image = $this->attributes['image_name'] ?? 'default.jpg';
+
+        // 1. Si c'est un lien complet (http), on le retourne direct
+        if (filter_var($image, FILTER_VALIDATE_URL)) {
+            return $image;
+        }
+
+        // 2. CORRECTION : On vérifie si la CATEGORIE est "NoCap" 
+        // (C'est ce que tu as mis dans ton NoCapSeeder)
+        if ($this->getCategorie() === 'NoCap') {
+            return base_url('pictures/parfums/NoCap/' . $image);
+        }
+
+        // 3. Sinon, par défaut, on va dans marques
+        return base_url('pictures/marques/' . $image);
     }
 
-    public function getFullTitle(): string
+    // --- GETTER / SETTER SPÉCIFIQUE ---
+
+    public function getCategorie(): string
     {
-        return $this->attributes['name'] ?? 'Sans nom';
+        return $this->attributes['categorie'] ?? 'Parfums';
     }
-    public function AddProduit(array $data){
-        return $this->save($data);
+
+    public function setCategorie(string $categorie): void
+    {
+        $this->attributes['categorie'] = $categorie;
     }
 }

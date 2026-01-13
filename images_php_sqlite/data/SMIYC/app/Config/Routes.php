@@ -19,7 +19,9 @@ service('auth')->routes($routes);
 $routes->group('auth', function($routes) {
     $routes->get('login', '\CodeIgniter\Shield\Controllers\LoginController::loginView');
     $routes->get('register', '\CodeIgniter\Shield\Controllers\RegisterController::registerView');
-    $routes->get('forgot-password', 'Auth::forgotPassword');    
+    $routes->get('forgot-password', 'Auth::forgotPassword');
+    //logout
+    $routes->get('logout', 'Auth::logout');
     //logout
     $routes->get('logout', 'Auth::logout');
     $routes->get('profile', 'Auth::profile', ['as' => 'user-profile']);

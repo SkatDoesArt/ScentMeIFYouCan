@@ -22,7 +22,7 @@ class Admin extends BaseController
      */
     public function dashboard()
     {
-        // TODO: Afficher les statistiques / résumé
+        return view('Pages/admin/dashboard');
     }
 
     /**

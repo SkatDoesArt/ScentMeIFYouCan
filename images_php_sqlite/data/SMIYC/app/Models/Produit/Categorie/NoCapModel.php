@@ -14,7 +14,7 @@ class NoCapModel extends Model
     protected $primaryKey = 'id_produit';
 
     // Liste complète des colonnes pour autoriser les insertions via Seeder
-// Dans App/Models/NoCapModel.php
+    // Dans App/Models/NoCapModel.php
     protected $allowedFields = [
         'name',
         'price',
@@ -30,7 +30,7 @@ class NoCapModel extends Model
     ];
 
     // On garde l'Entity pour pouvoir utiliser la méthode getUrl()
-    protected $returnType = NoCapEntity::class;
+    protected $returnType = ProduitEntity::class;
 
     protected $useTimestamps = false;
 

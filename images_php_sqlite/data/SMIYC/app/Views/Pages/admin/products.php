@@ -18,8 +18,6 @@
     </header>
     
     <div class="container">
-        <!-- Colonne gauche : texte / filtre -->
-   
     <!-- Colonne droite : grille de produits -->
     <div class="right">
      
@@ -30,15 +28,15 @@
 
 
 
-                        <img src="#" alt="<?= esc($p->getNom()) ?>">
+                   <img src="#" alt="<?= esc($p->getNom()) ?>">
 
-                        <div class="info">
-                            <span><?= esc($p->getNom()) ?></span>
-                            <strong><?= number_format($p->getPrix(), 2) ?> €</strong>
-                        </div>
-                    </a>
-                <?php endforeach; ?>
-            </div>
+                   <div class="info">
+                       <span><?= esc($p->getNom()) ?></span>
+                       <strong><?= number_format($p->getPrix(), 2) ?> €</strong>
+                   </div>
+               </a>
+            <?php endforeach; ?>
+        </div>
 
         </div>
     </div>

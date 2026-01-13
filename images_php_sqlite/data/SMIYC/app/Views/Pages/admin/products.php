@@ -25,7 +25,7 @@
      
         <div class="grid">
 <?php foreach ($liste_produits as $p): ?>
-   <a href="<?= base_url(relativePath:'catalogue/product/' . $p->getId()) ?>" class="card">
+   <a href="<?= base_url(relativePath:'admin/edit/product/' . $p->getId()) ?>" class="card">
 
 
 

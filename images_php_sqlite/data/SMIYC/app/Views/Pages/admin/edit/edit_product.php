@@ -1,14 +1,13 @@
-
-    <link rel="stylesheet" href="<?php echo base_url(); ?>css/admin/add_product.css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>css/admin/add_product.css">
+<script type="text/javascript" src="<?php echo base_url(); ?>js/preview_photo.js" defer></script>
 
 <div class="admin-card">
     <h2>Modifier un produit</h2>
 
-    <form  method="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data">
         <?= csrf_field() ?>
 
         <div class="form-grid">
-
             <div class="form-group">
                 <label>Nom</label>
                 <input type="text" name="name" value="<?= esc($produit->name) ?>" required>
@@ -54,13 +53,27 @@
                 <input type="text" name="categorie" value="<?= esc($produit->categorie) ?>" required>
             </div>
 
-          <div class="form-group image-group">
+            <div class="form-group image-group">
                 <label>Image</label>
-                <input type="file" name="image_name" required>
-                <div class="image-preview">
-                    <img src="<?= esc($produit->image_name) ?>" alt="">
+                <input type="file" name="image_name" id="image-input" required>
+
+                <div class="images-wrapper">
+                    <div class="image-box">
+                        <p>Ancienne image</p>
+                        <div class="image-preview">
+                            <img src="<?= esc($produit->image_name) ?>" alt="Ancienne image">
+                        </div>
+                    </div>
+
+                    <div class="image-box">
+                        <p>Nouvelle image</p>
+                        <div class="image-preview">
+                            <img id="new-image" src="" alt="Nouvelle image">
+                        </div>
+                    </div>
                 </div>
             </div>
+
 
 
             <div class="button-wrapper">

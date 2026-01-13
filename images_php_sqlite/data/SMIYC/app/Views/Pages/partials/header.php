@@ -55,15 +55,15 @@ $showList = $showList ?? true;
     </div>
     <?php if ($showList): ?>
         <nav id="nav-list">
-            <a href="<?= base_url() ?>catalogue#homme"><span class="categorie" role="link">Homme</span></a>
-            <a href="<?= base_url() ?>catalogue#femme"><span class="categorie" role="link">Femme</span></a>
-            <a href="<?= base_url() ?>catalogue#unisexe"><span class="categorie" role="link">Unisexe</span></a>
-            <a href="<?= base_url() ?>catalogue#enfant"><span class="categorie" role="link">Enfant</span></a>
+            <a href="<?= base_url() ?>catalogue"><span class="categorie" role="link">Homme</span></a>
+            <a href="<?= base_url() ?>catalogue"><span class="categorie" role="link">Femme</span></a>
+            <a href="<?= base_url() ?>catalogue"><span class="categorie" role="link">Unisexe</span></a>
+            <a href="<?= base_url() ?>catalogue"><span class="categorie" role="link">Enfant</span></a>
             <a href="<?= base_url() ?>catalogue/marques"><span class="categorie" role="link">Marques</span></a>
             <a href="<?= base_url() ?>catalogue/saison"><span class="categorie" role="link">Saison</span></a>
             <a href="<?= base_url() ?>catalogue/encens"><span class="categorie" role="link">Sniff&Chill</span></a>
-            <a href="<?= base_url() ?>catalogue#exotique"><span class="categorie" role="link">Exotique</span></a>
-            <a href="<?= base_url() ?>catalogue#creme"><span class="categorie" role="link">Crème</span></a>
+            <a href="<?= base_url() ?>catalogue"><span class="categorie" role="link">Exotique</span></a>
+            <a href="<?= base_url() ?>catalogue"><span class="categorie" role="link">Crème</span></a>
         </nav>
     <?php endif; ?>
 </header>

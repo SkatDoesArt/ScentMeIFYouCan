@@ -20,6 +20,8 @@ $routes->group('auth', function($routes) {
     $routes->get('login', '\CodeIgniter\Shield\Controllers\LoginController::loginView');
     $routes->get('register', '\CodeIgniter\Shield\Controllers\RegisterController::registerView');
     $routes->get('forgot-password', 'Auth::forgotPassword');    
+    //logout
+    $routes->get('logout', 'Auth::logout');
     $routes->get('profile', 'Auth::profile', ['as' => 'user-profile']);
     $routes->get('profile/edit', 'Auth::editProfile');
 });
@@ -47,7 +49,7 @@ $routes->group('catalogue', function($routes) {
 // ====================================================================
 $routes->group('cart', function($routes) {
     $routes->get('/', 'Cart::index'); // Affiche le panier
-
+    
     $routes->match(['get', 'post'], 'add/(:num)', 'Cart::addProduct/$1');
 
     // Augmenter la quantité
@@ -132,7 +134,7 @@ $routes->group('admin', ['filter' => 'admin'], function ($routes) {
         $routes->match(['GET','POST'], 'commandes/(:num)', 'Admin::editCommandes/$1');
 
         //Modifie le role d'un utilisateur
-        $routes->get('role/(:num)/(:segment)','Admin::editRoleUser/$1/$2');
+        $routes->post('role/(:num)/(:segment)','Admin::editRoleUser/$1/$2');
     });
 
     // ==========================

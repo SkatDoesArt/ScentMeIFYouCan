@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Avis\AvisModel;
+use App\Models\Produit\Categorie\CremeModel;
 use App\Models\Produit\ProduitModel;
 use App\Models\Produit\Categorie\MarquesModel;
 use App\Models\Produit\Categorie\EncensModel;
@@ -74,6 +75,19 @@ class Catalogue extends BaseController
         return view('Pages/catalogue/encens', $data);
     }
 
+    public function creme()
+    {
+        $model = new CremeModel();
+        // On utilise paginate au lieu de findAll
+        // Le premier paramètre est le nombre d'éléments par page
+        // Le deuxième paramètre est le groupe de pagination (optionnel)
+        $data = [
+            'lesCremes' => $model->where('type', 'creme')->paginate(10, 'group1'), // 10 produits par page
+            'pager' => $model->pager
+        ];
+        return view('Pages/catalogue/creme', $data);
+    }
+
     public function search()
     {
         $query = $this->request->getGet('q');
@@ -83,23 +97,18 @@ class Catalogue extends BaseController
         }
 
         $produitModel = new ProduitModel();
-        $encensModel = new EncensModel();
 
-        // On récupère les deux listes
-        $parfums = $produitModel
+        // Une seule requête sur la table globale 'produit'
+        $resultats = $produitModel
+            ->groupStart() // Début de la parenthèse pour le filtre de recherche
             ->like('name', $query)
             ->orLike('marque', $query)
+            ->groupEnd()
             ->findAll();
 
-        $encens = $encensModel
-            ->like('name', $query)
-            ->orLike('marque', $query)
-            ->findAll();
-
-        // On fusionne les deux tableaux dans la variable attendue par la vue shop
-        $data['liste_produits'] = array_merge($parfums, $encens);
+        $data['liste_produits'] = $resultats;
         $data['query'] = $query;
-        $data['is_search'] = true; // Pour afficher un titre spécifique
+        $data['is_search'] = true;
 
         return view('Pages/catalogue/shop', $data);
     }

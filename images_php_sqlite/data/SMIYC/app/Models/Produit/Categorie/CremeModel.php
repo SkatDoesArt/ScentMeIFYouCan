@@ -28,6 +28,6 @@ class CremeModel extends Model
 
     public function getCremes()
     {
-        return $this->findAll();
+        return $this->where('type', 'creme')->findAll();
     }
 }

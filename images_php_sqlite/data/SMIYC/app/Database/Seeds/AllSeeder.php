@@ -16,5 +16,6 @@ class AllSeeder extends Seeder
         $this->call('NoCapSeeder');
         $this->call('MarquesSeeder');
         $this->call('EncensSeeder');
+        $this->call('CremeSeeder');
     }
 }

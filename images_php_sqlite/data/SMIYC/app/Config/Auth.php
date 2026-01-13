@@ -443,8 +443,29 @@ class Auth extends ShieldAuth
     public function loginRedirect(): string
     {
         $session = session();
-        $session->removeTempdata('beforeLoginUrl');
-        $url = $session->getTempdata('beforeLoginUrl') ?? setting('Auth.redirects')['login'];
+
+        // Si une URL avant connexion est définie, la respecter.
+        $before = $session->getTempdata('beforeLoginUrl');
+        if ($before !== null) {
+            return $this->getUrl($before);
+        }
+
+        // Récupère l'utilisateur courant (devrait être disponible après connexion)
+        $user = null;
+        try {
+            $user = auth()->user();
+        } catch (\Throwable $e) {
+            // auth() peut ne pas être disponible dans certains contextes ; on ignore et retombe sur la valeur par défaut.
+            $user = null;
+        }
+
+        // Si l'utilisateur est admin, rediriger vers le tableau de bord admin
+        if ($user && method_exists($user, 'inGroup') && $user->inGroup('admin')) {
+            $url = 'admin/';
+        } else {
+            // Utiliser la route de redirection par défaut configurée
+            $url = setting('Auth.redirects')['login'];
+        }
 
         return $this->getUrl($url);
     }

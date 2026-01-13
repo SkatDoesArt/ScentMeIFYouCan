@@ -9,7 +9,7 @@ class EncensSeeder extends Seeder
     public function run()
     {
         // --- NETTOYAGE ---
-        $this->db->table('produit')->truncate();
+        // $this->db->table('produit')->truncate();
 
         $data = [
             // --- RITUALS ---
@@ -362,7 +362,7 @@ class EncensSeeder extends Seeder
         ];
 
                 // --- NETTOYAGE ---
-        $this->db->table('produit')->truncate();
+        // $this->db->table('produit')->truncate();
 
         $this->db->table('produit')->insertBatch($data);
     }

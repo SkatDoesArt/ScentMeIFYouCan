@@ -11,7 +11,7 @@ class NoCapSeeder extends Seeder
 
         // --- NETTOYAGE ---
         // Cette ligne vide la table 'produit' pour éviter les doublons si on relance le seeder
-        $this->db->table('produit')->truncate();
+        // $this->db->table('produit')->truncate();
 
         $data = [
             // Demeter Fragrance Library
@@ -41,6 +41,10 @@ class NoCapSeeder extends Seeder
             // Autres
             ['name' => 'PaperPassion', 'price' => 95.00, 'description' => 'Odeur de livre neuf et encre fraîche', 'niveauPrestige' => 4, 'notation' => 5, 'taille' => 50, 'quantiteRestante' => 8, 'marque' => 'PaperPassion', 'categorie' => 'NoCap', 'image_name' => 'BookPerfume.jpg', 'type' => 'parfums'],
         ];
+
+        // --- NETTOYAGE ---
+        // Cette ligne vide la table 'produit' pour éviter les doublons si on relance le seeder
+        // $this->db->table('produit')->truncate();
 
         $this->db->table('produit')->insertBatch($data);
     }

@@ -68,7 +68,7 @@ class Catalogue extends BaseController
         // Le premier paramètre est le nombre d'éléments par page
         // Le deuxième paramètre est le groupe de pagination (optionnel)
         $data = [
-            'lesEncens' => $model->paginate(10, 'group1'), // 10 produits par page
+            'lesEncens' => $model->where('type', 'encens')->paginate(10, 'group1'), // 10 produits par page
             'pager' => $model->pager
         ];
         return view('Pages/catalogue/encens', $data);

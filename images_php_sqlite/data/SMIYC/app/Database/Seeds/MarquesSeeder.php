@@ -13,7 +13,7 @@ class MarquesSeeder extends Seeder
         // $this->db->query('PRAGMA foreign_keys = OFF;');
         
         // On vide la table
-        $this->db->table('marques')->truncate();
+        // $this->db->table('marques')->truncate();
         
         // $this->db->query('PRAGMA foreign_keys = ON;');
 

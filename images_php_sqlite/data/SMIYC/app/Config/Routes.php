@@ -19,7 +19,9 @@ service('auth')->routes($routes);
 $routes->group('auth', function($routes) {
     $routes->get('login', '\CodeIgniter\Shield\Controllers\LoginController::loginView');
     $routes->get('register', '\CodeIgniter\Shield\Controllers\RegisterController::registerView');
-    $routes->get('forgot-password', 'Auth::forgotPassword');    
+    $routes->get('forgot-password', 'Auth::forgotPassword');
+    //logout
+    $routes->get('logout', 'Auth::logout');
     $routes->get('profile', 'Auth::profile', ['as' => 'user-profile']);
     $routes->get('profile/edit', 'Auth::editProfile');
 });
@@ -120,16 +122,16 @@ $routes->group('admin', ['filter' => 'admin'], function ($routes) {
     // ==========================
     $routes->group('edit', function($routes){
         // Modifier un produit par ID
-        $routes->match(['GET','POST'], 'product/(:num)', 'Admin::editProduit');
+        $routes->match(['GET','POST'], 'product/(:num)', 'Admin::editProduit/$1');
 
         // Modifier un utilisateur par ID
-        $routes->match(['GET','POST'], 'user/(:num)', 'Admin::editUser');
+        $routes->match(['GET','POST'], 'user/(:num)', 'Admin::editUser/$1');
 
         // Modifier des stocks par ID
-        $routes->match(['GET','POST'], 'stocks/(:num)', 'Admin::editStocks');
+        $routes->match(['GET','POST'], 'stocks/(:num)', 'Admin::editStocks/$1');
 
         // Modifier des commandes par ID
-        $routes->match(['GET','POST'], 'commandes/(:num)', 'Admin::editCommandes');
+        $routes->match(['GET','POST'], 'commandes/(:num)', 'Admin::editCommandes/$1');
 
         //Modifie le role d'un utilisateur
         $routes->get('role/(:num)/(:segment)','Admin::editRoleUser/$1/$2');
@@ -140,16 +142,16 @@ $routes->group('admin', ['filter' => 'admin'], function ($routes) {
     // ==========================
     $routes->group('delete', function($routes){
         // Supprimer un produit par ID
-        $routes->match(['GET','POST'], 'product/(:num)', 'Admin::deleteProduit');
+        $routes->match(['GET','POST'], 'product/(:num)', 'Admin::deleteProduit/$1');
 
         // Supprimer un utilisateur par ID
-        $routes->match(['GET','POST'], 'user/(:num)', 'Admin::deleteUser');
+        $routes->match(['GET','POST'], 'user/(:num)', 'Admin::deleteUser/$1');
 
         // Supprimer des stocks par ID
-        $routes->match(['GET','POST'], 'stocks/(:num)', 'Admin::deleteStocks');
+        $routes->match(['GET','POST'], 'stocks/(:num)', 'Admin::deleteStocks/$1');
 
         // Supprimer une commande par ID
-        $routes->match(['GET','POST'], 'commande/(:num)', 'Admin::deleteCommande');
+        $routes->match(['GET','POST'], 'commande/(:num)', 'Admin::deleteCommande/$1');
     });
 
     // ==========================

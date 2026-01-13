@@ -6,15 +6,23 @@ use CodeIgniter\Entity\Entity;
 
 class NoCapEntity extends Entity
 {
+
+    public function getId() { return $this->attributes['id_produit'] ?? 0; }
     /**
      * Retourne l'URL complète de l'image pour la balise <img>
      * Utilisation dans la vue : $image->getUrl()
      */
     public function getUrl(): string
     {
-        // On conserve le chemin vers le dossier spécifique NoCap
-        // $this->image_name correspond à la colonne de la table 'produit'
-        return base_url('pictures/parfums/NoCap/' . $this->image_name);
+        $image = $this->attributes['image_name'];
+
+        // Si l'image commence par http, c'est un lien externe
+        if (filter_var($image, FILTER_VALIDATE_URL)) {
+            return $image;
+        }
+
+        // Sinon, c'est une image dans public/pictures/marques/
+        return base_url('pictures/parfums/NoCap/' . $image);
     }
 
     /**

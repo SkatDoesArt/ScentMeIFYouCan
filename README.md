@@ -1,272 +1,175 @@
-<div align="center">
+# Plateforme de Vente en Ligne — README
 
-# Plateforme de Vente en Ligne (SAE BUT2)
+Résumé
+------
+Ce dépôt contient le projet académique « Plateforme de Vente en Ligne » (SAE semestre 3). Le dépôt regroupe :
+- le frontend statique (HTML/CSS/JS) dans `Dev/` ;
+- un backend PHP packagé pour développement dans `images_php_sqlite/app_php/` ;
+- documents, diagrammes et ressources dans `Analyse/` et `Divers/`.
 
-Projet académique : développement d'une plateforme e-commerce moderne (achat, réservation, recherche avancée, personnalisation, interactions sociales, gestion des comptes).
+But du projet
+-------------
+Proposer une plateforme e‑commerce pédagogique permettant de gérer produits, utilisateurs, panier, commandes et stocks, avec une attention portée sur :
+- l'expérience utilisateur (navigation et recherche) ;
+- la sécurité et la protection des données ;
+- la capacité à expliquer et documenter une stratégie de communication pour l'entreprise.
 
-</div>
-
----
-
-## 📌 Sommaire
-1. Contexte & Objectifs  
-2. Fonctionnalités  
-3. Architecture Prévisionnelle  
-4. Exigences Fonctionnelles & Techniques  
-5. Installation & Lancement  
-6. Utilisation  
-7. Workflow de Développement  
-8. Qualité & Tests  
-9. Sécurité & Données  
-10. Diagrammes  
-11. Roadmap & Évolutions  
-12. Contribution  
-13. Équipe  
-14. Licence  
-15. Statut du Projet  
-16. FAQ  
-17. Ressources  
-18. Prochaines Étapes
+Table des matières
+------------------
+1. Présentation commerciale (nom, logo, slogan)
+2. Stratégie de communication (cible, canaux, relation client)
+3. Communication interne (organisation, outils, réunion type)
+4. RGPD & sécurité (mesures proposées)
+5. Installation et exécution (technique)
+6. Points d'intégration utiles (redirection admin/user, dashboard)
+7. Fichiers importants & ressources
+8. Prochaines étapes
 
 ---
 
-## 1. Contexte & Objectifs
-Cette plateforme vise à offrir une expérience d'achat fluide, personnalisable et engageante. Elle intègre : gestion des produits, réservation d'articles indisponibles, favoris, collections, suggestions intelligentes, historique d'achats, et mécanismes sociaux (avis, recherche d'utilisateurs, fidélité).
+1) Présentation commerciale
+---------------------------
+Nom proposé : L'Essentiel Parfum
+- Motivation : court, mémorisable, positionnement premium-accessible sur le segment parfums.
 
-**Objectifs principaux :**  
-- Achat & réservation rapides  
-- Recherche efficace (catégories, prix, popularité)  
-- Gestion de compte complète  
-- Personnalisation (thème clair/sombre)  
-- Notifications mail (pré-commande / confirmation)  
-- Extensibilité pour fonctionnalités sociales
+Logo (proposition) :
+- Forme : monogramme stylisé "LEP" ou goutte stylisée évoquant parfum.
+- Couleurs : violet profond (#6B21A8) + neutre chaud (beige/écru) pour une image élégante.
+- Justification : sobriété et élégance pour inspirer confiance et qualité.
 
----
+Slogan : "Votre parfum, simplement."
+- Justification : met l'accent sur la simplicité d'achat et la mise en valeur du produit principal.
 
-## 2. Fonctionnalités
-### Indispensables
-- Achat de produits
-- Réservation (alerte retour en stock)
-- Catalogue + recherche + tri multi-critères
-- Création / modification / suppression de compte
-
-### Secondaires
-- Favoris (like)
-- Collections personnalisées (type Pinterest)
-- Thème clair / sombre
-- Historique des achats
-- Suggestions basées sur favoris + historiques
-
-### Bonus (Évolutions futures)
-- Shopping à plusieurs (paiement partagé)
-- Avis & notation des produits
-- Recherche et suivi d'utilisateurs
-- Système de fidélité / points
-- Sons de confirmation (UX ludique)
+Note : ces éléments sont modulables — adaptez-les si vous changez de gamme produits.
 
 ---
 
-## 3. Architecture Prévisionnelle
-| Couche | Stack (prévisionnelle) | Rôle |
-|-------|------------------------|------|
-| Frontend | HTML5, CSS3, JS (React ou Vue) | Interface utilisateur, interactions dynamiques, thème |
-| Backend | PHP (Laravel / Symfony) | API REST, logique métier, sécurité |
-| Base de données | MySQL / PostgreSQL | Produits, utilisateurs, commandes, favoris, collections, fidélité |
-| Communication | API REST JSON | Intégration front / back |
-| Notifications | SMTP / Mailer PHP | Alertes stock, confirmations commande |
+2) Stratégie de communication externe
+-------------------------------------
+Cible clientèle (persona exemple) :
+- Persona principal : Femme 25–45 ans, habitante urbaine, revenus moyens à élevés, intéressée par parfums de niche et découvertes.
+- Comportement : recherche d'avis, suit des influenceurs, achète en ligne après lecture de descriptions et photos soignées.
 
-**Scalabilité :** Découplage front/back, modularité des services futurs (paiement, recommandation).  
-**Évolutivité :** Ajout micro-service recommandation ou fidélité possible.
+Canaux choisis :
+- Instagram (visuel & influence) : posts, stories, collaborations avec micro-influenceurs.
+- Email marketing : newsletters mensuelles, relances panier abandonné.
+- SEO & contenu : fiches produits riches, blog (guides d'achat, conseils parfum).
+- Publicité ciblée (Google Ads, Facebook Ads) : acquisition selon intention d'achat.
 
----
-
-## 4. Exigences Fonctionnelles & Techniques
-Voir `cahier_des_chargesV1.md` et `Analyse/cahier_charges_exigences.md` pour le détail initial. Synthèse :
-
-| Domaine | Exigences clés |
-|---------|----------------|
-| Authentification | Connexion, déconnexion, gestion profil, sécurité basique (hash mots de passe) |
-| Catalogue | Filtrage (catégorie, prix, popularité), recherche avec historique |
-| Panier | Ajout / suppression, persistance par utilisateur |
-| Commande | Checkout, adresse livraison, mode de paiement (intégration ultérieure) |
-| Pré-commande | Mise en attente + notification mail retour stock |
-| Personnalisation | Mode sombre/clair persisté (localStorage / BD) |
-| Engagement | Favoris, collections, avis (phase future) |
-| Recommandation | Basée sur favoris + achats (phase secondaire) |
-| Fidélité | Points, avantages (roadmap) |
+Politique de relation client :
+- Support via formulaire + adresse e‑mail dédiée, FAQ publique, gestionnaire basique de tickets via Google Forms ou outil gratuit.
+- Chat widget (optionnel) pour heures de pointe.
+- KPI à suivre : taux de conversion, taux de réponse support, NPS/CSAT.
 
 ---
 
-## 5. Installation & Lancement
-Projet encore en phase documentaire. Instructions ci-dessous anticipées.
+3) Communication interne & gestion projet
+-----------------------------------------
+Organisation et rôles (proposition pour 4 personnes) :
+- Chef·fe de projet : coordination, planning, livrables (ex. Estevan)
+- Développeur·se backend : base, auth, API, sécurité (ex. Zahra)
+- Développeur·se frontend : intégration, UI, responsive (ex. Mathis)
+- Responsable communication / contenu : rédaction dossier, réseaux (ex. Yassar)
 
-### Prérequis
-- PHP >= 8.x
-- Composer
-- Node.js + npm / yarn
-- Serveur SQL (MySQL ou PostgreSQL)
+Justification : répartition claire des responsabilités, facilite la gestion et la traçabilité des tâches.
 
-### Installation (prévisionnel)
+Outils internes recommandés :
+- Messagerie : Discord / Slack (communication quotidienne).
+- Gestion de tâches : GitLab Issues / Trello.
+- Partage de documents : Google Drive.
+- Dépôt code : Git (GitLab/GitHub) avec branches `feature/*` et `main`.
+
+Réunion type (30–40 minutes) — Sujet : Revue sprint
+- Ordre du jour :
+  1. Tour rapide (chaque membre signale accomplissements) — 10 min
+  2. Points bloquants & besoins — 10 min
+  3. Priorités pour la semaine suivante — 10 min
+  4. Assignation des actions & clôture — 5 min
+- Suivi : compte rendu court (bullet points) dans l'issue correspondante.
+
+Méthodes de reporting : backlog priorisé, tâches estimées (petits tickets), revue hebdo.
+
+---
+
+4) Respect des contraintes légales et RGPD
+-----------------------------------------
+Obligations et bonnes pratiques :
+- Afficher politique de confidentialité, mentions légales et CGV accessibles depuis le pied de page.
+- Collecte minimale : ne demander que les champs nécessaires (nom, email, adresse pour commandes).
+- Consentement explicite pour newsletter & cookies (bannière cookie + enregistrement du consentement).
+- Droits utilisateurs : prévoir procédure de demande d'accès, rectification et suppression (ex. contact RGPD).
+
+Mesures techniques de sécurité :
+- Hachage des mots de passe (password_hash de PHP / Argon2 si disponible).
+- Requêtes préparées pour éviter injections SQL.
+- Validation côté serveur et côté client des entrées.
+- HTTPS obligatoire en production (TLS).
+- Sauvegarde régulière de la base (si SQLite en dev, scripts d'export ; en prod, backups DB dédiés).
+
+Traçabilité : conserver l'horodatage du consentement et logs d'accès nécessaires.
+
+---
+
+5) Installation & exécution (rapide)
+------------------------------------
+Prérequis : PHP 8+, Composer (selon besoin), Docker (optionnel), Git.
+
+Exécution recommandée avec Docker (si vous utilisez `images_php_sqlite/compose.yaml`) :
+
 ```sh
-# Cloner le dépôt
-git clone https://gitlab.univ-nantes.fr/pub/but/but2/sae/groupe3/eq_3_02_rolland-estevan_salou-zahra_tong-hatet-mathis_ymamou-yassar.git
-cd eq_3_02_rolland-estevan_salou-zahra_tong-hatet-mathis_ymamou-yassar
-
-# Backend (exemple Laravel)
-composer install
-cp .env.example .env
-php artisan key:generate
-# Configurer DB dans .env puis
-php artisan migrate
-
-# Frontend (exemple React)
-cd frontend
-npm install
-npm run dev
+cd images_php_sqlite
+docker compose up --build -d
 ```
 
-### Lancement
+Tester uniquement le frontend : ouvrir `Dev/html/index.html` ou `Dev/html/admin-dashboard.html` dans un navigateur.
+
+Exécution rapide du backend (sans Docker) :
+
 ```sh
-# Démarrer backend
-php artisan serve
-# Démarrer frontend (port indiqué par le framework)
-npm run dev
+php -S 127.0.0.1:8000 -t images_php_sqlite/app_php/public
 ```
 
----
-
-## 6. Utilisation (Scénarios de base)
-1. Créer un compte / se connecter
-2. Parcourir le catalogue, filtrer par catégorie
-3. Ajouter des produits au panier ou en réservation
-4. Passer commande et recevoir confirmation mail
-5. Gérer favoris / collections (phase secondaire)
+Adapter le chemin si votre point d'entrée est différent.
 
 ---
 
-## 7. Workflow de Développement
-| Étape | Description |
-|-------|-------------|
-| Branche principale | `main` stable |
-| Nouvelles features | Branches `feature/<nom>` |
-| Revue | Merge Request + revue pair |
-| Tests | Avant merge, exécution tests unitaires & lint |
-| Déploiement | Manuel (environnement académique) |
+6) Points d'intégration pratiques
+---------------------------------
+Redirection admin/user après login :
+- Le projet contient un modèle de redirection dans `images_php_sqlite/app_php/auth_redirect_example.php`.
+- Intégrer la logique dans votre contrôleur d'auth : après vérification des identifiants, lire le rôle (`role`, `is_admin` ou équivalent) et `header('Location: ...')` vers la page appropriée.
 
-Convention de commits (suggestion): `type(scope): message` (`feat`, `fix`, `docs`, `refactor`, `test`).
-
----
-
-## 8. Qualité & Tests
-| Type | Outils (prévisionnel) |
-|------|-----------------------|
-| Lint Front | ESLint + Prettier |
-| Lint Back | PHP-CS-Fixer / Laravel Pint |
-| Tests Back | PHPUnit |
-| Tests Front | Vitest / Jest |
-| E2E | Playwright / Cypress (phase ultérieure) |
-
-Mesures futures: couverture de code, scan SAST (GitLab CI). CI à définir.
+Dashboard admin :
+- Vue exemple créée : `Dev/html/admin-dashboard.html` (+ CSS/JS associés). C'est une grille 2x2 (Produits, Utilisateurs, Commandes, Stocks).
+- Pour l'instant les chiffres sont factices ; vous pouvez ajouter un endpoint PHP `/api/admin/stats.php` qui lit la base SQLite et renvoie JSON pour peupler la vue.
 
 ---
 
-## 9. Sécurité & Données
-- Hash mot de passe (bcrypt / Argon2)
-- Validation serveur + filtrage entrée (prévenir injections)
-- Protection CSRF (framework intégré)
-- Politique RGPD (limiter données personnelles à l'essentiel)
-- Journaux d'activité admin (phase future)
+7) Fichiers importants
+----------------------
+- `Dev/` : frontend HTML/CSS/JS
+  - `Dev/html/admin-dashboard.html` — dashboard admin
+  - `Dev/css/admin-dashboard.css` — styles
+  - `Dev/js/admin-dashboard.js` — script
+- `images_php_sqlite/app_php/` : backend PHP, Dockerfile, données
+  - `images_php_sqlite/app_php/auth_redirect_example.php` — exemple de redirection
+  - `images_php_sqlite/compose.yaml` — configuration Docker Compose
+- `Analyse/` et `cahier_des_chargesV1.md` : documentation, exigences et diagrammes
+- `Divers/` : images, palette et ressources graphiques
 
 ---
 
-## 10. Diagrammes
-Les diagrammes UML (cas d'utilisation, activité) sont dans `Analyse/` :
-- `DC.puml` (Cas d'utilisation)
-- `Diagramme d'activité.puml` (Flux commandes, panier)
-Fichiers lisibles restants en cours de rédaction (`*_lisible.txt`).
-
-Rendu graphique générable via PlantUML :
-```sh
-plantuml Analyse/DC.puml
-plantuml Analyse/Diagramme\ d'activité.puml
-```
+8) Prochaines étapes recommandées
+---------------------------------
+- Finaliser le nom, logo et charte graphique (1 séance créative).
+- Implémenter l'endpoint `/api/admin/stats.php` et connecter la dashboard aux vraies données.
+- Ajouter la gestion RGPD (bannière cookies, page RGPD, procédures de demande).
+- Rédiger le dossier de communication en PDF (5–6 pages) à partir des sections 1–4 ci‑dessus.
 
 ---
 
-## 11. Roadmap & Évolutions
-| Phase | Contenu |
-|-------|---------|
-| Initiale | Auth, catalogue, panier, commande, réservation |
-| Secondaire | Favoris, collections, historique, suggestions, thème |
-| Bonus | Avis, shopping partagé, fidélité, recherche users |
-| Optimisation | Recommandations avancées, micro-services, scaling |
+Aide & contact
+---------------
+Pour toute question sur l'intégration technique ou la rédaction du dossier, ouvrez une issue ou contactez les membres listés dans `README` (section équipe) et `Divers/repartition des taches .md`.
 
-Indicateur de priorité: Haute (Indispensables), Moyenne (Secondaires), Basse (Bonus).
-
----
-
-## 12. Contribution
-Les contributions suivent le workflow branche + Merge Request. Ouvrir une issue avant changements majeurs. Tests et lint requis avant fusion.
-
-Guide rapide :
-```sh
-git checkout -b feature/favoris
-# coder...
-git commit -m "feat(favoris): ajout liste favoris"
-git push origin feature/favoris
-# ouvrir MR GitLab
-```
-
----
-
-## 13. Équipe
-| Nom | Rôle (indicatif) |
-|-----|------------------|
-| Estevan ROLLAND | Frontend / UX |
-| Zahra SALOU | Backend / Données |
-| Mathis TONG--HATET | Intégration / Tests |
-| Yassar YMAMOU | Fonctionnel / Architecture |
-
-Répartition détaillée dans `Divers/repartition des taches .md`.
-
----
-
-## 14. Licence
-Projet académique interne (Université de Nantes). Licence formelle non définie. Ne pas réutiliser publiquement sans accord de l'équipe et de l'encadrement pédagogique.
-
----
-
-## 15. Statut du Projet
-`EN COURS` – Phase de spécification & préparation architecture. Développement imminent.
-
----
-
-## 16. FAQ (Rapide)
-| Question | Réponse |
-|----------|---------|
-| Framework final choisi ? | À valider (React vs Vue, Laravel vs Symfony) |
-| Paiement réel intégré ? | Mock dans première version, passerelle plus tard |
-| Recommandations IA ? | Potentiel futur (analyse historique) |
-
----
-
-## 17. Ressources / Resources
-- `cahier_des_chargesV1.md` – Description complète des besoins
-- `Analyse/cahier_charges_exigences.md` – Exigences détaillées
-- `Analyse/` – UML & documents de conception
-- `Divers/` – Aides (palette couleurs, répartition tâches)
-
----
-
-## 18. Prochaines Étapes / Next Steps
-1. Valider stack technique (frameworks)  
-2. Initialiser dépôt backend + structure frontend  
-3. Mettre en place modèle BD & migrations  
-4. Implémenter Auth + Catalogue  
-5. Intégrer Panier + Commande + Réservation  
-6. Déployer version alpha interne
-
----
-
-<div align="center">🎯 Merci de contribuer à un projet propre, documenté et évolutif. </div>
-
+Merci — bon travail d'équipe !

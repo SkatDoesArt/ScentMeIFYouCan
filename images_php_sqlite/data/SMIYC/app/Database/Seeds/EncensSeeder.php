@@ -9,7 +9,7 @@ class EncensSeeder extends Seeder
     public function run()
     {
         // --- NETTOYAGE ---
-        $this->db->table('encens')->truncate();
+        $this->db->table('produit')->truncate();
 
         $data = [
             // --- RITUALS ---
@@ -24,7 +24,8 @@ class EncensSeeder extends Seeder
                 'quantiteRestante' => 20,
                 'marque' => 'Rituals',
                 'origine' => 'Pays-Bas',
-                'dureeCombustion' => 120
+                'dureeCombustion' => 120,
+                'type' => 'encens'
             ],
             [
                 'image_name' => 'https://imgs.search.brave.com/d40lEYBfUmwpgaLpqmRFzp62-OaE4Hjbxuks_ZqPIBE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMuc3dlZXRjYXJl/LmNvbS9pbWcvcHJk/LzQ4OC92LTYzODc3/MTk5MzY0MDkzOTg3/OC9yaXR1YWxzLTAy/MzIwMXVoLTEud2Vi/cA',
@@ -37,7 +38,8 @@ class EncensSeeder extends Seeder
                 'quantiteRestante' => 15,
                 'marque' => 'Rituals',
                 'origine' => 'Pays-Bas',
-                'dureeCombustion' => 120
+                'dureeCombustion' => 120,
+                'type' => 'encens'
             ],
 
             // --- ZARA HOME ---
@@ -52,7 +54,8 @@ class EncensSeeder extends Seeder
                 'quantiteRestante' => 35,
                 'marque' => 'Zara Home',
                 'origine' => 'Espagne',
-                'dureeCombustion' => 90
+                'dureeCombustion' => 90,
+                'type' => 'encens'
             ],
             [
                 'image_name' => 'https://imgs.search.brave.com/YOufepLajyyg845NIYdayuztHD2Ra4WfXHAOdqxo0zo/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMuemFyYS5uZXQv/YXNzZXRzL3B1Ymxp/Yy9kNWJiL2JkNWQv/ODI1ODQ2NTRhMzdi/LzU4ZDdlYzNjZDM5/My8xNjUzMDUyMDIx/ODYwLzE2NTMwNTIw/MjE4NjAuanBnP3Rz/PTE3MDM2NTY0Mjky/ODAmdz0zMTA',
@@ -65,7 +68,8 @@ class EncensSeeder extends Seeder
                 'quantiteRestante' => 25,
                 'marque' => 'Zara Home',
                 'origine' => 'Espagne',
-                'dureeCombustion' => 90
+                'dureeCombustion' => 90,
+                'type' => 'encens'
             ],
 
             // --- MAISON BERGER PARIS ---
@@ -80,7 +84,8 @@ class EncensSeeder extends Seeder
                 'quantiteRestante' => 12,
                 'marque' => 'Maison Berger Paris',
                 'origine' => 'France',
-                'dureeCombustion' => 180
+                'dureeCombustion' => 180,
+                'type' => 'encens'
             ],
             [
                 'image_name' => 'https://imgs.search.brave.com/4VmFph_LHs4wOtoP73gn_0VlZIWgO1EPYwQ4B11H8aA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/NjFCRkU4UndobUwu/anBn',
@@ -93,7 +98,8 @@ class EncensSeeder extends Seeder
                 'quantiteRestante' => 40,
                 'marque' => 'Maison Berger Paris',
                 'origine' => 'France',
-                'dureeCombustion' => 180
+                'dureeCombustion' => 180,
+                'type' => 'encens'
             ],
 
             // --- ESTEBAN PARIS ---
@@ -108,7 +114,8 @@ class EncensSeeder extends Seeder
                 'quantiteRestante' => 18,
                 'marque' => 'Esteban Paris',
                 'origine' => 'France',
-                'dureeCombustion' => 240
+                'dureeCombustion' => 240,
+                'type' => 'encens'
             ],
             [
                 'image_name' => 'https://imgs.search.brave.com/ydoNOPV9ChzZ_5yvk4yQv42kgTOsWRjIa_SjX_PsFJc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/NDFNK1g4TE5jSUwu/anBn',
@@ -121,7 +128,8 @@ class EncensSeeder extends Seeder
                 'quantiteRestante' => 10,
                 'marque' => 'Esteban Paris',
                 'origine' => 'France',
-                'dureeCombustion' => 240
+                'dureeCombustion' => 240,
+                'type' => 'encens'
             ],
 
             // --- CULTI MILANO ---
@@ -136,7 +144,8 @@ class EncensSeeder extends Seeder
                 'quantiteRestante' => 8,
                 'marque' => 'Culti Milano',
                 'origine' => 'Italie',
-                'dureeCombustion' => 360
+                'dureeCombustion' => 360,
+                'type' => 'encens'
             ],
             [
                 'image_name' => 'https://imgs.search.brave.com/-eGOSO7RnaFyv0MY_-GFRlcTgjA-zExz1UuEJ_j8NLQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/YWxiZXJvc2hvcC5p/dC9jZG4vc2hvcC9m/aWxlcy9QREFTVElB/UkExMDAwTUFDSTAw/MDBfMDIuanBnP3Y9/MTc2NDg2NTM5OSZ3/aWR0aD0xMDAw',
@@ -149,7 +158,8 @@ class EncensSeeder extends Seeder
                 'quantiteRestante' => 6,
                 'marque' => 'Culti Milano',
                 'origine' => 'Italie',
-                'dureeCombustion' => 360
+                'dureeCombustion' => 360,
+                'type' => 'encens'
             ],
 
             // --- DR. VRANJES FIRENZE ---
@@ -164,7 +174,8 @@ class EncensSeeder extends Seeder
                 'quantiteRestante' => 5,
                 'marque' => 'Dr. Vranjes Firenze',
                 'origine' => 'Italie',
-                'dureeCombustion' => 300
+                'dureeCombustion' => 300,
+                'type' => 'encens'
             ],
             [
                 'image_name' => 'https://imgs.search.brave.com/9SSXZQ3H_5i0kmvmHv24kXTsFYRoUTVBt5DxXcuPk-E/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90aGVz/b2NpZXR5c2hvcC5j/b20vY2RuL3Nob3Av/ZmlsZXMvZGlmZnVz/ZXItb3VkLW5vYmls/ZS0yNTAtbWwtd2l0/aC1zdGlja3MtZGlm/ZnVzZXItb3VkLW5v/YmlsZS0yNTAtbWwt/d2l0aC1zdGlja3Mt/NTExMzAwLmpwZz92/PTE3MzI5OTExMTAm/d2lkdGg9MTcwNw',
@@ -177,7 +188,8 @@ class EncensSeeder extends Seeder
                 'quantiteRestante' => 4,
                 'marque' => 'Dr. Vranjes Firenze',
                 'origine' => 'Italie',
-                'dureeCombustion' => 300
+                'dureeCombustion' => 300,
+                'type' => 'encens'
             ],
 
             // --- JO MALONE ---
@@ -192,7 +204,8 @@ class EncensSeeder extends Seeder
                 'quantiteRestante' => 7,
                 'marque' => 'Jo Malone',
                 'origine' => 'Royaume-Uni',
-                'dureeCombustion' => 150
+                'dureeCombustion' => 150,
+                'type' => 'encens'
             ],
             [
                 'image_name' => 'https://imgs.search.brave.com/I08EtDZJvPEqNhZZwB2b3Mm8Ng6_070MJIB1qQ2F9mI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/Y29zbWV0aWZ5LmNv/bS9pbWFnZXMvc3Vw/cGxlbWVudGFyeS9q/by1tYWxvbmUtbG9u/ZG9uLXBlb255LWJs/dXNoLXN1ZWRlLWRp/ZmZ1c2VyLTE3NTkz/MjcwNDMtcGR0Y29f/c2EwY2Y3ZC5qcGc',
@@ -205,7 +218,8 @@ class EncensSeeder extends Seeder
                 'quantiteRestante' => 5,
                 'marque' => 'Jo Malone',
                 'origine' => 'Royaume-Uni',
-                'dureeCombustion' => 150
+                'dureeCombustion' => 150,
+                'type' => 'encens'
             ],
 
             // --- DIPTYQUE ---
@@ -220,7 +234,8 @@ class EncensSeeder extends Seeder
                 'quantiteRestante' => 3,
                 'marque' => 'Diptyque',
                 'origine' => 'France',
-                'dureeCombustion' => 200
+                'dureeCombustion' => 200,
+                'type' => 'encens'
             ],
             [
                 'image_name' => 'https://imgs.search.brave.com/M25QuDMIOBno6REUPC3ymJhQoJ9YA_gMBgFAobQTHvw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/YmFzbGVyLWJlYXV0/eS5kZS9vdXQvcGlj/dHVyZXMvZ2VuZXJh/dGVkL3Byb2R1Y3Qv/My8xMjAwXzEyMDBf/MTAwLzI1NjkwMzUt/ZGlwdHlxdWUtUmVj/aGFyZ2UtZHUtZGlm/ZnVzZXVyLWRlLXBh/cmZ1bS1GaWd1aWVy/LTIwMC1tbC4wMTYw/YjFhZC5qcGc',
@@ -233,7 +248,8 @@ class EncensSeeder extends Seeder
                 'quantiteRestante' => 4,
                 'marque' => 'Diptyque',
                 'origine' => 'France',
-                'dureeCombustion' => 200
+                'dureeCombustion' => 200,
+                'type' => 'encens'
             ],
 
             // --- BYREDO ---
@@ -248,7 +264,8 @@ class EncensSeeder extends Seeder
                 'quantiteRestante' => 2,
                 'marque' => 'Byredo',
                 'origine' => 'Suède',
-                'dureeCombustion' => 240
+                'dureeCombustion' => 240,
+                'type' => 'encens'
             ],
             [
                 'image_name' => 'https://imgs.search.brave.com/SymsfVYRTfdaW0n-bak5ww3IfWImoBFIkdvmDMBY9VE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/dmluZXZpZGEuY29t/L2Nkbi9zaG9wL2Zp/bGVzL0ZPQlAtUk9B/LTE5MTctMTIwTUxf/MjUtMDktMjZfYTM4/MGI4OGUtNjhiNi00/NTAxLWE1ZTAtOWZh/N2Q5M2YzZjQyLnBu/Zz92PTE3NTg4ODkz/ODkmd2lkdGg9MjUw/MA',
@@ -261,7 +278,8 @@ class EncensSeeder extends Seeder
                 'quantiteRestante' => 4,
                 'marque' => 'Byredo',
                 'origine' => 'Suède',
-                'dureeCombustion' => 240
+                'dureeCombustion' => 240,
+                'type' => 'encens'
             ],
 
             // --- THE BODY SHOP ---
@@ -276,7 +294,8 @@ class EncensSeeder extends Seeder
                 'quantiteRestante' => 50,
                 'marque' => 'The Body Shop',
                 'origine' => 'Royaume-Uni',
-                'dureeCombustion' => 100
+                'dureeCombustion' => 100,
+                'type' => 'encens'
             ],
 
             // --- MUJI ---
@@ -291,7 +310,8 @@ class EncensSeeder extends Seeder
                 'quantiteRestante' => 30,
                 'marque' => 'Muji',
                 'origine' => 'Japon',
-                'dureeCombustion' => 60
+                'dureeCombustion' => 60,
+                'type' => 'encens'
             ],
             [
                 'image_name' => 'https://imgs.search.brave.com/8Ld9pB6CxoR07yabw7I09uciPHA2kDv6HODNQvd8cr0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9teWph/cGFuZXNld29ybGQu/Y29tL2Nkbi9zaG9w/L2ZpbGVzL2Fyb21h/LWRpZmZ1c2VyLWhp/bWVzaGFyYS1oaW5v/a2ktZXNzZW50aWFs/LW9pbC0xMTgwNTk5/MTQ5LndlYnA_dj0x/NzUzMTA2Mzk2Jndp/ZHRoPTE0NDA',
@@ -304,7 +324,8 @@ class EncensSeeder extends Seeder
                 'quantiteRestante' => 15,
                 'marque' => 'Muji',
                 'origine' => 'Japon',
-                'dureeCombustion' => 60
+                'dureeCombustion' => 60,
+                'type' => 'encens'
             ],
 
             // --- PRANAROM ---
@@ -319,7 +340,8 @@ class EncensSeeder extends Seeder
                 'quantiteRestante' => 50,
                 'marque' => 'Pranarōm',
                 'origine' => 'Belgique',
-                'dureeCombustion' => 45
+                'dureeCombustion' => 45,
+                'type' => 'encens'
             ],
 
             // --- FLORIS LONDON ---
@@ -334,10 +356,14 @@ class EncensSeeder extends Seeder
                 'quantiteRestante' => 10,
                 'marque' => 'Floris London',
                 'origine' => 'Royaume-Uni',
-                'dureeCombustion' => 180
+                'dureeCombustion' => 180,
+                'type' => 'encens'
             ],
         ];
 
-        $this->db->table('encens')->insertBatch($data);
+                // --- NETTOYAGE ---
+        $this->db->table('produit')->truncate();
+
+        $this->db->table('produit')->insertBatch($data);
     }
 }

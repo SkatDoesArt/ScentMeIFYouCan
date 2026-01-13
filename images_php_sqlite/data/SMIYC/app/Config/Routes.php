@@ -48,6 +48,8 @@ $routes->group('catalogue', function($routes) {
 $routes->group('cart', function($routes) {
     $routes->get('/', 'Cart::index'); // Affiche le panier
 
+    $routes->match(['get', 'post'], 'add/(:num)', 'Cart::addProduct/$1');
+
     // Augmenter la quantité
     $routes->match(['GET','POST'], 'increment/(:num)', 'Cart::addQuantite/$1');
 

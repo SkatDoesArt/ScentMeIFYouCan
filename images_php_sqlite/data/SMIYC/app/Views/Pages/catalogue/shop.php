@@ -60,7 +60,7 @@
                     </select>
                 </div>
             </div>
-            
+
 
             <div class="grid">
                 <?php if (!empty($liste_produits)): ?>
@@ -97,6 +97,7 @@
     </div>
 
     <?= view('Pages/partials/footer') ?>
+
 </body>
 
 </html>

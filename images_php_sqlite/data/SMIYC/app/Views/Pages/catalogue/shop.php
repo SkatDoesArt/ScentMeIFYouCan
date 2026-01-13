@@ -78,7 +78,7 @@
                                     <strong><?= number_format($p->getPrix(), 2, ',', ' ') ?> €</strong>
                                 </div>
 
-                                <form method="post" action="<?= base_url('panier/ajouter/' . $p->getId()) ?>"
+                                <form method="post" action="<?= base_url('cart/add/' . $p->getId()) ?>"
                                     class="add-to-cart-form">
                                     <?= csrf_field() ?>
                                     <button type="submit" class="add-to-cart-btn" title="Ajouter au panier">+</button>

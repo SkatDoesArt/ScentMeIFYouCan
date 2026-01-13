@@ -8,6 +8,7 @@ use App\Models\Produit\ProduitModel;
 use App\Models\Produit\Categorie\MarquesModel;
 use App\Models\Produit\Categorie\EncensModel;
 use CodeIgniter\HTTP\RedirectResponse;
+use function PHPUnit\Framework\containsEqual;
 
 class Catalogue extends BaseController
 {
@@ -69,7 +70,7 @@ class Catalogue extends BaseController
         // Le premier paramètre est le nombre d'éléments par page
         // Le deuxième paramètre est le groupe de pagination (optionnel)
         $data = [
-            'lesEncens' => $model->where('type', 'encens')->paginate(10, 'group1'), // 10 produits par page
+            'lesEncens' => $model->paginate(10, 'group1'), // 10 produits par page
             'pager' => $model->pager
         ];
         return view('Pages/catalogue/encens', $data);
@@ -115,13 +116,37 @@ class Catalogue extends BaseController
 
     public function filters()
     {
-        $query = $this->request->getGet('q');
+        $query = $this->request->getGet('f');
 
         if (empty($query)) {
             return redirect()->to(base_url('catalogue'));
         }
 
-        return view('Pages/catalogue/shop');
+        $produitModel = new ProduitModel();
+        $encensModel = new EncensModel();
+        $filter = new Filters();
+
+        if ($query == "price-crst" || $query == "price-dcrst") {
+            $data['liste_produits'] = $filter->sortByPrice($query);
+        } elseif ($query == "alpha-crst" || $query == "alpha-dcrst") {
+            $data['liste_produits'] = $filter->sortByAlpha($query);
+        }  else {
+            return redirect()->to(base_url('catalogue?categorie=homme'));
+        }
+
+        // // On récupère les deux listes
+        // $parfums = $produitModel->orderBy("price", ($query === 'price-crst') ? 'ASC' : 'DESC')
+        //     ->findAll();
+
+        // $encens = $encensModel->orderBy("price", ($query === 'price-crst') ? 'ASC' : 'DESC')
+        //     ->findAll();
+        // // On fusionne les deux tableaux dans la variable attendue par la vue shop
+        // $data['liste_produits'] = array_merge($parfums, $encens);
+
+        $data['query'] = $query;
+        $data['is_search'] = false; // Pour afficher un titre spécifique
+
+        return view('Pages/catalogue/shop', $data);
     }
 }
 

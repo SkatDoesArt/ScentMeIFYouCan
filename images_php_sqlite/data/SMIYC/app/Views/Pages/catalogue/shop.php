@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
-
+    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,21 +44,21 @@
 
         <main class="right">
             <div id="top">
-                <?php if (isset($query) && !empty($query)): ?>
+                <?php if (isset($query) && !empty($query) && $is_search): ?>
                 <h2>Résultats pour "<?= esc($query) ?>"</h2>
                 <?php else: ?>
-                    <h2>Parfum <?= esc($liste_produits[0]->categorie) ?></h2>
+                    <h2>Parfum </h2>
                 <?php endif; ?>
 
-                <div class="shop-controls">
-                    <select id="sort-filter">
-                        <option value="">Choisissez un filtre</option>
-                        <option value="price-crst">Trier par prix croissant</option>
+                <form class="shop-controls" role="search" action="<?= base_url('catalogue/filters') ?>" method="get" onchange="this.submit()">
+                    <select id="sort-filter" name="f" inputmode="search" interkeyhint="search">
+                        <option value="none">Choisissez un filtre</option>
+                        <option value="price-crst" >Trier par prix croissant</option>
                         <option value="price-dcrst">Trier par prix décroissant</option>
-                        <option value="apha-crst">Trier par ordre alphabétique (A-Z)</option>
+                        <option value="alpha-crst">Trier par ordre alphabétique (A-Z)</option>
                         <option value="alpha-dcrst">Trier par ordre alphabétique (Z-A)</option>
                     </select>
-                </div>
+                </form>
             </div>
 
 

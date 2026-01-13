@@ -141,8 +141,9 @@ class Admin extends BaseController
                 session()->setFlashdata('error', 'Erreur lors de la création de l’utilisateur');
                 return view('Pages/admin/add/add_user');
             }
-            $user=$users->findById($users->getInsertID());
-            $user->addGroup($this->request->getPost('statut'));
+            $user = $users->findById($users->getInsertID());
+            $statut = $this->request->getPost('statut');
+            redirect()->to(base_url('/admin/role/' . $user->id . '/' . $statut));
             session()->setFlashdata('success', 'Utilisateur ajouté avec succès');
         }
         return view('Pages/admin/add/add_user');
@@ -183,6 +184,7 @@ class Admin extends BaseController
         // ======================
         // POST → update
         // ======================
+        
         if ($this->request->is('post')) {
 
             $data = [
@@ -205,6 +207,8 @@ class Admin extends BaseController
                 $image->move(FCPATH . 'test', $imageName);
                 $data['image_name'] = $imageName;
             }
+            //Supprimer l'ancienne image dans le dossier d'image
+            
 
             $model->update($id, $data);
 
@@ -224,7 +228,29 @@ class Admin extends BaseController
      */
     public function editUser($id = null)
     {
-        // TODO: récupérer l'utilisateur $id et afficher formulaire modification
+        $model = new UserModel();
+        $users = auth()->getProvider();
+        if ($id === null) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('ID manquant');
+        }
+
+        $user = $users->findById($id);
+
+        if (! $user) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Produit introuvable');
+        }
+        if ($this->request->is('post')) {
+
+            $data = [
+                'username' => $this->request->getPost('username'),
+                'email' => $this->request->getPost('email'),
+                'password' => $this->request->getPost('password'),
+            ];
+            $model->update($id, $data);
+            session()->setFlashdata('success', 'Utilisateur modifier');
+            return redirect()->to('/admin/user/');
+        }
+        return view('Pages/admin/edit/edit_user', ['user' => $user]);
     }
 
 

@@ -29,13 +29,17 @@
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" name="email" id="email" required
-                value="<?= esc($user->email) ?>">
+                value="<?= esc($user->email) ?>"
+                >
                 
             </div>
 
 
             <div class="form-group"><label for="password">Mot de passe</label>
-                <input type="password" name="password" id="password" required>
+                <input type="password" name="password" id="password" required
+                value="<?= esc($user->getPassword()) ?>"
+                
+                >
             </div>
 
 

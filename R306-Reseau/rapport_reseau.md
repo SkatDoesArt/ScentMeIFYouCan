@@ -27,6 +27,17 @@ vm-run gw
 vm-run host-ext
 ```
 
+
+## creation des VMs
+```bash
+vm-stop srv-int
+vm-stop gw
+vm-stop host-ext
+vm-del srv-int
+vm-del gw
+vm-del host-ext
+```
+
 ## installations dépendances
 
 -> INTERNE
@@ -65,16 +76,16 @@ apt install ntpdate
 
 -> INTERNE
 ```bash
-ip a add 10.0.1.10/24 dev eth0
-ip r add 192.168.1.0/24 via 10.0.1.254
-ip link set eth0 up
+ip a add 10.0.1.10/24 dev eth0  
+ip r add 192.168.1.0/24 via 10.0.1.254  
+ip link set eth0 up  
 ```
 
 -> ROUTEUR
 ```bash
 # Intranet
 ip link set eth0 up
-ip addr add 10.0.1.254/24 dev eth0.10
+ip addr add 10.0.1.254/24 dev eth0
 
 #Internet
 ip link set eth1 up
@@ -90,34 +101,65 @@ ip r add 10.0.1.0/24 via 192.168.1.254
 
 
 ## Tests  
-**Dans Lego :**  
+**Dans srv-int :**  
 
 ```bash
-ping 10.0.1.254
-ping 192.168.1.254
-ping 192.168.1.10
+ping -c 3 10.0.1.254
+ping -c 3 192.168.1.254
+ping -c 3 192.168.1.10
 ```  
-**Dans Routeur :**
+**Dans gw :**
 
 ```bash
-ping 10.0.1.10
-ping 192.168.1.10
+ping -c 3 10.0.1.10
+ping -c 3 192.168.1.10
 ```  
-**Dans Client :**
+**Dans host-ext :**
 
 ```bash
-ping 10.0.1.254
-ping 192.168.1.254
-ping 10.0.1.10
+ping -c 3 10.0.1.254
+ping -c 3 192.168.1.254
+ping -c 3 10.0.1.10
 ```
 
-## 2. DNS
+
+## 2. VLAN
+
+**SRV-INT :**
+
+```bash
+ip link add link eth0 name eth0.10 type vlan id 10  
+ip link set eth0 up  
+ip link set eth0.10 up  
+ip a add 10.0.1.50/24 dev eth0.10  
+```
+
+**Routeur GW :**
+
+```bash
+ip link add link eth0 name eth0.10 type vlan id 10  
+ip link set eth0 up  
+ip link set eth0.10 up  
+ip a add 10.0.1.254/24 dev eth0.10  
+```
+
+* Test VLAN :
+
+```bash
+ping 10.0.1.254  # depuis SRV-INT
+ping 10.0.1.50   # depuis GW
+```
+
+---
+
+
+## 3. DNS
 
 * Domaine choisi : `sae.com`
 * Serveur primaire : `ns1.sae.com` (IP 10.0.1.254)
 * Alias : `www.sae.com` → `srv-int.sae.com`
 
-**Fichier `/etc/resolv.conf` :**
+**Fichier `/etc/resolv.conf` dans TOUS les :**
 
 ```
 nameserver 10.0.1.254
@@ -128,9 +170,9 @@ nameserver 10.0.1.254
 
 **Fichier `/etc/bind/named.conf.local` :**
 ```
-zone "lego.com" in { 
+zone "sae.com" in { 
         type master; 
-        file "/etc/bind/db.lego"; 
+        file "/etc/bind/db.sae.com"; 
 };
 ```
 
@@ -169,38 +211,18 @@ host www.sae.com 10.0.1.254
 
 ---
 
-## 3. VLAN
-
-**SRV-INT :**
-
-```bash
-ip link add link eth0 name eth0.10 type vlan id 10
-ip link set eth0 up
-ip link set eth0.10 up
-ip a add 10.0.1.50/24 dev eth0.10
-```
-
-**Routeur GW :**
-
-```bash
-ip link add link eth0 name eth0.10 type vlan id 10
-ip link set eth0 up
-ip link set eth0.10 up
-ip a add 10.0.1.254/24 dev eth0.10
-```
-
-* Test VLAN :
-
-```bash
-ping 10.0.1.254  # depuis SRV-INT
-ping 10.0.1.50   # depuis GW
-```
-
----
 
 ## 4. DHCP
 
+**Fichier `nano /etc/default/isc-dhcp-server` :**
+
+```bash
+INTERFACESv4="eth0.10"
+INTERFACESv6=""
+```
+
 **Fichier `/etc/dhcp/dhcpd.conf` :**
+
 
 ```dhcp
 subnet 10.0.1.0 netmask 255.255.255.0 {
@@ -229,8 +251,12 @@ systemctl restart isc-dhcp-server
 **Installation et configuration sur SRV-INT :**
 
 ```bash
-apt install apache2 php php-sqlite3 libapache2-mod-php
-cp -r /mvc/* /var/www/html/
+# Activer le forwarding IP
+echo 1 > /proc/sys/net/ipv4/ip_forward
+```
+
+
+```bash
 chown -R www-data:www-data /var/www/html/
 chmod -R 775 /var/www/html/
 systemctl restart apache2
@@ -246,14 +272,12 @@ curl http://10.0.1.50
 **Redirection NAT sur GW (HTTP 8080 → SRV-INT port 80) :**
 
 ```bash
-iptables -F FORWARD
-iptables -t nat -F
-
-iptables -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
-iptables -A FORWARD -p tcp -d 10.0.1.50 --dport 80 -j ACCEPT
-
 iptables -t nat -A PREROUTING -i eth1 -p tcp --dport 8080 -j DNAT --to-destination 10.0.1.50:80
-iptables -t nat -A POSTROUTING -o eth1 -s 10.0.1.0/24 -j MASQUERADE
+
+iptables -t nat -A POSTROUTING -o eth0.10 -j MASQUERADE
+
+iptables -A FORWARD -p tcp -d 10.0.1.50 --dport 80 -j ACCEPT
+iptables -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
 ```
 
 * Test depuis HOST-EXT :

@@ -68,7 +68,6 @@ $user = auth()->user();
             </form>
 
             <button id="modify-info">Modifier vos informations</button>
-            <a href="<?= base_url() . "auth/logout/" ?>">LOGOUT</a>
         </div>
     </div>
 </div>

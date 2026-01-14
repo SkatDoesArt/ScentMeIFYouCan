@@ -26,7 +26,8 @@ class EncensModel extends Model
         'marque',
         'origine',
         'dureeCombustion',
-        'type'
+        'type',
+        'saison',
     ];
 
     protected $useTimestamps = false;

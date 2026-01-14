@@ -238,3 +238,17 @@ POUR LES CARD DES MARQUES TKT :
 | Kaloo              | Kaloo Blue          | Kaloo Lilirose       | Kaloo Dragée         |   ❌   |   ❌   |    ✔️    |   ✔️    | Toutes saisons      |    ⭐     |
 | Klorane Bébé       | Eau Parfumée Bébé   | Petit Brin           | Eau Fraîche Bébé     |   ❌   |   ❌   |    ✔️    |   ✔️    | Toutes saisons      |    ⭐     |
 | Nivea Baby         | Baby Moments        | Eau de Soin Douce    | Fresh Baby           |   ❌   |   ❌   |    ✔️    |   ✔️    | Été                 |    ⭐     |
+
+
+| Marque              | Parfum 1          | Parfum 2         | Parfum 3       | Femme | Homme | Unisexe | Saison dominante | Prestige |
+| ------------------- | ----------------- | ---------------- | -------------- | :---: | :---: | :-----: | ---------------- | :------: |
+| **Lattafa**         | Oud for Glory     | Khamrah          | Yara           |   ✔️   |   ✔️   |    ✔️    | Automne / Hiver  |   ⭐⭐⭐⭐   |
+| **Adaaf**           | Musk Collection   | Oud Collection   | White Musk     |   ✔️   |   ✔️   |    ✔️    | Toute saison     |   ⭐⭐⭐    |
+| **Al Wataniah**     | Arba Wardat       | Velvet Oud       | –              |   ✔️   |   ✔️   |    ✔️    | Automne / Hiver  |   ⭐⭐⭐⭐   |
+| **Maison Alhambra** | Noir Sultan       | Amber Oud        | Musk Alhambra  |   ✔️   |   ✔️   |    ✔️    | Automne / Hiver  |   ⭐⭐⭐⭐   |
+| **Ard Al Zaafaran** | Shaikh Shuyukh    | Oud Gold         | Dhan Al Oudh   |   ✔️   |   ✔️   |    ✔️    | Automne / Hiver  |   ⭐⭐⭐⭐   |
+| **Swiss Arabian**   | Shaghaf Oud       | Layali           | Dehn El Oud    |   ✔️   |   ✔️   |    ✔️    | Automne / Hiver  |   ⭐⭐⭐⭐   |
+| **Afnan**           | Supremacy Gold    | Supremacy Silver | Supremacy Noir |   ✔️   |   ✔️   |    ✔️    | Automne / Hiver  |   ⭐⭐⭐⭐   |
+| **Rasasi**          | La Yuqawam        | Blue Lady        | Shuhrah        |   ✔️   |   ✔️   |    ✔️    | Automne / Hiver  |   ⭐⭐⭐⭐   |
+| **Ajmal**           | Sacrifice for Her | Evoke Men        | Amber Wood     |   ✔️   |   ✔️   |    ✔️    | Automne / Hiver  |   ⭐⭐⭐⭐   |
+

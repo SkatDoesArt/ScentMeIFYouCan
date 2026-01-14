@@ -89,6 +89,19 @@ class Catalogue extends BaseController
         return view('Pages/catalogue/creme', $data);
     }
 
+    public function exotique()
+    {
+        $model = new ProduitModel();
+        // On utilise paginate au lieu de findAll
+        // Le premier paramètre est le nombre d'éléments par page
+        // Le deuxième paramètre est le groupe de pagination (optionnel)
+        $data = [
+            'lesExotiques' => $model->where('origine', 'Exotique')->paginate(10, 'group1'), // 10 produits par page
+            'pager' => $model->pager
+        ];
+        return view('Pages/catalogue/exotique', $data);
+    }
+
     public function search()
     {
         $query = $this->request->getGet('q');

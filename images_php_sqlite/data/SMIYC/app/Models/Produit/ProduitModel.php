@@ -26,6 +26,7 @@ class ProduitModel extends Model
         'image_name',
         'type',
         'saison',
+        'origine',
     ];
 
     protected bool $allowEmptyInserts = false;
@@ -96,6 +97,16 @@ class ProduitModel extends Model
     public function getBySaison(string $saison)
     {
         return $this->like('saison', $saison)->findAll();
+    }
+
+    public function getByOrigine(string $origine)
+    {
+        return $this->like('origine', $origine)->findAll();
+    }
+
+    public function getByType(string $type)
+    {
+        return $this->like('type', $type)->findAll();
     }
 
     /**

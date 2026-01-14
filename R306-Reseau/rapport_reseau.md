@@ -211,7 +211,7 @@ host www.sae.com 10.0.1.254
 
 
 ## 4. DHCP
-
+### -> ROUTEUR
 **Fichier `nano /etc/default/isc-dhcp-server` :**
 
 ```bash
@@ -231,27 +231,33 @@ subnet 10.0.1.0 netmask 255.255.255.0 {
 }
 
 host interne {
-    hardware ethernet d6:4b:85:aa:e8:47;  # MAC fixe
+    hardware ethernet d6:4b:85:aa:e8:47;  # MAC de la machine INTERNE
     fixed-address 10.0.1.50;
 }
 ```
-
 * Redémarrer le serveur DHCP :
 
 ```bash
 systemctl restart isc-dhcp-server
 ```
 
+### -> INTERNE 
+**Sur INTERNE : Demander une IP au serveur DHCP**
+```bash
+dhclient eth0.10
+```
+
 ---
 
 ## 5. HTTP
-
+#### -> ROUTEUR
 **Activer le forwarding dans ROUTEUR :**
 ```powershell
 # Activer le forwarding IP
 echo 1 > /proc/sys/net/ipv4/ip_forward
 ```
 
+### -> INTERNE
 **Installation et configuration sur INTERNE :**
 ```bash
 chown -R www-data:www-data /var/www/html/
@@ -259,7 +265,7 @@ chmod -R 775 /var/www/html/
 systemctl restart apache2
 ```
 
-* Vérifier écoute :
+* Verifier ecoute :
 
 ```powershell
 ss -lntp | grep :80
@@ -370,11 +376,3 @@ vm-browser INTERNE
 * DNS : `host www.sae.com 10.0.1.254`
 * HTTP : `curl http://192.168.1.254:8080`
 * DHCP : `ip a` sur INTERNE → vérifier IP fixe et gateway
-
----
-
-## 8. Notes complémentaires
-
-* Firewall : vérifier qu’aucun filtrage n’empêche le NAT ou les connexions HTTP.
-* Toutes les IP utilisées sont cohérentes avec celles de `ip a`.
-* La configuration MVC + sqlite est sur le serveur interne (INTERNE).

@@ -35,6 +35,8 @@ run ${PREFIX}-EXTERNE  03-dns/nameserver.sh
 
 # 4. DHCP
 run ${PREFIX}-ROUTEUR  04-dhcp/ROUTEUR.sh
+run ${PREFIX}-INTERNE  04-dhcp/INTERNE.sh
+
 
 # 5. HTTP + NAT
 run ${PREFIX}-INTERNE  05-http/INTERNE.sh

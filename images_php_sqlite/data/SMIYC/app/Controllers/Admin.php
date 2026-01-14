@@ -32,7 +32,7 @@ class Admin extends BaseController
     {
         $model = new ProduitModel();
 
-        $data["liste_produits"] = $model->getListePorduit();
+        $data["liste_produits"] = $model->getListeProduit();
         return view('Pages/admin/products', $data);
     }
 

@@ -84,6 +84,7 @@ $routes->group('payment', function($routes) {
 // COMMANDES
 // ====================================================================
 $routes->group('commande', function($routes) {
+    $routes->get('/', 'Commande::index');
     $routes->get('status/(:num)', 'Commande::status/$1');
     $routes->get('history', 'Commande::history');
 });
@@ -165,8 +166,6 @@ $routes->group('admin',['filter' => 'admin'],function ($routes) {
         $routes->post( 'commande/(:num)', 'Admin::deleteCommande/$1');
     });
 
-
-    
     // ==========================
     // Routes principales / tableau de bord
     // ==========================

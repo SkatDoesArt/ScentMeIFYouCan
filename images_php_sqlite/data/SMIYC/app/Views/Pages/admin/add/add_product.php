@@ -52,7 +52,7 @@
 
                    <div class="form-group">
                        <label>Catégorie</label>
-                       <input type="text" name="categorie" required>
+                       <input type="text" name="categorie" >
                    </div>
 
                    <div class="form-group">
@@ -65,6 +65,34 @@
                        <input type="text" name="marque" required>
                    </div>
 
+                   <div class="form-group">
+                       <label>Type</label>
+                       <input type="text" name="type" required>
+                   </div>
+
+
+                   <div class="form-group">
+                       <label>Type Peau</label>
+                       <input type="text" name="typePeau" required>
+                   </div>
+
+
+                   <div class="form-group">
+                       <label>Origine</label>
+                       <input type="text" name="origine" required>
+                   </div>
+
+
+                   <div class="form-group">
+                       <label>Duree Combustion</label>
+                       <input type="text" name="dureeCombustion" required>
+                   </div>
+
+
+                   <div class="form-group">
+                       <label>Saison</label>
+                       <input type="text" name="saison" >
+                   </div>
                    <!-- Selection du type d'image -->
                    <select name="image_type" id="image-type" required>
                        <option value="">-- Choisir le type d’image --</option>

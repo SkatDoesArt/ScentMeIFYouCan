@@ -11,47 +11,104 @@
         <div class="form-grid">
             <div class="form-group">
                 <label>Nom</label>
-                <input type="text" name="name" value="<?= esc($produit->name) ?>" required>
+                <input type="text" name="name" required
+                       value="<?=esc($produit->name) ?>"
+
+                >
             </div>
 
             <div class="form-group">
-                <label>Prix</label>
-                <input type="number" step="0.01" name="price" value="<?= esc($produit->price) ?>" required>
-            </div>
+                <label>Prix (€)</label>
+                <input type="number" step="0.01" name="price" required
+                       value="<?=esc($produit->price) ?>"
 
-            <div class="form-group">
-                <label>Description</label>
-                <input type="text" name="description" value="<?= esc($produit->description) ?>" required>
-            </div>
-
-            <div class="form-group">
-                <label>Niveau prestige</label>
-                <input type="number" name="niveauPrestige" value="<?= esc($produit->niveauPrestige) ?>" required>
-            </div>
-
-            <div class="form-group">
-                <label>Notation</label>
-                <input type="number" min="0" max="5" name="notation" value="<?= esc($produit->notation) ?>" required>
+                >
             </div>
 
             <div class="form-group">
                 <label>Taille</label>
-                <input type="number" name="taille" value="<?= esc($produit->taille) ?>" required>
+                <input type="number" name="taille" required
+                       value="<?=esc($produit->taille) ?>"
+
+                >
             </div>
 
             <div class="form-group">
-                <label>Quantité</label>
-                <input type="number" name="quantiteRestante" value="<?= esc($produit->quantiteRestante) ?>" required>
+                <label>Description</label>
+                <input type="text" name="description" required
+                       value="<?=esc($produit->description) ?>"
+
+                >
             </div>
 
             <div class="form-group">
-                <label>Marque</label>
-                <input type="text" name="marque" value="<?= esc($produit->marque) ?>" required>
+                <label>Niveau prestige</label>
+                <input type="number" name="niveauPrestige" required
+                       value="<?=esc($produit->niveauPrestige) ?>"
+
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Notation (0 à 5)</label>
+                <input type="number" min="0" max="5" name="notation" required
+
+                       value="<?=esc($produit->notation) ?>"
+                >
             </div>
 
             <div class="form-group">
                 <label>Catégorie</label>
-                <input type="text" name="categorie" value="<?= esc($produit->categorie) ?>" required>
+                <input type="text" name="categorie"
+                       value="<?=esc($produit->categorie) ?>"
+
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Quantité restante</label>
+                <input type="number" name="quantiteRestante" required
+                       value="<?=esc($produit->quantite_restante)?>"
+
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Marque</label>
+                <input type="text" name="marque" required
+                       value="<?=esc($produit->marque) ?>"
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Type</label>
+                <input type="text" name="type"
+                value="<?=esc($produit->type) ?>"
+                >
+            </div>
+
+
+            <div class="form-group">
+                <label>Type Peau</label>
+                <input type="text" name="typePeau"
+                value="<?=esc($produit->typepeau) ?>"
+                >
+            </div>
+
+
+            <div class="form-group">
+                <label>Origine</label>
+                <input type="text" name="origine"
+                       value="<?=esc($produit->origine)?>"
+                >
+            </div>
+
+
+            <div class="form-group">
+                <label>Duree Combustion</label>
+                <input type="text" name="dureeCombustion"
+                value="<?=esc($produit->dureeCombustion) ?>"
+                >
             </div>
 
 

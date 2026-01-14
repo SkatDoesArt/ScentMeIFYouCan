@@ -80,41 +80,72 @@ class Admin extends BaseController
                 'name'              => $this->request->getPost('name'),
                 'price'             => $this->request->getPost('price'),
                 'description'       => $this->request->getPost('description'),
-                'niveauPrestige'   => $this->request->getPost('niveauPrestige'),
+                'niveauPrestige'    => $this->request->getPost('niveauPrestige'),
                 'notation'          => $this->request->getPost('notation'),
                 'taille'            => $this->request->getPost('taille'),
-                'quantiteRestante' => $this->request->getPost('quantiteRestante'),
+                'quantiteRestante'  => $this->request->getPost('quantiteRestante'),
                 'marque'            => $this->request->getPost('marque'),
-                'categorie'         => $this->request->getPost('categorie'),
+                'categorie'         => $this->request->getPost('categorie') ?? 'Parfums',
+                'type'              => $this->request->getPost('type'),
+                'typePeau'          => $this->request->getPost('typePeau'),
+                'origine'           => $this->request->getPost('origine'),
+                'dureeCombustion'   => $this->request->getPost('dureeCombustion'),
+                'saison'            => $this->request->getPost('saison') ?? 'Toutes saisons',
             ];
 
             // ===== IMAGE =====
-            $image = $this->request->getFile('image_name');
+            $image       = $this->request->getFile('image_name');
+            $imageUrl    = $this->request->getPost('image_url'); // champ lien séparé
+            $categorie   = $data['categorie'];
 
+            // Dossier selon catégorie
+            $imagePath = ($categorie === 'NoCap')
+                ? FCPATH . 'pictures/parfums/NoCap/'
+                : FCPATH . 'pictures/marques/';
+
+            // Crée le dossier si nécessaire
+            if (!is_dir($imagePath)) {
+                mkdir($imagePath, 0755, true);
+            }
+
+            // 1️⃣ PRIORITÉ AU FICHIER
             if ($image && $image->isValid() && ! $image->hasMoved()) {
-                // Génère un nom unique
+
                 $imageName = uniqid('prod_', true) . '.' . $image->getExtension();
+                $image->move($imagePath, $imageName);
 
-                // Déplace l'image dans le dossier "test" (ou ton dossier final)
-                $image->move(FCPATH . 'test', $imageName);
-
-                // Ajoute le nom de l'image dans les données à insérer
                 $data['image_name'] = $imageName;
-            } else {
-                // Pas d'image envoyée ou erreur
+            }
+            // 2️⃣ SINON → LIEN
+            elseif (!empty($imageUrl) && filter_var($imageUrl, FILTER_VALIDATE_URL)) {
+
+                $data['image_name'] = $imageUrl;
+            }
+            // 3️⃣ SINON → NULL
+            else {
                 $data['image_name'] = null;
             }
 
             // ===== INSERTION EN BASE =====
-            $insert = $model->insert($data);
+            $insertId = $model->insert($data);
+
+            if ($insertId !== false) {
+                session()->setFlashdata(
+                    'success',
+                    'Produit ajouté avec succès '
+                );
+            } else {
+                session()->setFlashdata(
+                    'error',
+                    "Problème lors de l'ajout du produit"
+                );
+            }
 
 
-            session()->setFlashdata('success', 'Produit modifié avec succès');
+
 
 
             return view('Pages/admin/add/add_product');
-
-            die;
         }
 
         // ===== GET : afficher le formulaire =====
@@ -167,60 +198,89 @@ class Admin extends BaseController
     /**
      * Modifier un produit
      */
-    public function editProduit($id = null)
-    {
-        $model = new ProduitModel();
+public function editProduit($id = null)
+{
+    $model = new ProduitModel();
 
-        if ($id === null) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException();
-        }
-
-        $produit = $model->find($id);
-
-        if (! $produit) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException('Produit introuvable');
-        }
-
-        // ======================
-        // POST → update
-        // ======================
-        
-        if ($this->request->is('post')) {
-
-            $data = [
-                'name'              => $this->request->getPost('name'),
-                'price'             => $this->request->getPost('price'),
-                'description'       => $this->request->getPost('description'),
-                'niveauPrestige'    => $this->request->getPost('niveauPrestige'),
-                'notation'          => $this->request->getPost('notation'),
-                'taille'            => $this->request->getPost('taille'),
-                'quantiteRestante'  => $this->request->getPost('quantiteRestante'),
-                'marque'            => $this->request->getPost('marque'),
-                'categorie'         => $this->request->getPost('categorie'),
-            ];
-
-            // IMAGE OPTIONNELLE
-            $image = $this->request->getFile('image_name');
-
-            if ($image && $image->isValid() && ! $image->hasMoved()) {
-                $imageName = uniqid('prod_', true) . '.' . $image->getExtension();
-                $image->move(FCPATH . 'test', $imageName);
-                $data['image_name'] = $imageName;
-            }
-            //Supprimer l'ancienne image dans le dossier d'image
-            
-
-            $model->update($id, $data);
-
-            session()->setFlashdata('success', 'Produit modifié avec succès');
-
-            return redirect()->to('/admin/edit/product/' . $id);
-        }
-
-        return view('Pages/admin/edit/edit_product', [
-            'produit' => $produit
-        ]);
+    if ($id === null) {
+        throw new \CodeIgniter\Exceptions\PageNotFoundException();
     }
+
+    $produit = $model->find($id);
+
+    if (! $produit) {
+        throw new \CodeIgniter\Exceptions\PageNotFoundException('Produit introuvable');
+    }
+
+    if ($this->request->is('post')) {
+
+        $data = [
+            'name'              => $this->request->getPost('name'),
+            'price'             => $this->request->getPost('price'),
+            'description'       => $this->request->getPost('description'),
+            'niveauPrestige'    => $this->request->getPost('niveauPrestige'),
+            'notation'          => $this->request->getPost('notation'),
+            'taille'            => $this->request->getPost('taille'),
+            'quantiteRestante'  => $this->request->getPost('quantiteRestante'),
+            'marque'            => $this->request->getPost('marque'),
+            'categorie'         => $this->request->getPost('categorie') ?? 'Parfums',
+            'type'              => $this->request->getPost('type'),
+            'typePeau'          => $this->request->getPost('typePeau'),
+            'origine'           => $this->request->getPost('origine'),
+            'dureeCombustion'   => $this->request->getPost('dureeCombustion'),
+            'saison'            => $this->request->getPost('saison') ?? 'Toutes saisons',
+        ];
+
+        $image       = $this->request->getFile('image_name');
+        $imageUrl    = $this->request->getPost('image_url');
+        $categorie   = $data['categorie'];
+
+        $imagePath = ($categorie === 'NoCap')
+            ? FCPATH . 'pictures/parfums/NoCap/'
+            : FCPATH . 'pictures/marques/';
+
+        if (!is_dir($imagePath)) {
+            mkdir($imagePath, 0755, true);
+        }
+
+        // Gestion de l'image
+        if ($image && $image->isValid() && ! $image->hasMoved()) {
+            // Supprime ancienne image si c'était un fichier
+            if(!empty($produit->image_name) && !filter_var($produit->image_name, FILTER_VALIDATE_URL)) {
+                @unlink($imagePath . $produit->image_name);
+            }
+
+            $imageName = uniqid('prod_', true) . '.' . $image->getExtension();
+            $image->move($imagePath, $imageName);
+            $data['image_name'] = $imageName;
+        }
+        elseif (!empty($imageUrl) && filter_var($imageUrl, FILTER_VALIDATE_URL)) {
+            // Supprime ancienne image si c'était un fichier local
+            if(!empty($produit->image_name) && !filter_var($produit->image_name, FILTER_VALIDATE_URL)) {
+                @unlink($imagePath . $produit->image_name);
+            }
+
+            $data['image_name'] = $imageUrl;
+        }
+        else {
+            // Si aucune nouvelle image, on garde l'ancienne
+            $data['image_name'] = $produit->image_name;
+        }
+
+        $updated = $model->update($id, $data);
+
+        if ($updated !== false) {
+            session()->setFlashdata('success', 'Produit modifié avec succès');
+        } else {
+            session()->setFlashdata('error', 'Problème lors de la modification du produit');
+        }
+
+        return redirect()->to('/admin/edit/product/' . $id);
+    }
+
+    return view('Pages/admin/edit/edit_product', ['produit' => $produit]);
+}
+
 
 
     /**

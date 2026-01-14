@@ -100,7 +100,8 @@ $routes->group('dashboard', function($routes) {
 // ADMINISTRATION
 // ====================================================================
 
-$routes->group('admin', ['filter' => 'admin'], function ($routes) {
+
+$routes->group('admin', ['filter' => 'admin'],function ($routes) {
 
     // ==========================
     // Groupe "add" → pour créer des entités
@@ -125,16 +126,16 @@ $routes->group('admin', ['filter' => 'admin'], function ($routes) {
     // ==========================
     $routes->group('edit', function($routes){
         // Modifier un produit par ID
-        $routes->match(['GET','POST'], 'product/(:num)', 'Admin::editProduit');
+        $routes->match(['GET','POST'], 'product/(:num)', 'Admin::editProduit/$1');
 
         // Modifier un utilisateur par ID
-        $routes->match(['GET','POST'], 'user/(:num)', 'Admin::editUser');
+        $routes->match(['GET','POST'], 'user/(:num)', 'Admin::editUser/$1');
 
         // Modifier des stocks par ID
-        $routes->match(['GET','POST'], 'stocks/(:num)', 'Admin::editStocks');
+        $routes->match(['GET','POST'], 'stocks/(:num)', 'Admin::editStocks/$1');
 
         // Modifier des commandes par ID
-        $routes->match(['GET','POST'], 'commandes/(:num)', 'Admin::editCommandes');
+        $routes->match(['GET','POST'], 'commandes/(:num)', 'Admin::editCommandes/$1');
 
         //Modifie le role d'un utilisateur
         $routes->get('role/(:num)/(:segment)','Admin::editRoleUser/$1/$2');
@@ -145,16 +146,16 @@ $routes->group('admin', ['filter' => 'admin'], function ($routes) {
     // ==========================
     $routes->group('delete', function($routes){
         // Supprimer un produit par ID
-        $routes->match(['GET','POST'], 'product/(:num)', 'Admin::deleteProduit');
+        $routes->post( 'product/(:num)', 'Admin::deleteProduit/$1');
 
         // Supprimer un utilisateur par ID
-        $routes->match(['GET','POST'], 'user/(:num)', 'Admin::deleteUser');
+        $routes->post( 'user/(:num)', 'Admin::deleteUser/$1');
 
         // Supprimer des stocks par ID
-        $routes->match(['GET','POST'], 'stocks/(:num)', 'Admin::deleteStocks');
+        $routes->post( 'stocks/(:num)', 'Admin::deleteStocks/$1');
 
         // Supprimer une commande par ID
-        $routes->match(['GET','POST'], 'commande/(:num)', 'Admin::deleteCommande');
+        $routes->post( 'commande/(:num)', 'Admin::deleteCommande/$1');
     });
 
     // ==========================

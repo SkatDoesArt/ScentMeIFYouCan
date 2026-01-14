@@ -45,6 +45,39 @@ class Catalogue extends BaseController
         return view('Pages/catalogue/product', $data);
     }
 
+    public function all(): string
+    {
+        $produitModel = new ProduitModel();
+
+        $data = [
+            // On récupère tout sans le ->where('type', ...)
+            'liste_produits' => $produitModel->paginate(20, 'group1'),
+            'pager' => $produitModel->pager,
+            'query' => null,
+            'categorie' => null,
+            'is_search' => false,
+        ];
+
+        return view('Pages/catalogue/shop', $data);
+    }
+
+    public function parfums()
+    {
+        $produitModel = new ProduitModel();
+
+        $data = [
+
+            'liste_produits' => $produitModel->where('type', 'parfums')->paginate(20, 'group1'),
+            // On récupère l'objet pager pour l'affichage des liens
+            'pager' => $produitModel->pager,
+            'query' => null,
+            'categorie' => null,
+            'is_search' => false,
+        ];
+
+        return view('Pages/catalogue/shop', $data);
+    }
+
     public function brand()
     {
         $modelMarques = new MarquesModel();
@@ -74,9 +107,21 @@ class Catalogue extends BaseController
         return view('Pages/catalogue/shop', $data);
     }
 
-    public function season()
+    public function saison()
     {
         return view('Pages/catalogue/saison');
+    }
+
+    public function season($saison)
+    {
+        $produitModel = new ProduitModel();
+        $data['liste_produits'] = $produitModel->where('saison', $saison)->findAll();
+
+        $data['query'] = null;
+        $data['categorie'] = null;
+        $data['is_search'] = true;
+
+        return view('Pages/catalogue/shop', $data);
     }
 
     public function encens()
@@ -148,6 +193,7 @@ class Catalogue extends BaseController
         $filter = $this->request->getGet('f');
         $brand = $this->request->getGet('brand');
         $price = $this->request->getGet('price');
+        $season = $this->request->getGet('season');
 
         if (empty($filter) && empty($brand) && empty($price)) {
             return redirect()->to(base_url('catalogue?categorie=' . $categorie));

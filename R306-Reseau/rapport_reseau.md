@@ -4,38 +4,38 @@
 
 | Machine | Nom choisi | IP VLAN / Subnet | port  | type |
 | ------- | ---------- | ---------------- | ----- | ---- |
-| Routeur | GW         | 10.0.1.254/24    | 0.10  | Intranet Vlan |
-| Routeur | GW         | 192.168.1.254    | 1     | Internet |
-| Interne | SRV-INT    | 10.0.1.50/24     | 0.10  | Intranet Vla |
-| Externe | HOST-EXT   | 192.168.1.10/24  | 1     | Internet |
+| Routeur | ROUTEUR         | 10.0.1.254/24    | 0.10  | Intranet Vlan |
+| Routeur | ROUTEUR         | 192.168.1.254    | 1     | Internet |
+| Interne | INTERNE    | 10.0.1.50/24     | 0.10  | Intranet Vla |
+| Externe | EXTERNE   | 192.168.1.10/24  | 1     | Internet |
 
-* VLAN interne : VLAN 10 sur eth0.10 (SRV-INT et GW)
+* VLAN interne : VLAN 10 sur eth0.10 (INTERNE et ROUTEUR)
 * Externe : réseau 192.168.1.0/24
 
 
 ## creation des VMs
 ```bash
-vm-add -d srv-int
-vm-add -d gw
-vm-add -d host-ext
+vm-add -d INTERNE
+vm-add -d ROUTEUR
+vm-add -d EXTERNE
 ```
 
 ## lancement des VMs
 ```bash
-vm-run srv-int
-vm-run gw
-vm-run host-ext
+vm-run INTERNE
+vm-run ROUTEUR
+vm-run EXTERNE
 ```
 
 
-## creation des VMs
+## suppression des VMs
 ```bash
-vm-stop srv-int
-vm-stop gw
-vm-stop host-ext
-vm-del srv-int
-vm-del gw
-vm-del host-ext
+vm-stop INTERNE
+vm-stop ROUTEUR
+vm-stop EXTERNE
+vm-del INTERNE
+vm-del ROUTEUR
+vm-del EXTERNE
 ```
 
 ## installations dépendances
@@ -76,7 +76,6 @@ apt install ntpdate
 
 -> INTERNE
 ```bash
-ip a add 10.0.1.10/24 dev eth0  
 ip r add 192.168.1.0/24 via 10.0.1.254  
 ip link set eth0 up  
 ```
@@ -101,20 +100,20 @@ ip r add 10.0.1.0/24 via 192.168.1.254
 
 
 ## Tests  
-**Dans srv-int :**  
+**Dans INTERNE :**  
 
 ```powershell
 ping -c 3 10.0.1.254
 ping -c 3 192.168.1.254
 ping -c 3 192.168.1.10
 ```  
-**Dans gw :**
+**Dans ROUTEUR :**
 
 ```powershell
 ping -c 3 10.0.1.50
 ping -c 3 192.168.1.10
 ```  
-**Dans host-ext :**
+**Dans EXTERNE :**
 
 ```powershell
 ping -c 3 10.0.1.254
@@ -125,16 +124,15 @@ ping -c 3 10.0.1.50
 
 ## 2. VLAN
 
-**SRV-INT :**
+**INTERNE :**
 
 ```bash
 ip link add link eth0 name eth0.10 type vlan id 10  
 ip link set eth0 up  
 ip link set eth0.10 up  
-ip a add 10.0.1.50/24 dev eth0.10  
 ```
 
-**Routeur GW :**
+**Routeur ROUTEUR :**
 
 ```bash
 ip link add link eth0 name eth0.10 type vlan id 10  
@@ -146,8 +144,8 @@ ip a add 10.0.1.254/24 dev eth0.10
 * Test VLAN :
 
 ```powershell
-ping -c 3 10.0.1.254  # depuis SRV-INT
-ping -c 3 10.0.1.50   # depuis GW
+ping -c 3 10.0.1.254  # depuis INTERNE
+ping -c 3 10.0.1.50   # depuis ROUTEUR
 ```
 
 ---
@@ -157,7 +155,7 @@ ping -c 3 10.0.1.50   # depuis GW
 
 * Domaine choisi : `sae.com`
 * Serveur primaire : `ns1.sae.com` (IP 10.0.1.254)
-* Alias : `www.sae.com` → `srv-int.sae.com`
+* Alias : `www.sae.com` → `INTERNE.sae.com`
 
 **Fichier `/etc/resolv.conf` dans TOUS les :**
 
@@ -190,13 +188,13 @@ $TTL 604800
                   604800 )   ; Negative Cache TTL
 
 @       IN  NS      ns1.sae.com.
-dev     IN  NS      srv-int.sae.com.
+dev     IN  NS      INTERNE.sae.com.
 
 ns1     IN  A       10.0.1.254
-gw      IN  A       10.0.1.254
-srv-int IN  A       10.0.1.50
+ROUTEUR      IN  A       10.0.1.254
+INTERNE IN  A       10.0.1.50
 
-www     IN  CNAME   srv-int.sae.com.
+www     IN  CNAME   INTERNE.sae.com.
 ```
 
 * Test :
@@ -213,7 +211,7 @@ host www.sae.com 10.0.1.254
 
 
 ## 4. DHCP
-
+### -> ROUTEUR
 **Fichier `nano /etc/default/isc-dhcp-server` :**
 
 ```bash
@@ -233,54 +231,59 @@ subnet 10.0.1.0 netmask 255.255.255.0 {
 }
 
 host interne {
-    hardware ethernet d6:4b:85:aa:e8:47;  # MAC fixe
+    hardware ethernet d6:4b:85:aa:e8:47;  # MAC de la machine INTERNE
     fixed-address 10.0.1.50;
 }
 ```
-
 * Redémarrer le serveur DHCP :
 
 ```bash
 systemctl restart isc-dhcp-server
 ```
 
+### -> INTERNE 
+**Sur INTERNE : Demander une IP au serveur DHCP**
+```bash
+dhclient eth0.10
+```
+
 ---
 
 ## 5. HTTP
-
-**Installation et configuration sur SRV-INT :**
-
+#### -> ROUTEUR
+**Activer le forwarding dans ROUTEUR :**
 ```powershell
 # Activer le forwarding IP
 echo 1 > /proc/sys/net/ipv4/ip_forward
 ```
 
-
+### -> INTERNE
+**Installation et configuration sur INTERNE :**
 ```bash
 chown -R www-data:www-data /var/www/html/
 chmod -R 775 /var/www/html/
 systemctl restart apache2
 ```
 
-* Vérifier écoute :
+* Verifier ecoute :
 
 ```powershell
 ss -lntp | grep :80
 curl http://10.0.1.50
 ```
 
-**Redirection NAT sur GW (HTTP 8080 → SRV-INT port 80) :**
+**Redirection NAT sur ROUTEUR (HTTP 8080 → INTERNE port 80) :**
 
 ```powershell
 iptables -t nat -A PREROUTING -i eth1 -p tcp --dport 8080 -j DNAT --to-destination 10.0.1.50:80
 
-iptables -t nat -A POSTROUTING -o eth0.10 -j MASQUERADE
+iptables -t nat -A POSTROUTING -o eth1 -j MASQUERADE
 
 iptables -A FORWARD -p tcp -d 10.0.1.50 --dport 80 -j ACCEPT
 iptables -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
 ```
 
-* Test depuis HOST-EXT :
+* Test depuis EXTERNE :
 
 ```powershell
 curl http://192.168.1.254:8080
@@ -291,7 +294,7 @@ curl http://192.168.1.254:8080
 
 ## 6. Apache / HTTP
 
-### 6.1 Installation et configuration sur SRV-INT
+### 6.1 Installation et configuration sur INTERNE
 
 
 ```bash
@@ -356,7 +359,7 @@ curl http://www.sae.com
 
 **Lancer le serveuer depuis la SilverBlue**
 ```bash
-vm-browser srv-int
+vm-browser INTERNE
 ```
 
 *pour .sh*
@@ -373,11 +376,3 @@ vm-browser srv-int
 * DNS : `host www.sae.com 10.0.1.254`
 * HTTP : `curl http://192.168.1.254:8080`
 * DHCP : `ip a` sur INTERNE → vérifier IP fixe et gateway
-
----
-
-## 8. Notes complémentaires
-
-* Firewall : vérifier qu’aucun filtrage n’empêche le NAT ou les connexions HTTP.
-* Toutes les IP utilisées sont cohérentes avec celles de `ip a`.
-* La configuration MVC + sqlite est sur le serveur interne (SRV-INT).

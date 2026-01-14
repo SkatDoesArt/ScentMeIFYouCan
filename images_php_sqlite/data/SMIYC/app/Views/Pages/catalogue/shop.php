@@ -2,17 +2,29 @@
 <html lang="fr">
 
 <?php
-$produits = new \App\Models\Produit\ProduitModel();
+// On récupère le modèle uniquement pour le calcul du prix si la liste est vide
+$produitModel = new \App\Models\Produit\ProduitModel();
 
-if (isset(request()->getGet()['categorie'])) {
+// SECURITE : On s'assure que les variables existent
+$categorie = $categorie ?? request()->getGet('categorie') ?? null;
+$is_search = $is_search ?? false;
+$query     = $query ?? null;
+
+// Filtrage par catégorie 
+if (isset(request()->getGet()['categorie'])){
     $categorie = request()->getGet()['categorie'];
-    $liste_produits = $produits->where('categorie', $categorie)->findAll();
+    $liste_produits = $produitModel->where('categorie', $categorie)->findAll();
 }
 
-$minPrice = min($liste_produits ? array_map(function ($p) {
-    return intval($p->getPrix());
-}, $liste_produits) : [5]);
+// Calcul du prix min sécurisé pour le curseur
+$minPrice = 5;
+if (!empty($liste_produits)) {
+    // On vérifie si c'est un tableau ou un objet (paginate renvoie un tableau)
+    $prices = array_map(fn($p) => is_object($p) ? intval($p->getPrix()) : intval($p['prix']), $liste_produits);
+    $minPrice = min($prices);
+}
 
+$catSlug = $categorie ?? 'all';  
 ?>
 
 <head>
@@ -60,18 +72,13 @@ $minPrice = min($liste_produits ? array_map(function ($p) {
 
         <main class="right">
             <div id="top">
-                <?php if (isset($query) && !empty($query) && $is_search) {
-                    echo '<h2>Résultats pour "' . esc($query) . '"</h2>';
-                } else {
-                    if ($categorie == null) {
-                        echo '<h2>' . esc($liste_produits[0]->marque) . '</h2>';
-                    } else if ($categorie != null) {
-                        echo '<h2>Parfums ' . esc($categorie) . '</h2>';
-                    }
-                } ?>
+                <?php if (isset($query) && !empty($query) && $is_search): ?>
+                    <h2>Résultats pour "<?= esc($query) ?>"</h2>
+                <?php else: ?>
+                    <h2><?= ($categorie === null) ? 'Tous nos Parfums' : 'Parfums ' . esc($categorie) ?></h2>
+                <?php endif; ?>
 
-
-                <form class="shop-controls" role="search" action="<?php if($categorie != null) : echo base_url('catalogue/filters/' . $categorie); else : echo base_url('catalogue/filters/' . $liste_produits[0]->marque); endif; ?>"
+                <form class="shop-controls" role="search" action="<?= base_url('catalogue/filters/' . $catSlug) ?>"
                     method="get" onchange="this.submit()">
                     <?php
                     if (isset($filter) && !empty($filter)) {
@@ -94,7 +101,6 @@ $minPrice = min($liste_produits ? array_map(function ($p) {
                 </form>
             </div>
 
-
             <div class="grid">
                 <?php if (!empty($liste_produits)): ?>
                     <?php foreach ($liste_produits as $p): ?>
@@ -111,8 +117,7 @@ $minPrice = min($liste_produits ? array_map(function ($p) {
                                     <strong><?= number_format($p->getPrix(), 2, ',', ' ') ?> €</strong>
                                 </div>
 
-                                <form method="post" action="<?= base_url('cart/add/' . $p->getId()) ?>"
-                                    class="add-to-cart-form">
+                                <form method="post" action="<?= base_url('cart/add/' . $p->getId()) ?>" class="add-to-cart-form">
                                     <?= csrf_field() ?>
                                     <button type="submit" class="add-to-cart-btn" title="Ajouter au panier">+</button>
                                 </form>
@@ -126,11 +131,16 @@ $minPrice = min($liste_produits ? array_map(function ($p) {
                     </div>
                 <?php endif; ?>
             </div>
+
+            <?php if (isset($pager)): ?>
+                <div class="pagination-container" style="margin-top: 2rem; display: flex; justify-content: center;">
+                    <?= $pager->links('group1', 'default_full') ?>
+                </div>
+            <?php endif; ?>
         </main>
     </div>
 
     <?= view('Pages/partials/footer') ?>
 
 </body>
-
 </html>

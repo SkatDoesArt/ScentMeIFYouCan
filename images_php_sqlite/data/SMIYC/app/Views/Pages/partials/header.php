@@ -55,6 +55,8 @@ $showList = $showList ?? true;
     </div>
     <?php if ($showList): ?>
         <nav id="nav-list">
+            <a href="<?= base_url() ?>catalogue/all"><span class="categorie" role="link">Tout</span></a>
+            <a href="<?= base_url() ?>catalogue/parfums"><span class="categorie" role="link">Parfum</span></a>
             <a href="<?= base_url() ?>catalogue?categorie=Homme"><span class="categorie" role="link">Homme</span></a>
             <a href="<?= base_url() ?>catalogue?categorie=Femme"><span class="categorie" role="link">Femme</span></a>
             <a href="<?= base_url() ?>catalogue?categorie=Unisexe"><span class="categorie" role="link">Unisexe</span></a>
@@ -66,4 +68,24 @@ $showList = $showList ?? true;
             <a href="<?= base_url() ?>catalogue/creme"><span class="categorie" role="link">Crème</span></a>
         </nav>
     <?php endif; ?>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Récupère l'URL actuelle (sans le domaine)
+            const currentUrl = window.location.href;
+
+            // Sélectionne tous les liens dans la barre de navigation
+            const navLinks = document.querySelectorAll('#nav-list a');
+
+            navLinks.forEach(link => {
+                // Si l'URL du lien correspond à l'URL actuelle
+                if (currentUrl === link.href) {
+                    link.classList.add('active');
+                }
+                // Gestion spéciale pour les paramètres d'URL (ex: ?categorie=Homme)
+                else if (currentUrl.includes(link.href) && link.href.includes('?')) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
 </header>

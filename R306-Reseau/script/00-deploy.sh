@@ -6,42 +6,43 @@ PREFIX="E248268G"
 run() {
   VM="$1"
   SCRIPT="$2"
-  echo "=== [$VM] $(basename "$SCRIPT") ==="
   machinectl shell "$VM" /bin/bash -c "$(cat "$SCRIPT")"
 }
 
-echo "[+] Création des VMs"
-vm-add -d srv-int gw host-ext || true
+echo "========= Création des VMs =========="
+vm-add -d INTERNE ROUTEUR EXTERNE || true
 
-echo "[+] Démarrage des VMs"
-vm-run -b srv-int
-vm-run -b gw
-vm-run -b host-ext
+echo "======== demarrage des VMs ========="
+vm-run -b INTERNE
+vm-run -b ROUTEUR
+vm-run -b EXTERNE
 
-sleep 5
+sleep 2
 
 # 1. Mise en place
-run ${PREFIX}-gw       01-mise-en-place/gw.sh
-run ${PREFIX}-srv-int  01-mise-en-place/srv-int.sh
-run ${PREFIX}-host-ext 01-mise-en-place/host-ext.sh
+run ${PREFIX}-ROUTEUR  01-mise-en-place/ROUTEUR.sh
+run ${PREFIX}-INTERNE  01-mise-en-place/INTERNE.sh
+run ${PREFIX}-EXTERNE  01-mise-en-place/EXTERNE.sh
 
 # 2. VLAN
-run ${PREFIX}-gw       02-vlan/gw.sh
-run ${PREFIX}-srv-int  02-vlan/srv-int.sh
+run ${PREFIX}-ROUTEUR  02-vlan/ROUTEUR.sh
+run ${PREFIX}-INTERNE  02-vlan/INTERNE.sh
 
 # 3. DNS
-run ${PREFIX}-gw          03-dns/gw.sh
-run ${PREFIX}-srv-int     03-dns/srv-int.sh
-run ${PREFIX}-host-ext    03-dns/host-ext.sh
+run ${PREFIX}-ROUTEUR  03-dns/ROUTEUR.sh
+run ${PREFIX}-INTERNE  03-dns/nameserver.sh
+run ${PREFIX}-EXTERNE  03-dns/nameserver.sh
 
 # 4. DHCP
-run ${PREFIX}-gw       04-dhcp/gw.sh
+run ${PREFIX}-ROUTEUR  04-dhcp/ROUTEUR.sh
+run ${PREFIX}-INTERNE  04-dhcp/INTERNE.sh
+
 
 # 5. HTTP + NAT
-run ${PREFIX}-srv-int  05-http/srv-int.sh
-run ${PREFIX}-gw       05-http/gw.sh
+run ${PREFIX}-INTERNE  05-http/INTERNE.sh
+run ${PREFIX}-ROUTEUR  05-http/ROUTEUR.sh
 
 # 6. Apache
-run ${PREFIX}-srv-int  06-apache/srv-int.sh
+run ${PREFIX}-INTERNE  06-apache/INTERNE.sh
 
-echo "=== Déploiement terminé ==="
+echo "=== OK ==="

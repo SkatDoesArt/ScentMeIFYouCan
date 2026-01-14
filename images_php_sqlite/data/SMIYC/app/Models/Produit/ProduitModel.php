@@ -130,12 +130,35 @@ class ProduitModel extends Model
    
 
     /**
-     * Renvoie la liste des produits des produits
+     * Renvoie la liste des produits
      * @return array
      */
-    public function getListePorduit(){
+    public function getListeProduit(){
         return $this->findAll();
     }
 
+    /**
+     * Augmente la quantité d'un produit
+     */
+    public function IncrementQauntite(int $id, int $amount = 1): bool
+    {
+        return $this->builder()
+            ->where('id_produit', $id)
+            ->set('quantiteRestante', "quantiteRestante + $amount", false)
+            ->update();
+    }
+
+    /**
+     * Diminue la quantité d'un produit
+     * (empêche le stock négatif)
+     */
+    public function DecrementQauntite(int $id, int $amount = 1): bool
+    {
+        return $this->builder()
+            ->where('id_produit', $id)
+            ->where('quantiteRestante >=', $amount)
+            ->set('quantiteRestante', "quantiteRestante - $amount", false)
+            ->update();
+    }
 
 }

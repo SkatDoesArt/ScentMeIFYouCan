@@ -109,35 +109,42 @@ class Catalogue extends BaseController
 
         $data['liste_produits'] = $resultats;
         $data['query'] = $query;
+        $data['categorie'] = null;
         $data['is_search'] = true;
 
         return view('Pages/catalogue/shop', $data);
     }
 
-    public function filters($categorie = null)
+    public function filters($categorie)
     {
-        $query = $this->request->getGet('f');
+        $filter = $this->request->getGet('f');
+        $brand = $this->request->getGet('brand');
+        $price = $this->request->getGet('price');
 
-        if (empty($query)) {
-            return redirect()->to(base_url('catalogue'));
+        if (empty($filter) && empty($brand) && empty($price)) {
+            return redirect()->to(base_url('catalogue?categorie=' . $categorie));
         }
 
         $produitModel = new ProduitModel();
         $encensModel = new EncensModel();
-        $filter = new Filters();
+        $filterController = new Filters();
+        $data['liste_produits'] = [];
 
-        if ($query == "price-crst" || $query == "price-dcrst") {
-            $data['liste_produits'] = $filter->sortByPrice($query, $categorie);
-        } elseif ($query == "alpha-crst" || $query == "alpha-dcrst") {
-            $data['liste_produits'] = $filter->sortByAlpha($query, $categorie);
-        }  else {
+        if ($filter == "price-crst" || $filter == "price-dcrst") {
+            $data['liste_produits'] = array_merge($data['liste_produits'], $filterController->sortByPrice($filter, $categorie));
+        } elseif ($filter == "alpha-crst" || $filter == "alpha-dcrst") {
+            $data['liste_produits'] = array_merge($data['liste_produits'], $filterController->sortByAlpha($filter, $categorie));
+        } elseif (!empty($brand)) {
+            $data['liste_produits'] = array_merge($data['liste_produits'], $filterController->filterByBrand($brand, $categorie));
+        } elseif( !empty($price)) {
+            $data['liste_produits'] = array_merge($data['liste_produits'], $filterController->filterByPriceRange($price, $categorie));
+        } else {
             return redirect()->to(base_url('catalogue?categorie=' . $categorie));
         }
-
-        $data['query'] = $query;
+        $data['price'] = $price;
+        $data['query'] = null;
         $data['is_search'] = false;
         $data['categorie'] = $categorie;
-        $data['new_url'] = base_url('catalogue?categorie=' . $categorie . '&f=' . $query);
 
         return view('Pages/catalogue/shop', $data);
     }

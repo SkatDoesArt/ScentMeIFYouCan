@@ -111,7 +111,7 @@ ping -c 3 192.168.1.10
 **Dans gw :**
 
 ```bash
-ping -c 3 10.0.1.10
+ping -c 3 10.0.1.50
 ping -c 3 192.168.1.10
 ```  
 **Dans host-ext :**
@@ -119,7 +119,7 @@ ping -c 3 192.168.1.10
 ```bash
 ping -c 3 10.0.1.254
 ping -c 3 192.168.1.254
-ping -c 3 10.0.1.10
+ping -c 3 10.0.1.50
 ```
 
 
@@ -146,8 +146,8 @@ ip a add 10.0.1.254/24 dev eth0.10
 * Test VLAN :
 
 ```bash
-ping 10.0.1.254  # depuis SRV-INT
-ping 10.0.1.50   # depuis GW
+ping -c 3 10.0.1.254  # depuis SRV-INT
+ping -c 3 10.0.1.50   # depuis GW
 ```
 
 ---
@@ -288,7 +288,81 @@ curl http://192.168.1.254:8080
 
 ---
 
-## 6. Vérifications finales
+
+## 6. Apache / HTTP
+
+### 6.1 Installation et configuration sur SRV-INT
+
+
+```bash
+chown -R www-data:www-data /var/www/html
+find /var/www/html -type d -exec chmod 755 {} \;
+find /var/www/html -type f -exec chmod 644 {} \;
+```
+
+**Fichier `/etc/apache2/sites-available/sae.com.conf` :**
+```apache
+<VirtualHost *:80>
+    ServerName sae.com
+    ServerAlias www.sae.com
+
+    DocumentRoot /var/www/html
+
+    <Directory /var/www/html>
+        AllowOverride All
+        Require all granted
+        Options +FollowSymLinks
+    </Directory>
+
+    ErrorLog ${APACHE_LOG_DIR}/sae_error.log
+    CustomLog ${APACHE_LOG_DIR}/sae_access.log combined
+</VirtualHost>
+
+FallbackResource /app/index.php
+```
+
+**Activation du site et rechargement d’Apache :**
+```bash
+a2dissite 000-default.conf
+a2ensite sae.com.conf
+systemctl reload apache2
+```
+
+**Permissions correctes pour www-data sur /var/www/html :**
+```bash
+chown -R www-data:www-data /var/www/html
+find /var/www/html -type d -exec chmod 755 {} \;
+find /var/www/html -type f -exec chmod 644 {} \;
+```
+
+**Les fichiers .htaccess gèrent le routage pour le MVC :**
+```bash
+echo "RewriteEngine On" > /var/www/html/app/.htaccess
+echo "FallbackResource /app/index.php" >> /var/www/html/app/.htaccess
+
+echo "order deny,allow" > /var/www/html/system/.htaccess
+echo "deny from all" > /var/www/html/system/.htaccess
+```
+
+**Tests :**
+```bash
+curl http://sae.com
+```
+
+**Lancer le serveuer depuis la SilverBlue**
+```bash
+vm-browser srv-int
+```
+
+*pour .sh*
+
+    cat > /var/www/html/app/.htaccess <<EOF
+    RewriteEngine On
+    FallbackResource /index.php
+    EOF
+
+
+## 7. Vérifications finales
 
 * Ping VLAN : `ping 10.0.1.254` / `ping 10.0.1.50`
 * DNS : `host www.sae.com 10.0.1.254`
@@ -297,7 +371,7 @@ curl http://192.168.1.254:8080
 
 ---
 
-## 7. Notes complémentaires
+## 8. Notes complémentaires
 
 * Firewall : vérifier qu’aucun filtrage n’empêche le NAT ou les connexions HTTP.
 * Toutes les IP utilisées sont cohérentes avec celles de `ip a`.

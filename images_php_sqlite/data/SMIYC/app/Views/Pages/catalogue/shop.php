@@ -54,15 +54,27 @@ $minPrice = min($liste_produits ? array_map(function($p) {
         <main class="right">
             <div id="top">
                 <?php if (isset($query) && !empty($query) && $is_search): ?>
-                    <h2>Résultats pour "<?= esc($query[0]) ?>"</h2>
+                    <h2>Résultats pour "<?= esc($query) ?>"</h2>
                 <?php else: ?>
                     <h2>Parfum <?= esc($categorie) ?></h2>
                 <?php endif; ?>
 
                 <form class="shop-controls" role="search" action="<?= base_url('catalogue/filters/' . $categorie) ?>"
                     method="get" onchange="this.submit()">
+                    <?php 
+                    if(isset($filter) && !empty($filter)) {
+                        echo '<script type="text/javascript">
+                            document.addEventListener("DOMContentLoaded", function() {
+                                const sortFilter = document.getElementById("sort-filter");
+                                sortFilter.value = "'. esc($filter) .'";
+                            });
+                        </script>';
+                    }
+                        
+                    ?>
+
                     <select id="sort-filter" name="f" inputmode="search" interkeyhint="search">
-                        <option value="none" selected>Choisissez un filtre</option>
+                        <option value="none">Choisissez un filtre</option>
                         <option value="price-crst">Trier par prix croissant</option>
                         <option value="price-dcrst">Trier par prix décroissant</option>
                         <option value="alpha-crst">Trier par ordre alphabétique (A-Z)</option>
@@ -99,7 +111,7 @@ $minPrice = min($liste_produits ? array_map(function($p) {
                 <?php else: ?>
                     <div class="no-results">
                         <p>Désolé, aucun produit ne correspond à votre recherche.</p>
-                        <a href="<?= base_url('catalogue?categorie=' . $categorie) ?>" class="btn">Retour au catalogue</a>
+                        <a href="javascript:history.back()" class="btn">Retour au catalogue</a>
                     </div>
                 <?php endif; ?>
             </div>

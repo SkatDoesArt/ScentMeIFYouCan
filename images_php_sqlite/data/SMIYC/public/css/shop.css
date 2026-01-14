@@ -131,7 +131,7 @@ a#plus-marques {
 
 .card img {
     width: 100%;
-    height: 250px;
+    height: 250px !important;
     background: #ddd;
     border-radius: 8px;
     object-fit: cover;

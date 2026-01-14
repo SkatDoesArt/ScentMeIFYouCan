@@ -58,6 +58,25 @@ class Catalogue extends BaseController
         return view('Pages/catalogue/marques', $data);
     }
 
+    public function marque($marque)
+    {
+        // $idMarque = $this->request->getGet('id_marques');
+        // $marque = urldecode($marque);
+
+        if (!$marque) {
+            return redirect()->to(base_url('catalogue/marques'));
+        }
+
+        $produitModel = new ProduitModel();
+        $data['liste_produits'] = $produitModel->where('marque', $marque)->findAll();
+
+        $data['query'] = null;
+        $data['categorie'] = null;
+        $data['is_search'] = true;
+
+        return view('Pages/catalogue/shop', $data);
+    }
+
     public function season()
     {
         return view('Pages/catalogue/saison');
@@ -100,14 +119,13 @@ class Catalogue extends BaseController
         $produitModel = new ProduitModel();
 
         // Une seule requête sur la table globale 'produit'
-        $resultats = $produitModel
+        $data['liste_produits'] = $produitModel
             ->groupStart() // Début de la parenthèse pour le filtre de recherche
             ->like('name', $query)
             ->orLike('marque', $query)
             ->groupEnd()
             ->findAll();
 
-        $data['liste_produits'] = $resultats;
         $data['query'] = $query;
         $data['categorie'] = null;
         $data['is_search'] = true;
@@ -142,6 +160,7 @@ class Catalogue extends BaseController
             return redirect()->to(base_url('catalogue?categorie=' . $categorie));
         }
         $data['price'] = $price;
+        $data['filter'] = $filter;
         $data['query'] = null;
         $data['is_search'] = false;
         $data['categorie'] = $categorie;

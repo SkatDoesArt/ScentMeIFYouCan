@@ -32,7 +32,7 @@
                                     <h1><?= esc($marque->getFullTitle()) ?></h1>
                                     <p><?= esc($marque->description) ?></p>
                                     <div class="more">
-                                        <a href="<?= base_url('catalogue/marque/' . $marque->id_marques) ?>">Voir plus</a>
+                                        <a href="<?= base_url('catalogue/marque/' . urlencode($marque->getFullTitle())) ?>">Voir plus</a>
                                     </div>
                                 </div>
                             </div>

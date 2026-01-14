@@ -35,7 +35,7 @@ $routes->group('auth', function($routes) {
 $routes->group('catalogue', function($routes) {
     //Pages Principale
     $routes->get('marques', 'Catalogue::brand');
-    $routes->get('saison', 'Catalogue::season');
+    $routes->get('saison', 'Catalogue::saison');
     $routes->get('encens', 'Catalogue::encens');
     $routes->get('creme', 'Catalogue::creme');
     $routes->get('exotique', 'Catalogue::exotique');
@@ -45,6 +45,9 @@ $routes->group('catalogue', function($routes) {
     $routes->get('search', 'Catalogue::search');
     $routes->get('filters/(:any)', 'Catalogue::filters/$1');
     $routes->get('marque/(:any)', 'Catalogue::marque/$1');
+    $routes->get('season/(:any)', 'Catalogue::season/$1');
+    $routes->get('parfums', 'Catalogue::parfums');
+    $routes->get('all', 'Catalogue::all');
 });
 
 

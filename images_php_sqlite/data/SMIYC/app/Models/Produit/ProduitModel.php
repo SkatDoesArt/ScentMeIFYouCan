@@ -110,10 +110,10 @@ class ProduitModel extends Model
     }
 
     /**
-     * Renvoie la liste des produits des produits
+     * Renvoie la liste des produits
      * @return array
      */
-    public function getListePorduit(){
+    public function getListeProduit(){
         return $this->findAll();
     }
 

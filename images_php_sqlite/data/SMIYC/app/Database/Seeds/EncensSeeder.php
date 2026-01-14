@@ -26,7 +26,7 @@ class EncensSeeder extends Seeder
                 'saison' => 'Printemps'
             ],
             [
-                'image_name' => 'https://imgs.search.brave.com/d40lEYBfUmwpgaLpqmRFzp62-OaE4Hjbxuks_ZqPIBE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMuc3dlZXRjYXJl/LmNvbS9pbWcvcHJk/LzQ4OC92LTYzODc3/MTk5MzY0MDkzOTg3/OC9yaXR1YWxzL0y0/MjMyMDF1aC0xLndl/YnA',
+                'image_name' => 'https://m.media-amazon.com/images/I/81OgMM1666S._AC_UF894,1000_QL80_.jpg',
                 'name' => 'The Ritual of Ayurveda – Fragrance Sticks',
                 'description' => "Équilibrez vos énergies avec la rose indienne et l'amande douce.",
                 'price' => 29.90,
@@ -267,7 +267,7 @@ class EncensSeeder extends Seeder
 
             // --- BYREDO ---
             [
-                'image_name' => 'https://imgs.search.brave.com/wzOkBIsAi-Cl9r2fmWEir9Qny77L_g8vLxFiW-k8x_4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/Y3JlYW1jYW5kbGVj/by5jb20vY2RuL3No/b3AvcHJvZHVjdHMv/Q3JlYW1_Q2FuZGxl/X0NvX1JFRURfRElG/RlVTRVJfNF8wZGY3/YjI0OS05Y2IwLTQ2/ZWYtYTExMi0yOTYw/ZGViNzA5OGNfMTAy/NHgxMDI0LmpwZz92/PTE2NjkwNjM0NjM',
+                'image_name' => 'https://www.liquides-parfums.com/979-medium_default/bibliotheque-edp-spray-100ml.jpg',
                 'name' => 'Bibliothèque – Reed Diffuser',
                 'description' => "Un monde de livres anciens, de cuir et de vanille.",
                 'price' => 110.00,

@@ -114,18 +114,18 @@
         </div>
         <div id="product-panels">
             <div class="panel" id="panel1">
-                <a href="">
+                <a href="<?= base_url('catalogue/product/84') ?>">
                     <h3>Je découvre</h3>
                 </a>
             </div>
             <div class="panel" id="panel2">
-                <a href="">
+                <a href="<?= base_url('catalogue/product/100') ?>">
                     <h3>Je découvre</h3>
                 </a>
             </div>
             <div id="small-products-panels">
                 <div class="panel" id="panel-exotique">
-                    <a href="">
+                    <a href="<?= base_url('catalogue/exotique') ?>">
                         <h4>Exotique</h4>
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000"
                             viewBox="0 0 256 256">
@@ -136,7 +136,7 @@
                     </a>
                 </div>
                 <div class="panel" id="panel-homme">
-                    <a href="">
+                    <a href="<?= base_url('catalogue?categorie=Homme') ?>">
                         <h4>Homme</h4>
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000"
                             viewBox="0 0 256 256">

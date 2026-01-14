@@ -2,114 +2,208 @@
    Targets: #header, #header-container, #menu-toggle, #nav-upper, #bigname,
             .recherche, #nav-buttons, #nav-list, .categorie
 */
-:root{
-  --header-bg: #ffffff;
-  --accent: #111827;
-  --muted: #6b7280;
-  --primary: #c0392b;
-  --radius: 10px;
-  --gap: 12px;
+:root {
+    --header-bg: #ffffff;
+    --accent: #111827;
+    --muted: #6b7280;
+    --primary: #c0392b;
+    --radius: 10px;
+    --gap: 12px;
 }
 
 /* Header base */
-#header{
-  width:100%;
-  background: var(--header-bg);
-  border-bottom: 1px solid #eef2f6;
-  position:sticky;
-  top:0; z-index:80;
+#header {
+    width: 100%;
+    background: var(--header-bg);
+    border-bottom: 1px solid #eef2f6;
+    position: sticky;
+    top: 0;
+    z-index: 80;
 }
 
-#header-container{
-  max-width:1200px;
-  margin:0 auto;
-  padding:10px 16px;
-  display:flex;
-  align-items:center;
-  gap:var(--gap);
+#header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: var(--gap);
 }
 
-#menu-toggle{
-  display:none; /* shown on small screens */
-  cursor:pointer;
-  padding:8px;
-  color:var(--muted);
+#menu-toggle {
+    display: none; /* shown on small screens */
+    cursor: pointer;
+    padding: 8px;
+    color: var(--muted);
 }
 
-#nav-upper{
-  display:flex;
-  align-items:center;
-  gap:16px;
-  width:100%;
+#nav-upper {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
 }
 
-#bigname{
-  margin:0;
-  font-size:1.25rem;
-  font-weight:700;
-  letter-spacing:0.6px;
+#bigname {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.6px;
 }
 
-#bigname a{ color:var(--accent); text-decoration:none; }
-
-.recherche{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  margin-left:8px;
-  flex:1 1 420px;
-  max-width:720px;
+#bigname a {
+    color: var(--accent);
+    text-decoration: none;
 }
 
-.recherche input[type="search"]{
-  width:100%;
-  padding:10px 12px;
-  border:1px solid #e6eef6;
-  border-radius:8px;
-  outline:none;
-  background:#fbfdff;
-  color:var(--accent);
-  transition:box-shadow .12s ease, border-color .12s ease;
-}
-.recherche input[type="search"]:focus{
-  border-color:var(--primary);
-  box-shadow:0 6px 20px rgba(192,57,43,0.06);
+.recherche {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 8px;
+    flex: 1 1 420px;
+    max-width: 720px;
 }
 
-.recherche button{ background:none; border:none; padding:6px; color:var(--muted); cursor:pointer; }
-
-#nav-buttons{
-  display:flex; align-items:center; gap:12px; margin-left:auto;
+.recherche input[type="search"] {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #e6eef6;
+    border-radius: 8px;
+    outline: none;
+    background: #fbfdff;
+    color: var(--accent);
+    transition: box-shadow .12s ease, border-color .12s ease;
 }
 
-#nav-buttons a{ display:flex; align-items:center; gap:8px; color:var(--muted); text-decoration:none; }
-#nav-buttons a p{ margin:0; font-size:0.95rem; }
+.recherche input[type="search"]:focus {
+    border-color: var(--primary);
+    box-shadow: 0 6px 20px rgba(192, 57, 43, 0.06);
+}
+
+.recherche button {
+    background: none;
+    border: none;
+    padding: 6px;
+    color: var(--muted);
+    cursor: pointer;
+}
+
+#nav-buttons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: auto;
+}
+
+#nav-buttons a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--muted);
+    text-decoration: none;
+}
+
+#nav-buttons a p {
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+/* Logout link styling */
+.logout-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--muted);
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: background .12s ease, color .12s ease, border-color .12s ease;
+}
+
+.logout-link:hover {
+    background: #f8fafb;
+    color: var(--accent);
+    border-color: #edf2f7;
+}
+
+.logout-link:focus {
+    outline: 3px solid rgba(17, 24, 39, 0.06);
+    outline-offset: 2px;
+}
+
+.logout-text {
+    font-weight: 600;
+    font-size: 2rem;
+}
 
 /* Secondary nav list categories */
-#nav-list{
-  display:flex; gap:10px; padding:8px 16px; overflow:auto; background:transparent;
+#nav-list {
+    display: flex;
+    gap: 10px;
+    padding: 8px 16px;
+    overflow: auto;
+    background: transparent;
 }
-#nav-list a{ text-decoration:none; color:var(--muted); }
-#nav-list a .categorie{ display:inline-block; padding:8px 12px; border-radius:8px; transition:background .12s ease, color .12s ease; }
-#nav-list a:hover .categorie{ background:#f3f4f6; color:var(--accent); }
-#nav-list a.active .categorie, #nav-list a .categorie.active{ background:var(--primary); color:#fff; }
+
+#nav-list a {
+    text-decoration: none;
+    color: var(--muted);
+}
+
+#nav-list a .categorie {
+    display: inline-block;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: background .12s ease, color .12s ease;
+}
+
+#nav-list a:hover .categorie {
+    background: #f3f4f6;
+    color: var(--accent);
+}
+
+#nav-list a.active .categorie, #nav-list a .categorie.active {
+    background: var(--primary);
+    color: #fff;
+}
 
 /* Responsive */
-@media (max-width:900px){
-  .recherche{ flex:1 1 200px; }
-}
+@media (max-width: 640px) {
+    #menu-toggle {
+        display: block;
+    }
 
-@media (max-width:680px){
-  #menu-toggle{ display:block; }
-  #nav-list{ display:none; }
-  #nav-buttons p{ display:none; }
-  .recherche{ display:none; }
-  #bigname{ font-size:1rem; }
+    #nav-list {
+        display: none;
+    }
+
+    #nav-buttons p {
+        display: none;
+    }
+
+    .recherche {
+        display: none;
+    }
+
+    #bigname {
+        font-size: 1rem;
+    }
+
+    .logout-text {
+        display: none;
+    }
 }
 
 /* Small helpers */
-.hidden{ display:none !important; }
+.hidden {
+    display: none !important;
+}
 
 /* Accessibility focus */
-a:focus, button:focus, input:focus{ outline: 3px solid rgba(17,24,39,0.06); outline-offset:2px; }
-
+a:focus, button:focus, input:focus {
+    outline: 3px solid rgba(17, 24, 39, 0.06);
+    outline-offset: 2px;
+}

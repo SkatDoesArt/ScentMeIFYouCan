@@ -17,7 +17,7 @@
 <?= view('Pages/partials/header', ['showCart' => true, 'showList' => false]) ?>
 
 <div id="body">
-    <h1>Votre Compte</h1>
+    <h1 class="dashboard-title">Votre Compte</h1>
     <div id="body-content">
         <div id="categories">
             <ul>

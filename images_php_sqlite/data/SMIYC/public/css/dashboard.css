@@ -33,7 +33,7 @@ body {
     font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
 }
 
-h1 {
+h1.dashboard-title {
     font-size: 1.6rem;
     margin: 20px 0 12px 20vw;
 }

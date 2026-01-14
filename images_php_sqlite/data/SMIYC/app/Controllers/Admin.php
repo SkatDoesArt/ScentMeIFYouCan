@@ -3,10 +3,10 @@
 namespace App\Controllers;
 
 use App\Models\Produit\ProduitModel;
+use CodeIgniter\Shield\Models\UserIdentityModel;
 use CodeIgniter\Shield\Models\UserModel;
-
-use CodeIgniter\Exceptions\PageNotFoundException;
 use CodeIgniter\Shield\Entities\User;
+use CodeIgniter\Exceptions\PageNotFoundException;
 
 class Admin extends BaseController
 {
@@ -108,7 +108,7 @@ class Admin extends BaseController
                 mkdir($imagePath, 0755, true);
             }
 
-            // 1️⃣ PRIORITÉ AU FICHIER
+            // PRIORITÉ AU FICHIER
             if ($image && $image->isValid() && ! $image->hasMoved()) {
 
                 $imageName = uniqid('prod_', true) . '.' . $image->getExtension();
@@ -116,12 +116,12 @@ class Admin extends BaseController
 
                 $data['image_name'] = $imageName;
             }
-            // 2️⃣ SINON → LIEN
+            //  SINON → LIEN
             elseif (!empty($imageUrl) && filter_var($imageUrl, FILTER_VALIDATE_URL)) {
 
                 $data['image_name'] = $imageUrl;
             }
-            // 3️⃣ SINON → NULL
+            //  SINON → NULL
             else {
                 $data['image_name'] = null;
             }
@@ -159,34 +159,54 @@ class Admin extends BaseController
      */
 
 
-    public function addUser()
-    {
-        if ($this->request->is('post')) {
-            $users = auth()->getProvider();
+public function addUser()
+{
+    if ($this->request->is('post')) {
 
-            if (! $users->insert([
-                'username' => $this->request->getPost('name'),
-                'email'    => $this->request->getPost('email'),
-                'password' => $this->request->getPost('password'),
-            ])) {
-                session()->setFlashdata('error', 'Erreur lors de la création de l’utilisateur');
-                return view('Pages/admin/add/add_user');
-            }
-            $user = $users->findById($users->getInsertID());
-            $statut = $this->request->getPost('statut');
-            redirect()->to(base_url('/admin/role/' . $user->id . '/' . $statut));
+        $userModel = new UserModel();
+
+        $statut   = $this->request->getPost('statut');
+        $username = $this->request->getPost('name');
+        $email    = $this->request->getPost('email');
+        $password = $this->request->getPost('password');
+
+        try {
+            //  Création user
+            $user = new User([
+                'username' => $username,
+                'active'   => 1,
+            ]);
+
+            $userModel->save($user);
+
+            // Récupération du user persisté
+            $userId = $userModel->getInsertID();
+            $user   = $userModel->findById($userId);
+
+            //  Création identité email + password
+            $user->createEmailIdentity([
+                'email'    => $email,
+                'password' => $password,
+            ]);
+
+            //  Assignation au groupe
+            $user->addGroup($statut);
+            
             session()->setFlashdata('success', 'Utilisateur ajouté avec succès');
+            return redirect()->back();
+
+        } catch (\Throwable $e) {
+
+            log_message('error', $e->getMessage());
+            session()->setFlashdata('error', 'Erreur lors de la création de l’utilisateur');
+            return redirect()->back();
         }
-        return view('Pages/admin/add/add_user');
     }
 
-    /**
-     * Ajouter des stocks
-     */
-    public function addStocks()
-    {
-        // TODO: formulaire et insertion stock
-    }
+    return view('Pages/admin/add/add_user');
+}
+
+
 
 
 
@@ -198,8 +218,8 @@ class Admin extends BaseController
     /**
      * Modifier un produit
      */
-public function editProduit($id = null)
-{
+    public function editProduit($id = null)
+    {
     $model = new ProduitModel();
 
     if ($id === null) {
@@ -314,13 +334,6 @@ public function editProduit($id = null)
     }
 
 
-    /**
-     * Modifier des stocks
-     */
-    public function editStocks($id = null)
-    {
-        // TODO: récupérer le stock $id et afficher formulaire modification
-    }
 
     /**
      * Modifier une commande
@@ -433,7 +446,34 @@ public function editProduit($id = null)
 
             $message = 'Utilisateur rétrogradé en utilisateur';
         }
-
+        
+        $user->activate();
         return redirect()->back()->with('success', $message);
+    }
+
+
+    /**
+     * Augmente le stocks d'un produit des stocks
+     */
+    public function addStocks($id)
+    {
+        $produitModel = new ProduitModel();
+        if($id==null){
+            return redirect()->back()->with('error',"Le produit n'éxiste pas");
+        }
+        $produitModel->IncrementQauntite($id);
+        return redirect()->back()->with('success',  'La quantite du produit a été augmenté');
+    }
+
+    /**
+     * Diminuer le stocks d'un produit des stocks
+     */
+    public function removeStocks($id = null){
+        $produitModel = new ProduitModel();
+        if($id==null){
+            return redirect()->back()->with('error',"Le produit n'éxiste pas");
+        }
+        $produitModel->DecrementQauntite($id);
+        return redirect()->back()->with('success',  'La quantite du produit a été augmenté');
     }
 }

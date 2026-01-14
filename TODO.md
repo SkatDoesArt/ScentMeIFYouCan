@@ -8,7 +8,7 @@ R301 :
 - ADMIN
 
     avoir compte admin
-    gerer users
+    gerer users(création et modification)
     gerer pdts
 
 - PANIER

@@ -102,7 +102,7 @@ $routes->group('dashboard', function($routes) {
 // ====================================================================
 
 
-$routes->group('admin', ['filter' => 'admin'],function ($routes) {
+$routes->group('admin',['filter' => 'admin'],function ($routes) {
 
     // ==========================
     // Groupe "add" → pour créer des entités
@@ -132,14 +132,17 @@ $routes->group('admin', ['filter' => 'admin'],function ($routes) {
         // Modifier un utilisateur par ID
         $routes->match(['GET','POST'], 'user/(:num)', 'Admin::editUser/$1');
 
-        // Modifier des stocks par ID
-        $routes->match(['GET','POST'], 'stocks/(:num)', 'Admin::editStocks/$1');
+        //Augmente la quantite d'un produit
+        $routes->post('add_quantite/product/(:num)','Admin::addStocks/$1');
+        
+        //Diminue la quantite d'un produit
+        $routes->post('quantite/product/(:num)','Admin::removeStocks/$1');
 
         // Modifier des commandes par ID
         $routes->match(['GET','POST'], 'commandes/(:num)', 'Admin::editCommandes/$1');
 
         //Modifie le role d'un utilisateur
-        $routes->get('role/(:num)/(:segment)','Admin::editRoleUser/$1/$2');
+        $routes->post('role/(:num)/(:segment)','Admin::editRoleUser/$1/$2');
     });
 
     // ==========================
@@ -159,6 +162,8 @@ $routes->group('admin', ['filter' => 'admin'],function ($routes) {
         $routes->post( 'commande/(:num)', 'Admin::deleteCommande/$1');
     });
 
+
+    
     // ==========================
     // Routes principales / tableau de bord
     // ==========================

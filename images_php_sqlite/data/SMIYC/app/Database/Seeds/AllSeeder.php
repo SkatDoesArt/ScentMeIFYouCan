@@ -19,5 +19,6 @@ class AllSeeder extends Seeder
         $this->call('CremeSeeder');
         $this->call('ProduitSeeder');
         $this->call('ExotiqueSeeder');
+        $this->call('AdminSeeder');
     }
 }

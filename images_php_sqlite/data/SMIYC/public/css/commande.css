@@ -1,0 +1,72 @@
+.container-commande {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px;
+}
+
+#infos {
+    flex: 1;
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+#infos form {
+    display: flex;
+    flex-direction: column;
+}
+
+#infos label {
+    /* margin-top: 10px; */
+    margin-bottom: 5px;
+}
+
+#infos input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+#infos input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 28px;
+    background: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#recapPanier {
+    flex: 1;
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 5px;
+    width: 80%;
+}
+
+/* La div panier devient scrollable */
+.panier {
+    flex: 2;
+    max-height: 400px; /* ou la hauteur que tu veux */
+    overflow-y: auto;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.summary {
+    flex: 1;
+    border: none;
+    padding: 15px;
+    border-radius: 5px;
+    position: sticky;
+    top: 0; /* reste collé en haut de la page */
+    height: fit-content;
+}
+
+.summary input[type="submit"] {
+    margin-top: 22px;
+    border-radius: 4px;
+}

@@ -14,9 +14,9 @@ class AdminSeeder extends Seeder
         $users = [
             [
                 'username' => 'admin',
-                'email'    => 'admin@test.com',
+                'email' => 'admin@test.com',
                 'password' => 'password',
-                'group'    => 'admin',
+                'group' => 'admin',
             ],
 
         ];
@@ -24,24 +24,27 @@ class AdminSeeder extends Seeder
         $userModel = new UserModel();
 
         foreach ($users as $data) {
+            // 1. Vérifier si l'utilisateur existe déjà par son username ou email
+            if ($userModel->where('username', $data['username'])->first()) {
+                continue; // Passe à l'utilisateur suivant s'il existe déjà
+            }
+
             $user = new User([
                 'username' => $data['username'],
-                'active'   => 1,
+                'active' => 1,
             ]);
-
-            // Sauvegarde user
             $userModel->save($user);
 
             // Récupération de l'utilisateur créé
             $user = $userModel->findById($userModel->getInsertID());
 
-            // Ajout email + mot de passe (auth_identities)
+            // Ajout email + mot de passe
             $user->createEmailIdentity([
-                'email'    => $data['email'],
+                'email' => $data['email'],
                 'password' => $data['password'],
             ]);
 
-            // Assignation au groupe admin (auth_groups_users)
+            // Assignation au groupe admin
             $user->addGroup('admin');
         }
     }

@@ -1,0 +1,60 @@
+/* Admin users table styling - coherent with product cards design */
+:root{
+  --bg: #f7f8fb;
+  --card-bg: #ffffff;
+  --muted: #6b7280;
+  --accent: #111827;
+  --accent-2: #c0392b;
+  --radius: 12px;
+  --shadow: 0 6px 18px rgba(15,23,42,0.06);
+}
+
+.container{ max-width:1200px; margin:24px auto; padding:16px; }
+
+.users-card{
+  background:var(--card-bg);
+  border-radius:var(--radius);
+  padding:16px;
+  box-shadow:var(--shadow);
+  overflow:auto;
+}
+
+.users-table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:640px;
+}
+.users-table thead th{
+  text-align:left;
+  padding:12px 14px;
+  font-weight:700;
+  border-bottom:1px solid #eef2f6;
+  background:transparent;
+}
+.users-table tbody td{
+  padding:12px 14px;
+  border-bottom:1px solid #fbfbfb;
+  vertical-align:middle;
+}
+
+.users-table tbody tr:hover{ background:#fbfbff; }
+
+.user-actions{ display:flex; gap:10px; align-items:center; }
+.user-actions form{ display:inline-block; }
+.user-actions button{ background:transparent; border:none; cursor:pointer; padding:6px; border-radius:8px; display:inline-flex; align-items:center; justify-content:center; }
+.user-actions button:hover{ background:#f3f4f6; }
+
+/* small screens: stack cells */
+@media (max-width:760px){
+  .users-table{ min-width:0; }
+  .users-table thead{ display:none; }
+  .users-table tbody td{ display:block; padding:8px 10px; }
+  .users-table tbody td:before{ font-weight:700; display:inline-block; width:110px; color:var(--muted); }
+  .users-table tbody td:nth-child(1):before{ content: "ID"; }
+  .users-table tbody td:nth-child(2):before{ content: "Username"; }
+  .users-table tbody td:nth-child(3):before{ content: "Email"; }
+  .users-table tbody td:nth-child(4):before{ content: "Groupes"; }
+  .users-table tbody td:nth-child(5):before{ content: "Créé"; }
+  .users-table tbody td:nth-child(6):before{ content: "Actions"; }
+}
+

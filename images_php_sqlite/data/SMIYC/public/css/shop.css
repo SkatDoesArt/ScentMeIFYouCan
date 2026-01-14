@@ -248,3 +248,25 @@ a#plus-marques {
     }
 }
 
+.brand-btn {
+        background: none;
+        border: none;
+        padding: 5px 0;
+        cursor: pointer;
+        display: block;
+        text-align: left;
+        color: #666; /* Couleur par défaut grise */
+        transition: 0.3s;
+    }
+
+    .brand-btn:hover {
+        color: #000;
+    }
+
+    /* La classe qui s'active quand on clique */
+    .active-brand {
+        color: #000 !important;
+        font-weight: bold;
+        text-decoration: underline;
+    }
+

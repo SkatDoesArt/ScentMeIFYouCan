@@ -109,6 +109,26 @@ class ProduitModel extends Model
         return $this->like('type', $type)->findAll();
     }
 
+    public function getByPrix(float $prix)
+    {
+        return $this->where('price <=', $prix)->findAll();
+    }
+
+    public function getByMarqueSorted(string $marque, string $col, string $order = 'ASC')
+    {
+        return $this->like('marque', $marque)
+            ->orderBy($col, $order)
+            ->findAll();
+    }
+
+    public function getByMarqueAndPrix(string $marque, float $prix)
+    {
+        return $this->where('price <=', $prix)
+            ->like('marque', $marque)
+            ->findAll();
+    }
+   
+
     /**
      * Renvoie la liste des produits des produits
      * @return array

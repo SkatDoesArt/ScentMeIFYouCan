@@ -9,7 +9,7 @@ if (isset(request()->getGet()['categorie'])) {
     $liste_produits = $produits->where('categorie', $categorie)->findAll();
 }
 
-$minPrice = min($liste_produits ? array_map(function($p) {
+$minPrice = min($liste_produits ? array_map(function ($p) {
     return intval($p->getPrix());
 }, $liste_produits) : [5]);
 
@@ -35,42 +35,53 @@ $minPrice = min($liste_produits ? array_map(function($p) {
         <aside class="left">
             <h2>Filtres</h2>
             <h3><strong>Marques</strong></h3>
-            <form id="brand-filters" role="search" action="<?= base_url('catalogue/filters/' . $categorie) ?>" method="get">
-                <input type="submit" value="Serge Lutens" name="brand" inputmode="search" interkeyhint="search">
-                <input type="submit" value="Guerlain" name="brand" inputmode="search" interkeyhint="search">
-                <input type="submit" value="Dior" name="brand" inputmode="search" interkeyhint="search">
-                <input type="submit" value="Armani" name="brand" inputmode="search" interkeyhint="search">
+            <form id="brand-filters" role="search" action="<?= base_url('catalogue/filters/' . $categorie) ?>"
+                method="get">
+                <?php
+                $brands = array_unique(array_map(function ($p) {
+                    return $p->marque;
+                }, $liste_produits));
+                
+                foreach ($brands as $brand): ?>
+                    <input type="submit" value="<?= esc($brand) ?>" name="brand" inputmode="search" interkeyhint="search">
+                <?php endforeach; ?>
             </form>
 
             <a id="plus-marques" href="<?= base_url("catalogue/marques") ?>">Voir plus de marques</a>
 
             <h4>Prix</h4>
-            <form id="price-range" role="search" action="<?= base_url('catalogue/filters/' . $categorie) ?>" method="get" onchange="this.submit()">
-                <input id="pi_input" type="range" min="<?= $minPrice ?? 5 ?>" max="350" step="5" value="<?= $price ?? 350 ?>" name="price" inputmode="search" interkeyhint="search">
+            <form id="price-range" role="search" action="<?= base_url('catalogue/filters/' . $categorie) ?>"
+                method="get" onchange="this.submit()">
+                <input id="pi_input" type="range" min="5" max="<?= $maxPrice ?? 350 ?>" step="5"
+                    value="<?= $price ?? 350 ?>" name="price" inputmode="search" interkeyhint="search">
                 <p><output id="price-value"><?= $price ?? 350 ?></output> €</p>
             </form>
         </aside>
 
         <main class="right">
             <div id="top">
-                <?php if (isset($query) && !empty($query) && $is_search): ?>
-                    <h2>Résultats pour "<?= esc($query) ?>"</h2>
-                <?php else: ?>
-                    <h2>Parfum <?= esc($categorie) ?></h2>
-                <?php endif; ?>
+                <?php if (isset($query) && !empty($query) && $is_search) {
+                    echo '<h2>Résultats pour "' . esc($query) . '"</h2>';
+                } else {
+                    if ($categorie == null) {
+                        echo '<h2>' . esc($liste_produits[0]->marque) . '</h2>';
+                    } else if ($categorie != null) {
+                        echo '<h2>Parfums ' . esc($categorie) . '</h2>';
+                    }
+                } ?>
 
-                <form class="shop-controls" role="search" action="<?= base_url('catalogue/filters/' . $categorie) ?>"
+
+                <form class="shop-controls" role="search" action="<?php if($categorie != null) : echo base_url('catalogue/filters/' . $categorie); else : echo base_url('catalogue/filters/' . $liste_produits[0]->marque); endif; ?>"
                     method="get" onchange="this.submit()">
-                    <?php 
-                    if(isset($filter) && !empty($filter)) {
+                    <?php
+                    if (isset($filter) && !empty($filter)) {
                         echo '<script type="text/javascript">
                             document.addEventListener("DOMContentLoaded", function() {
                                 const sortFilter = document.getElementById("sort-filter");
-                                sortFilter.value = "'. esc($filter) .'";
+                                sortFilter.value = "' . esc($filter) . '";
                             });
                         </script>';
                     }
-                        
                     ?>
 
                     <select id="sort-filter" name="f" inputmode="search" interkeyhint="search">

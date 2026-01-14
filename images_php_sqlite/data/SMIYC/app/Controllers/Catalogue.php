@@ -60,9 +60,6 @@ class Catalogue extends BaseController
 
     public function marque($marque)
     {
-        // $idMarque = $this->request->getGet('id_marques');
-        // $marque = urldecode($marque);
-
         if (!$marque) {
             return redirect()->to(base_url('catalogue/marques'));
         }
@@ -72,7 +69,7 @@ class Catalogue extends BaseController
 
         $data['query'] = null;
         $data['categorie'] = null;
-        $data['is_search'] = true;
+        $data['is_search'] = false;
 
         return view('Pages/catalogue/shop', $data);
     }
@@ -146,7 +143,7 @@ class Catalogue extends BaseController
         return view('Pages/catalogue/shop', $data);
     }
 
-    public function filters($categorie)
+    public function filters($categorie = null)
     {
         $filter = $this->request->getGet('f');
         $brand = $this->request->getGet('brand');
@@ -161,17 +158,19 @@ class Catalogue extends BaseController
         $filterController = new Filters();
         $data['liste_produits'] = [];
 
+
         if ($filter == "price-crst" || $filter == "price-dcrst") {
             $data['liste_produits'] = array_merge($data['liste_produits'], $filterController->sortByPrice($filter, $categorie));
         } elseif ($filter == "alpha-crst" || $filter == "alpha-dcrst") {
             $data['liste_produits'] = array_merge($data['liste_produits'], $filterController->sortByAlpha($filter, $categorie));
         } elseif (!empty($brand)) {
             $data['liste_produits'] = array_merge($data['liste_produits'], $filterController->filterByBrand($brand, $categorie));
-        } elseif( !empty($price)) {
+        } elseif (!empty($price)) {
             $data['liste_produits'] = array_merge($data['liste_produits'], $filterController->filterByPriceRange($price, $categorie));
         } else {
             return redirect()->to(base_url('catalogue?categorie=' . $categorie));
         }
+
         $data['price'] = $price;
         $data['filter'] = $filter;
         $data['query'] = null;

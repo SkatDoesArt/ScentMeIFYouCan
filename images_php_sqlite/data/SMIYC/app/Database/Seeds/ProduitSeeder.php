@@ -9,7 +9,7 @@ class ProduitSeeder extends Seeder
     public function run()
     {
         // --- NETTOYAGE ---
-        $this->db->table('produit')->truncate();
+        // $this->db->table('produit')->truncate();
 
         $data = [
             // --- SERGE LUTENS (Prestige 5) ---

@@ -114,7 +114,7 @@ class Catalogue extends BaseController
         return view('Pages/catalogue/shop', $data);
     }
 
-    public function filters()
+    public function filters($categorie = null)
     {
         $query = $this->request->getGet('f');
 
@@ -127,24 +127,17 @@ class Catalogue extends BaseController
         $filter = new Filters();
 
         if ($query == "price-crst" || $query == "price-dcrst") {
-            $data['liste_produits'] = $filter->sortByPrice($query);
+            $data['liste_produits'] = $filter->sortByPrice($query, $categorie);
         } elseif ($query == "alpha-crst" || $query == "alpha-dcrst") {
-            $data['liste_produits'] = $filter->sortByAlpha($query);
+            $data['liste_produits'] = $filter->sortByAlpha($query, $categorie);
         }  else {
-            return redirect()->to(base_url('catalogue?categorie=homme'));
+            return redirect()->to(base_url('catalogue?categorie=' . $categorie));
         }
 
-        // // On récupère les deux listes
-        // $parfums = $produitModel->orderBy("price", ($query === 'price-crst') ? 'ASC' : 'DESC')
-        //     ->findAll();
-
-        // $encens = $encensModel->orderBy("price", ($query === 'price-crst') ? 'ASC' : 'DESC')
-        //     ->findAll();
-        // // On fusionne les deux tableaux dans la variable attendue par la vue shop
-        // $data['liste_produits'] = array_merge($parfums, $encens);
-
         $data['query'] = $query;
-        $data['is_search'] = false; // Pour afficher un titre spécifique
+        $data['is_search'] = false;
+        $data['categorie'] = $categorie;
+        $data['new_url'] = base_url('catalogue?categorie=' . $categorie . '&f=' . $query);
 
         return view('Pages/catalogue/shop', $data);
     }

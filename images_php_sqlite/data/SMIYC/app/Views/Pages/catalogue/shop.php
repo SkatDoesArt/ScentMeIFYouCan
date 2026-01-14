@@ -1,5 +1,15 @@
 <!DOCTYPE html>
 <html lang="fr">
+
+<?php
+$produits = new \App\Models\Produit\ProduitModel();
+
+if (isset(request()->getGet()['categorie'])) {
+    $categorie = request()->getGet()['categorie'];
+    $liste_produits = $produits->where('categorie', $categorie)->findAll();
+}
+
+?>
     
 <head>
     <meta charset="UTF-8">
@@ -50,7 +60,7 @@
                     <h2>Parfum </h2>
                 <?php endif; ?>
 
-                <form class="shop-controls" role="search" action="<?= base_url('catalogue/filters') ?>" method="get" onchange="this.submit()">
+                <form class="shop-controls" role="search" action="<?= base_url('catalogue/filters/' . $categorie) ?>" method="get" onchange="this.submit()">
                     <select id="sort-filter" name="f" inputmode="search" interkeyhint="search">
                         <option value="none">Choisissez un filtre</option>
                         <option value="price-crst" >Trier par prix croissant</option>

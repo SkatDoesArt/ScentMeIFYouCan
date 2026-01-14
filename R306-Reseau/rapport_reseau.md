@@ -306,9 +306,9 @@ find /var/www/html -type f -exec chmod 644 {} \;
     ServerName sae.com
     ServerAlias www.sae.com
 
-    DocumentRoot /var/www/html
+    DocumentRoot /var/www/html/app
 
-    <Directory /var/www/html>
+    <Directory /var/www/html/app>
         AllowOverride All
         Require all granted
         Options +FollowSymLinks
@@ -318,7 +318,7 @@ find /var/www/html -type f -exec chmod 644 {} \;
     CustomLog ${APACHE_LOG_DIR}/sae_access.log combined
 </VirtualHost>
 
-FallbackResource /app/index.php
+FallbackResource /index.php
 ```
 
 **Activation du site et rechargement d’Apache :**
@@ -341,12 +341,17 @@ echo "RewriteEngine On" > /var/www/html/app/.htaccess
 echo "FallbackResource /app/index.php" >> /var/www/html/app/.htaccess
 
 echo "order deny,allow" > /var/www/html/system/.htaccess
-echo "deny from all" > /var/www/html/system/.htaccess
+echo "deny from all" >> /var/www/html/system/.htaccess
+```
+
+**Desactiver les proxy de l'iut**
+```bash
+unset http_proxy https_proxy
 ```
 
 **Tests :**
 ```bash
-curl http://sae.com
+curl http://www.sae.com
 ```
 
 **Lancer le serveuer depuis la SilverBlue**

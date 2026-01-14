@@ -43,7 +43,7 @@ $routes->group('catalogue', function($routes) {
     //Afficher un produit en particulier
     $routes->get('product/(:num)', 'Catalogue::detail/$1');
     $routes->get('search', 'Catalogue::search');
-    $routes->get('filters', 'Catalogue::filters');
+    $routes->get('filters/(:any)', 'Catalogue::filters/$1');
     $routes->get('/marque', 'Catalogue::marque');
 });
 

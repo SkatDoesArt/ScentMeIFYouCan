@@ -24,4 +24,11 @@ class EncensEntity extends AProduitEntity
     public function setOrigine(string $origine): void { $this->attributes['origine'] = $origine; }
     public function setDureeCombustion(int $duree): void { $this->attributes['dureeCombustion'] = $duree; }
     // public function setTaille(int $taille): void { $this->attributes['taille'] = $taille; }
+
+    public function getType(): string
+    {
+        return $this->attributes['type'] ?? 'encens';
+    }
+
+    
 }

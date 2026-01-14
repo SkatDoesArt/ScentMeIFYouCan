@@ -8,101 +8,100 @@ class ProduitSeeder extends Seeder
 {
     public function run()
     {
-        // --- NETTOYAGE ---
         // $this->db->table('produit')->truncate();
 
         $data = [
-            // --- SERGE LUTENS (Prestige 5) ---
-            [
-                'name' => 'Féminité du Bois', 'price' => 135.00, 'niveauPrestige' => 5, 'notation' => 5, 'taille' => 50, 'quantiteRestante' => 10, 'marque' => 'Serge Lutens', 'categorie' => 'Unisexe', 'type' => 'Parfums', 'origine' => 'France', 'image_name' => 'lutens_bois.jpg', 'saison' => 'Hiver',
-                'description' => 'Un choc olfactif, le premier boisé féminin.'
-            ],
-            [
-                'name' => 'Ambre Sultan', 'price' => 135.00, 'niveauPrestige' => 5, 'notation' => 5, 'taille' => 50, 'quantiteRestante' => 8, 'marque' => 'Serge Lutens', 'categorie' => 'Unisexe', 'type' => 'Parfums', 'origine' => 'France', 'image_name' => 'lutens_ambre.jpg', 'saison' => 'Hiver',
-                'description' => 'Une référence de l\'ambre, classique et puissant.'
-            ],
-            [
-                'name' => 'La Fille de Berlin', 'price' => 135.00, 'niveauPrestige' => 5, 'notation' => 5, 'taille' => 50, 'quantiteRestante' => 12, 'marque' => 'Serge Lutens', 'categorie' => 'Unisexe', 'type' => 'Parfums', 'origine' => 'France', 'image_name' => 'lutens_berlin.jpg', 'saison' => 'Hiver',
-                'description' => 'Une rose épineuse, métallique et poivrée.'
-            ],
+            // --- SERGE LUTENS ---
+            ['name' => 'Féminité du Bois', 'price' => 135.00, 'niveauPrestige' => 5, 'notation' => 5, 'taille' => 50, 'quantiteRestante' => 10, 'marque' => 'Serge Lutens', 'categorie' => 'Unisexe', 'type' => 'parfums', 'origine' => 'France', 'saison' => 'Hiver', 'image_name' => 'https://sergelutens.fr/cdn/shop/products/feminitedubois100ml-sergelutens_1.webp', 'description' => 'Un choc olfactif, le premier boisé féminin.'],
+            ['name' => 'Ambre Sultan', 'price' => 135.00, 'niveauPrestige' => 5, 'notation' => 5, 'taille' => 50, 'quantiteRestante' => 8, 'marque' => 'Serge Lutens', 'categorie' => 'Unisexe', 'type' => 'parfums', 'origine' => 'France', 'saison' => 'Hiver', 'image_name' => 'https://fimgs.net/mdimg/perfume/m.2760.jpg', 'description' => 'Une référence de l\'ambre, classique et puissant.'],
+            ['name' => 'La Fille de Berlin', 'price' => 135.00, 'niveauPrestige' => 5, 'notation' => 5, 'taille' => 50, 'quantiteRestante' => 12, 'marque' => 'Serge Lutens', 'categorie' => 'Unisexe', 'type' => 'parfums', 'origine' => 'France', 'saison' => 'Hiver', 'image_name' => 'https://fimgs.net/mdimg/perfume/m.17162.jpg', 'description' => 'Une rose épineuse, métallique et poivrée.'],
 
-            // --- TOM FORD (Prestige 5) ---
-            [
-                'name' => 'Black Orchid', 'price' => 145.00, 'niveauPrestige' => 5, 'notation' => 5, 'taille' => 50, 'quantiteRestante' => 15, 'marque' => 'Tom Ford', 'categorie' => 'Unisexe', 'type' => 'Parfums', 'origine' => 'USA', 'image_name' => 'tf_black_orchid.jpg', 'saison' => 'Automne/Hiver',
-                'description' => 'Sombre, luxueux et sensuel.'
-            ],
-            [
-                'name' => 'Oud Wood', 'price' => 240.00, 'niveauPrestige' => 5, 'notation' => 5, 'taille' => 100, 'quantiteRestante' => 5, 'marque' => 'Tom Ford', 'categorie' => 'Unisexe', 'type' => 'Parfums', 'origine' => 'USA', 'image_name' => 'tf_oud_wood.jpg', 'saison' => 'Automne/Hiver',
-                'description' => 'L\'un des ingrédients les plus rares au monde.'
-            ],
-            [
-                'name' => 'Fucking Fabulous', 'price' => 320.00, 'niveauPrestige' => 5, 'notation' => 4, 'taille' => 50, 'quantiteRestante' => 3, 'marque' => 'Tom Ford', 'categorie' => 'Unisexe', 'type' => 'Parfums', 'origine' => 'USA', 'image_name' => 'tf_fabulous.jpg', 'saison' => 'Automne/Hiver',
-                'description' => 'Un cuir décadent à l\'emprise fatale.'
-            ],
+            // --- TOM FORD ---
+            ['name' => 'Black Orchid', 'price' => 145.00, 'niveauPrestige' => 5, 'notation' => 5, 'taille' => 50, 'quantiteRestante' => 15, 'marque' => 'Tom Ford', 'categorie' => 'Unisexe', 'type' => 'parfums', 'origine' => 'USA', 'saison' => 'Automne / Hiver', 'image_name' => 'https://media.sephora.eu/content/dam/digital/pim/published/T/TOM_FORD/P55019/12325-media_1.jpg', 'description' => 'Sombre, luxueux et sensuel.'],
+            ['name' => 'Oud Wood', 'price' => 240.00, 'niveauPrestige' => 5, 'notation' => 5, 'taille' => 100, 'quantiteRestante' => 5, 'marque' => 'Tom Ford', 'categorie' => 'Unisexe', 'type' => 'parfums', 'origine' => 'USA', 'saison' => 'Automne / Hiver', 'image_name' => 'https://media.sephora.eu/content/dam/digital/pim/published/T/TOM_FORD/P1641048/1805-media_1.jpg', 'description' => 'L\'un des ingrédients les plus rares au monde.'],
+            ['name' => 'Fucking Fabulous', 'price' => 320.00, 'niveauPrestige' => 5, 'notation' => 4, 'taille' => 50, 'quantiteRestante' => 3, 'marque' => 'Tom Ford', 'categorie' => 'Unisexe', 'type' => 'parfums', 'origine' => 'USA', 'saison' => 'Automne / Hiver', 'image_name' => 'https://media.sephora.eu/content/dam/digital/pim/published/T/TOM_FORD/P3322007/10855-media_1.jpg', 'description' => 'Un cuir décadent à l\'emprise fatale.'],
 
-            // --- GUERLAIN (Prestige 5) ---
-            [
-                'name' => 'Shalimar', 'price' => 110.00, 'niveauPrestige' => 5, 'notation' => 5, 'taille' => 75, 'quantiteRestante' => 20, 'marque' => 'Guerlain', 'categorie' => 'Femme', 'type' => 'Parfums', 'origine' => 'France', 'image_name' => 'guerlain_shalimar.jpg', 'saison' => 'Hiver',
-                'description' => 'Mythe absolu des parfums orientaux.'
-            ],
+            // --- GUERLAIN ---
+            ['name' => 'Shalimar', 'price' => 110.00, 'niveauPrestige' => 5, 'notation' => 5, 'taille' => 75, 'quantiteRestante' => 20, 'marque' => 'Guerlain', 'categorie' => 'Femme', 'type' => 'parfums', 'origine' => 'France', 'saison' => 'Hiver', 'image_name' => 'https://www.guerlain.com/on/demandware.static/-/Sites-GSA_FR_Catalog/default/dw850b6d1c/HeroBanner_NewTemplate/Fragrance/Shalimar/SHALIMAR-ESSENCE_HEADER-BANNER_PLP_DESKTOP.jpg', 'description' => 'Mythe absolu des parfums orientaux.'],
+            ['name' => 'La Petite Robe Noire', 'price' => 95.00, 'niveauPrestige' => 5, 'notation' => 4, 'taille' => 50, 'quantiteRestante' => 25, 'marque' => 'Guerlain', 'categorie' => 'Femme', 'type' => 'parfums', 'origine' => 'France', 'saison' => 'Hiver', 'image_name' => 'https://www.guerlain.com/on/demandware.static/-/Sites-GSA_FR_Catalog/default/dw37b2fb16/01-PLP-Banners/FRAGRANCE/2026/LPRN/LPRN-26_HEADER-BANNER_PLP_DESKTOP.jpg', 'description' => 'Pétillante, romantique et irrésistible.'],
+            ['name' => 'Mon Guerlain', 'price' => 105.00, 'niveauPrestige' => 5, 'notation' => 5, 'taille' => 50, 'quantiteRestante' => 18, 'marque' => 'Guerlain', 'categorie' => 'Femme', 'type' => 'parfums', 'origine' => 'France', 'saison' => 'Hiver', 'image_name' => 'https://www.guerlain.com/dw/image/v2/BDCZ_PRD/on/demandware.static/-/Sites-GSA_master_catalog/default/dwc77ad64f/primary_packshot_3/2022/Fragrance/Mon_Guerlain/G013139_3346470131392_MON-G-17-EDP-50ML-SPR.jpg?sw=700&sh=700&sfrm=png', 'description' => 'Un hommage à la féminité d\'aujourd\'hui.'],
 
-            // --- HERMÈS (Prestige 5) ---
-            [
-                'name' => 'Terre d’Hermès', 'price' => 102.00, 'niveauPrestige' => 5, 'notation' => 5, 'taille' => 100, 'quantiteRestante' => 30, 'marque' => 'Hermès', 'categorie' => 'Homme', 'type' => 'Parfums', 'origine' => 'France', 'image_name' => 'hermes_terre.jpg', 'saison' => 'Printemps/Été',
-                'description' => 'La force de la terre et du ciel.'
-            ],
+            // --- HERMES ---
+            ['name' => 'Terre d’Hermès', 'price' => 102.00, 'niveauPrestige' => 5, 'notation' => 5, 'taille' => 100, 'quantiteRestante' => 30, 'marque' => 'Hermès', 'categorie' => 'Homme', 'type' => 'parfums', 'origine' => 'France', 'saison' => 'Printemps / Été', 'image_name' => 'https://assets.hermes.com/is/image/hermesproduct/terre-d-hermes-parfum--107757V0-worn-3-0-0-800-800_g.jpg', 'description' => 'La force de la terre et du ciel.'],
+            ['name' => 'Twilly d’Hermès', 'price' => 88.00, 'niveauPrestige' => 5, 'notation' => 4, 'taille' => 50, 'quantiteRestante' => 15, 'marque' => 'Hermès', 'categorie' => 'Femme', 'type' => 'parfums', 'origine' => 'France', 'saison' => 'Printemps / Été', 'image_name' => 'https://assets.hermes.com/is/image/hermesproduct/twilly-d-hermes-eau-de-parfum--107263V0-worn-3-0-0-800-800_g.jpg', 'description' => 'L\'impertinence des filles d\'Hermès.'],
+            ['name' => 'Un Jardin sur le Nil', 'price' => 110.00, 'niveauPrestige' => 5, 'notation' => 4, 'taille' => 100, 'quantiteRestante' => 12, 'marque' => 'Hermès', 'categorie' => 'Unisexe', 'type' => 'parfums', 'origine' => 'France', 'saison' => 'Printemps / Été', 'image_name' => 'https://assets.hermes.com/is/image/hermesproduct/un-jardin-sur-le-nil-eau-de-toilette--20396-worn-3-0-0-800-800_g.jpg', 'description' => 'Une promenade olfactive sensorielle.'],
 
-            // --- CHANEL (Prestige 5) ---
-            [
-                'name' => 'Bleu de Chanel', 'price' => 98.00, 'niveauPrestige' => 5, 'notation' => 5, 'taille' => 100, 'quantiteRestante' => 50, 'marque' => 'Chanel', 'categorie' => 'Homme', 'type' => 'Parfums', 'origine' => 'France', 'image_name' => 'chanel_bleu.jpg', 'saison' => 'Toutes saisons',
-                'description' => 'L\'éloge de la liberté masculine.'
-            ],
+            // --- CHANEL ---
+            ['name' => 'N°5', 'price' => 130.00, 'niveauPrestige' => 5, 'notation' => 5, 'taille' => 100, 'quantiteRestante' => 40, 'marque' => 'Chanel', 'categorie' => 'Femme', 'type' => 'parfums', 'origine' => 'France', 'saison' => 'Toutes saisons', 'image_name' => 'https://www.chanel.com/images//t_one//w_0.51,h_0.51,c_crop/q_auto:good,f_autoplus,fl_lossy,dpr_1.1/w_840/n-5-eau-de-parfum-spray-3-4fl-oz--packshot-default-125530-9564912943134.jpg', 'description' => 'Le parfum des parfums.'],
+            ['name' => 'Coco Mademoiselle', 'price' => 115.00, 'niveauPrestige' => 5, 'notation' => 5, 'taille' => 50, 'quantiteRestante' => 35, 'marque' => 'Chanel', 'categorie' => 'Femme', 'type' => 'parfums', 'origine' => 'France', 'saison' => 'Toutes saisons', 'image_name' => 'https://media.marionnaud.fr/medias/sys_master/prd-images/h9a/h55/12387234578462/prd-front-100839137_420x420/prd-front-100839137-420x420.png', 'description' => 'Libre, audacieuse et espiègle.'],
+            ['name' => 'Bleu de Chanel', 'price' => 98.00, 'niveauPrestige' => 5, 'notation' => 5, 'taille' => 100, 'quantiteRestante' => 50, 'marque' => 'Chanel', 'categorie' => 'Homme', 'type' => 'parfums', 'origine' => 'France', 'saison' => 'Toutes saisons', 'image_name' => 'https://media.sephora.eu/content/dam/digital/pim/published/C/CHANEL/304707/57735-media_swatch.jpg?scaleWidth=585&scaleHeight=585&scaleMode=fit', 'description' => 'L\'éloge de la liberté masculine.'],
 
-            // --- DIOR (Prestige 4) ---
-            [
-                'name' => 'Sauvage', 'price' => 105.00, 'niveauPrestige' => 4, 'notation' => 5, 'taille' => 100, 'quantiteRestante' => 60, 'marque' => 'Dior', 'categorie' => 'Homme', 'type' => 'Parfums', 'origine' => 'France', 'image_name' => 'dior_sauvage.jpg', 'saison' => 'Printemps/Automne',
-                'description' => 'L\'esprit sauvage et noble.'
-            ],
+            // --- DIOR ---
+            ['name' => 'J’adore', 'price' => 120.00, 'niveauPrestige' => 4, 'notation' => 5, 'taille' => 50, 'quantiteRestante' => 25, 'marque' => 'Dior', 'categorie' => 'Femme', 'type' => 'parfums', 'origine' => 'France', 'saison' => 'Printemps / Automne', 'image_name' => 'https://media.sephora.eu/content/dam/digital/pim/published/D/DIOR/P1000206095/109726-media_1.jpeg?scaleWidth=undefined&scaleHeight=undefined&scaleMode=undefined', 'description' => 'Le bouquet floral mythique.'],
+            ['name' => 'Sauvage', 'price' => 105.00, 'niveauPrestige' => 4, 'notation' => 5, 'taille' => 100, 'quantiteRestante' => 60, 'marque' => 'Dior', 'categorie' => 'Homme', 'type' => 'parfums', 'origine' => 'France', 'saison' => 'Printemps / Automne', 'image_name' => 'https://www.dior.com/dw/image/v2/BGXS_PRD/on/demandware.static/-/Sites-master_dior/default/dwfc145bb2/Y0685240/Y0685240_F068524009_E01_RHC.jpg?sw=1024', 'description' => 'L\'esprit sauvage et noble.'],
+            ['name' => 'Miss Dior', 'price' => 110.00, 'niveauPrestige' => 4, 'notation' => 4, 'taille' => 50, 'quantiteRestante' => 20, 'marque' => 'Dior', 'categorie' => 'Femme', 'type' => 'parfums', 'origine' => 'France', 'saison' => 'Printemps / Automne', 'image_name' => 'https://www.dior.com/dw/image/v2/BGXS_PRD/on/demandware.static/-/Sites-master_dior/default/dwfca7c899/Y0997166/Y0997166_E02_RHC.jpg?sw=1024', 'description' => 'L\'ode à l\'amour floral.'],
 
-            // --- VALENTINO (Prestige 4) ---
-            [
-                'name' => 'Born in Roma', 'price' => 110.00, 'niveauPrestige' => 4, 'notation' => 5, 'taille' => 100, 'quantiteRestante' => 20, 'marque' => 'Valentino', 'categorie' => 'Unisexe', 'type' => 'Parfums', 'origine' => 'Italie', 'image_name' => 'valentino_roma.jpg', 'saison' => 'Automne',
-                'description' => 'L\'irrévérence romaine moderne.'
-            ],
+            // --- VALENTINO ---
+            ['name' => 'Donna', 'price' => 95.00, 'niveauPrestige' => 4, 'notation' => 4, 'taille' => 50, 'quantiteRestante' => 15, 'marque' => 'Valentino', 'categorie' => 'Femme', 'type' => 'parfums', 'origine' => 'Italie', 'saison' => 'Automne', 'image_name' => 'https://www.valentino-beauty.fr/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-val-master-catalog/default/dwfe51b06e/images/pdp/MPL00462/DONNA_CLASSIC_BOTTLE_1-1.jpg?sw=375&sh=375&sm=cut&sfrm=jpg&q=70', 'description' => 'Élégance italienne intemporelle.'],
+            ['name' => 'Born in Roma', 'price' => 110.00, 'niveauPrestige' => 4, 'notation' => 5, 'taille' => 100, 'quantiteRestante' => 20, 'marque' => 'Valentino', 'categorie' => 'Unisexe', 'type' => 'parfums', 'origine' => 'Italie', 'saison' => 'Automne', 'image_name' => 'https://valentino-cdn.thron.com/delivery/public/image/valentino/b9fd4b9c-898c-42fb-9a05-9587be8c90e7/ihqstx/std/2000x0/BORN-IN-ROMA-INTENSE-EAU-DE-PARFUM-SPRAY-50ML?quality=80&size=35&format=auto', 'description' => 'L\'irrévérence romaine moderne.'],
+            ['name' => 'Uomo', 'price' => 90.00, 'niveauPrestige' => 4, 'notation' => 4, 'taille' => 100, 'quantiteRestante' => 12, 'marque' => 'Valentino', 'categorie' => 'Homme', 'type' => 'parfums', 'origine' => 'Italie', 'saison' => 'Automne', 'image_name' => 'valentino_homme.jpg', 'description' => 'Un sillage boisé et fumé.'],
+            // --- PRADA ---
+            ['name' => 'Infusion d’Iris', 'price' => 105.00, 'niveauPrestige' => 4, 'notation' => 5, 'taille' => 100, 'quantiteRestante' => 10, 'marque' => 'Prada', 'categorie' => 'Femme', 'type' => 'parfums', 'origine' => 'Italie', 'saison' => 'Printemps / Été', 'image_name' => 'https://media.sephora.eu/content/dam/digital/pim/published/P/PRADA/P54616/9530-media_1.jpg?scaleWidth=undefined&scaleHeight=undefined&scaleMode=undefined', 'description' => 'Une interprétation moderne de l\'iris.'],
+            ['name' => 'Prada Paradoxe', 'price' => 115.00, 'niveauPrestige' => 4, 'notation' => 5, 'taille' => 50, 'quantiteRestante' => 22, 'marque' => 'Prada', 'categorie' => 'Femme', 'type' => 'parfums', 'origine' => 'Italie', 'saison' => 'Printemps / Été', 'image_name' => 'https://media.sephora.eu/content/dam/digital/pim/published/P/PRADA/P10042190/83689-media_1.jpg?scaleWidth=undefined&scaleHeight=undefined&scaleMode=undefined', 'description' => 'L\'expression de la féminité multi-facettes.'],
+            ['name' => 'Luna Rossa', 'price' => 85.00, 'niveauPrestige' => 4, 'notation' => 4, 'taille' => 100, 'quantiteRestante' => 15, 'marque' => 'Prada', 'categorie' => 'Homme', 'type' => 'parfums', 'origine' => 'Italie', 'saison' => 'Printemps / Été', 'image_name' => 'https://www.prada.com/content/dam/pradabkg_products/2/2A1/2A1156/2D00F0Z99/2A1156_2D00_F0Z99_P_ML100_SLF.jpg/_jcr_content/renditions/cq5dam.web.hebebed.1000.1000.jpg', 'description' => 'Inspiré par le défi nautique.'],
 
-            // --- GIVENCHY (Prestige 4) ---
-            [
-                'name' => 'L’Interdit', 'price' => 105.00, 'niveauPrestige' => 4, 'notation' => 5, 'taille' => 50, 'quantiteRestante' => 20, 'marque' => 'Givenchy', 'categorie' => 'Femme', 'type' => 'Parfums', 'origine' => 'France', 'image_name' => 'givenchy_interdit.jpg', 'saison' => 'Automne/Hiver',
-                'description' => 'L\'hommage à la féminité audacieuse.'
-            ],
+            // --- BURBERRY ---
+            ['name' => 'Burberry Her', 'price' => 95.00, 'niveauPrestige' => 4, 'notation' => 4, 'taille' => 50, 'quantiteRestante' => 18, 'marque' => 'Burberry', 'categorie' => 'Femme', 'type' => 'parfums', 'origine' => 'Royaume-Uni', 'saison' => 'Automne', 'image_name' => 'https://media.sephora.eu/content/dam/digital/pim/published/B/BURBERRY/P3500017/38849-media_3-0.jpg?scaleWidth=undefined&scaleHeight=undefined&scaleMode=undefined', 'description' => 'L\'énergie vibrante de Londres.'],
+            ['name' => 'My Burberry', 'price' => 100.00, 'niveauPrestige' => 4, 'notation' => 4, 'taille' => 50, 'quantiteRestante' => 10, 'marque' => 'Burberry', 'categorie' => 'Femme', 'type' => 'parfums', 'origine' => 'Royaume-Uni', 'saison' => 'Automne', 'image_name' => 'https://fimgs.net/mdimg/perfume-thumbs/375x500.25836.avif', 'description' => 'L\'odeur d\'un jardin londonien après la pluie.'],
+            ['name' => 'Mr. Burberry', 'price' => 85.00, 'niveauPrestige' => 4, 'notation' => 4, 'taille' => 100, 'quantiteRestante' => 15, 'marque' => 'Burberry', 'categorie' => 'Homme', 'type' => 'parfums', 'origine' => 'Royaume-Uni', 'saison' => 'Automne', 'image_name' => 'https://assets.burberry.com/is/image/Burberryltd/D53FADAF-88DC-48EF-86D1-F97AB3B39487?$BBY_V3_SL_1$&wid=1250&hei=1250', 'description' => 'L\'essence de Londres et de ses moments.'],
 
-            // --- JEAN PAUL GAULTIER (Prestige 4) ---
-            [
-                'name' => 'Le Mâle', 'price' => 85.00, 'niveauPrestige' => 4, 'notation' => 5, 'taille' => 125, 'quantiteRestante' => 40, 'marque' => 'Jean Paul Gaultier', 'categorie' => 'Homme', 'type' => 'Parfums', 'origine' => 'France', 'image_name' => 'jpg_male.jpg', 'saison' => 'Hiver',
-                'description' => 'L\'icône de la parfumerie masculine.'
-            ],
+            // --- CAROLINA HERRERA ---
+            ['name' => 'Good Girl', 'price' => 120.00, 'niveauPrestige' => 4, 'notation' => 5, 'taille' => 50, 'quantiteRestante' => 30, 'marque' => 'Carolina Herrera', 'categorie' => 'Femme', 'type' => 'parfums', 'origine' => 'USA', 'saison' => 'Hiver', 'image_name' => 'https://media.sephora.eu/content/dam/digital/pim/published/C/CAROLINA_HERRERA/P2700015/3136-media_2.jpg?scaleWidth=undefined&scaleHeight=undefined&scaleMode=undefined', 'description' => 'It’s so good to be bad.'],
+            ['name' => '212', 'price' => 85.00, 'niveauPrestige' => 4, 'notation' => 4, 'taille' => 100, 'quantiteRestante' => 20, 'marque' => 'Carolina Herrera', 'categorie' => 'Femme', 'type' => 'parfums', 'origine' => 'USA', 'saison' => 'Hiver', 'image_name' => 'https://medias.carolinaherrera.com/cdn-cgi/image/width=1000,quality=90/medias/sys_master/images/hd2/hd5/9962096918558/9962096853022/9962096853022.jpg', 'description' => 'L\'esprit de New York.'],
+            ['name' => 'Bad Boy', 'price' => 100.00, 'niveauPrestige' => 4, 'notation' => 4, 'taille' => 100, 'quantiteRestante' => 15, 'marque' => 'Carolina Herrera', 'categorie' => 'Homme', 'type' => 'parfums', 'origine' => 'USA', 'saison' => 'Hiver', 'image_name' => 'https://medias.carolinaherrera.com/cdn-cgi/image/width=1000,quality=90/medias/sys_master/images/h85/h68/10581251031070/10581250965534/10581250965534.jpg', 'description' => 'L\'irrévérence de l\'homme moderne.'],
 
-            // --- RABANNE (Prestige 4) ---
-            [
-                'name' => '1 Million', 'price' => 90.00, 'niveauPrestige' => 4, 'notation' => 5, 'taille' => 100, 'quantiteRestante' => 55, 'marque' => 'Rabanne', 'categorie' => 'Homme', 'type' => 'Parfums', 'origine' => 'France', 'image_name' => 'rabanne_1m.jpg', 'saison' => 'Hiver',
-                'description' => 'L\'objet de toutes les convoitises.'
-            ],
+            // --- GIVENCHY ---
+            ['name' => 'L’Interdit', 'price' => 105.00, 'niveauPrestige' => 4, 'notation' => 5, 'taille' => 50, 'quantiteRestante' => 20, 'marque' => 'Givenchy', 'categorie' => 'Femme', 'type' => 'parfums', 'origine' => 'France', 'saison' => 'Automne / Hiver', 'image_name' => 'https://www.givenchybeauty.com/dw/image/v2/BBZW_PRD/on/demandware.static/-/Sites-givenchy-beauty-master/default/dw8cd80399/images/P069002/3274872372153_P069002_LINTERDIT_EDP_80ML_0.png?sw=1200&sh=1200&strip=false', 'description' => 'L\'hommage à la féminité audacieuse.'],
+            ['name' => 'Gentleman', 'price' => 90.00, 'niveauPrestige' => 4, 'notation' => 4, 'taille' => 100, 'quantiteRestante' => 20, 'marque' => 'Givenchy', 'categorie' => 'Homme', 'type' => 'parfums', 'origine' => 'France', 'saison' => 'Automne / Hiver', 'image_name' => 'https://www.givenchybeauty.com/dw/image/v2/BBZW_PRD/on/demandware.static/-/Sites-givenchy-beauty-master/default/dwd66a12ed/images/P011122/Givenchy_Gentleman-EDP-BOISEE-BIG_VUE-3.jpg?sw=1200&sh=1200&strip=false', 'description' => 'L\'élégance du gentleman moderne.'],
 
-            // --- ADOPT' (Prestige 2) ---
-            [
-                'name' => 'Musc Blanc', 'price' => 10.95, 'niveauPrestige' => 2, 'notation' => 4, 'taille' => 30, 'quantiteRestante' => 100, 'marque' => 'Adopt\'', 'categorie' => 'Femme', 'type' => 'Parfums', 'origine' => 'France', 'image_name' => 'adopt_musc.jpg', 'saison' => 'Printemps',
-                'description' => 'Une fragrance coton-neuse et pure.'
-            ],
+            // --- MUGLER ---
+            ['name' => 'Alien', 'price' => 115.00, 'niveauPrestige' => 4, 'notation' => 5, 'taille' => 60, 'quantiteRestante' => 25, 'marque' => 'Mugler', 'categorie' => 'Femme', 'type' => 'parfums', 'origine' => 'France', 'saison' => 'Hiver', 'image_name' => 'https://www.mugler.fr/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-mug-master-catalog/default/dwa81e9291/images/pdp/M010401002/3439600056969_alien_90ml_refillable_main_v2.jpg?sw=720&sh=720&sm=cut&sfrm=jpg&q=70', 'description' => 'Une fragrance solaire et mystérieuse.'],
+            ['name' => 'Angel', 'price' => 120.00, 'niveauPrestige' => 4, 'notation' => 5, 'taille' => 50, 'quantiteRestante' => 15, 'marque' => 'Mugler', 'categorie' => 'Femme', 'type' => 'parfums', 'origine' => 'France', 'saison' => 'Hiver', 'image_name' => 'https://www.mugler.fr/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-mug-master-catalog/default/dw7ccc7481/images/pdp/M010101003/M010101003-angel-edp-alt-v2.jpg?sw=720&sh=720&sm=cut&sfrm=jpg&q=70', 'description' => 'Le premier parfum gourmand.'],
+
+            // --- NARCISO RODRIGUEZ ---
+            ['name' => 'For Her', 'price' => 105.00, 'niveauPrestige' => 4, 'notation' => 5, 'taille' => 100, 'quantiteRestante' => 20, 'marque' => 'Narciso Rodriguez', 'categorie' => 'Femme', 'type' => 'parfums', 'origine' => 'France', 'saison' => 'Printemps / Automne', 'image_name' => 'https://media.sephora.eu/content/dam/digital/pim/published/N/NARCISO_RODRIGUEZ/P79106/25599-media_1-0.jpg?scaleWidth=undefined&scaleHeight=undefined&scaleMode=undefined', 'description' => 'Un hommage à la grâce féminine.'],
+
+            // --- JEAN PAUL GAULTIER ---
+            ['name' => 'Le Mâle', 'price' => 85.00, 'niveauPrestige' => 4, 'notation' => 5, 'taille' => 125, 'quantiteRestante' => 40, 'marque' => 'Jean Paul Gaultier', 'categorie' => 'Homme', 'type' => 'parfums', 'origine' => 'France', 'saison' => 'Hiver', 'image_name' => 'https://fimgs.net/mdimg/perfume-thumbs/375x500.61856.avif', 'description' => 'L\'icône de la parfumerie masculine.'],
+            ['name' => 'Scandal', 'price' => 105.00, 'niveauPrestige' => 4, 'notation' => 4, 'taille' => 50, 'quantiteRestante' => 15, 'marque' => 'Jean Paul Gaultier', 'categorie' => 'Femme', 'type' => 'parfums', 'origine' => 'France', 'saison' => 'Hiver', 'image_name' => 'scandal-her-le-parfum.jpg', 'description' => 'L\'audace d\'un sillage miel et patchouli.'],
+
+            // --- ARMANI ---
+            ['name' => 'Sì', 'price' => 110.00, 'niveauPrestige' => 4, 'notation' => 5, 'taille' => 50, 'quantiteRestante' => 25, 'marque' => 'Armani', 'categorie' => 'Femme', 'type' => 'parfums', 'origine' => 'Italie', 'saison' => 'Été / Automne', 'image_name' => 'https://www.armanibeauty.fr/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-gac-master-catalog/default/dw996e59b2/products/AP35200/NEW/3605521816580_si-eau-de-parfum_50ml_main.jpg?sw=721&sh=721&sm=cut&sfrm=jpg&q=85', 'description' => 'Le chic italien incarné.'],
+            ['name' => 'Acqua di Giò', 'price' => 95.00, 'niveauPrestige' => 4, 'notation' => 5, 'taille' => 100, 'quantiteRestante' => 50, 'marque' => 'Armani', 'categorie' => 'Homme', 'type' => 'parfums', 'origine' => 'Italie', 'saison' => 'Été / Automne', 'image_name' => 'https://www.armanibeauty.fr/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-gac-master-catalog/default/dwccebbea4/products/ww-00963-arm/ww-00963-arm-acqua-di-gio-profondo-eau-de-toilette-still-life_altview4.jpg?sw=721&sh=721&sm=cut&sfrm=jpg&q=85', 'description' => 'La fraîcheur de la mer.'],
+
+            // --- VERSACE ---
+            ['name' => 'Bright Crystal', 'price' => 85.00, 'niveauPrestige' => 4, 'notation' => 5, 'taille' => 90, 'quantiteRestante' => 20, 'marque' => 'Versace', 'categorie' => 'Femme', 'type' => 'parfums', 'origine' => 'Italie', 'saison' => 'Été', 'image_name' => 'https://media.sephora.eu/content/dam/digital/pim/published/V/VERSACE/147353/27550-media_swatch-1.jpg?scaleWidth=585&scaleHeight=585&scaleMode=fit', 'description' => 'Une fragrance précieuse et sensuelle.'],
+            ['name' => 'Eros', 'price' => 90.00, 'niveauPrestige' => 4, 'notation' => 5, 'taille' => 100, 'quantiteRestante' => 30, 'marque' => 'Versace', 'categorie' => 'Homme', 'type' => 'parfums', 'origine' => 'Italie', 'saison' => 'Été', 'image_name' => 'https://www.versace.com/on/demandware.static/-/Library-Sites-ver-library/default/dw1d536b53/images/banners/FRAGRANCES/EROS_BLUE_SEOBANNER.jpg', 'description' => 'La force du désir masculin.'],
+
+            // --- AZZARO / RABANNE ---
+            ['name' => 'Wanted', 'price' => 82.00, 'niveauPrestige' => 4, 'notation' => 4, 'taille' => 100, 'quantiteRestante' => 30, 'marque' => 'Azzaro', 'categorie' => 'Homme', 'type' => 'parfums', 'origine' => 'France', 'saison' => 'Été / Automne', 'image_name' => 'hhttps://media.nocibe.fr/medias/S6Sq54481595-5-ncb-FR.jpg?context=bWFzdGVyfGltYWdlc3wzMDIxODl8aW1hZ2UvanBlZ3xhR0kxTDJoa1lpODJOelk0TmpJMU1UWTFPVEk1TkM5VE5sTnhOVFEwT0RFMU9UVmZOVjl1WTJJdFJsSXVhbkJufDhjMTUzYjEwNjA4YjA4MTllNzAwMTU0MDdiZDgzNGQ0NDE1MjdhMjliODQ3ZmFhY2IwYmYxODA4NTM5MzJhNWU&grid=true&imdensity=1&imwidth=775', 'description' => 'Le parfum d\'un homme qui réussit tout.'],
+            ['name' => '1 Million', 'price' => 90.00, 'niveauPrestige' => 4, 'notation' => 5, 'taille' => 100, 'quantiteRestante' => 55, 'marque' => 'Rabanne', 'categorie' => 'Homme', 'type' => 'parfums', 'origine' => 'France', 'saison' => 'Hiver', 'image_name' => 'https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcS2Anu4SfjswTRTXz9HSqD2fDd6sRyntDqHLDGnNdpn5tOAzau5qQHLzSAiGvxOvvGuHHZnk6tNi_AzyCm7NX3okgBmvSlG-l98TFiVwHCFphz8Z9OG3Mqd2Xk', 'description' => 'L\'objet de toutes les convoitises.'],
+
+            // --- DOLCE & GABBANA ---
+            ['name' => 'Light Blue', 'price' => 85.00, 'niveauPrestige' => 4, 'notation' => 5, 'taille' => 100, 'quantiteRestante' => 20, 'marque' => 'Dolce & Gabbana', 'categorie' => 'Femme', 'type' => 'parfums', 'origine' => 'Italie', 'saison' => 'Été', 'image_name' => 'https://kapao.fr/63318-thickbox_default/light-blue.jpg', 'description' => 'La joie de vivre méditerranéenne.'],
+
+            // --- KENZO / CHLOÉ ---
+            ['name' => 'Flower by Kenzo', 'price' => 95.00, 'niveauPrestige' => 3, 'notation' => 5, 'taille' => 50, 'quantiteRestante' => 20, 'marque' => 'Kenzo', 'categorie' => 'Femme', 'type' => 'parfums', 'origine' => 'France', 'saison' => 'Printemps', 'image_name' => 'https://www.kenzoparfums.com/dw/image/v2/BBZW_PRD/on/demandware.static/-/Sites-kenzoparfums-catalog/default/dw6d14ea55/images/products-images-fbk/FBK%20EDP/INGREDIENT_VISUAL_FLOWER_BY_KENZO_EAU_DE_PARFUM%20(1).jpg?sw=525&sh=525&sm=fit', 'description' => 'Le pouvoir d\'une fleur.'],
+            ['name' => 'Chloé Signature', 'price' => 98.00, 'niveauPrestige' => 3, 'notation' => 5, 'taille' => 50, 'quantiteRestante' => 22, 'marque' => 'Chloé', 'categorie' => 'Femme', 'type' => 'parfums', 'origine' => 'France', 'saison' => 'Printemps', 'image_name' => 'https://i1.perfumesclub.com/grande/20966-3.jpg', 'description' => 'Une rose moderne et aérienne.'],
+            // --- ADOPT' / CACHAREL (Prestige 2) ---
+            ['name' => 'Musc Blanc', 'price' => 10.95, 'niveauPrestige' => 2, 'notation' => 4, 'taille' => 30, 'quantiteRestante' => 100, 'marque' => 'Adopt\'', 'categorie' => 'Femme', 'type' => 'parfums', 'origine' => 'France', 'saison' => 'Printemps', 'image_name' => 'https://adopt.twic.pics/media/catalog/product/l/a/label_perf_muscblanc_100ml.png?twic=v1/max=1033.5', 'description' => 'Une fragrance coton-neuse et pure.'],
+            ['name' => 'Amor Amor', 'price' => 45.00, 'niveauPrestige' => 2, 'notation' => 4, 'taille' => 30, 'quantiteRestante' => 40, 'marque' => 'Cacharel', 'categorie' => 'Femme', 'type' => 'parfums', 'origine' => 'France', 'saison' => 'Printemps', 'image_name' => 'https://media.sephora.eu/content/dam/digital/pim/published/C/CACHAREL/P2358/6292-media_1-0.jpg?scaleWidth=undefined&scaleHeight=undefined&scaleMode=undefined', 'description' => 'Le parfum de l\'amour.'],
 
             // --- ENFANT / PRESTIGE 1 ---
-            [
-                'name' => 'Musti', 'price' => 15.50, 'niveauPrestige' => 1, 'notation' => 5, 'taille' => 50, 'quantiteRestante' => 60, 'marque' => 'Mustela', 'categorie' => 'Enfant', 'type' => 'Parfums', 'origine' => 'France', 'image_name' => 'mustela_musti.jpg', 'saison' => 'Toutes saisons',
-                'description' => 'Eau de soin parfumée sans alcool pour bébé.'
-            ],
-            [
-                'name' => 'Frozen', 'price' => 15.00, 'niveauPrestige' => 1, 'notation' => 3, 'taille' => 50, 'quantiteRestante' => 30, 'marque' => 'Disney', 'categorie' => 'Enfant', 'type' => 'Parfums', 'origine' => 'Espagne', 'image_name' => 'disney_frozen.jpg', 'saison' => 'Toutes saisons',
-                'description' => 'La fraîcheur d\'Arendelle pour les enfants.'
-            ],
+            ['name' => 'Musti', 'price' => 15.50, 'niveauPrestige' => 1, 'notation' => 5, 'taille' => 50, 'quantiteRestante' => 60, 'marque' => 'Mustela', 'categorie' => 'Enfant', 'type' => 'parfums', 'origine' => 'France', 'saison' => 'Toutes saisons', 'image_name' => 'https://www.mustela.fr/cdn/shop/products/MustieaudeparfumeebebeMustela.jpg?v=1664558089&width=1080', 'description' => 'Eau de soin parfumée sans alcool pour bébé.'],
+            ['name' => 'Princess', 'price' => 15.00, 'niveauPrestige' => 1, 'notation' => 3, 'taille' => 50, 'quantiteRestante' => 40, 'marque' => 'Disney', 'categorie' => 'Enfant', 'type' => 'parfums', 'origine' => 'Espagne', 'saison' => 'Toutes saisons', 'image_name' => 'https://www.corinedefarme.fr/content/uploads/sites/2/2022/06/PARFUM_PRINCESS_V2-696x696.png', 'description' => 'Mélange fruité pour petites princesses.'],
+            ['name' => 'Frozen', 'price' => 15.00, 'niveauPrestige' => 1, 'notation' => 3, 'taille' => 50, 'quantiteRestante' => 30, 'marque' => 'Disney', 'categorie' => 'Enfant', 'type' => 'parfums', 'origine' => 'Espagne', 'saison' => 'Toutes saisons', 'image_name' => 'https://media.sephora.eu/content/dam/digital/pim/published/D/DISNEY/P3885110/47738-media_1.jpg?scaleWidth=undefined&scaleHeight=undefined&scaleMode=undefined', 'description' => 'La fraîcheur d\'Arendelle.'],
+            ['name' => 'Cars', 'price' => 15.00, 'niveauPrestige' => 1, 'notation' => 4, 'taille' => 50, 'quantiteRestante' => 25, 'marque' => 'Disney', 'categorie' => 'Enfant', 'type' => 'parfums', 'origine' => 'Espagne', 'saison' => 'Toutes saisons', 'image_name' => 'https://www.corinedefarme.fr/content/uploads/sites/2/2022/06/CDF-EDT-Cars-etuiflaconcapotrouge-696x538.png', 'description' => 'Parfum dynamique pour petit garçon.'],
         ];
 
         $this->db->table('produit')->insertBatch($data);

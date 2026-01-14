@@ -71,6 +71,16 @@ abstract class AProduitEntity extends Entity
         return (int) ($this->attributes['taille'] ?? 0);
     }
 
+    public function getCategorie(): string
+    {
+        return $this->attributes['categorie'] ?? '';
+    }
+
+    public function getType(): string
+    {
+        return $this->attributes['type'] ?? '';
+    }
+
 
     /**
      * Retourne une chaîne d'étoiles basée sur le niveau de prestige
@@ -126,6 +136,16 @@ abstract class AProduitEntity extends Entity
     {
         $this->attributes['taille'] = $taille;
     }
+
+    public function setCategorie(string $categorie): void
+    {
+        $this->attributes['categorie'] = $categorie;
+    }
+
+    public function setType(string $type): void
+    {
+        $this->attributes['type'] = $type;
+    }  
 
     /**
      * Méthode abstraite : Chaque enfant (Parfum, Encens, Creme) 

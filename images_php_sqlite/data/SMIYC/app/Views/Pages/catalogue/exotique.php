@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crèmes</title>
+    <title>Exotiques</title>
     <link rel="stylesheet" href="<?= base_url(); ?>css/common.css">
     <link rel="stylesheet" href="<?= base_url(); ?>css/caroussel_horizontale.css">
 </head>
@@ -23,13 +23,13 @@
 
                 <div class="carousel-container">
                     <div class="carousel-track">
-                        <?php if (!empty($lesCremes)): ?>
-                            <?php foreach ($lesCremes as $index => $creme): ?>
+                        <?php if (!empty($lesExotiques)): ?>
+                            <?php foreach ($lesExotiques as $index => $exotique): ?>
                                 <div class="card" data-index="<?= $index ?>">
-                                    <img src="<?= $creme->getUrl() ?>" alt="<?= esc($creme->getNom()) ?>">
+                                    <img src="<?= $exotique->getUrl() ?>" alt="<?= esc($exotique->getNom()) ?>">
                                     <div class="card-overlay">
-                                        <a href="<?= base_url('catalogue/product/' . $creme->id_produit) ?>" class="btn-view">Voir le produit</a>
-                                        <form method="post" action="<?= base_url('cart/add/' . $creme->id_produit) ?>">
+                                        <a href="<?= base_url('catalogue/product/' . $exotique->id_produit) ?>" class="btn-view">Voir le produit</a>
+                                        <form method="post" action="<?= base_url('cart/add/' . $exotique->id_produit) ?>">
                                             <?= csrf_field() ?>
                                             <button type="submit" class="btn-plus">+</button>
                                         </form>
@@ -62,8 +62,8 @@
                 </div>
 
                 <div class="dots">
-                    <?php if (!empty($lesCremes)): ?>
-                        <?php foreach ($lesCremes as $index => $creme): ?>
+                    <?php if (!empty($lesExotiques)): ?>
+                        <?php foreach ($lesExotiques as $index => $exotique): ?>
                             <div class="dot" data-index="<?= $index ?>"></div>
                         <?php endforeach; ?>
                     <?php endif; ?>
@@ -76,12 +76,12 @@
 
     <script>
         const teamMembers = [
-            <?php foreach ($lesCremes as $creme): ?> {
-                    name: "<?= addslashes($creme->getNom()) ?>",
-                    brand: "<?= addslashes($creme->getMarque()) ?>",
-                    role: "<?= addslashes(substr($creme->getDescription() ?? '', 0, 120)) ?>...",
-                    prestige: "<?= $creme->getPrestigeStars() ?>",
-                    url: "<?= base_url('catalogue/product/' . $creme->id_produit) ?>"
+            <?php foreach ($lesExotiques as $exotique): ?> {
+                    name: "<?= addslashes($exotique->getNom()) ?>",
+                    brand: "<?= addslashes($exotique->getMarque()) ?>",
+                    role: "<?= addslashes(substr($exotique->getDescription() ?? '', 0, 120)) ?>...",
+                    prestige: "<?= $exotique->getPrestigeStars() ?>",
+                    url: "<?= base_url('catalogue/product/' . $exotique->id_produit) ?>"
                 },
             <?php endforeach; ?>
         ];

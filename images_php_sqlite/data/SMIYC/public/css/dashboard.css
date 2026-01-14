@@ -1,274 +1,68 @@
-/* Dashboard layout and components - modern refactor */
-:root {
-    --bg: #f7fafc;
-    --card: #ffffff;
-    --muted: #6b7280;
-    --text: #111827;
-    --accent: #d9b99f; /* original blue used in inline styles */
-    --accent-2: #edf2f7;
-    --radius: 10px;
-    --shadow: 0 8px 28px rgba(15, 23, 42, 0.06);
-}
-
-/* Ensure the page fills the viewport and the footer can be pushed to bottom */
-html, body {
-    height: 100%;
-}
-
-body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    margin: 0; /* reset default */
-    background: var(--bg);
-}
-
-/* Page container */
-#body {
-    flex: 1 1 auto; /* take remaining space so footer is pushed down */
-    max-width: 1200px;
-    padding: 18px;
-    background: transparent;
-    color: var(--text);
-    font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-}
-
-h1.dashboard-title {
-    font-size: 1.6rem;
-    margin: 20px 0 12px 20vw;
-}
-
-/* Three-column grid: left sidebar + two columns for content */
 #body-content {
-    left: 0;
-    width: 100vw;
-    display: grid;
-    grid-template-columns: repeat(8, 1fr); /* 5 equal columns */
-    gap: 50px;
-    align-items: start;
+    display: flex;
 }
 
-/* Sidebar categories */
+#body h1 {
+    font-family: "Playfair Display";
+    font-size: 40px;
+    margin-bottom: 0;
+    margin-left: 2%;
+}
+
 #categories {
-    grid-column: 2 / 3; /* always in first column */
-    width: 100%;
-    background: var(--card);
-    border-radius: var(--radius);
-    padding: 16px;
-    box-shadow: var(--shadow);
-    border: 1px solid rgba(15, 23, 42, 0.04);
-    flex-shrink: 0;
+    border-right: 2px solid grey;
+    padding-right: 3%;
+    padding-top: 1%;
+    margin-top: 1%;
+    margin-right: 3%;
 }
 
 #categories ul {
     list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
 }
 
 #categories a {
-    display: block;
-    padding: 10px 12px;
-    border-radius: 8px;
-    color: var(--text);
-    text-decoration: none;
-    font-weight: 600;
+    color: black;
+    font-size: 20px;
 }
 
-#categories a:hover {
-    background: #f1f5f9;
-    color: var(--accent);
-}
-
-#categories a strong {
-    font-weight: 800;
-}
-
-/* Main content occupies the two right columns */
 #infos {
-    grid-column: 3 / 7; /* span columns 2 and 3 */
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    width: 70%;
 }
 
 #infos h2 {
-    margin: 0 0 6px;
-    font-size: 1.15rem;
+    font-size: 30px;
 }
 
-/* Admin grid (cards) */
-.admin-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 18px;
+form {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10%;
 }
 
-.grid-item {
-    background: var(--card);
-    border-radius: 10px;
-    padding: 16px;
-    box-shadow: var(--shadow);
-    border: 1px solid rgba(15, 23, 42, 0.04);
+form div {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 }
 
-.grid-item h3 {
-    margin: 0 0 6px;
-    font-size: 1rem;
-}
-
-.grid-item p {
-    margin: 0 0 12px;
-    color: var(--muted);
-}
-
-.grid-actions {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-/* Buttons */
-.btn {
-    display: inline-block;
-    padding: 8px 12px;
-    background: var(--accent);
-    color: #fff;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 600;
-}
-
-.btn.secondary {
-    background: var(--accent-2);
-    color: var(--text);
-    border: 1px solid rgba(2, 6, 23, 0.04);
-}
-
-.btn:focus, .btn.secondary:focus {
-    outline: 3px solid rgba(43, 108, 176, 0.12);
-    outline-offset: 2px;
-}
-
-/* Small helpers for lists inside cards */
-.card-links {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-}
-
-/* Forms inside dashboard pages */
-form {
-    background: var(--card);
-    border-radius: 10px;
-    padding: 14px;
-    border: 1px solid rgba(15, 23, 42, 0.04);
-    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.03);
+form div:first-of-type {
+    margin-right: 50px;
 }
 
 form label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 6px;
-    color: var(--muted);
+    margin: 5px;
+    font-size: 20px;
 }
 
-form input[type=text], form input[type=email], form input[type=number], form input[type=password], form select, form textarea {
-    width: 95%;
-    padding: 10px 12px;
-    border-radius: 8px;
-    border: 1px solid #e6eef6;
-    background: #fbfdff;
-    margin-bottom: 12px;
+form input {
+    margin: 6px;
 }
 
-form .row {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-}
-
-form .row .full {
-    grid-column: 1 / -1;
-}
-
-form button {
-    display: inline-block;
-    padding: 10px 18px;
-    border-radius: 8px;
-    border: none;
-    background: var(--accent);
-    color: #fff;
-    font-weight: 700;
-    cursor: pointer;
-}
-
-/* Modify info button */
-#modify-info {
-    display: inline-block;
-    padding: 8px 12px;
-    background: var(--accent);
-    color: #fff;
-    border-radius: 8px;
-    text-decoration: none;
-}
-
-/* Ensure footer sits at bottom */
-footer {
-    margin-top: auto; /* in case body flex layout not enough */
-}
-
-/* Responsive */
-@media (max-width: 980px) {
-    #body {
-        padding: 12px;
-    }
-
-    .admin-grid {
-        grid-template-columns: 1fr;
-    }
-
-    /* Collapse grid to two columns: sidebar + content full-width */
-    #body-content {
-        grid-template-columns: 220px 1fr; /* left + main */
-    }
-
-    #categories {
-        width: 100%;
-    }
-
-    form .row {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 700px) {
-    /* Mobile: stack everything */
-    #body-content {
-        grid-template-columns: 1fr;
-    }
-
-    #categories {
-        order: 2;
-        width: 100%;
-    }
-
-    #infos {
-        order: 1;
-    }
-}
-
-/* Minor utilities */
-.mt-2 {
-    margin-top: 8px;
-}
-
-.text-muted {
-    color: var(--muted);
+#modify-info{
+    font-size: large;
+    padding:1%;
+    margin: 0, ;
+    justify-self: center;
 }

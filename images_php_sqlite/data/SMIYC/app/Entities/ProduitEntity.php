@@ -50,7 +50,7 @@ class ProduitEntity extends AProduitEntity
     // --- GETTER / SETTER SPÉCIFIQUE ---
 
     public function getOrigine(): string
-    {
+    {  
         return $this->attributes['origine'] ?? '';
     }
 

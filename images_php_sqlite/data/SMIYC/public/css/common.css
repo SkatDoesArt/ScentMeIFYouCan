@@ -132,6 +132,10 @@ label.hidden{
     font-family: 'Poppins', sans-serif !important;
 }
 
+#nav-list a.active .categorie {
+    color: #A08476;
+    text-decoration: underline;
+}
 .categorie {
     color: white;
     font-size: 1rem;

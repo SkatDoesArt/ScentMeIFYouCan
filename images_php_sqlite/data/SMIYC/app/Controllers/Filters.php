@@ -66,5 +66,16 @@ class Filters extends BaseController
 
         return $produits;
     }
+
+    public function filterBySeason($season, $categorie)
+    {
+        $produitModel = new ProduitModel();
+
+        $produits = $produitModel->where('saison', $season)
+        ->like('categorie', $categorie)
+        ->findAll();
+
+        return $produits;
+    }
 }
 

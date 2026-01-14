@@ -16,6 +16,9 @@ class SessionAchat extends Entity
 
     public function __construct(Acheteur $acheteur)
     {
+        // Initialize the Entity base to set up dataCaster and attributes
+        parent::__construct([]);
+
         $this->acheteur = $acheteur;
         $this->dateCreation = new \DateTime();
         $this->dateDerniereActivite = new \DateTime();

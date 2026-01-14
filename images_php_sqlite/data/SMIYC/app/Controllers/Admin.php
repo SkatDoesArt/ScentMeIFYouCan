@@ -32,7 +32,13 @@ class Admin extends BaseController
     {
         $model = new ProduitModel();
 
-        $data["liste_produits"] = $model->getListeProduit();
+        // Nombre d'elements par page
+        $perPage = 15;
+
+        // Recupere la page courante automatiquement via QueryString (page_group1)
+        $data["liste_produits"] = $model->orderBy('id_produit', 'DESC')->paginate($perPage, 'group1');
+        $data['pager'] = $model->pager;
+
         return view('Pages/admin/products', $data);
     }
 

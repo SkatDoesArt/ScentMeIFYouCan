@@ -4,6 +4,7 @@ namespace App\Services\Commande;
 
 use App\Services\Commande\Validation\ValidationHandler;
 use App\Entities\Panier\CommandeEntity;
+use LogicException;
 
 /**
  * Orchestration de la validation des commandes via Chain of Responsibility
@@ -31,7 +32,7 @@ class CommandeValidator
     public function validate(CommandeEntity $commande): bool
     {
         if ($this->firstHandler === null) {
-            throw new \LogicException("Aucun handler défini pour la validation.");
+            throw new LogicException("Aucun handler défini pour la validation.");
         }
 
         return $this->firstHandler->handle($commande);

@@ -3,6 +3,7 @@
 // Usage from a view: <?= view('Pages/partials/header', ['showCart' => false])
 $showCart = $showCart ?? true;
 $showList = $showList ?? true;
+$showSearch = $showSearch ?? true;
 ?>
 <header id="header">
     <div id="header-container">
@@ -11,6 +12,7 @@ $showList = $showList ?? true;
         </div>
         <nav id="nav-upper">
             <h1 id="bigname"><a href="<?= base_url() . "#" ?>">SMIYC</a></h1>
+            <?php if ($showSearch): ?>
             <form class="recherche" role="search" action="<?= base_url('catalogue/search') ?>" method="get">
                 <label class="hidden" for="search">Recherche</label>
                 <input type="search" id="search" name="q" placeholder="Rechercher un produit, une marque"
@@ -23,6 +25,7 @@ $showList = $showList ?? true;
                     </svg>
                 </button>
             </form>
+            <?php endif; ?>
             <div id="nav-buttons">
                 <a href="<?= base_url() ?>auth/login">
                     <p>

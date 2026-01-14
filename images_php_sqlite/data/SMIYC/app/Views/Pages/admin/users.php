@@ -17,7 +17,7 @@
 
 <body>
 
-<?= view('Pages/partials/header', ['showCart' => false, 'showList' => false]) ?>
+<?= view('Pages/partials/header', ['showCart' => false, 'showList' => false, 'showSearch' => false]) ?>
 
 <div class="container">
     <div class="users-card">

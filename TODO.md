@@ -11,13 +11,13 @@ R301 :
 
 - ADMIN
  
-    gerer users(création et modification)
-    gerer pdts
+    gerer users(création et modification) -> pas de username et groupe lors de la création
     Admin n'as pas de panier (modifier routes)
+    delete product
 
 - PANIER
 
-    ajout item panier
+    ajout item panier -> modele a revoir
 
 - USER
 

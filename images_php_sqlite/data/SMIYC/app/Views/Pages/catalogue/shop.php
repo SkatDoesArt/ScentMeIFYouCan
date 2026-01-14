@@ -3,7 +3,9 @@
 
 <?php
 // On récupère le modèle uniquement pour le calcul du prix si la liste est vide
-$produitModel = new \App\Models\Produit\ProduitModel();
+use App\Models\Produit\ProduitModel;
+
+$produitModel = new ProduitModel();
 
 // SECURITE : On s'assure que les variables existent
 $categorie = $categorie ?? request()->getGet('categorie') ?? null;

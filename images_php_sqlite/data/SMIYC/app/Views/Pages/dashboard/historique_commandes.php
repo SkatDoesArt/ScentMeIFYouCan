@@ -14,47 +14,41 @@
 </head>
 
 <body>
-    <?= view('Pages/partials/header', ['showCart' => true, 'showList' => false]) ?>
+<?= view('Pages/partials/header', ['showCart' => true, 'showList' => false]) ?>
 
-    <div id="body">
-        <h1>Votre Compte</h1>
-        <div>
-            <div id="categories">
-                <ul>
-                    <a href="<?= base_url();?>dashboard/infos_perso"><li>Informations personnelles</li></a>
-                    <a href="<?= base_url();?>dashboard/langue_region"><li>Langue et Région</li></a>
-                    <a href="<?= base_url();?>dashboard/adresses"><li>Carnet d'adresses</li></a>
-                    <a href="<?= base_url();?>dashboard/moyen_paiement"><li>Informations de paiement</li></a>
-                    <a href="<?= base_url();?>dashboard/suivi_commande"><li>Suivis de commande</li></a>
-                    <a href="<?= base_url();?>dashboard/historique_commandes"><li>Historique de commandes</li></a>
-                </ul>
-            </div>
-            <div id="info-perso">
-                <h2>Historique de commande</h2>
+<div id="body">
+    <h1>Votre Compte</h1>
+    <div id="body-content">
+        <div id="categories">
+            <ul>
+                <a href="<?= base_url(); ?>dashboard/infos_perso">
+                    <li>Informations personnelles</li>
+                </a>
+                <a href="<?= base_url(); ?>dashboard/langue_region">
+                    <li>Langue et Région</li>
+                </a>
+                <a href="<?= base_url(); ?>dashboard/adresses">
+                    <li>Carnet d'adresses</li>
+                </a>
+                <a href="<?= base_url(); ?>dashboard/moyen_paiement">
+                    <li>Informations de paiement</li>
+                </a>
+                <a href="<?= base_url(); ?>dashboard/suivi_commande">
+                    <li><strong>Suivis de commande</strong></li>
+                </a>
+                <a href="<?= base_url(); ?>dashboard/historique_commandes">
+                    <li>Historique de commandes</li>
+                </a>
+            </ul>
+        </div>
+        <div id="infos">
+            <h2>Historique de commande</h2>
 
-                <div>
-                    <div id="filters">
-
-                    </div>
-                    <div id="commandes">
-<!--                        --><?php //foreach ($list_commande as $c): ?>
-<!--                            <div id="commande-info">-->
-<!--                                <img src="" alt="">-->
-<!--                                <p>--><?php //=$c->name?><!--</p>-->
-<!--                                <p>--><?php //=$c->status?><!--</p>-->
-<!--                                <p>--><?php //=$c->prix?><!--</p>-->
-<!--                                <p>^</p>-->
-<!--                            </div>-->
-<!---->
-<!--                        --><?php //endforeach; ?>
-                    </div>
-                </div>
-
-            </div>
         </div>
     </div>
+</div>
 
-    <?= view('Pages/partials/footer') ?>
+<?= view('Pages/partials/footer') ?>
 
 </body>
 

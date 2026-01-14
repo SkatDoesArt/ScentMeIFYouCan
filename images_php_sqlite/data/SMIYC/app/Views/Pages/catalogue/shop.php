@@ -9,6 +9,10 @@ if (isset(request()->getGet()['categorie'])) {
     $liste_produits = $produits->where('categorie', $categorie)->findAll();
 }
 
+$minPrice = min($liste_produits ? array_map(function($p) {
+    return intval($p->getPrix());
+}, $liste_produits) : [5]);
+
 ?>
 
 <head>
@@ -42,8 +46,8 @@ if (isset(request()->getGet()['categorie'])) {
 
             <h4>Prix</h4>
             <form id="price-range" role="search" action="<?= base_url('catalogue/filters/' . $categorie) ?>" method="get" onchange="this.submit()">
-                <input id="pi_input" type="range" min="0" max="500" step="5" value="<?= $price ?? 500 ?>" name="price" inputmode="search" interkeyhint="search">
-                <p><output id="price-value"><?= $price ?? 500 ?></output> €</p>
+                <input id="pi_input" type="range" min="<?= $minPrice ?? 5 ?>" max="350" step="5" value="<?= $price ?? 350 ?>" name="price" inputmode="search" interkeyhint="search">
+                <p><output id="price-value"><?= $price ?? 350 ?></output> €</p>
             </form>
         </aside>
 

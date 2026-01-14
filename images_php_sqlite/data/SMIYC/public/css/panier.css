@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    margin-top: 130px;
+    margin: 20px;
 }
 
 .panier-container {
@@ -80,7 +80,7 @@ body {
     margin-bottom: 10px;
 }
 
-.summary input[type="submit"] {
+.summary button {
     width: 100%;
     padding: 10px;
     background: black;
@@ -88,7 +88,6 @@ body {
     border: none;
     cursor: pointer;
 }
-
 h2{
     text-align: center;
 }
@@ -112,7 +111,6 @@ h2{
     background-color: #000;
     transform: translateY(-2px);
 }
-
 #header {
     background-color: #000;
     position: fixed;

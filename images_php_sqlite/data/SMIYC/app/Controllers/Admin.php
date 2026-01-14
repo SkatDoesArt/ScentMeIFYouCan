@@ -3,13 +3,15 @@
 namespace App\Controllers;
 
 use App\Models\Produit\ProduitModel;
-use CodeIgniter\Exceptions\PageNotFoundException;
-use CodeIgniter\Shield\Entities\User;
+use CodeIgniter\Shield\Models\UserIdentityModel;
 use CodeIgniter\Shield\Models\UserModel;
+use CodeIgniter\Shield\Entities\User;
+use CodeIgniter\Exceptions\PageNotFoundException;
 use Throwable;
 
 class Admin extends BaseController
 {
+
 
 
     // ==========================
@@ -47,14 +49,7 @@ class Admin extends BaseController
     public function users()
     {
         $userModel = new UserModel();
-
-        // Nombre d'utilisateurs par page
-        $perPage = 15;
-
-        // Réecupere les utilisateurs paginés (groupe 'group_users')
-        $data['users'] = $userModel->orderBy('id', 'DESC')->paginate($perPage, 'group_users');
-        $data['pager'] = $userModel->pager;
-
+        $data['users'] = $userModel->findAll();
         return view('Pages/admin/users', $data);
     }
 
@@ -89,26 +84,26 @@ class Admin extends BaseController
 
             // ===== DONNÉES POST =====
             $data = [
-                'name' => $this->request->getPost('name'),
-                'price' => $this->request->getPost('price'),
-                'description' => $this->request->getPost('description'),
-                'niveauPrestige' => $this->request->getPost('niveauPrestige'),
-                'notation' => $this->request->getPost('notation'),
-                'taille' => $this->request->getPost('taille'),
-                'quantiteRestante' => $this->request->getPost('quantiteRestante'),
-                'marque' => $this->request->getPost('marque'),
-                'categorie' => $this->request->getPost('categorie') ?? 'Parfums',
-                'type' => $this->request->getPost('type'),
-                'typePeau' => $this->request->getPost('typePeau'),
-                'origine' => $this->request->getPost('origine'),
-                'dureeCombustion' => $this->request->getPost('dureeCombustion'),
-                'saison' => $this->request->getPost('saison') ?? 'Toutes saisons',
+                'name'              => $this->request->getPost('name'),
+                'price'             => $this->request->getPost('price'),
+                'description'       => $this->request->getPost('description'),
+                'niveauPrestige'    => $this->request->getPost('niveauPrestige'),
+                'notation'          => $this->request->getPost('notation'),
+                'taille'            => $this->request->getPost('taille'),
+                'quantiteRestante'  => $this->request->getPost('quantiteRestante'),
+                'marque'            => $this->request->getPost('marque'),
+                'categorie'         => $this->request->getPost('categorie') ?? 'Parfums',
+                'type'              => $this->request->getPost('type'),
+                'typePeau'          => $this->request->getPost('typePeau'),
+                'origine'           => $this->request->getPost('origine'),
+                'dureeCombustion'   => $this->request->getPost('dureeCombustion'),
+                'saison'            => $this->request->getPost('saison') ?? 'Toutes saisons',
             ];
 
             // ===== IMAGE =====
-            $image = $this->request->getFile('image_name');
-            $imageUrl = $this->request->getPost('image_url'); // champ lien séparé
-            $categorie = $data['categorie'];
+            $image       = $this->request->getFile('image_name');
+            $imageUrl    = $this->request->getPost('image_url'); // champ lien séparé
+            $categorie   = $data['categorie'];
 
             // Dossier selon catégorie
             $imagePath = ($categorie === 'NoCap')
@@ -121,17 +116,19 @@ class Admin extends BaseController
             }
 
             // PRIORITÉ AU FICHIER
-            if ($image && $image->isValid() && !$image->hasMoved()) {
+            if ($image && $image->isValid() && ! $image->hasMoved()) {
 
                 $imageName = uniqid('prod_', true) . '.' . $image->getExtension();
                 $image->move($imagePath, $imageName);
 
                 $data['image_name'] = $imageName;
-            } //  SINON → LIEN
+            }
+            //  SINON → LIEN
             elseif (!empty($imageUrl) && filter_var($imageUrl, FILTER_VALIDATE_URL)) {
 
                 $data['image_name'] = $imageUrl;
-            } //  SINON → NULL
+            }
+            //  SINON → NULL
             else {
                 $data['image_name'] = null;
             }
@@ -152,6 +149,9 @@ class Admin extends BaseController
             }
 
 
+
+
+
             return view('Pages/admin/add/add_product');
         }
 
@@ -160,57 +160,58 @@ class Admin extends BaseController
     }
 
 
+
     /**
      * Ajouter un utilisateur
      */
 
 
-    public function addUser()
-    {
-        if ($this->request->is('post')) {
+public function addUser()
+{
+    if ($this->request->is('post')) {
 
-            $userModel = new UserModel();
+        $userModel = new UserModel();
 
-            $statut = $this->request->getPost('statut');
-            $username = $this->request->getPost('name');
-            $email = $this->request->getPost('email');
-            $password = $this->request->getPost('password');
+        $statut   = $this->request->getPost('statut');
+        $username = $this->request->getPost('name');
+        $email    = $this->request->getPost('email');
+        $password = $this->request->getPost('password');
 
-            try {
-                //  Création user
-                $user = new User([
-                    'username' => $username,
-                    'active' => 1,
-                ]);
+        try {
+            //  Création user
+            $user = new User([
+                'username' => $username,
+                'active'   => 1,
+            ]);
 
-                $userModel->save($user);
+            $userModel->save($user);
 
-                // Récupération du user persisté
-                $userId = $userModel->getInsertID();
-                $user = $userModel->findById($userId);
+            // Récupération du user persisté
+            $userId = $userModel->getInsertID();
+            $user   = $userModel->findById($userId);
 
-                //  Création identité email + password
-                $user->createEmailIdentity([
-                    'email' => $email,
-                    'password' => $password,
-                ]);
+            //  Création identité email + password
+            $user->createEmailIdentity([
+                'email'    => $email,
+                'password' => $password,
+            ]);
 
-                //  Assignation au groupe
-                $user->addGroup($statut);
+            //  Assignation au groupe
+            $user->addGroup($statut);
+            
+            session()->setFlashdata('success', 'Utilisateur ajouté avec succès');
+            return redirect()->back();
 
-                session()->setFlashdata('success', 'Utilisateur ajouté avec succès');
-                return redirect()->back();
+        } catch (Throwable $e) {
 
-            } catch (Throwable $e) {
-
-                log_message('error', $e->getMessage());
-                session()->setFlashdata('error', 'Erreur lors de la création de l’utilisateur');
-                return redirect()->back();
-            }
+            log_message('error', $e->getMessage());
+            session()->setFlashdata('error', 'Erreur lors de la création de l’utilisateur');
+            return redirect()->back();
         }
-
-        return view('Pages/admin/add/add_user');
     }
+
+    return view('Pages/admin/add/add_user');
+}
 
 
 
@@ -226,84 +227,87 @@ class Admin extends BaseController
      */
     public function editProduit($id = null)
     {
-        $model = new ProduitModel();
+    $model = new ProduitModel();
 
-        if ($id === null) {
-            throw new PageNotFoundException();
-        }
-
-        $produit = $model->find($id);
-
-        if (!$produit) {
-            throw new PageNotFoundException('Produit introuvable');
-        }
-
-        if ($this->request->is('post')) {
-
-            $data = [
-                'name' => $this->request->getPost('name'),
-                'price' => $this->request->getPost('price'),
-                'description' => $this->request->getPost('description'),
-                'niveauPrestige' => $this->request->getPost('niveauPrestige'),
-                'notation' => $this->request->getPost('notation'),
-                'taille' => $this->request->getPost('taille'),
-                'quantiteRestante' => $this->request->getPost('quantiteRestante'),
-                'marque' => $this->request->getPost('marque'),
-                'categorie' => $this->request->getPost('categorie') ?? 'Parfums',
-                'type' => $this->request->getPost('type'),
-                'typePeau' => $this->request->getPost('typePeau'),
-                'origine' => $this->request->getPost('origine'),
-                'dureeCombustion' => $this->request->getPost('dureeCombustion'),
-                'saison' => $this->request->getPost('saison') ?? 'Toutes saisons',
-            ];
-
-            $image = $this->request->getFile('image_name');
-            $imageUrl = $this->request->getPost('image_url');
-            $categorie = $data['categorie'];
-
-            $imagePath = ($categorie === 'NoCap')
-                ? FCPATH . 'pictures/parfums/NoCap/'
-                : FCPATH . 'pictures/marques/';
-
-            if (!is_dir($imagePath)) {
-                mkdir($imagePath, 0755, true);
-            }
-
-            // Gestion de l'image
-            if ($image && $image->isValid() && !$image->hasMoved()) {
-                // Supprime ancienne image si c'était un fichier
-                if (!empty($produit->image_name) && !filter_var($produit->image_name, FILTER_VALIDATE_URL)) {
-                    @unlink($imagePath . $produit->image_name);
-                }
-
-                $imageName = uniqid('prod_', true) . '.' . $image->getExtension();
-                $image->move($imagePath, $imageName);
-                $data['image_name'] = $imageName;
-            } elseif (!empty($imageUrl) && filter_var($imageUrl, FILTER_VALIDATE_URL)) {
-                // Supprime ancienne image si c'était un fichier local
-                if (!empty($produit->image_name) && !filter_var($produit->image_name, FILTER_VALIDATE_URL)) {
-                    @unlink($imagePath . $produit->image_name);
-                }
-
-                $data['image_name'] = $imageUrl;
-            } else {
-                // Si aucune nouvelle image, on garde l'ancienne
-                $data['image_name'] = $produit->image_name;
-            }
-
-            $updated = $model->update($id, $data);
-
-            if ($updated !== false) {
-                session()->setFlashdata('success', 'Produit modifié avec succès');
-            } else {
-                session()->setFlashdata('error', 'Problème lors de la modification du produit');
-            }
-
-            return redirect()->to('/admin/edit/product/' . $id);
-        }
-
-        return view('Pages/admin/edit/edit_product', ['produit' => $produit]);
+    if ($id === null) {
+        throw new PageNotFoundException();
     }
+
+    $produit = $model->find($id);
+
+    if (! $produit) {
+        throw new PageNotFoundException('Produit introuvable');
+    }
+
+    if ($this->request->is('post')) {
+
+        $data = [
+            'name'              => $this->request->getPost('name'),
+            'price'             => $this->request->getPost('price'),
+            'description'       => $this->request->getPost('description'),
+            'niveauPrestige'    => $this->request->getPost('niveauPrestige'),
+            'notation'          => $this->request->getPost('notation'),
+            'taille'            => $this->request->getPost('taille'),
+            'quantiteRestante'  => $this->request->getPost('quantiteRestante'),
+            'marque'            => $this->request->getPost('marque'),
+            'categorie'         => $this->request->getPost('categorie') ?? 'Parfums',
+            'type'              => $this->request->getPost('type'),
+            'typePeau'          => $this->request->getPost('typePeau'),
+            'origine'           => $this->request->getPost('origine'),
+            'dureeCombustion'   => $this->request->getPost('dureeCombustion'),
+            'saison'            => $this->request->getPost('saison') ?? 'Toutes saisons',
+        ];
+
+        $image       = $this->request->getFile('image_name');
+        $imageUrl    = $this->request->getPost('image_url');
+        $categorie   = $data['categorie'];
+
+        $imagePath = ($categorie === 'NoCap')
+            ? FCPATH . 'pictures/parfums/NoCap/'
+            : FCPATH . 'pictures/marques/';
+
+        if (!is_dir($imagePath)) {
+            mkdir($imagePath, 0755, true);
+        }
+
+        // Gestion de l'image
+        if ($image && $image->isValid() && ! $image->hasMoved()) {
+            // Supprime ancienne image si c'était un fichier
+            if(!empty($produit->image_name) && !filter_var($produit->image_name, FILTER_VALIDATE_URL)) {
+                @unlink($imagePath . $produit->image_name);
+            }
+
+            $imageName = uniqid('prod_', true) . '.' . $image->getExtension();
+            $image->move($imagePath, $imageName);
+            $data['image_name'] = $imageName;
+        }
+        elseif (!empty($imageUrl) && filter_var($imageUrl, FILTER_VALIDATE_URL)) {
+            // Supprime ancienne image si c'était un fichier local
+            if(!empty($produit->image_name) && !filter_var($produit->image_name, FILTER_VALIDATE_URL)) {
+                @unlink($imagePath . $produit->image_name);
+            }
+
+            $data['image_name'] = $imageUrl;
+        }
+        else {
+            // Si aucune nouvelle image, on garde l'ancienne
+            $data['image_name'] = $produit->image_name;
+        }
+
+        $updated = $model->update($id, $data);
+
+        if ($updated !== false) {
+            session()->setFlashdata('success', 'Produit modifié avec succès');
+        } else {
+            session()->setFlashdata('error', 'Problème lors de la modification du produit');
+        }
+
+        return redirect()->to('/admin/edit/product/' . $id);
+    }
+
+    return view('Pages/admin/edit/edit_product', ['produit' => $produit]);
+}
+
 
 
     /**
@@ -319,7 +323,7 @@ class Admin extends BaseController
 
         $user = $users->findById($id);
 
-        if (!$user) {
+        if (! $user) {
             throw new PageNotFoundException('Produit introuvable');
         }
         if ($this->request->is('post')) {
@@ -335,6 +339,7 @@ class Admin extends BaseController
         }
         return view('Pages/admin/edit/edit_user', ['user' => $user]);
     }
+
 
 
     /**
@@ -413,11 +418,11 @@ class Admin extends BaseController
         $userModel = new UserModel();
         $user = $userModel->find($id);
 
-        if (!$user) {
+        if (! $user) {
             throw new PageNotFoundException('Utilisateur introuvable');
         }
 
-        if (!in_array($statut, ['admin', 'user'], true)) {
+        if (! in_array($statut, ['admin', 'user'], true)) {
             return redirect()->back()->with('error', 'Rôle invalide');
         }
 
@@ -429,7 +434,7 @@ class Admin extends BaseController
             }
 
             //  Ajouter le groupe "admin"
-            if (!$user->inGroup('admin')) {
+            if (! $user->inGroup('admin')) {
                 $user->addGroup('admin');
             }
 
@@ -442,13 +447,13 @@ class Admin extends BaseController
             }
 
             //  Ajouter le groupe "user"
-            if (!$user->inGroup('user')) {
+            if (! $user->inGroup('user')) {
                 $user->addGroup('user');
             }
 
             $message = 'Utilisateur rétrogradé en utilisateur';
         }
-
+        
         $user->activate();
         return redirect()->back()->with('success', $message);
     }
@@ -460,23 +465,22 @@ class Admin extends BaseController
     public function addStocks($id)
     {
         $produitModel = new ProduitModel();
-        if ($id == null) {
-            return redirect()->back()->with('error', "Le produit n'éxiste pas");
+        if($id==null){
+            return redirect()->back()->with('error',"Le produit n'éxiste pas");
         }
         $produitModel->IncrementQauntite($id);
-        return redirect()->back()->with('success', 'La quantite du produit a été augmenté');
+        return redirect()->back()->with('success',  'La quantite du produit a été augmenté');
     }
 
     /**
      * Diminuer le stocks d'un produit des stocks
      */
-    public function removeStocks($id = null)
-    {
+    public function removeStocks($id = null){
         $produitModel = new ProduitModel();
-        if ($id == null) {
-            return redirect()->back()->with('error', "Le produit n'éxiste pas");
+        if($id==null){
+            return redirect()->back()->with('error',"Le produit n'éxiste pas");
         }
         $produitModel->DecrementQauntite($id);
-        return redirect()->back()->with('success', 'La quantite du produit a été augmenté');
+        return redirect()->back()->with('success',  'La quantite du produit a été augmenté');
     }
 }

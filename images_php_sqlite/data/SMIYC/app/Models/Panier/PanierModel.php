@@ -115,7 +115,7 @@ class PanierModel extends Model
     // Dans PanierModel ou dans LignePanierModel
     public function getPanierComplet(int $id_panier): array
     {
-        $lignePanierModel = new \App\Models\Panier\LignePanierModel();
+        $lignePanierModel = new LignePanierModel();
 
         return $lignePanierModel
             ->select('ligne_panier.*, produit.name, produit.price')

@@ -166,8 +166,6 @@ $routes->group('admin',['filter' => 'admin'],function ($routes) {
         $routes->post( 'commande/(:num)', 'Admin::deleteCommande/$1');
     });
 
-
-    
     // ==========================
     // Routes principales / tableau de bord
     // ==========================

@@ -42,7 +42,7 @@
                 <p id="price"><?= esc($produit->price) ?> €</p>
                 <p>Stock : <?= esc($produit->quantiteRestante) ?></p>
                 <p>Notation : <?= esc($produit->notation) ?>/5</p>
-                <form method="post" action="<?= base_url('panier/ajouter/' . $produit->getId()) ?>" class="add-to-cart-form">
+                <form method="post" action="<?= base_url('cart/add/' . $produit->getId()) ?>" class="add-to-cart-form">
                     <?= csrf_field() ?>
                     <button type="submit" id="add-to-cart-btn" title="Ajouter au panier">Ajouter au panier</button>
                 </form>

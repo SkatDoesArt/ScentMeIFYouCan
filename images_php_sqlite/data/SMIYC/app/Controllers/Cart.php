@@ -38,8 +38,8 @@ class Cart extends BaseController
 
         $userId = auth()->id();
 
-        $panierModel = new \App\Models\Panier\PanierModel();
-        $ligneModel  = new \App\Models\Panier\LignePanierModel();
+        $panierModel = new PanierModel();
+        $ligneModel  = new LignePanierModel();
 
         // 1. panier garanti
         $idPanier = $panierModel->getOrCreatePanier($userId);

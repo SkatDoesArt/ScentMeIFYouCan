@@ -7,6 +7,7 @@ use CodeIgniter\Shield\Models\UserIdentityModel;
 use CodeIgniter\Shield\Models\UserModel;
 use CodeIgniter\Shield\Entities\User;
 use CodeIgniter\Exceptions\PageNotFoundException;
+use Throwable;
 
 class Admin extends BaseController
 {
@@ -32,7 +33,13 @@ class Admin extends BaseController
     {
         $model = new ProduitModel();
 
-        $data["liste_produits"] = $model->getListePorduit();
+        // Nombre d'elements par page
+        $perPage = 15;
+
+        // Recupere la page courante automatiquement via QueryString (page_group1)
+        $data["liste_produits"] = $model->orderBy('id_produit', 'DESC')->paginate($perPage, 'group1');
+        $data['pager'] = $model->pager;
+
         return view('Pages/admin/products', $data);
     }
 
@@ -195,7 +202,7 @@ public function addUser()
             session()->setFlashdata('success', 'Utilisateur ajouté avec succès');
             return redirect()->back();
 
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
 
             log_message('error', $e->getMessage());
             session()->setFlashdata('error', 'Erreur lors de la création de l’utilisateur');
@@ -223,13 +230,13 @@ public function addUser()
     $model = new ProduitModel();
 
     if ($id === null) {
-        throw new \CodeIgniter\Exceptions\PageNotFoundException();
+        throw new PageNotFoundException();
     }
 
     $produit = $model->find($id);
 
     if (! $produit) {
-        throw new \CodeIgniter\Exceptions\PageNotFoundException('Produit introuvable');
+        throw new PageNotFoundException('Produit introuvable');
     }
 
     if ($this->request->is('post')) {
@@ -311,13 +318,13 @@ public function addUser()
         $model = new UserModel();
         $users = auth()->getProvider();
         if ($id === null) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException('ID manquant');
+            throw new PageNotFoundException('ID manquant');
         }
 
         $user = $users->findById($id);
 
         if (! $user) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException('Produit introuvable');
+            throw new PageNotFoundException('Produit introuvable');
         }
         if ($this->request->is('post')) {
 

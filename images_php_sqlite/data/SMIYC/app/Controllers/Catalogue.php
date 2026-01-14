@@ -7,6 +7,7 @@ use App\Models\Produit\Categorie\CremeModel;
 use App\Models\Produit\ProduitModel;
 use App\Models\Produit\Categorie\MarquesModel;
 use App\Models\Produit\Categorie\EncensModel;
+use CodeIgniter\Exceptions\PageNotFoundException;
 use CodeIgniter\HTTP\RedirectResponse;
 use function PHPUnit\Framework\containsEqual;
 
@@ -36,7 +37,7 @@ class Catalogue extends BaseController
         }
 
         if (!$data['produit']) {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+            throw PageNotFoundException::forPageNotFound();
         }
 
         $modelAvis = new AvisModel();

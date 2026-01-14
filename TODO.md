@@ -1,22 +1,29 @@
+# PRIO
 R312-Ang - rapport
-R302-Algo - rapport
-R310-AIg - ???
 R313-Comm - rapport
+
+# "trkl"
+R302-Algo - rapport
+R310-AIg - RAPPORT
+
 
 R301 :
 
 - ADMIN
-
-    avoir compte admin
-    gerer users(création et modification)
-    gerer pdts
+ 
+    gerer users(création et modification) -> pas de username et groupe lors de la création
+    Admin n'as pas de panier (modifier routes)
+    delete product
 
 - PANIER
 
-    ajout item panier
+    ajout item panier -> modele a revoir
 
 - USER
 
     infos perso (Entity metier user -> /!\ pas CI4)
 
-- 
+- CATALOGUE
+  
+    pagination dans les categories
+    retirer double scrollbar

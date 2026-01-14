@@ -26,6 +26,7 @@ use CodeIgniter\Shield\Authentication\Passwords\NothingPersonalValidator;
 use CodeIgniter\Shield\Authentication\Passwords\PwnedValidator;
 use CodeIgniter\Shield\Authentication\Passwords\ValidatorInterface;
 use CodeIgniter\Shield\Models\UserModel;
+use Throwable;
 
 class Auth extends ShieldAuth
 {
@@ -454,7 +455,7 @@ class Auth extends ShieldAuth
         $user = null;
         try {
             $user = auth()->user();
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             // auth() peut ne pas être disponible dans certains contextes ; on ignore et retombe sur la valeur par défaut.
             $user = null;
         }

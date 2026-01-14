@@ -191,38 +191,53 @@ class Catalogue extends BaseController
 
     public function filters($categorie = null)
     {
+        // 1. On récupère les paramètres de l'URL
         $filter = $this->request->getGet('f');
         $brand = $this->request->getGet('brand');
         $price = $this->request->getGet('price');
-        $season = $this->request->getGet('season');
-
-        if (empty($filter) && empty($brand) && empty($price)) {
-            return redirect()->to(base_url('catalogue?categorie=' . $categorie));
-        }
+        $type = $this->request->getGet('type') ?? 'parfums'; // Par défaut parfums
 
         $produitModel = new ProduitModel();
-        $encensModel = new EncensModel();
-        $filterController = new Filters();
-        $data['liste_produits'] = [];
 
+        // 2. Construction de la requête (Query Builder)
+        // On filtre par type (parfums/creme/etc.)
+        $produitModel->where('type', $type);
 
-        if ($filter == "price-crst" || $filter == "price-dcrst") {
-            $data['liste_produits'] = array_merge($data['liste_produits'], $filterController->sortByPrice($filter, $categorie));
-        } elseif ($filter == "alpha-crst" || $filter == "alpha-dcrst") {
-            $data['liste_produits'] = array_merge($data['liste_produits'], $filterController->sortByAlpha($filter, $categorie));
-        } elseif (!empty($brand)) {
-            $data['liste_produits'] = array_merge($data['liste_produits'], $filterController->filterByBrand($brand, $categorie));
-        } elseif (!empty($price)) {
-            $data['liste_produits'] = array_merge($data['liste_produits'], $filterController->filterByPriceRange($price, $categorie));
-        } else {
-            return redirect()->to(base_url('catalogue?categorie=' . $categorie));
+        // On filtre par catégorie (homme, femme, etc.) si ce n'est pas "all"
+        if ($categorie && $categorie !== 'all') {
+            $produitModel->where('categorie', $categorie);
         }
 
-        $data['price'] = $price;
-        $data['filter'] = $filter;
-        $data['query'] = null;
-        $data['is_search'] = false;
-        $data['categorie'] = $categorie;
+        // Ajout des filtres optionnels
+        if (!empty($brand)) {
+            $produitModel->where('marque', $brand);
+        }
+
+        if (!empty($price)) {
+            $produitModel->where('price <=', $price);
+        }
+
+        // Gestion du tri
+        if ($filter == "price-crst") {
+            $produitModel->orderBy('price', 'ASC');
+        } elseif ($filter == "price-dcrst") {
+            $produitModel->orderBy('price', 'DESC');
+        } elseif ($filter == "alpha-crst") {
+            $produitModel->orderBy('name', 'ASC');
+        }
+
+        // 3. PAGINATION : C'est ici que le changement opère
+        // On utilise paginate() au lieu de findAll() pour supporter les pages
+        $data = [
+            'liste_produits' => $produitModel->paginate(10, 'group1'),
+            'pager' => $produitModel->pager,
+            'categorie' => $categorie,
+            'type' => $type,
+            'filter' => $filter,
+            'price' => $price,
+            'is_search' => false,
+            'query' => null
+        ];
 
         return view('Pages/catalogue/shop', $data);
     }

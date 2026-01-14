@@ -2,15 +2,15 @@
 <html lang="fr">
 
 <?php
-// On récupère le modèle uniquement pour le calcul du prix si la liste est vide
-use App\Models\Produit\ProduitModel;
+$produitModel = new \App\Models\Produit\ProduitModel();
 
-$produitModel = new ProduitModel();
-
-// SECURITE : On s'assure que les variables existent
+// RÉCUPÉRATION DES VARIABLES
 $categorie = $categorie ?? request()->getGet('categorie') ?? null;
+$brandActive = request()->getGet('brand'); // Récupère la marque sélectionnée
 $is_search = $is_search ?? false;
 $query     = $query ?? null;
+$price     = $price ?? request()->getGet('price');
+$filter    = $filter ?? request()->getGet('f');
 
 // Filtrage par catégorie 
 if (isset(request()->getGet()['categorie'])){
@@ -18,12 +18,11 @@ if (isset(request()->getGet()['categorie'])){
     $liste_produits = $produitModel->where('categorie', $categorie)->findAll();
 }
 
-// Calcul du prix min sécurisé pour le curseur
-$minPrice = 5;
+// Calcul du prix max pour le curseur
+$maxPriceFound = 350;
 if (!empty($liste_produits)) {
-    // On vérifie si c'est un tableau ou un objet (paginate renvoie un tableau)
     $prices = array_map(fn($p) => is_object($p) ? intval($p->getPrix()) : intval($p['prix']), $liste_produits);
-    $minPrice = min($prices);
+    $maxPriceFound = max($prices);
 }
 
 $catSlug = $categorie ?? 'all';  
@@ -38,6 +37,30 @@ $catSlug = $categorie ?? 'all';
     <link rel="stylesheet" href="<?= base_url('css/index.css'); ?>">
     <link rel="stylesheet" href="<?= base_url('css/shop.css'); ?>">
 
+    <style>
+        /* Styles pour l'état actif des marques */
+        .brand-filter-btn {
+            background: none;
+            border: none;
+            padding: 5px 0;
+            cursor: pointer;
+            display: block;
+            text-align: left;
+            width: 100%;
+            font-size: 1rem;
+            color: #777; /* Gris par défaut */
+            transition: all 0.2s;
+        }
+        .brand-filter-btn:hover { color: #000; }
+        
+        /* État Actif : Noir et Gras */
+        .brand-filter-btn.active {
+            color: #000 !important;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+    </style>
+
     <script type="text/javascript" src="<?= base_url('js/shop_filter.js'); ?>" defer></script>
     <script type="text/javascript" src="<?= base_url('js/reloadPage.js'); ?>" defer></script>
 </head>
@@ -49,26 +72,35 @@ $catSlug = $categorie ?? 'all';
         <aside class="left">
             <h2>Filtres</h2>
             <h3><strong>Marques</strong></h3>
-            <form id="brand-filters" role="search" action="<?= base_url('catalogue/filters/' . $categorie) ?>"
-                method="get">
+            <form id="brand-filters" role="search" action="<?= base_url('catalogue/filters/' . $catSlug) ?>" method="get">
                 <?php
+                // Extraction des marques uniques
                 $brands = array_unique(array_map(function ($p) {
-                    return $p->marque;
+                    return is_object($p) ? $p->marque : $p['marque'];
                 }, $liste_produits));
+                sort($brands);
                 
-                foreach ($brands as $brand): ?>
-                    <input type="submit" value="<?= esc($brand) ?>" name="brand" inputmode="search" interkeyhint="search">
+                foreach ($brands as $brand): 
+                    // On vérifie si cette marque est celle dans l'URL
+                    $isActive = ($brandActive === $brand) ? 'active' : '';
+                ?>
+                    <button type="submit" name="brand" value="<?= esc($brand) ?>" class="brand-filter-btn <?= $isActive ?>">
+                        <?= esc($brand) ?>
+                    </button>
                 <?php endforeach; ?>
+                
+                <?php if($brandActive): ?>
+                    <a href="<?= base_url('catalogue/filters/' . $catSlug) ?>" style="font-size: 0.8rem; color: red; text-decoration: none; display: block; margin-top: 10px;">✕ Effacer le filtre</a>
+                <?php endif; ?>
             </form>
 
-            <a id="plus-marques" href="<?= base_url("catalogue/marques") ?>">Voir plus de marques</a>
+            <a id="plus-marques" href="<?= base_url("catalogue/marques") ?>" style="display: block; margin-top: 15px;">Voir plus de marques</a>
 
             <h4>Prix</h4>
-            <form id="price-range" role="search" action="<?= base_url('catalogue/filters/' . $categorie) ?>"
-                method="get" onchange="this.submit()">
-                <input id="pi_input" type="range" min="5" max="<?= $maxPrice ?? 350 ?>" step="5"
-                    value="<?= $price ?? 350 ?>" name="price" inputmode="search" interkeyhint="search">
-                <p><output id="price-value"><?= $price ?? 350 ?></output> €</p>
+            <form id="price-range" role="search" action="<?= base_url('catalogue/filters/' . $catSlug) ?>" method="get" onchange="this.submit()">
+                <input id="pi_input" type="range" min="5" max="<?= $maxPriceFound ?>" step="5"
+                    value="<?= $price ?? $maxPriceFound ?>" name="price">
+                <p><output id="price-value"><?= $price ?? $maxPriceFound ?></output> €</p>
             </form>
         </aside>
 
@@ -82,23 +114,12 @@ $catSlug = $categorie ?? 'all';
 
                 <form class="shop-controls" role="search" action="<?= base_url('catalogue/filters/' . $catSlug) ?>"
                     method="get" onchange="this.submit()">
-                    <?php
-                    if (isset($filter) && !empty($filter)) {
-                        echo '<script type="text/javascript">
-                            document.addEventListener("DOMContentLoaded", function() {
-                                const sortFilter = document.getElementById("sort-filter");
-                                sortFilter.value = "' . esc($filter) . '";
-                            });
-                        </script>';
-                    }
-                    ?>
-
-                    <select id="sort-filter" name="f" inputmode="search" interkeyhint="search">
+                    <select id="sort-filter" name="f">
                         <option value="none">Choisissez un filtre</option>
-                        <option value="price-crst">Trier par prix croissant</option>
-                        <option value="price-dcrst">Trier par prix décroissant</option>
-                        <option value="alpha-crst">Trier par ordre alphabétique (A-Z)</option>
-                        <option value="alpha-dcrst">Trier par ordre alphabétique (Z-A)</option>
+                        <option value="price-crst" <?= ($filter === 'price-crst') ? 'selected' : '' ?>>Trier par prix croissant</option>
+                        <option value="price-dcrst" <?= ($filter === 'price-dcrst') ? 'selected' : '' ?>>Trier par prix décroissant</option>
+                        <option value="alpha-crst" <?= ($filter === 'alpha-crst') ? 'selected' : '' ?>>Trier par ordre alphabétique (A-Z)</option>
+                        <option value="alpha-dcrst" <?= ($filter === 'alpha-dcrst') ? 'selected' : '' ?>>Trier par ordre alphabétique (Z-A)</option>
                     </select>
                 </form>
             </div>

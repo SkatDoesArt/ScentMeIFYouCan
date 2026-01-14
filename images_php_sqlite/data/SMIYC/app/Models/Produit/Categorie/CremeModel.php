@@ -21,7 +21,8 @@ class CremeModel extends Model
         'quantiteRestante', 
         'marque',
         'typePeau',
-        'type'
+        'type',
+        'saison',
     ];
 
     protected $useTimestamps = false;

@@ -74,7 +74,9 @@
                 <h3>Résumé</h3>
                 <div>Total articles : <?= $totalArticles ?></div>
                 <div>Total : <?= number_format($totalPrix, 2) ?> €</div>
-                <button>Poursuivre la commande</button>
+                <form action="<?= base_url('commande/') ?>" method="post">
+                    <input type="submit" value="Poursuivre la commande">
+                </form>
             </div>
         </div>
 

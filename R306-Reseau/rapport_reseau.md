@@ -2,12 +2,12 @@
 
 ## 1. Choix des noms et sous-réseaux
 
-| Machine | Nom choisi | IP VLAN / Subnet | Description                                             |
-| ------- | ---------- | ---------------- | ------------------------------------------------------- |
-| Routeur | GW         | 10.0.1.254/24    | Intranet |
-| Routeur | GW         | 192.168.1.254    | Internet |
-| Interne | SRV-INT    | 10.0.1.50/24     | Serveur HTTP + DNS secondaire |
-| Externe | HOST-EXT   | 192.168.1.10/24  | Machine client depuis l’extérieur |
+| Machine | Nom choisi | IP VLAN / Subnet | port  | type |
+| ------- | ---------- | ---------------- | ----- | ---- |
+| Routeur | GW         | 10.0.1.254/24    | 0.10  | Intranet Vlan |
+| Routeur | GW         | 192.168.1.254    | 1     | Internet |
+| Interne | SRV-INT    | 10.0.1.50/24     | 0.10  | Intranet Vla |
+| Externe | HOST-EXT   | 192.168.1.10/24  | 1     | Internet |
 
 * VLAN interne : VLAN 10 sur eth0.10 (SRV-INT et GW)
 * Externe : réseau 192.168.1.0/24
@@ -55,13 +55,13 @@ cp -r mvc/* /var/www/html/
 -> ROUTEUR
 ```bash
 apt-get update
-#Installation du ntdate
+# Installation du ntdate
 apt install ntpdate
-#Installation du serveur DNS
+# Installation du serveur DNS
 apt-get install bind9
-#Installation du serveur DHCP
+# Installation du serveur DHCP
 apt-get install isc-dhcp-server
-#Installation du paquet iptables
+# Installation du paquet iptables
 apt-get install iptables
 ```
 
@@ -87,7 +87,7 @@ ip link set eth0 up
 ip link set eth0 up
 ip addr add 10.0.1.254/24 dev eth0
 
-#Internet
+# Internet
 ip link set eth1 up
 ip addr add 192.168.1.254/24 dev eth1
 ```
@@ -103,20 +103,20 @@ ip r add 10.0.1.0/24 via 192.168.1.254
 ## Tests  
 **Dans srv-int :**  
 
-```bash
+```powershell
 ping -c 3 10.0.1.254
 ping -c 3 192.168.1.254
 ping -c 3 192.168.1.10
 ```  
 **Dans gw :**
 
-```bash
+```powershell
 ping -c 3 10.0.1.50
 ping -c 3 192.168.1.10
 ```  
 **Dans host-ext :**
 
-```bash
+```powershell
 ping -c 3 10.0.1.254
 ping -c 3 192.168.1.254
 ping -c 3 10.0.1.50
@@ -145,7 +145,7 @@ ip a add 10.0.1.254/24 dev eth0.10
 
 * Test VLAN :
 
-```bash
+```powershell
 ping -c 3 10.0.1.254  # depuis SRV-INT
 ping -c 3 10.0.1.50   # depuis GW
 ```
@@ -161,7 +161,7 @@ ping -c 3 10.0.1.50   # depuis GW
 
 **Fichier `/etc/resolv.conf` dans TOUS les :**
 
-```
+```bind
 nameserver 10.0.1.254
 ```
 ### -> Routeur :
@@ -169,7 +169,7 @@ nameserver 10.0.1.254
 * Definition de la zone :
 
 **Fichier `/etc/bind/named.conf.local` :**
-```
+```powershell
 zone "sae.com" in { 
         type master; 
         file "/etc/bind/db.sae.com"; 
@@ -224,7 +224,7 @@ INTERFACESv6=""
 **Fichier `/etc/dhcp/dhcpd.conf` :**
 
 
-```dhcp
+```
 subnet 10.0.1.0 netmask 255.255.255.0 {
     range 10.0.1.100 10.0.1.200;
     option routers 10.0.1.254;
@@ -250,7 +250,7 @@ systemctl restart isc-dhcp-server
 
 **Installation et configuration sur SRV-INT :**
 
-```bash
+```powershell
 # Activer le forwarding IP
 echo 1 > /proc/sys/net/ipv4/ip_forward
 ```
@@ -264,14 +264,14 @@ systemctl restart apache2
 
 * Vérifier écoute :
 
-```bash
+```powershell
 ss -lntp | grep :80
 curl http://10.0.1.50
 ```
 
 **Redirection NAT sur GW (HTTP 8080 → SRV-INT port 80) :**
 
-```bash
+```powershell
 iptables -t nat -A PREROUTING -i eth1 -p tcp --dport 8080 -j DNAT --to-destination 10.0.1.50:80
 
 iptables -t nat -A POSTROUTING -o eth0.10 -j MASQUERADE
@@ -282,7 +282,7 @@ iptables -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
 
 * Test depuis HOST-EXT :
 
-```bash
+```powershell
 curl http://192.168.1.254:8080
 ```
 

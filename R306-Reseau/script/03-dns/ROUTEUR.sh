@@ -18,11 +18,12 @@ cat > /etc/bind/db.sae.com <<EOF
   2419200
   604800 )
 
-@       IN NS ns1.sae.com.
-ns1     IN A  10.0.1.254
-gw      IN A  10.0.1.254
-srv-int IN A  10.0.1.50
-www     IN CNAME srv-int.sae.com.
+@        IN NS ns1.sae.com.
+ns1      IN A  10.0.1.254
+INTERNE  IN A 10.0.1.50
+ROUTEUR  IN A 10.0.1.254
+www      IN CNAME INTERNE.sae.com.
+
 EOF
 
 systemctl restart bind9

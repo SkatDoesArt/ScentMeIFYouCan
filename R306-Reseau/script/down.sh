@@ -1,11 +1,11 @@
 #!/bin/bash
 set -e
 
-vm-stop srv-int
-vm-stop gw
-vm-stop host-ext
+vm-stop INTERNE
+vm-stop ROUTEUR
+vm-stop EXTERNE
 
-vm-del srv-int
-vm-del gw
-vm-del host-ext
+vm-del INTERNE
+vm-del ROUTEUR
+vm-del EXTERNE
 

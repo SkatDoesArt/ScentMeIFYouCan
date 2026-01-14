@@ -45,6 +45,39 @@ class Catalogue extends BaseController
         return view('Pages/catalogue/product', $data);
     }
 
+    public function all(): string
+    {
+        $produitModel = new ProduitModel();
+
+        $data = [
+            // On récupère tout sans le ->where('type', ...)
+            'liste_produits' => $produitModel->paginate(20, 'group1'),
+            'pager' => $produitModel->pager,
+            'query' => null,
+            'categorie' => null,
+            'is_search' => false,
+        ];
+
+        return view('Pages/catalogue/shop', $data);
+    }
+
+    public function parfums()
+    {
+        $produitModel = new ProduitModel();
+
+        $data = [
+
+            'liste_produits' => $produitModel->where('type', 'parfums')->paginate(20, 'group1'),
+            // On récupère l'objet pager pour l'affichage des liens
+            'pager' => $produitModel->pager,
+            'query' => null,
+            'categorie' => null,
+            'is_search' => false,
+        ];
+
+        return view('Pages/catalogue/shop', $data);
+    }
+
     public function brand()
     {
         $modelMarques = new MarquesModel();
@@ -58,9 +91,40 @@ class Catalogue extends BaseController
         return view('Pages/catalogue/marques', $data);
     }
 
-    public function season()
+    public function marque($marque)
+    {
+        // $idMarque = $this->request->getGet('id_marques');
+        // $marque = urldecode($marque);
+
+        if (!$marque) {
+            return redirect()->to(base_url('catalogue/marques'));
+        }
+
+        $produitModel = new ProduitModel();
+        $data['liste_produits'] = $produitModel->where('marque', $marque)->findAll();
+
+        $data['query'] = null;
+        $data['categorie'] = null;
+        $data['is_search'] = true;
+
+        return view('Pages/catalogue/shop', $data);
+    }
+
+    public function saison()
     {
         return view('Pages/catalogue/saison');
+    }
+
+    public function season($saison)
+    {
+        $produitModel = new ProduitModel();
+        $data['liste_produits'] = $produitModel->where('saison', $saison)->findAll();
+
+        $data['query'] = null;
+        $data['categorie'] = null;
+        $data['is_search'] = true;
+
+        return view('Pages/catalogue/shop', $data);
     }
 
     public function encens()
@@ -113,14 +177,13 @@ class Catalogue extends BaseController
         $produitModel = new ProduitModel();
 
         // Une seule requête sur la table globale 'produit'
-        $resultats = $produitModel
+        $data['liste_produits'] = $produitModel
             ->groupStart() // Début de la parenthèse pour le filtre de recherche
             ->like('name', $query)
             ->orLike('marque', $query)
             ->groupEnd()
             ->findAll();
 
-        $data['liste_produits'] = $resultats;
         $data['query'] = $query;
         $data['categorie'] = null;
         $data['is_search'] = true;
@@ -133,6 +196,7 @@ class Catalogue extends BaseController
         $filter = $this->request->getGet('f');
         $brand = $this->request->getGet('brand');
         $price = $this->request->getGet('price');
+        $season = $this->request->getGet('season');
 
         if (empty($filter) && empty($brand) && empty($price)) {
             return redirect()->to(base_url('catalogue?categorie=' . $categorie));
@@ -149,12 +213,13 @@ class Catalogue extends BaseController
             $data['liste_produits'] = array_merge($data['liste_produits'], $filterController->sortByAlpha($filter, $categorie));
         } elseif (!empty($brand)) {
             $data['liste_produits'] = array_merge($data['liste_produits'], $filterController->filterByBrand($brand, $categorie));
-        } elseif( !empty($price)) {
+        } elseif (!empty($price)) {
             $data['liste_produits'] = array_merge($data['liste_produits'], $filterController->filterByPriceRange($price, $categorie));
         } else {
             return redirect()->to(base_url('catalogue?categorie=' . $categorie));
         }
         $data['price'] = $price;
+        $data['filter'] = $filter;
         $data['query'] = null;
         $data['is_search'] = false;
         $data['categorie'] = $categorie;

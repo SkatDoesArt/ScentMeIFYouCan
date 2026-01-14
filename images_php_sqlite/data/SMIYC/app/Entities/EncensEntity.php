@@ -30,5 +30,15 @@ class EncensEntity extends AProduitEntity
         return $this->attributes['type'] ?? 'encens';
     }
 
+    public function getSaison(): string
+    {
+        return $this->attributes['saison'] ?? 'Toutes saisons';
+    }
+
+    public function setSaison(string $saison): void
+    {
+        $this->attributes['saison'] = $saison;
+    }
+
     
 }

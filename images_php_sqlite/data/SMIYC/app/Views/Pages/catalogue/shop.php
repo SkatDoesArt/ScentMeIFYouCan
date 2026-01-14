@@ -2,17 +2,29 @@
 <html lang="fr">
 
 <?php
-$produits = new \App\Models\Produit\ProduitModel();
+// On récupère le modèle uniquement pour le calcul du prix si la liste est vide
+$produitModel = new \App\Models\Produit\ProduitModel();
 
-if (isset(request()->getGet()['categorie'])) {
+// SECURITE : On s'assure que les variables existent
+$categorie = $categorie ?? request()->getGet('categorie') ?? null;
+$is_search = $is_search ?? false;
+$query     = $query ?? null;
+
+// Filtrage par catégorie 
+if (isset(request()->getGet()['categorie'])){
     $categorie = request()->getGet()['categorie'];
-    $liste_produits = $produits->where('categorie', $categorie)->findAll();
+    $liste_produits = $produitModel->where('categorie', $categorie)->findAll();
 }
 
-$minPrice = min($liste_produits ? array_map(function($p) {
-    return intval($p->getPrix());
-}, $liste_produits) : [5]);
+// Calcul du prix min sécurisé pour le curseur
+$minPrice = 5;
+if (!empty($liste_produits)) {
+    // On vérifie si c'est un tableau ou un objet (paginate renvoie un tableau)
+    $prices = array_map(fn($p) => is_object($p) ? intval($p->getPrix()) : intval($p['prix']), $liste_produits);
+    $minPrice = min($prices);
+}
 
+$catSlug = $categorie ?? 'all';  
 ?>
 
 <head>
@@ -35,18 +47,18 @@ $minPrice = min($liste_produits ? array_map(function($p) {
         <aside class="left">
             <h2>Filtres</h2>
             <h3><strong>Marques</strong></h3>
-            <form id="brand-filters" role="search" action="<?= base_url('catalogue/filters/' . $categorie) ?>" method="get">
-                <input type="submit" value="Serge Lutens" name="brand" inputmode="search" interkeyhint="search">
-                <input type="submit" value="Guerlain" name="brand" inputmode="search" interkeyhint="search">
-                <input type="submit" value="Dior" name="brand" inputmode="search" interkeyhint="search">
-                <input type="submit" value="Armani" name="brand" inputmode="search" interkeyhint="search">
+            <form id="brand-filters" role="search" action="<?= base_url('catalogue/filters/' . $catSlug) ?>" method="get">
+                <input type="submit" value="Serge Lutens" name="brand">
+                <input type="submit" value="Guerlain" name="brand">
+                <input type="submit" value="Dior" name="brand">
+                <input type="submit" value="Armani" name="brand">
             </form>
 
             <a id="plus-marques" href="<?= base_url("catalogue/marques") ?>">Voir plus de marques</a>
 
             <h4>Prix</h4>
-            <form id="price-range" role="search" action="<?= base_url('catalogue/filters/' . $categorie) ?>" method="get" onchange="this.submit()">
-                <input id="pi_input" type="range" min="<?= $minPrice ?? 5 ?>" max="350" step="5" value="<?= $price ?? 350 ?>" name="price" inputmode="search" interkeyhint="search">
+            <form id="price-range" role="search" action="<?= base_url('catalogue/filters/' . $catSlug) ?>" method="get" onchange="this.submit()">
+                <input id="pi_input" type="range" min="<?= $minPrice ?>" max="350" step="5" value="<?= $price ?? 350 ?>" name="price">
                 <p><output id="price-value"><?= $price ?? 350 ?></output> €</p>
             </form>
         </aside>
@@ -54,15 +66,15 @@ $minPrice = min($liste_produits ? array_map(function($p) {
         <main class="right">
             <div id="top">
                 <?php if (isset($query) && !empty($query) && $is_search): ?>
-                    <h2>Résultats pour "<?= esc($query[0]) ?>"</h2>
+                    <h2>Résultats pour "<?= esc($query) ?>"</h2>
                 <?php else: ?>
-                    <h2>Parfum <?= esc($categorie) ?></h2>
+                    <h2><?= ($categorie === null) ? 'Tous nos Parfums' : 'Parfum ' . esc($categorie) ?></h2>
                 <?php endif; ?>
 
-                <form class="shop-controls" role="search" action="<?= base_url('catalogue/filters/' . $categorie) ?>"
+                <form class="shop-controls" role="search" action="<?= base_url('catalogue/filters/' . $catSlug) ?>"
                     method="get" onchange="this.submit()">
-                    <select id="sort-filter" name="f" inputmode="search" interkeyhint="search">
-                        <option value="none" selected>Choisissez un filtre</option>
+                    <select id="sort-filter" name="f">
+                        <option value="none">Choisissez un filtre</option>
                         <option value="price-crst">Trier par prix croissant</option>
                         <option value="price-dcrst">Trier par prix décroissant</option>
                         <option value="alpha-crst">Trier par ordre alphabétique (A-Z)</option>
@@ -70,7 +82,6 @@ $minPrice = min($liste_produits ? array_map(function($p) {
                     </select>
                 </form>
             </div>
-
 
             <div class="grid">
                 <?php if (!empty($liste_produits)): ?>
@@ -88,8 +99,7 @@ $minPrice = min($liste_produits ? array_map(function($p) {
                                     <strong><?= number_format($p->getPrix(), 2, ',', ' ') ?> €</strong>
                                 </div>
 
-                                <form method="post" action="<?= base_url('cart/add/' . $p->getId()) ?>"
-                                    class="add-to-cart-form">
+                                <form method="post" action="<?= base_url('cart/add/' . $p->getId()) ?>" class="add-to-cart-form">
                                     <?= csrf_field() ?>
                                     <button type="submit" class="add-to-cart-btn" title="Ajouter au panier">+</button>
                                 </form>
@@ -99,15 +109,20 @@ $minPrice = min($liste_produits ? array_map(function($p) {
                 <?php else: ?>
                     <div class="no-results">
                         <p>Désolé, aucun produit ne correspond à votre recherche.</p>
-                        <a href="<?= base_url('catalogue?categorie=' . $categorie) ?>" class="btn">Retour au catalogue</a>
+                        <a href="javascript:history.back()" class="btn">Retour au catalogue</a>
                     </div>
                 <?php endif; ?>
             </div>
+
+            <?php if (isset($pager)): ?>
+                <div class="pagination-container" style="margin-top: 2rem; display: flex; justify-content: center;">
+                    <?= $pager->links('group1', 'default_full') ?>
+                </div>
+            <?php endif; ?>
         </main>
     </div>
 
     <?= view('Pages/partials/footer') ?>
 
 </body>
-
 </html>

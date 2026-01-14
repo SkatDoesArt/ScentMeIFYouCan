@@ -1,0 +1,346 @@
+/* --- RESET ET BASES --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Configuration pour le Sticky Footer : 
+   Le body devient une colonne flexible de la taille de l'écran.
+*/
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #f5f5f5;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+/* --- STRUCTURE PRINCIPALE --- */
+/* On utilise la section parente comme un conteneur flexible 
+   qui pousse le footer vers le bas.
+*/
+.content-wrapper {
+    display: flex;
+    flex: 1 0 auto; /* Remplit tout l'espace vide entre header et footer */
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.main-container {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0px 20px 0px 20px;
+    gap: 60px;
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- SECTIONS --- */
+.carousel-section {
+    flex: 1.2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    min-height: 500px; /* Assure que le footer ne remonte pas trop haut */
+    flex-direction: row;
+}
+
+.controls-section {
+    flex: 0.8;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 25px;
+}
+
+/* --- CAROUSEL --- */
+.carousel-container {
+    width: 100%;
+    max-width: 500px;
+    height: 500px;
+    position: relative;
+    perspective: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-track {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* --- CARTES RESSERRÉES --- */
+.card {
+    position: absolute;
+    width: 400px;
+    height: 250px;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    cursor: pointer;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%);
+    transition: all 0.6s ease;
+}
+
+.card.center {
+    z-index: 10;
+    transform: translate(-50%, -50%) scale(1.1) translateZ(50px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+.card.center img { filter: none; }
+
+/* --- CORRECTION : Positions 3D resserrées --- */
+/* On passe de -180%/-280% à -120%/-180% pour "tasser" les images */
+.card.up-1 { z-index: 5; transform: translate(-50%, -125%) scale(0.85) translateZ(-100px); opacity: 0.7; }
+.card.up-2 { z-index: 1; transform: translate(-50%, -190%) scale(0.7) translateZ(-200px); opacity: 0.3; }
+
+.card.down-1 { z-index: 5; transform: translate(-50%, 25%) scale(0.85) translateZ(-100px); opacity: 0.7; }
+.card.down-2 { z-index: 1; transform: translate(-50%, 90%) scale(0.7) translateZ(-200px); opacity: 0.3; }
+
+.card.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(0.5);
+}
+
+/* --- LE BANDEAU (OVERLAY) HARMONISÉ --- */
+.card-overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Bleu nuit profond du site (ajusté selon votre header) */
+    background: rgba(8, 42, 123, 0.85); 
+    backdrop-filter: blur(5px); /* Effet de flou moderne */
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 15;
+}
+
+.card.center:hover .card-overlay {
+    transform: translateY(0);
+}
+
+/* --- BOUTON VOIR (DORÉ) --- */
+.btn-view {
+    color: rgba(230, 180, 150, 0.9); /* Couleur dorée prestige */
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: 1.5px solid rgba(230, 180, 150, 0.9);
+    padding: 6px 18px;
+    border-radius: 25px;
+    transition: 0.3s all ease;
+}
+
+.btn-view:hover {
+    background: rgba(230, 180, 150, 0.9);
+    color: white;
+}
+
+/* --- BOUTON PLUS (+) --- */
+.btn-plus {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-plus:hover {
+    color: rgba(230, 180, 150, 0.9);
+    /* transform: rotate(90deg); */
+}
+/* --- INFOS TEXTE --- */
+.member-info { min-height: 180px; }
+.member-name {
+    color: rgb(8, 42, 123);
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+	font-family: "Playfair Display", serif;
+}
+.member-brand {
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: rgba(230, 180, 150, 0.9);
+	/* text-align: center; */
+}
+
+/* --- PAGINATION CI4 --- */
+.real-pagination { margin: 15px 0; }
+.real-pagination ul {
+    display: flex;
+    list-style: none;
+    gap: 8px;
+    padding: 0;
+}
+.real-pagination li a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    text-decoration: none;
+    color: rgb(8, 42, 123);
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    font-size: 0.85rem;
+    transition: 0.3s;
+    background: white;
+}
+.real-pagination li.active a {
+    background: rgb(8, 42, 123);
+    color: white;
+    border-color: rgb(8, 42, 123);
+}
+
+.real-pagination li a:hover {
+    background: rgb(8, 42, 123);
+    color: white;
+    border-color: rgb(8, 42, 123);
+}
+
+
+/* --- DOTS VISUELS --- */
+.dots { display: flex; gap: 10px; }
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ccc;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.dot.active {
+    background: rgb(8, 42, 123);
+    transform: scale(1.4);
+}
+
+/* --- FOOTER --- */
+footer {
+    width: 100%;
+    background-color: #000;
+    color: #fff;
+    padding: 40px 0;
+    flex-shrink: 0; /* Empêche le footer de rétrécir si le contenu est grand */
+    margin-top: auto;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+    .main-container {
+        flex-direction: column;
+        padding-top: 100px;
+        gap: 30px;
+    }
+    .carousel-section { min-height: 400px; }
+    .card { width: 300px; height: 180px; }
+    .controls-section {
+        align-items: center;
+        text-align: center;
+        padding-left: 0;
+    }
+}
+
+.carousel-section {
+    flex: 1.2;
+    display: flex;
+    flex-direction: column; /* Aligne Flèche Haut > Carousel > Flèche Bas */
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    min-height: 600px;
+    gap: 10px;
+    flex-direction: row;
+}
+
+.nav-arrow {
+    background: white;
+    border: 2px solid transparent;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 25;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    color: rgb(8, 42, 123); /* Couleur principale du site */
+    padding: 10px;
+}
+
+.nav-arrow svg {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.3s ease;
+}
+
+/* Effet au survol : fond bleu, icône dorée */
+.nav-arrow:hover {
+    background-color: rgb(8, 42, 123);
+    color: rgba(230, 180, 150, 0.9); /* Couleur dorée prestige */
+    transform: scale(1.15);
+    box-shadow: 0 8px 25px rgba(8, 42, 123, 0.3);
+}
+
+.nav-arrow:active {
+    transform: scale(0.95);
+}
+
+/* Animation subtile pour inviter au clic */
+.nav-arrow.up:hover svg {
+    transform: translateY(-3px);
+}
+
+.nav-arrow.down:hover svg {
+    transform: translateY(3px);
+}
+
+/* Style des traits horizontaux */
+.member-info span {
+    display: block;
+    width: 40px; /* Longueur du trait */
+    height: 2px; /* Épaisseur du trait */
+    background-color: rgba(230, 180, 150, 0.9);
+    margin: 10px 0; /* Espacement autour du trait */
+    border-radius: 2px;
+}
+
+.member-prestige {
+	margin-top: 10px;
+}

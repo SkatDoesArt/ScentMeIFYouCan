@@ -22,4 +22,9 @@ class CremeEntity extends AProduitEntity
     public function getTypePeau(): string { return $this->attributes['typePeau'] ?? 'Tous types'; }
     public function setTypePeau(string $type): void { $this->attributes['typePeau'] = $type; }
     // public function setTaille(int $taille): void { $this->attributes['taille'] = $taille; }
+
+    public function getType(): string
+    {
+        return $this->attributes['type'] ?? 'cremes';
+    }
 }

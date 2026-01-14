@@ -58,6 +58,25 @@ class Catalogue extends BaseController
         return view('Pages/catalogue/marques', $data);
     }
 
+    public function marque($marque)
+    {
+        // $idMarque = $this->request->getGet('id_marques');
+        // $marque = urldecode($marque);
+
+        if (!$marque) {
+            return redirect()->to(base_url('catalogue/marques'));
+        }
+
+        $produitModel = new ProduitModel();
+        $data['liste_produits'] = $produitModel->where('marque', $marque)->findAll();
+
+        $data['query'] = null;
+        $data['categorie'] = null;
+        $data['is_search'] = true;
+
+        return view('Pages/catalogue/shop', $data);
+    }
+
     public function season()
     {
         return view('Pages/catalogue/saison');
@@ -89,6 +108,19 @@ class Catalogue extends BaseController
         return view('Pages/catalogue/creme', $data);
     }
 
+    public function exotique()
+    {
+        $model = new ProduitModel();
+        // On utilise paginate au lieu de findAll
+        // Le premier paramètre est le nombre d'éléments par page
+        // Le deuxième paramètre est le groupe de pagination (optionnel)
+        $data = [
+            'lesExotiques' => $model->where('origine', 'Exotique')->paginate(10, 'group1'), // 10 produits par page
+            'pager' => $model->pager
+        ];
+        return view('Pages/catalogue/exotique', $data);
+    }
+
     public function search()
     {
         $query = $this->request->getGet('q');
@@ -100,44 +132,51 @@ class Catalogue extends BaseController
         $produitModel = new ProduitModel();
 
         // Une seule requête sur la table globale 'produit'
-        $resultats = $produitModel
+        $data['liste_produits'] = $produitModel
             ->groupStart() // Début de la parenthèse pour le filtre de recherche
             ->like('name', $query)
             ->orLike('marque', $query)
             ->groupEnd()
             ->findAll();
 
-        $data['liste_produits'] = $resultats;
         $data['query'] = $query;
+        $data['categorie'] = null;
         $data['is_search'] = true;
 
         return view('Pages/catalogue/shop', $data);
     }
 
-    public function filters($categorie = null)
+    public function filters($categorie)
     {
-        $query = $this->request->getGet('f');
+        $filter = $this->request->getGet('f');
+        $brand = $this->request->getGet('brand');
+        $price = $this->request->getGet('price');
 
-        if (empty($query)) {
-            return redirect()->to(base_url('catalogue'));
+        if (empty($filter) && empty($brand) && empty($price)) {
+            return redirect()->to(base_url('catalogue?categorie=' . $categorie));
         }
 
         $produitModel = new ProduitModel();
         $encensModel = new EncensModel();
-        $filter = new Filters();
+        $filterController = new Filters();
+        $data['liste_produits'] = [];
 
-        if ($query == "price-crst" || $query == "price-dcrst") {
-            $data['liste_produits'] = $filter->sortByPrice($query, $categorie);
-        } elseif ($query == "alpha-crst" || $query == "alpha-dcrst") {
-            $data['liste_produits'] = $filter->sortByAlpha($query, $categorie);
-        }  else {
+        if ($filter == "price-crst" || $filter == "price-dcrst") {
+            $data['liste_produits'] = array_merge($data['liste_produits'], $filterController->sortByPrice($filter, $categorie));
+        } elseif ($filter == "alpha-crst" || $filter == "alpha-dcrst") {
+            $data['liste_produits'] = array_merge($data['liste_produits'], $filterController->sortByAlpha($filter, $categorie));
+        } elseif (!empty($brand)) {
+            $data['liste_produits'] = array_merge($data['liste_produits'], $filterController->filterByBrand($brand, $categorie));
+        } elseif( !empty($price)) {
+            $data['liste_produits'] = array_merge($data['liste_produits'], $filterController->filterByPriceRange($price, $categorie));
+        } else {
             return redirect()->to(base_url('catalogue?categorie=' . $categorie));
         }
-
-        $data['query'] = $query;
+        $data['price'] = $price;
+        $data['filter'] = $filter;
+        $data['query'] = null;
         $data['is_search'] = false;
         $data['categorie'] = $categorie;
-        $data['new_url'] = base_url('catalogue?categorie=' . $categorie . '&f=' . $query);
 
         return view('Pages/catalogue/shop', $data);
     }

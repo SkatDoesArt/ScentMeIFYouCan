@@ -38,12 +38,13 @@ $routes->group('catalogue', function($routes) {
     $routes->get('saison', 'Catalogue::season');
     $routes->get('encens', 'Catalogue::encens');
     $routes->get('creme', 'Catalogue::creme');
+    $routes->get('exotique', 'Catalogue::exotique');
    $routes->get('/', 'Catalogue::shop');
     //Afficher un produit en particulier
     $routes->get('product/(:num)', 'Catalogue::detail/$1');
     $routes->get('search', 'Catalogue::search');
     $routes->get('filters/(:any)', 'Catalogue::filters/$1');
-    $routes->get('/marque', 'Catalogue::marque');
+    $routes->get('marque/(:any)', 'Catalogue::marque/$1');
 });
 
 

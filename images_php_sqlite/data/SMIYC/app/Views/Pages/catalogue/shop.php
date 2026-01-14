@@ -9,8 +9,12 @@ if (isset(request()->getGet()['categorie'])) {
     $liste_produits = $produits->where('categorie', $categorie)->findAll();
 }
 
+$minPrice = min($liste_produits ? array_map(function($p) {
+    return intval($p->getPrix());
+}, $liste_produits) : [5]);
+
 ?>
-    
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,41 +33,49 @@ if (isset(request()->getGet()['categorie'])) {
 
     <div class="container">
         <aside class="left">
-            <h2>Catégories</h2>
+            <h2>Filtres</h2>
             <h3><strong>Marques</strong></h3>
-            <a href="<?= base_url("catalogue/marque#") ?>">
-                <p>Serge Lutens</p>
-            </a>
-            <a href="<?= base_url("catalogue/marque#") ?>">
-                <p>Guerlain</p>
-            </a>
-            <a href="<?= base_url("catalogue/marque#") ?>">
-                <p>Dior</p>
-            </a>
-            <a href="<?= base_url("catalogue/marque#") ?>">
-                <p>Armani</p>
-            </a>
+            <form id="brand-filters" role="search" action="<?= base_url('catalogue/filters/' . $categorie) ?>" method="get">
+                <input type="submit" value="Serge Lutens" name="brand" inputmode="search" interkeyhint="search">
+                <input type="submit" value="Guerlain" name="brand" inputmode="search" interkeyhint="search">
+                <input type="submit" value="Dior" name="brand" inputmode="search" interkeyhint="search">
+                <input type="submit" value="Armani" name="brand" inputmode="search" interkeyhint="search">
+            </form>
+
             <a id="plus-marques" href="<?= base_url("catalogue/marques") ?>">Voir plus de marques</a>
 
             <h4>Prix</h4>
-            <div id="price-range">
-                <input id="pi_input" type="range" min="0" max="500" step="5" value="500">
-                <p><output id="price-value">500</output> €</p>
-            </div>
+            <form id="price-range" role="search" action="<?= base_url('catalogue/filters/' . $categorie) ?>" method="get" onchange="this.submit()">
+                <input id="pi_input" type="range" min="<?= $minPrice ?? 5 ?>" max="350" step="5" value="<?= $price ?? 350 ?>" name="price" inputmode="search" interkeyhint="search">
+                <p><output id="price-value"><?= $price ?? 350 ?></output> €</p>
+            </form>
         </aside>
 
         <main class="right">
             <div id="top">
                 <?php if (isset($query) && !empty($query) && $is_search): ?>
-                <h2>Résultats pour "<?= esc($query) ?>"</h2>
+                    <h2>Résultats pour "<?= esc($query) ?>"</h2>
                 <?php else: ?>
-                    <h2>Parfum </h2>
+                    <h2>Parfum <?= esc($categorie) ?></h2>
                 <?php endif; ?>
 
-                <form class="shop-controls" role="search" action="<?= base_url('catalogue/filters/' . $categorie) ?>" method="get" onchange="this.submit()">
+                <form class="shop-controls" role="search" action="<?= base_url('catalogue/filters/' . $categorie) ?>"
+                    method="get" onchange="this.submit()">
+                    <?php 
+                    if(isset($filter) && !empty($filter)) {
+                        echo '<script type="text/javascript">
+                            document.addEventListener("DOMContentLoaded", function() {
+                                const sortFilter = document.getElementById("sort-filter");
+                                sortFilter.value = "'. esc($filter) .'";
+                            });
+                        </script>';
+                    }
+                        
+                    ?>
+
                     <select id="sort-filter" name="f" inputmode="search" interkeyhint="search">
                         <option value="none">Choisissez un filtre</option>
-                        <option value="price-crst" >Trier par prix croissant</option>
+                        <option value="price-crst">Trier par prix croissant</option>
                         <option value="price-dcrst">Trier par prix décroissant</option>
                         <option value="alpha-crst">Trier par ordre alphabétique (A-Z)</option>
                         <option value="alpha-dcrst">Trier par ordre alphabétique (Z-A)</option>
@@ -99,7 +111,7 @@ if (isset(request()->getGet()['categorie'])) {
                 <?php else: ?>
                     <div class="no-results">
                         <p>Désolé, aucun produit ne correspond à votre recherche.</p>
-                        <a href="<?= base_url('catalogue') ?>" class="btn">Retour au catalogue</a>
+                        <a href="javascript:history.back()" class="btn">Retour au catalogue</a>
                     </div>
                 <?php endif; ?>
             </div>

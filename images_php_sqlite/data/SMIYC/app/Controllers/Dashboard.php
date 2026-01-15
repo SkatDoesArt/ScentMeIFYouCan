@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\Panier\CommandeModel;
 use App\Models\ProduitModel;
 
 class Dashboard extends BaseController
@@ -33,9 +34,14 @@ class Dashboard extends BaseController
 
     public function historique_commandes()
     {
-        return view('Pages/dashboard/historique_commandes');
-    }
+        $commandeModel = new CommandeModel();
 
+        $commandes = $commandeModel->getCommandeById(auth()->id());
+
+        return view('Pages/dashboard/historique_commandes', [
+            'commandes' => $commandes
+        ]);
+    }
 
 
 }

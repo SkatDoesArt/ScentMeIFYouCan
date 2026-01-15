@@ -10,6 +10,16 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'Home::index');
 $routes->get('/logout', 'Auth::logout');
 
+// Conditions Générales d'Utilisation (CGU)
+$routes->get('cgu', function () {
+    return view('Pages/cgu');
+});
+
+// Politique de confidentialité / RGPD
+$routes->get('rgpd', function () {
+    return view('Pages/rgpd');
+});
+
 service('auth')->routes($routes);
 
 // ====================================================================

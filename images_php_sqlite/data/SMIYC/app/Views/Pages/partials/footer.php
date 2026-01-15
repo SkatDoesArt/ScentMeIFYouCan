@@ -16,6 +16,8 @@
                 <li><a href="<?= base_url('catalogue') ?>">Catalogue</a></li>
                 <li><a href="<?= base_url('auth/login') ?>">Se connecter</a></li>
                 <li><a href="<?= base_url('cart') ?>">Panier</a></li>
+                <li><a href="<?= base_url('cgu') ?>">Nos CGU</a></li>
+                <li><a href="<?= base_url('rgpd') ?>">Politique de confidentialité (RGPD)</a></li>
             </ul>
         </div>
 

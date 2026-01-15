@@ -17,7 +17,7 @@ class CommandeModel extends Model
     ];
     protected $useTimestamps = false;
 
-    public function createCommande(int $userId, array $cart, array $livraison = []): CommandeEntity
+    public function createCommande(int $userId, array $cart, array $livraison = []): ?CommandeEntity
     {
         $totalPrix = $cart[1] ?? 0;
 
@@ -51,5 +51,34 @@ class CommandeModel extends Model
         }
 
         return $this->find($commandeId);
+    }
+
+    /**
+     * Récupère toutes les commandes d'un utilisateur (avec leurs lignes de commande).
+     *
+     * @param int $userId
+     * @return array Tableau d'éléments [commande => array, lignes => array]
+     */
+    public function getCommandeById(int $userId): array
+    {
+        // Récupère les commandes en tant que tableaux pour faciliter l'ajout des lignes
+        $commandes = $this->asArray()->where('user_id', $userId)->orderBy('date_commande', 'DESC')->findAll();
+
+        // Modèle des lignes de commande
+        $ligneModel = new LigneCommandeModel();
+
+        foreach ($commandes as &$commande) {
+            $commandeId = $commande['id_commande'] ?? null;
+            if ($commandeId === null) {
+                $commande['lignes'] = [];
+                continue;
+            }
+
+            // Récupère les lignes associées
+            $lignes = $ligneModel->where('commande_id', $commandeId)->findAll();
+            $commande['lignes'] = $lignes ?: [];
+        }
+
+        return $commandes ?: [];
     }
 }

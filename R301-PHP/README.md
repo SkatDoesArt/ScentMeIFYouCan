@@ -72,7 +72,6 @@ Ci-dessous un inventaire des fonctionnalités observées directement dans les co
 - Tri produits - Fait
 
 
-
 - Ajouter au panier (utilisateur connecté) — Fait
     - Contrôleur : `Cart::addProduct`
     - Modèle(s) : `PanierModel::getOrCreatePanier`, `LignePanierModel::addProduit` (ou `PanierModel::addProduit`
@@ -98,11 +97,9 @@ Ci-dessous un inventaire des fonctionnalités observées directement dans les co
     - Remarque : flux complet pour utilisateurs authentifiés ; les informations de livraison sont stockées en session
       avant création.
 
-- Visualiser statut / historique commande — Partiellement
+- Visualiser statut / historique commande — Fait
     - Contrôleur : `Commande::status` renvoie la vue `Pages/commande/status` mais ne récupère pas explicitement la
       commande par ID dans le controller.
-    - Remarque : la création renvoie vers `commande/status/{id}` pour le moment.
-    - problemes par moment avec le ``getCommandById`` qui ne recupere rien
 
 - Achat en tant que visiteur (achat sans compte / checkout visiteur) — Non implémenté
     - Observations : les routes `checkout`, `review` et `create` redirigent vers `auth/login` si l'utilisateur n'est pas
@@ -118,7 +115,7 @@ Ci-dessous un inventaire des fonctionnalités observées directement dans les co
     - Modèle(s) : `CommandeModel::getCommandeById` existe pour récupérer commandes d'un utilisateur; manque une
       interface/admin list complète des commandes.
 
-    -> vue implémentées
+  -> vue implémentées
 
 - CRUD produits côté admin — Fait
     - Contrôleur : `Admin::products`, `Admin::addProduit`, `Admin::editProduit`, `Admin::deleteProduit`
@@ -146,9 +143,6 @@ Ci-dessous un inventaire des fonctionnalités observées directement dans les co
 - Paiement (intégration passerelle / paiement) — Non implémenté
     - Observations : aucune intégration (ex: Stripe/PayPal) détectée dans les controllers ou services. Enum
       `MoyenPaiement` existe mais n'est pas exploité.
-
-- API / endpoints REST — Non détecté
-    - Observations : controllers servent principalement des vues; aucune API REST dédiée trouvée.
 
 Remarques générales et recommandations rapides
 

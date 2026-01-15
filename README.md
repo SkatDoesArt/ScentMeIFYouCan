@@ -52,7 +52,7 @@ php spark db:seed AdminSeeder # -> pour remplir une deuxieme fois la table de ad
 
 Etape 5: Lancer le site
 Accéder au site:  Il suffit de se rendre sur http://localhost:8080/ ou le http://localhost:8080/SMIYC/public/ via un
-navigateur wab.
+navigateur web.
 
 
 But du projet

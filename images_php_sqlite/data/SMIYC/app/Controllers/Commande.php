@@ -2,8 +2,8 @@
 
 namespace App\Controllers;
 
-use App\Models\Panier\PanierModel;
 use App\Models\Panier\CommandeModel;
+use App\Models\Panier\PanierModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
 
 class Commande extends BaseController
@@ -19,6 +19,10 @@ class Commande extends BaseController
      */
     public function checkout()
     {
+        if (session()->has('livraison')) {
+            $livraison = session()->get('livraison');
+        }
+
         if (!auth()->loggedIn()) {
             return redirect()->to(base_url('auth/login'));
         }
@@ -32,7 +36,7 @@ class Commande extends BaseController
 
         // Afficher la vue checkout (formulaire de livraison)
         return view('Pages/commande/checkout', [
-            'cart' => $cart,
+            'cart' => $cart, 'livraison' => $livraison ?? null
         ]);
     }
 

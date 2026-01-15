@@ -213,3 +213,56 @@
         justify-content: flex-start;
     }
 }
+
+div.users-card > div {
+    margin-bottom: 1.25rem;
+}
+
+/* Styles spécifiques aux boutons du résumé (colonne de droite) */
+.summary-sidebar .users-card {
+    padding: 18px; /* cohérent avec la vue qui met aussi un padding inline */
+}
+
+.summary-sidebar .users-card .btn {
+    width: 100%;
+    display: inline-block;
+    padding: 12px 14px;
+    background: #111827; /* même couleur que les boutons principaux */
+    color: #ffffff;
+    border-radius: 8px;
+    border: none;
+    text-decoration: none;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(17, 24, 39, 0.06);
+    transition: background-color 120ms ease, transform 80ms ease, box-shadow 120ms ease;
+}
+
+.summary-sidebar .users-card .btn:hover {
+    background: #0b1220;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 26px rgba(17, 24, 39, 0.08);
+}
+
+/* Bouton secondaire (lien "Continuer mes achats") */
+.summary-sidebar .users-card .btn.secondary {
+    display: block; /* force l'affichage en block */
+    background: transparent;
+    color: #111827;
+    border: 1px solid #e6e8eb;
+    box-shadow: none;
+    font-weight: 600;
+    margin-top: 12px;
+    padding: 10px 12px;
+}
+
+.summary-sidebar .users-card .btn.secondary:hover {
+    background: rgba(17, 24, 39, 0.03);
+}
+
+/* Si une règle inline est présente dans la vue, on s'assure que CSS externe a priorité */
+.summary-sidebar .users-card .btn[style],
+.summary-sidebar .users-card a.btn[style] {
+    width: 100% !important;
+}

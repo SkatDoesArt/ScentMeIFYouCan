@@ -10,12 +10,15 @@
 <?php
 $isLoggedIn = auth()->loggedIn();
 $cart = $cart ?? [[], 0];
+$livraison = $livraison ?? null;
 $items = $cart[0];
 $totalPrix = $cart[1] ?? 0;
+
 ?>
 
 <body>
 <?= view('Pages/partials/header', ['showCart' => false]) ?>
+
 
 <div class="container-commande">
     <h2>Informations de livraison</h2>
@@ -27,23 +30,42 @@ $totalPrix = $cart[1] ?? 0;
     <?php else: ?>
         <form id="checkout-form" action="<?= base_url('commande/review') ?>" method="POST">
 
+
             <label for="name">Nom complet</label>
-            <input type="text" id="name" name="name" required>
+            <input type="text" id="name" name="name" value="<?php if ($livraison != null) {
+                echo $livraison['nom_complet'];
+            } ?>"
+                   required>
 
             <label for="address">Adresse</label>
-            <input type="text" id="address" name="address" required>
+            <input type="text" id="address" name="address" value="<?php if ($livraison != null) {
+                echo $livraison['adresse'];
+            } ?>"
+                   required>
 
             <label for="tel">Téléphone</label>
-            <input type="tel" id="tel" name="tel" required>
+            <input type="tel" id="tel" name="tel" value="<?php if ($livraison != null) {
+                echo $livraison['tel'];
+            } ?>"
+                   required>
 
             <label for="city">Ville</label>
-            <input type="text" id="city" name="city" required>
+            <input type="text" id="city" name="city" value="<?php if ($livraison != null) {
+                echo $livraison['ville'];
+            } ?>"
+                   required>
 
             <label for="postal_code">Code postal</label>
-            <input type="text" id="postal_code" name="postal_code" required>
+            <input type="text" id="postal_code" name="postal_code" value="<?php if ($livraison != null) {
+                echo $livraison['code_postal'];
+            } ?>"
+                   required>
 
             <label for="country">Pays</label>
-            <input type="text" id="country" name="country" required>
+            <input type="text" id="country" name="country" value="<?php if ($livraison != null) {
+                echo $livraison['pays'];
+            } ?>"
+                   required>
 
             <!-- Utiliser un bouton qui déclenche form.submit() pour contourner des handlers JS interceptant submit -->
             <button type="submit" class="btn">Valider

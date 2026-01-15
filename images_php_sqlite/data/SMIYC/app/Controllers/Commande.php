@@ -134,6 +134,9 @@ class Commande extends BaseController
         $commande = $commandeModel->createCommande(auth()->id(), $cart, $livraison);
         $commandeId = $commandeModel->getInsertID();
 
+        // Vider le panier pour l'utilisateur courant (supprime les lignes)
+        $panierModel->ClearPanier(auth()->id());
+
         // nettoyer la session
         session()->remove('livraison');
 

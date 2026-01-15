@@ -39,21 +39,46 @@ $totalPrix = $totalPrix ?? 0;
 
     <?php if (!$isLoggedIn): ?>
 
-        <div class="panier-vide">
-            <h2>Veuillez vous connecter pour voir votre panier</h2>
-            <a href="<?= base_url('auth/login') ?>">
-                <button class="btn">Se connecter</button>
-            </a>
-        </div>
+        <section class="empty-cart" style="text-align:center; padding:3rem 1rem;">
+            <div class="empty-card"
+                 style="max-width:720px;margin:0 auto;padding:28px;border-radius:10px;background:#ffffff;box-shadow:0 6px 18px rgba(0,0,0,.06);">
+                <h2 style="margin-bottom:8px;">Tu dois te connecter</h2>
+                <p style="color:#6b6b6b; margin-bottom:18px;">Connecte-toi pour retrouver ton panier et poursuivre tes
+                    achats.
+                </p>
+
+                <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+                    <a href="<?= base_url('auth/login') ?>" class="btn" style="min-width:160px;">Se connecter</a>
+                    <a href="<?= base_url('catalogue') ?>" class="btn secondary"
+                       style="min-width:160px;">Parcourir le catalogue</a>
+                </div>
+            </div>
+        </section>
 
     <?php elseif (empty($items)): ?>
 
-        <div class="panier-vide">
-            <h2>Ton panier est vide 😢</h2>
-            <a href="<?= base_url('catalogue') ?>">
-                <button class="btn">Ajouter des produits</button>
-            </a>
-        </div>
+        <section class="empty-cart" style="text-align:center; padding:3rem 1rem;">
+            <div class="empty-card"
+                 style="max-width:880px;margin:0 auto;padding:28px;border-radius:10px;background:#ffffff;box-shadow:0 6px 18px rgba(0,0,0,.06);">
+                <h2 style="margin-bottom:8px;">Ton panier est vide</h2>
+                <p style="color:#6b6b6b; margin-bottom:18px;">Ajoute des produits à partir du catalogue. On a plein
+                    d'idées pour toi.
+                </p>
+
+                <div style="margin-top:6px;">
+                    <strong>Suggestions rapides :</strong>
+                    <div style="display:flex;gap:8px;justify-content:center;margin-top:8px;flex-wrap:wrap;">
+                        <a class="chip" href="<?= base_url('catalogue/encens') ?>"
+                           style="padding:8px 12px;border-radius:999px;background:#6b6b6b;color:#fff;text-decoration:none;">Encens</a>
+                        <a class="chip" href="<?= base_url('catalogue?categorie=Unisexe') ?>"
+                           style="padding:8px 12px;border-radius:999px;background:#6b6b6b;color:#fff;text-decoration:none;">Pour
+                            tous !</a>
+                        <a class="chip" href="<?= base_url('catalogue?filtre=parfums') ?>"
+                           style="padding:8px 12px;border-radius:999px;background:#6b6b6b;color:#fff;text-decoration:none;">Parfums</a>
+                    </div>
+                </div>
+            </div>
+        </section>
 
     <?php else: ?>
 
@@ -121,7 +146,7 @@ $totalPrix = $totalPrix ?? 0;
                     <h3>Résumé de la commande</h3>
                     <div style="margin-top:12px; font-size:1rem;">Total articles :
                         <strong><?= $totalArticles ?></strong></div>
-                    <div style="margin-top:6px; font-size:1.15rem; color:var(--accent);">Total :
+                    <div style="margin-top:6px; font-size:1.15rem; color:#2c7aeb;">Total :
                         <strong><?= number_format($totalPrix, 2, ',', ' ') ?> €</strong></div>
 
                     <form action="<?= base_url('commande/checkout') ?>" method="get">

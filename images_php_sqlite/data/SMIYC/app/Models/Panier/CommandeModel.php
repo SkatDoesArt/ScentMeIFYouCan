@@ -81,4 +81,12 @@ class CommandeModel extends Model
 
         return $commandes ?: [];
     }
+
+    public function getAllCommande(){
+        return $this->findAll();
+    }
+    public function getCommandeByStatus($id,$status){
+        $commandes = $this->asArray()->where('status', $status)->findAll();
+        return $commandes ;
+    }
 }

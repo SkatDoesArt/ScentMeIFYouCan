@@ -8,7 +8,7 @@ use CodeIgniter\Shield\Models\UserModel;
 use CodeIgniter\Shield\Entities\User;
 use CodeIgniter\Exceptions\PageNotFoundException;
 use Throwable;
-
+use App\Models\Panier\CommandeModel;
 class Admin extends BaseController
 {
 
@@ -58,7 +58,9 @@ class Admin extends BaseController
      */
     public function orders()
     {
-        // TODO: récupérer et afficher les commandes
+                $model = new CommandeModel();
+        $data['liste_commande'] = $model->getAllCommande();
+        return view('Pages/admin/orders',$data);
     }
 
     /**
@@ -66,7 +68,7 @@ class Admin extends BaseController
      */
     public function stock()
     {
-        // TODO: récupérer et afficher les stocks
+        // TODO 
     }
 
     // ==========================
@@ -343,10 +345,24 @@ public function addUser()
     /**
      * Modifier une commande
      */
-    public function editCommandes($id = null)
-    {
-        // TODO: récupérer la commande $id et afficher formulaire modification
+public function editCommandes($id, $statut)
+{
+    $model = new CommandeModel();
+
+    // Sécurité : vérifier que la commande existe
+    $commande = $model->find($id);
+    if (! $commande) {
+        return redirect()->back()->with('error', 'Commande introuvable');
     }
+
+    // Mise à jour en base
+    $model->update($id, [
+        'statut' => $statut
+    ]);
+
+    return redirect()->back()->with('success', 'Statut mis à jour');
+}
+
 
     // ==========================
     // CRUD → Supprimer (Delete)

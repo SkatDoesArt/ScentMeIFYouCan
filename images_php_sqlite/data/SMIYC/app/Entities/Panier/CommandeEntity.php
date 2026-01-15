@@ -20,4 +20,21 @@ class CommandeEntity extends Entity
         $this->statut = $data['statut'] ?? 'Brouillon';
         $this->lignesCommande = $data['lignesCommande'] ?? [];
     }
+    public function getIdCommande()
+    {
+        return $this->attributes['id_commande'];
+    }
+        public function getStatut()
+    {
+        return $this->attributes['statut'];
+    }
+        public function getUserID()
+    {
+        return $this->attributes['user_id'];
+    }
+        public function getDate()
+    {
+        return $this->attributes['date_commande'];
+    }
+
 }

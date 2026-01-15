@@ -1,4 +1,14 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>css/admin/admin_dashboard.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>css/header.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>css/admin/add_user.css">
+    <script type="text/javascript" src="<?php echo base_url(); ?>js/admin/preview_photo.js" defer></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>js/admin/select_input_image.js" defer></script>
+</head>
+<body>
+<?= view('Pages/partials/header', ['showCart' => false, 'showList' => false, 'showSearch' => false]) ?>
 
 <link rel="stylesheet" href="style.css">
 <div class="admin-card">

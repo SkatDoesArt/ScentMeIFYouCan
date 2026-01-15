@@ -18,13 +18,6 @@ class LignePanierModel extends Model
     ];
 
 
-    protected array $casts = [];
-    protected array $castHandlers = [];
-
-    // Dates
-    protected $useTimestamps = false;
-    protected $dateFormat = 'datetime';
-
 
     public function addProduit(int $id_panier, int $id_produit, int $quantite = 1): bool
     {

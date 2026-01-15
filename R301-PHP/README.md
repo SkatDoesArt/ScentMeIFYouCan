@@ -62,10 +62,16 @@ Ci-dessous un inventaire des fonctionnalités observées directement dans les co
     - Modèle(s) : `ProduitModel` (méthodes `getDisponibles`, `getBy*`, `paginate`, etc.)
     - Remarque : recherche, filtres et pagination sont implémentés.
 
-- Affichage fiche produit + avis — Fait
+- Affichage fiche produit - Fait
     - Contrôleur : `Catalogue::detail`
-    - Modèle(s) : `ProduitModel`, `AvisModel::getAvisByProduit`
-    - Remarque : récupération des avis et du produit implémentée.
+    - Modèle(s) : `ProduitModel`
+    - Remarque : récupération et affichage des information produit implémentée.
+
+- Masques produits - Fait
+
+- Tri produits - Fait
+
+
 
 - Ajouter au panier (utilisateur connecté) — Fait
     - Contrôleur : `Cart::addProduct`
@@ -92,25 +98,27 @@ Ci-dessous un inventaire des fonctionnalités observées directement dans les co
     - Remarque : flux complet pour utilisateurs authentifiés ; les informations de livraison sont stockées en session
       avant création.
 
-- Visualiser statut / page récap commande — Partiellement
+- Visualiser statut / historique commande — Partiellement
     - Contrôleur : `Commande::status` renvoie la vue `Pages/commande/status` mais ne récupère pas explicitement la
       commande par ID dans le controller.
-    - Remarque : la création renvoie vers `commande/status/{id}` ; l'affichage détaillé pourrait être à compléter.
+    - Remarque : la création renvoie vers `commande/status/{id}` pour le moment.
+    - problemes par moment avec le ``getCommandById`` qui ne recupere rien
 
 - Achat en tant que visiteur (achat sans compte / checkout visiteur) — Non implémenté
     - Observations : les routes `checkout`, `review` et `create` redirigent vers `auth/login` si l'utilisateur n'est pas
       connecté. Aucun flux explicite pour 'guest checkout'.
 
-- Authentification / gestion des comptes — Partiellement
+- Authentification / gestion des comptes — Fait
     - Contrôleur : `Auth::login`, `Auth::register`, `Auth::forgotPassword`, `Auth::profile`, `Auth::logout`
     - Observations : l'app s'appuie sur CodeIgniter Shield / provider pour la gestion des utilisateurs (présence de
-      `auth()` utilisé dans d'autres controllers). Les vues existent, mais le traitement complet (création/processAuth)
-      semble partiellement externalisé à Shield ou à compléter.
+      `auth()` utilisé dans d'autres controllers).
 
 - Gestion des commandes côté admin — Partiellement
     - Contrôleur : `Admin::orders` (TODO), `Admin::editCommandes` (TODO), `Admin::deleteCommande` (TODO)
     - Modèle(s) : `CommandeModel::getCommandeById` existe pour récupérer commandes d'un utilisateur; manque une
       interface/admin list complète des commandes.
+
+    -> vue implémentées
 
 - CRUD produits côté admin — Fait
     - Contrôleur : `Admin::products`, `Admin::addProduit`, `Admin::editProduit`, `Admin::deleteProduit`
@@ -119,27 +127,22 @@ Ci-dessous un inventaire des fonctionnalités observées directement dans les co
 
 - Gestion utilisateurs côté admin — Fait (partiel)
     - Contrôleur : `Admin::users`, `Admin::addUser`, `Admin::editUser`, `Admin::deleteUser`, `Admin::editRoleUser`
-    - Observations : s'appuie sur Shield (`UserModel`, identités, groupes). L'ajout d'utilisateur crée l'identité email
-      et le groupe.
+    - Probleme d'attribution d'email et de mot de passe au user créés
 
-- Gestion des stocks — Partiellement / Fait pour modifications
-    - Contrôleur : `Admin::stock` (TODO affichage), `Admin::addStocks`, `Admin::removeStocks`
+- Gestion des stocks — Fait
+    - Contrôleur : `Admin::products`
     - Modèle(s) : `ProduitModel::IncrementQauntite`, `ProduitModel::DecrementQauntite`
-    - Remarque : méthodes d'incrément/décrément existent, mais l'interface d'administration pour lister les stocks est
-      TODO.
+    - Remarque : la gestion des stoks se fait via la page de gestion des produits
 
-- Création de commandes et lignes (persistées) — Fait
+- Création de commandes et lignes — Fait
     - Modèle : `CommandeModel::createCommande` insère la commande et utilise `LigneCommandeModel` pour enregistrer les
       lignes.
 
-- Avis (reviews) — Fait (lecture)
-    - Modèle : `AvisModel::getAvisByProduit`, `getAvisWithUsersByProduct`
-    - Remarque : récupération et affichage des avis implémentés ; fonctionnalité d'ajout d'avis à vérifier côté
-      contrôleur/views.
+- Avis (reviews) — Non implémenté
+
 
 - Tests unitaires — Partiellement
-    - Présence de `phpunit.xml.dist` et dossier `tests/` ; la couverture et l'exécution des tests doivent être
-      vérifiées (`./vendor/bin/phpunit`).
+    - PRE et POST avec asserts a ajouter dans le dossier R302-algo
 
 - Paiement (intégration passerelle / paiement) — Non implémenté
     - Observations : aucune intégration (ex: Stripe/PayPal) détectée dans les controllers ou services. Enum

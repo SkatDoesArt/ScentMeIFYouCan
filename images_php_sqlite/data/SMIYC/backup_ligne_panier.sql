@@ -1,8 +1,0 @@
-PRAGMA foreign_keys=OFF;
-BEGIN TRANSACTION;
-CREATE TABLE IF NOT EXISTS "ligne_panier" (id_ligne_panier INTEGER PRIMARY KEY AUTOINCREMENT, id_produit INT NOT NULL, id_panier INT NOT NULL, quantite INT NOT NULL, prix_unitaire REAL DEFAULT 0.0);
-INSERT INTO ligne_panier VALUES(15,50,1,50,2.5);
-INSERT INTO ligne_panier VALUES(16,50,1,20,5.0);
-INSERT INTO ligne_panier VALUES(17,51,2,15,7.5);
-INSERT INTO ligne_panier VALUES(18,49,1,10,2.5);
-COMMIT;

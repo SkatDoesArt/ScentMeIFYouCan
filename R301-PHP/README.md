@@ -140,7 +140,6 @@ Ci-dessous un inventaire des fonctionnalités observées directement dans les co
 
 - Avis (reviews) — Non implémenté
 
-
 - Tests unitaires — Partiellement
     - PRE et POST avec asserts a ajouter dans le dossier R302-algo
 

@@ -4,26 +4,26 @@
 
 | Machine | Nom choisi | IP VLAN / Subnet | Description                                             |
 | ------- | ---------- | ---------------- | ------------------------------------------------------- |
-| Routeur | GW         | 10.0.1.254/24    | Intranet |
-| Routeur | GW         | 192.168.1.254    | Internet |
+| Routeur | ROUTEUR         | 10.0.1.254/24    | Intranet |
+| Routeur | ROUTEUR         | 192.168.1.254    | Internet |
 | Interne | SRV-INT    | 10.0.1.50/24     | Serveur HTTP + DNS secondaire |
 | Externe | HOST-EXT   | 192.168.1.10/24  | Machine client depuis l’extérieur |
 
-* VLAN interne : VLAN 10 sur eth0.10 (SRV-INT et GW)
+* VLAN interne : VLAN 10 sur eth0.10 (SRV-INT et ROUTEUR)
 * Externe : réseau 192.168.1.0/24
 
 
 ## creation des VMs
 ```bash
 vm-add -d srv-int
-vm-add -d gw
+vm-add -d ROUTEUR
 vm-add -d host-ext
 ```
 
 ## lancement des VMs
 ```bash
 vm-run srv-int
-vm-run gw
+vm-run ROUTEUR
 vm-run host-ext
 ```
 
@@ -31,10 +31,10 @@ vm-run host-ext
 ## creation des VMs
 ```bash
 vm-stop srv-int
-vm-stop gw
+vm-stop ROUTEUR
 vm-stop host-ext
 vm-del srv-int
-vm-del gw
+vm-del ROUTEUR
 vm-del host-ext
 ```
 
@@ -108,7 +108,7 @@ ping -c 3 10.0.1.254
 ping -c 3 192.168.1.254
 ping -c 3 192.168.1.10
 ```  
-**Dans gw :**
+**Dans ROUTEUR :**
 
 ```bash
 ping -c 3 10.0.1.10
@@ -134,7 +134,7 @@ ip link set eth0.10 up
 ip a add 10.0.1.50/24 dev eth0.10  
 ```
 
-**Routeur GW :**
+**Routeur ROUTEUR :**
 
 ```bash
 ip link add link eth0 name eth0.10 type vlan id 10  
@@ -147,7 +147,7 @@ ip a add 10.0.1.254/24 dev eth0.10
 
 ```bash
 ping 10.0.1.254  # depuis SRV-INT
-ping 10.0.1.50   # depuis GW
+ping 10.0.1.50   # depuis ROUTEUR
 ```
 
 ---
@@ -193,7 +193,7 @@ $TTL 604800
 dev     IN  NS      srv-int.sae.com.
 
 ns1     IN  A       10.0.1.254
-gw      IN  A       10.0.1.254
+ROUTEUR      IN  A       10.0.1.254
 srv-int IN  A       10.0.1.50
 
 www     IN  CNAME   srv-int.sae.com.
@@ -269,7 +269,7 @@ ss -lntp | grep :80
 curl http://10.0.1.50
 ```
 
-**Redirection NAT sur GW (HTTP 8080 → SRV-INT port 80) :**
+**Redirection NAT sur ROUTEUR (HTTP 8080 → SRV-INT port 80) :**
 
 ```bash
 iptables -t nat -A PREROUTING -i eth1 -p tcp --dport 8080 -j DNAT --to-destination 10.0.1.50:80

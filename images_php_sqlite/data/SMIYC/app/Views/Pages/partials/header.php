@@ -73,7 +73,7 @@ $showSearch = $showSearch ?? true;
     </div>
     <?php if ($showList): ?>
         <nav id="nav-list">
-            <a href="<?= base_url() ?>catalogue/all"><span class="categorie" role="link">Tout</span></a>
+            <a href="<?= base_url() ?>catalogue"><span class="categorie" role="link">Tout</span></a>
             <a href="<?= base_url() ?>catalogue/parfums"><span class="categorie" role="link">Parfum</span></a>
             <a href="<?= base_url() ?>catalogue?categorie=Homme"><span class="categorie" role="link">Homme</span></a>
             <a href="<?= base_url() ?>catalogue?categorie=Femme"><span class="categorie" role="link">Femme</span></a>

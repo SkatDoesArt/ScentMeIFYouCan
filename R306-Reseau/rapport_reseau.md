@@ -145,7 +145,6 @@ ip a add 10.0.1.254/24 dev eth0.10
 
 ```powershell
 ping -c 3 10.0.1.254  # depuis INTERNE
-ping -c 3 10.0.1.50   # depuis ROUTEUR
 ```
 
 ---

@@ -14,9 +14,15 @@ class AdminSeeder extends Seeder
         $users = [
             [
                 'username' => 'admin',
-                'email' => 'admin@test.com',
-                'password' => 'password',
+                'email' => 'admin@admin.com',
+                'password' => 'admin@admin.com',
                 'group' => 'admin',
+            ],
+            [
+                'username' => 'user',
+                'email' => 'user@user.com',
+                'password' => 'user@user.com',
+                'group' => 'user',
             ],
 
         ];
@@ -45,7 +51,7 @@ class AdminSeeder extends Seeder
             ]);
 
             // Assignation au groupe admin
-            $user->addGroup('admin');
+            $user->addGroup($data['group']);
         }
     }
 }

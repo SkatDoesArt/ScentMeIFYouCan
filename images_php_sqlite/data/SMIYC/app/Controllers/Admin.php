@@ -181,22 +181,20 @@ public function addUser()
             //  Création user
             $user = new User([
                 'username' => $username,
-                'active'   => 1,
+                'active' => 1,
             ]);
-
             $userModel->save($user);
 
-            // Récupération du user persisté
-            $userId = $userModel->getInsertID();
-            $user   = $userModel->findById($userId);
+            // Récupération de l'utilisateur créé
+            $user = $userModel->findById($userModel->getInsertID());
 
-            //  Création identité email + password
+            // Ajout email + mot de passe
             $user->createEmailIdentity([
-                'email'    => $email,
+                'email' => $email,
                 'password' => $password,
             ]);
 
-            //  Assignation au groupe
+            // Assignation au groupe admin
             $user->addGroup($statut);
             
             session()->setFlashdata('success', 'Utilisateur ajouté avec succès');

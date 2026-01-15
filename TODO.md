@@ -20,7 +20,8 @@ R301 :
 
 - PANIER
   modifier "infos" dans le panier
-  ajout item panier -> modele a revoir
+  css bouton
+  
 
 - USER
 

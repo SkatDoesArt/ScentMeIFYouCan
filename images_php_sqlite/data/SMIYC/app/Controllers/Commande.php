@@ -137,7 +137,7 @@ class Commande extends BaseController
         // nettoyer la session
         session()->remove('livraison');
 
-        return redirect()->to(base_url('commande/status/' . $commandeId)); // dashboard/historique_commande
+        return redirect()->to(base_url('dashboard/historique_commandes/')); //
     }
 
     public function status(int $noCommand = 0)

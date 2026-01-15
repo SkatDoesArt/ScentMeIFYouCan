@@ -14,15 +14,13 @@
 </head>
 
 <style>
-    body {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100vw;
-    }
+    /* Ne pas forcer de scroll interne ; laisser le body gérer le flux et le scroll. */
 
     .container {
-        min-height: 70vh;
+        box-sizing: border-box;
+        flex: 1 1 auto; /* prend l'espace disponible dans le layout en colonne */
+        padding: 2.5rem 1rem 0 1rem; /* padding-bottom augmenté pour laisser la place au footer */
+        /* Ne pas utiliser min-height/overflow interne ici : cela empêchait le footer d'être placé correctement */
     }
 </style>
 
@@ -72,20 +70,6 @@
                         </div>
                     </a>
 
-                    <div class="card-bottom">
-                        <div style="display:flex; gap:8px; align-items:center;">
-                            <a class="btn" href="<?= base_url('dashboard/commande/' . urlencode($id)) ?>">Voir
-                                détails</a>
-                            <form action="<?= base_url('commande/reorder/' . urlencode($id)) ?>" method="post"
-                                  style="display:inline;">
-                                <?= csrf_field() ?>
-                                <button type="submit" class="qty-btn plus" title="Commander à nouveau"
-                                        style="background:#2563eb;">↻
-                                </button>
-                            </form>
-                        </div>
-                        <div style="color:var(--muted); font-size:0.95rem;">ID interne: <?= esc($id) ?></div>
-                    </div>
 
                     <?php if (!empty($lignes)): ?>
                         <div class="commande-lines" style="padding:12px; border-top:1px solid #eee;">
@@ -143,3 +127,4 @@
 </body>
 
 </html>
+

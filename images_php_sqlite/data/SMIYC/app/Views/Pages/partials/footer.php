@@ -31,7 +31,7 @@
             <p>Recevez nos offres et nouveautés.</p>
             <form action="<?= base_url('newsletter/subscribe') ?>" method="post" class="newsletter-form">
                 <label for="newsletter-email" class="sr-only">Votre email</label>
-                <input id="newsletter-email" type="email" name="email" placeholder="Votre email" required />
+                <input id="newsletter-email" type="email" name="email" placeholder="Votre email" required/>
                 <button type="submit">S'inscrire</button>
             </form>
         </div>
@@ -49,7 +49,8 @@
 </footer>
 
 <style>
-    footer {}
+    footer {
+    }
 
     .site-footer {
         background: linear-gradient(180deg, #0b0b0b 0%, #1a1a1a 100%);
@@ -57,8 +58,10 @@
         width: 100%;
         padding: 3rem 1rem;
         margin-top: 2rem;
+        position: relative; /* keep in document flow */
+        flex-shrink: 0; /* do not allow footer to shrink */
+        z-index: 5; /* ensure it sits above page background */
         border-top: 4px solid rgba(255, 255, 255, 0.03);
-        z-index  : 1;
     }
 
     .site-footer .footer-top {

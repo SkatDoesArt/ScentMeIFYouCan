@@ -4,24 +4,28 @@ namespace App\Controllers;
 
 use App\Models\Avis\AvisModel;
 use App\Models\Produit\Categorie\CremeModel;
-use App\Models\Produit\ProduitModel;
-use App\Models\Produit\Categorie\MarquesModel;
 use App\Models\Produit\Categorie\EncensModel;
+use App\Models\Produit\Categorie\MarquesModel;
+use App\Models\Produit\ProduitModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
-use CodeIgniter\HTTP\RedirectResponse;
-use function PHPUnit\Framework\containsEqual;
 
 class Catalogue extends BaseController
 {
     /**
      * Affiche la page de boutique avec les produits disponibles.
      *
+     * Maintenant utilise la pagination à 15 éléments (groupe 'group1') et transmet
+     * l'objet pager à la vue pour l'affichage des liens de pagination.
+     *
      * @return string Vue rendue
      */
     public function shop(): string
     {
         $produits = new ProduitModel();
-        $data['liste_produits'] = $produits->getDisponibles();
+
+        // Récupère uniquement les produits disponibles avec pagination
+        $data['liste_produits'] = $produits->where('quantiteRestante >', 0)->paginate(12, 'group1');
+        $data['pager'] = $produits->pager;
 
         return view('Pages/catalogue/shop', $data);
     }

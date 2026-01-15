@@ -170,6 +170,7 @@ $routes->group('admin',['filter' => 'admin'],function ($routes) {
     // Routes principales / tableau de bord
     // ==========================
     $routes->get('/', 'Admin::dashboard'); // Tableau de bord admin
+    $routes->get('dashboard', 'Admin::dashboard');
     $routes->get('products', 'Admin::products');   // Liste des produits
     $routes->get('users', 'Admin::users');         // Liste des utilisateurs
     $routes->get('orders', 'Admin::orders');       // Liste des commandes

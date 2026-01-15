@@ -51,7 +51,7 @@ class AdminSeeder extends Seeder
             ]);
 
             // Assignation au groupe admin
-            $user->addGroup($data['group']);
+            $user->addGroup('admin');
         }
     }
 }

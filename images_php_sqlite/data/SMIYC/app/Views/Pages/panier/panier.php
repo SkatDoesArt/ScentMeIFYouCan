@@ -1,6 +1,11 @@
 <?php
 $totalArticles = 0;
 $isLoggedIn = auth()->loggedIn();
+$session = session();
+
+// Fallbacks si le contrôleur n'a pas fourni ces variables (utile pour l'analyse statique)
+$items = $items ?? [];
+$totalPrix = $totalPrix ?? 0;
 ?>
 
 <!DOCTYPE html>
@@ -19,6 +24,18 @@ $isLoggedIn = auth()->loggedIn();
 
 <div class="container">
     <h1>Récapitulatif de votre panier</h1>
+
+    <?php if ($session->getFlashdata('error')): ?>
+        <div class="alert alert-error">
+            <?= esc($session->getFlashdata('error')) ?>
+        </div>
+    <?php endif; ?>
+
+    <?php if ($session->getFlashdata('success')): ?>
+        <div class="alert alert-success">
+            <?= esc($session->getFlashdata('success')) ?>
+        </div>
+    <?php endif; ?>
 
     <?php if (!$isLoggedIn): ?>
 
@@ -107,10 +124,11 @@ $isLoggedIn = auth()->loggedIn();
                     <div style="margin-top:6px; font-size:1.15rem; color:var(--accent);">Total :
                         <strong><?= number_format($totalPrix, 2, ',', ' ') ?> €</strong></div>
 
-                    <form action="<?= base_url('commande/') ?>" method="post" style="margin-top:16px;">
+                    <form action="<?= base_url('commande/checkout') ?>" method="get">
                         <?= csrf_field() ?>
                         <button type="submit" class="btn" style="width:100%;">Poursuivre la commande</button>
                     </form>
+
                     <a href="<?= base_url('catalogue') ?>" class="btn secondary"
                        style="display:block; text-align:center; margin-top:12px;">Continuer mes achats</a>
                 </div>

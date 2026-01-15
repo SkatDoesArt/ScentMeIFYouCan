@@ -8,7 +8,7 @@ use CodeIgniter\Router\RouteCollection;
 
 // ---------- Page d’accueil ----------
 $routes->get('/', 'Home::index');
-$routes->get('/logout','Auth::logout');
+$routes->get('/logout', 'Auth::logout');
 
 service('auth')->routes($routes);
 
@@ -16,14 +16,14 @@ service('auth')->routes($routes);
 // AUTHENTIFICATION
 // ====================================================================
 
-$routes->group('auth', function($routes) {
+$routes->group('auth', function ($routes) {
     $routes->get('login', '\CodeIgniter\Shield\Controllers\LoginController::loginView');
     $routes->get('register', '\CodeIgniter\Shield\Controllers\RegisterController::registerView');
     $routes->get('forgot-password', 'Auth::forgotPassword');
     //logout
     $routes->get('logout', 'Auth::logout');
     //logout
-    $routes->get('logout', 'Auth::logout');   
+    $routes->get('logout', 'Auth::logout');
     $routes->get('profile', 'Auth::profile', ['as' => 'user-profile']);
     $routes->get('profile/edit', 'Auth::editProfile');
 });
@@ -32,14 +32,14 @@ $routes->group('auth', function($routes) {
 // ====================================================================
 // CATALOGUE
 // ====================================================================
-$routes->group('catalogue', function($routes) {
+$routes->group('catalogue', function ($routes) {
     //Pages Principale
     $routes->get('marques', 'Catalogue::brand');
     $routes->get('saison', 'Catalogue::saison');
     $routes->get('encens', 'Catalogue::encens');
     $routes->get('creme', 'Catalogue::creme');
     $routes->get('exotique', 'Catalogue::exotique');
-   $routes->get('/', 'Catalogue::shop');
+    $routes->get('/', 'Catalogue::shop');
     //Afficher un produit en particulier
     $routes->get('product/(:num)', 'Catalogue::detail/$1');
     $routes->get('search', 'Catalogue::search');
@@ -54,45 +54,44 @@ $routes->group('catalogue', function($routes) {
 // ====================================================================
 // PANIER
 // ====================================================================
-$routes->group('cart', function($routes) {
+$routes->group('cart', function ($routes) {
     $routes->get('/', 'Cart::index'); // Affiche le panier
 
     $routes->match(['get', 'post'], 'add/(:num)', 'Cart::addProduct/$1');
 
     // Augmenter la quantité
-    $routes->match(['GET','POST'], 'increment/(:num)', 'Cart::addQuantite/$1');
+    $routes->match(['GET', 'POST'], 'increment/(:num)', 'Cart::addQuantite/$1');
 
     // Diminuer la quantité
-    $routes->match(['GET','POST'], 'decrement/(:num)', 'Cart::decrementQuantite/$1');
+    $routes->match(['GET', 'POST'], 'decrement/(:num)', 'Cart::decrementQuantite/$1');
 
     // Supprimer une ligne du panier
-    $routes->match(['GET','POST'], 'delete/(:num)', 'Cart::delete/$1');
+    $routes->match(['GET', 'POST'], 'delete/(:num)', 'Cart::delete/$1');
 });
 
 
 // ====================================================================
 // PAIEMENT
 // ====================================================================
-$routes->group('payment', function($routes) {
+$routes->group('payment', function ($routes) {
     $routes->get('/', 'Payment::index');
     $routes->get('success', 'Payment::success');
     $routes->get('error', 'Payment::error');
 });
 
-
 // ====================================================================
 // COMMANDES
 // ====================================================================
-$routes->group('commande', function($routes) {
-    $routes->get('/', 'Commande::index');
-    $routes->get('status/(:num)', 'Commande::status/$1');
-    $routes->get('history', 'Commande::history');
-});
+$routes->post('commande', 'Commande::create');
+$routes->get('commande/checkout', 'Commande::checkout');
+$routes->match(['GET', 'POST'], 'commande/review', 'Commande::review');
+$routes->get('commande/status/(:num)', 'Commande::status/$1');
+
 
 // ====================================================================
 // DASHBOARD
 // ====================================================================
-$routes->group('dashboard', function($routes) {
+$routes->group('dashboard', function ($routes) {
     $routes->get('infos_perso', 'Dashboard::infos_perso');
     $routes->get('langue_region', 'Dashboard::langue_region');
     $routes->get('adresses', 'Dashboard::adresses');
@@ -106,64 +105,64 @@ $routes->group('dashboard', function($routes) {
 // ====================================================================
 
 
-$routes->group('admin',['filter' => 'admin'],function ($routes) {
+$routes->group('admin', ['filter' => 'admin'], function ($routes) {
 
     // ==========================
     // Groupe "add" → pour créer des entités
     // ==========================
-    $routes->group('add', function($routes){
+    $routes->group('add', function ($routes) {
         // Route pour créer un produit
         // Accepte à la fois GET (affichage du formulaire) et POST (soumission)
-        $routes->match(['GET','POST'], 'product', 'Admin::addProduit');
+        $routes->match(['GET', 'POST'], 'product', 'Admin::addProduit');
 
         // Route pour créer un utilisateur
-        $routes->match(['GET','POST'], 'user', 'Admin::addUser');
+        $routes->match(['GET', 'POST'], 'user', 'Admin::addUser');
 
         // Route pour créer des stocks
-        $routes->match(['GET','POST'], 'stocks', 'Admin::addStocks');
+        $routes->match(['GET', 'POST'], 'stocks', 'Admin::addStocks');
 
         // Route pour créer des catégories
-        $routes->match(['GET','POST'], 'categories', 'Admin::addCategories');
+        $routes->match(['GET', 'POST'], 'categories', 'Admin::addCategories');
     });
 
     // ==========================
     // Groupe "edit" → pour modifier des entités existantes
     // ==========================
-    $routes->group('edit', function($routes){
+    $routes->group('edit', function ($routes) {
         // Modifier un produit par ID
-        $routes->match(['GET','POST'], 'product/(:num)', 'Admin::editProduit/$1');
+        $routes->match(['GET', 'POST'], 'product/(:num)', 'Admin::editProduit/$1');
 
         // Modifier un utilisateur par ID
-        $routes->match(['GET','POST'], 'user/(:num)', 'Admin::editUser/$1');
+        $routes->match(['GET', 'POST'], 'user/(:num)', 'Admin::editUser/$1');
 
         //Augmente la quantite d'un produit
-        $routes->post('add_quantite/product/(:num)','Admin::addStocks/$1');
-        
+        $routes->post('add_quantite/product/(:num)', 'Admin::addStocks/$1');
+
         //Diminue la quantite d'un produit
-        $routes->post('quantite/product/(:num)','Admin::removeStocks/$1');
+        $routes->post('quantite/product/(:num)', 'Admin::removeStocks/$1');
 
         // Modifier des commandes par ID
-        $routes->match(['GET','POST'], 'commandes/(:num)', 'Admin::editCommandes/$1');
+        $routes->match(['GET', 'POST'], 'commandes/(:num)', 'Admin::editCommandes/$1');
 
         //Modifie le role d'un utilisateur
-        $routes->post('role/(:num)/(:segment)','Admin::editRoleUser/$1/$2');
+        $routes->post('role/(:num)/(:segment)', 'Admin::editRoleUser/$1/$2');
     });
 
     // ==========================
     // Groupe "delete" → pour supprimer des entités
     // ==========================
-    $routes->group('delete', function($routes){
+    $routes->group('delete', function ($routes) {
         // Supprimer un produit par ID
-        $routes->post( 'product/(:num)', 'Admin::deleteProduit/$1');
+        $routes->post('product/(:num)', 'Admin::deleteProduit/$1');
 
         // Supprimer un utilisateur par ID
-        $routes->post( 'user/(:num)', 'Admin::deleteUser/$1');
+        $routes->post('user/(:num)', 'Admin::deleteUser/$1');
 
         // Supprimer des stocks par ID
-        $routes->post( 'stocks/(:num)', 'Admin::deleteStocks/$1');
+        $routes->post('stocks/(:num)', 'Admin::deleteStocks/$1');
 
         // Supprimer une commande par ID
-        $routes->post( 'commande/(:num)', 'Admin::deleteCommande/$1');
+        $routes->post('commande/(:num)', 'Admin::deleteCommande/$1');
     });
 
     // ==========================
@@ -180,10 +179,9 @@ $routes->group('admin',['filter' => 'admin'],function ($routes) {
 // ====================================================================
 // EMAILS (pour test uniquement)
 // ====================================================================
-$routes->group('emails', function($routes) {
+$routes->group('emails', function ($routes) {
     $routes->get('order-confirmation', 'Emails::orderConfirmation');
 });
 
 
 /* service('auth')->routes($routes); */
-

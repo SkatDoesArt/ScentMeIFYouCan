@@ -34,6 +34,35 @@ class CreateCommande extends Migration
                 'constraint' => '10,2',
                 'null'       => false,
             ],
+            'nom_complet' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 255,
+                'null'       => true,
+            ],
+            'adresse' => [
+                'type' => 'TEXT',
+                'null' => true,
+            ],
+            'tel' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 50,
+                'null'       => true,
+            ],
+            'ville' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 100,
+                'null'       => true,
+            ],
+            'code_postal' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 20,
+                'null'       => true,
+            ],
+            'pays' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 100,
+                'null'       => true,
+            ],
         ]);
         $this->forge->addKey('id_commande', true);
         $this->forge->addForeignKey('user_id', 'users', 'id', 'CASCADE', 'CASCADE');
@@ -45,3 +74,7 @@ class CreateCommande extends Migration
         $this->forge->dropTable('commandes', true);
     }
 }
+
+
+
+

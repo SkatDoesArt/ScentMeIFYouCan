@@ -13,32 +13,46 @@
 
 <?php
 
-use App\Models\Users\Client;
-
 $totalArticles = 0;
 $isLoggedIn = auth()->loggedIn();
 $user = auth()->user();
 
+// Fallback safe si le contrôleur n'a pas fourni $cart
+$cart = $cart ?? [[], 0];
+
+// Note : ne pas faire de redirect() depuis la vue. Le contrôleur doit empêcher toute arrivée ici si le panier est vide. Ici on affiche simplement un message au cas où.
+
 ?>
 
 <body>
-    <?= view('Pages/partials/header', ['showCart' => false]) ?>
+<?= view('Pages/partials/header', ['showCart' => false]) ?>
 
-    <h2>Récapitulatif de votre commande</h2>
+<h2>Récapitulatif de votre commande</h2>
 
-    <?php if (!$isLoggedIn): ?>
+<?php if (!$isLoggedIn): ?>
 
+    <div class="panier-vide">
+        <h2>Veuillez vous connecter pour voir votre panier</h2>
+        <a href="<?= base_url('auth/login') ?>">
+            <button class="btn-panier">Se connecter</button>
+        </a>
+    </div>
+
+<?php else: ?>
+
+    <?php if (empty($cart[0])): ?>
         <div class="panier-vide">
-            <h2>Veuillez vous connecter pour voir votre panier</h2>
-            <a href="<?= base_url('auth/login') ?>">
-                <button class="btn-panier">Se connecter</button>
+            <h2>Votre panier est vide.</h2>
+            <a href="<?= base_url('cart') ?>">
+                <button class="btn-panier">Retour au panier</button>
             </a>
         </div>
-
     <?php else: ?>
+
         <div class="container-commande">
             <div id="infos">
-                <form action="">
+                <form action="<?= base_url('commande') ?>" method="post">
+                    <?= csrf_field() ?>
                     <h3>Informations de livraison</h3>
                     <label for="name">Nom complet :</label>
                     <input type="text" id="name" name="name" placeholder="Nom complet" required>
@@ -100,17 +114,20 @@ $user = auth()->user();
                     <!-- <h3>Résumé</h3> -->
                     <div>Total articles : <?= $totalArticles ?></div>
                     <div>Total : <?= number_format($totalPrix, 2) ?> €</div>
-                    <form action="<?= base_url('commande/') ?>" method="post">
+                    <form action="<?= base_url('commande') ?>" method="post">
+                        <?= csrf_field() ?>
+                        <input type="hidden" name="total_prix" value="<?= esc($totalPrix) ?>">
                         <input type="submit" value="Payer la commande">
                     </form>
                 </div>
             </div>
         </div>
 
-
     <?php endif; ?>
 
-    <?= view('Pages/partials/footer') ?>
+<?php endif; ?>
+
+<?= view('Pages/partials/footer') ?>
 </body>
 
 </html>

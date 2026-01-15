@@ -4,14 +4,15 @@ namespace App\Models\Panier;
 
 use App\Entities\Panier\LignePanierEntity;
 use CodeIgniter\Model;
+use App\Models\Produit\ProduitModel;
 
 class LignePanierModel extends Model
 {
-    protected $table            = 'ligne_panier';
-    protected $primaryKey       = 'id_ligne_panier';
+    protected $table = 'ligne_panier';
+    protected $primaryKey = 'id_ligne_panier';
     protected $useAutoIncrement = true;
-    protected $useSoftDeletes   = false;
-    protected $protectFields    = true;
+    protected $useSoftDeletes = false;
+    protected $protectFields = true;
     protected $allowedFields = [
         'id_produit',
         'id_panier',
@@ -28,37 +29,49 @@ class LignePanierModel extends Model
 
     // Dates
     protected $useTimestamps = false;
-    protected $dateFormat    = 'datetime';
-    protected $createdField  = 'created_at';
-    protected $updatedField  = 'updated_at';
-    protected $deletedField  = 'deleted_at';
+    protected $dateFormat = 'datetime';
+    protected $createdField = 'created_at';
+    protected $updatedField = 'updated_at';
+    protected $deletedField = 'deleted_at';
 
     // Validation
-    protected $validationRules      = [];
-    protected $validationMessages   = [];
-    protected $skipValidation       = false;
+    protected $validationRules = [];
+    protected $validationMessages = [];
+    protected $skipValidation = false;
     protected $cleanValidationRules = true;
 
     // Callbacks
     protected $allowCallbacks = true;
-    protected $beforeInsert   = [];
-    protected $afterInsert    = [];
-    protected $beforeUpdate   = [];
-    protected $afterUpdate    = [];
-    protected $beforeFind     = [];
-    protected $afterFind      = [];
-    protected $beforeDelete   = [];
-    protected $afterDelete    = [];
+    protected $beforeInsert = [];
+    protected $afterInsert = [];
+    protected $beforeUpdate = [];
+    protected $afterUpdate = [];
+    protected $beforeFind = [];
+    protected $afterFind = [];
+    protected $beforeDelete = [];
+    protected $afterDelete = [];
 
 
     public function addProduit(int $id_panier, int $id_produit, int $quantite = 1): bool
     {
+        // Validation défensive : id_produit doit être positif
+        if ($id_produit <= 0) {
+            return false;
+        }
+
+        // Vérifier que le produit existe
+        $produitModel = new ProduitModel();
+        $produit = $produitModel->find($id_produit);
+        if (!$produit) {
+            return false; // produit invalide → ne pas insérer
+        }
+
         $ligne = $this->where('id_panier', $id_panier)
             ->where('id_produit', $id_produit)
             ->first();
 
         if ($ligne !== null) {
-            return (bool) $this->set(
+            return (bool)$this->set(
                 'quantite',
                 "quantite + {$quantite}",
                 false
@@ -67,10 +80,10 @@ class LignePanierModel extends Model
                 ->update();
         }
 
-        return (bool) $this->insert([
-            'id_panier'  => $id_panier,
+        return (bool)$this->insert([
+            'id_panier' => $id_panier,
             'id_produit' => $id_produit,
-            'quantite'   => $quantite,
+            'quantite' => $quantite,
             'prix_unitaire' => 0 // Valeur par défaut, à mettre à jour plus tard
         ]);
     }
@@ -80,7 +93,7 @@ class LignePanierModel extends Model
     // --------------------------------------------
     public function incrementQuantite(int $id_ligne_panier, int $amount = 1): bool
     {
-        return (bool) $this->set(
+        return (bool)$this->set(
             'quantite',
             "quantite + {$amount}",
             false
@@ -95,7 +108,7 @@ class LignePanierModel extends Model
     // --------------------------------------------
     public function decrementQuantite(int $id_ligne_panier, int $amount = 1): bool
     {
-        return (bool) $this->set(
+        return (bool)$this->set(
             'quantite',
             "CASE 
             WHEN quantite - {$amount} < 0 THEN 0 

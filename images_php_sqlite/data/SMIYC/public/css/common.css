@@ -69,7 +69,7 @@ body {
     margin: 0 1rem;
 }
 
-label.hidden{
+label.hidden {
     display: none;
 }
 
@@ -92,7 +92,7 @@ label.hidden{
 #nav-buttons {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1.75rem;
 }
 
 #nav-buttons a {
@@ -130,6 +130,11 @@ label.hidden{
     font-size: 1rem;
     font-weight: bold;
     font-family: 'Poppins', sans-serif !important;
+}
+
+#nav-list a.active .categorie {
+    color: #A08476;
+    text-decoration: underline;
 }
 
 .categorie {
@@ -241,7 +246,12 @@ label.hidden{
     width: 80px;
 }
 
-.info-link{
+.info-link {
     color: white;
     text-decoration: none;
+}
+
+/* Ensure footer sits at bottom */
+footer {
+    margin-top: auto; /* in case body flex layout not enough */
 }

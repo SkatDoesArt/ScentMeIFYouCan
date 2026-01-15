@@ -14,6 +14,9 @@ class Admin extends Entity
 
     public function __construct(User $userDelegate)
     {
+        // Ensure the Entity base constructor runs to initialize dataCaster and attributes
+        parent::__construct([]);
+
         $this->userDelegate = $userDelegate;
     }
 

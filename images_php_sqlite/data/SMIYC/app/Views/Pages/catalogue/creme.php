@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crèmes</title>
     <link rel="stylesheet" href="<?= base_url(); ?>css/common.css">
-    <link rel="stylesheet" href="<?= base_url(); ?>css/creme.css">
+    <link rel="stylesheet" href="<?= base_url(); ?>css/caroussel_horizontale.css">
 </head>
 
 <body>
@@ -86,7 +86,7 @@
             <?php endforeach; ?>
         ];
     </script>
-    <script src="<?= base_url(); ?>js/creme.js" defer></script>
+    <script src="<?= base_url(); ?>js/caroussel_horizontale.js" defer></script>
 </body>
 
 </html>

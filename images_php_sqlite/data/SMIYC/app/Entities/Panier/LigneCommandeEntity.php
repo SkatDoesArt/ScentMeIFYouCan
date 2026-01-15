@@ -16,6 +16,9 @@ class LigneCommandeEntity extends Entity
 
     public function __construct(ProduitEntity $produit, int $quantite = 1)
     {
+        // Initialize parent to ensure Entity internal properties are set
+        parent::__construct([]);
+
         $this->produit = $produit;
         $this->quantite = $quantite;
         $this->prixUnitaire = $produit->getPrix();

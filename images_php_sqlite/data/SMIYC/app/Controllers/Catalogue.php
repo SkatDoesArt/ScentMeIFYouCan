@@ -7,6 +7,7 @@ use App\Models\Produit\Categorie\CremeModel;
 use App\Models\Produit\ProduitModel;
 use App\Models\Produit\Categorie\MarquesModel;
 use App\Models\Produit\Categorie\EncensModel;
+use CodeIgniter\Exceptions\PageNotFoundException;
 use CodeIgniter\HTTP\RedirectResponse;
 use function PHPUnit\Framework\containsEqual;
 
@@ -36,13 +37,46 @@ class Catalogue extends BaseController
         }
 
         if (!$data['produit']) {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+            throw PageNotFoundException::forPageNotFound();
         }
 
         $modelAvis = new AvisModel();
         $data['avis'] = $modelAvis->getAvisByProduit($id);
 
         return view('Pages/catalogue/product', $data);
+    }
+
+    public function all(): string
+    {
+        $produitModel = new ProduitModel();
+
+        $data = [
+            // On récupère tout sans le ->where('type', ...)
+            'liste_produits' => $produitModel->paginate(20, 'group1'),
+            'pager' => $produitModel->pager,
+            'query' => null,
+            'categorie' => null,
+            'is_search' => false,
+        ];
+
+        return view('Pages/catalogue/shop', $data);
+    }
+
+    public function parfums()
+    {
+        $produitModel = new ProduitModel();
+
+        $data = [
+
+            'liste_produits' => $produitModel->where('type', 'parfums')->paginate(20, 'group1'),
+            // On récupère l'objet pager pour l'affichage des liens
+            'pager' => $produitModel->pager,
+            'query' => null,
+            'categorie' => null,
+            'is_search' => false,
+        ];
+
+        return view('Pages/catalogue/shop', $data);
     }
 
     public function brand()
@@ -58,9 +92,37 @@ class Catalogue extends BaseController
         return view('Pages/catalogue/marques', $data);
     }
 
-    public function season()
+    public function marque($marque)
+    {
+        if (!$marque) {
+            return redirect()->to(base_url('catalogue/marques'));
+        }
+
+        $produitModel = new ProduitModel();
+        $data['liste_produits'] = $produitModel->where('marque', $marque)->findAll();
+
+        $data['query'] = null;
+        $data['categorie'] = null;
+        $data['is_search'] = false;
+
+        return view('Pages/catalogue/shop', $data);
+    }
+
+    public function saison()
     {
         return view('Pages/catalogue/saison');
+    }
+
+    public function season($saison)
+    {
+        $produitModel = new ProduitModel();
+        $data['liste_produits'] = $produitModel->where('saison', $saison)->findAll();
+
+        $data['query'] = null;
+        $data['categorie'] = null;
+        $data['is_search'] = true;
+
+        return view('Pages/catalogue/shop', $data);
     }
 
     public function encens()
@@ -89,6 +151,19 @@ class Catalogue extends BaseController
         return view('Pages/catalogue/creme', $data);
     }
 
+    public function exotique()
+    {
+        $model = new ProduitModel();
+        // On utilise paginate au lieu de findAll
+        // Le premier paramètre est le nombre d'éléments par page
+        // Le deuxième paramètre est le groupe de pagination (optionnel)
+        $data = [
+            'lesExotiques' => $model->where('origine', 'Exotique')->paginate(10, 'group1'), // 10 produits par page
+            'pager' => $model->pager
+        ];
+        return view('Pages/catalogue/exotique', $data);
+    }
+
     public function search()
     {
         $query = $this->request->getGet('q');
@@ -100,51 +175,69 @@ class Catalogue extends BaseController
         $produitModel = new ProduitModel();
 
         // Une seule requête sur la table globale 'produit'
-        $resultats = $produitModel
+        $data['liste_produits'] = $produitModel
             ->groupStart() // Début de la parenthèse pour le filtre de recherche
             ->like('name', $query)
             ->orLike('marque', $query)
             ->groupEnd()
             ->findAll();
 
-        $data['liste_produits'] = $resultats;
         $data['query'] = $query;
+        $data['categorie'] = null;
         $data['is_search'] = true;
 
         return view('Pages/catalogue/shop', $data);
     }
 
-    public function filters()
+    public function filters($categorie = null)
     {
-        $query = $this->request->getGet('f');
-
-        if (empty($query)) {
-            return redirect()->to(base_url('catalogue'));
-        }
+        // 1. On récupère les paramètres de l'URL
+        $filter = $this->request->getGet('f');
+        $brand = $this->request->getGet('brand');
+        $price = $this->request->getGet('price');
+        $type = $this->request->getGet('type') ?? 'parfums'; // Par défaut parfums
 
         $produitModel = new ProduitModel();
-        $encensModel = new EncensModel();
-        $filter = new Filters();
 
-        if ($query == "price-crst" || $query == "price-dcrst") {
-            $data['liste_produits'] = $filter->sortByPrice($query);
-        } elseif ($query == "alpha-crst" || $query == "alpha-dcrst") {
-            $data['liste_produits'] = $filter->sortByAlpha($query);
-        }  else {
-            return redirect()->to(base_url('catalogue?categorie=homme'));
+        // 2. Construction de la requête (Query Builder)
+        // On filtre par type (parfums/creme/etc.)
+        $produitModel->where('type', $type);
+
+        // On filtre par catégorie (homme, femme, etc.) si ce n'est pas "all"
+        if ($categorie && $categorie !== 'all') {
+            $produitModel->where('categorie', $categorie);
         }
 
-        // // On récupère les deux listes
-        // $parfums = $produitModel->orderBy("price", ($query === 'price-crst') ? 'ASC' : 'DESC')
-        //     ->findAll();
+        // Ajout des filtres optionnels
+        if (!empty($brand)) {
+            $produitModel->where('marque', $brand);
+        }
 
-        // $encens = $encensModel->orderBy("price", ($query === 'price-crst') ? 'ASC' : 'DESC')
-        //     ->findAll();
-        // // On fusionne les deux tableaux dans la variable attendue par la vue shop
-        // $data['liste_produits'] = array_merge($parfums, $encens);
+        if (!empty($price)) {
+            $produitModel->where('price <=', $price);
+        }
 
-        $data['query'] = $query;
-        $data['is_search'] = false; // Pour afficher un titre spécifique
+        // Gestion du tri
+        if ($filter == "price-crst") {
+            $produitModel->orderBy('price', 'ASC');
+        } elseif ($filter == "price-dcrst") {
+            $produitModel->orderBy('price', 'DESC');
+        } elseif ($filter == "alpha-crst") {
+            $produitModel->orderBy('name', 'ASC');
+        }
+
+        // 3. PAGINATION : C'est ici que le changement opère
+        // On utilise paginate() au lieu de findAll() pour supporter les pages
+        $data = [
+            'liste_produits' => $produitModel->paginate(10, 'group1'),
+            'pager' => $produitModel->pager,
+            'categorie' => $categorie,
+            'type' => $type,
+            'filter' => $filter,
+            'price' => $price,
+            'is_search' => false,
+            'query' => null
+        ];
 
         return view('Pages/catalogue/shop', $data);
     }

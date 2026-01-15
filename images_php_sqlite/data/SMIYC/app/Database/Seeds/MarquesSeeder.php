@@ -286,6 +286,36 @@ class MarquesSeeder extends Seeder
                 'title'      => 'Baby Tous',
                 'description'=> "Tous Kids Boy\nTous Kids Girl\nBaby Tous"
             ],
+            [
+                'title'       => 'Maison Alhambra',
+                'description' => 'Filiale de Lattafa spécialisée dans les parfums de prestige, offrant des sillages profonds tels que Noir Sultan et Amber Oud.',
+                'image_name'  => 'https://themaison-alhambra.com/wp-content/uploads/2024/06/logo-1024x1024.jpg'
+            ],
+            [
+                'title'       => 'Ard Al Zaafaran',
+                'description' => 'Une référence incontournable pour les amateurs de Oud et de musc, connue pour Shaikh Shuyukh et Oud Gold.',
+                'image_name'  => 'https://fimgs.net/mdimg/dizajneri/o.2917.jpg'
+            ],
+            [
+                'title'       => 'Swiss Arabian',
+                'description' => 'La première maison de parfum aux Émirats Arabes Unis, fusionnant l\'héritage oriental et l\'élégance occidentale avec Shaghaf Oud.',
+                'image_name'  => 'https://images.seeklogo.com/logo-png/25/1/swiss-arabian-logo-png_seeklogo-257200.png'
+            ],
+            [
+                'title'       => 'Afnan',
+                'description' => 'Marque réputée pour sa collection Supremacy, offrant des parfums sophistiqués qui allient tradition et innovation.',
+                'image_name'  => 'https://www.961scents.com/cdn/shop/collections/afnan_logo.png?v=1747839919'
+            ],
+            [
+                'title'       => 'Rasasi',
+                'description' => 'Institution familiale de Dubaï reconnue mondialement pour son cuir sophistiqué La Yuqawam et ses senteurs boisées puissantes.',
+                'image_name'  => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTulRE8PzrXgNKmyjPeRkgcRNRZRGuRSe0pqg&s'
+            ],
+            [
+                'title'       => 'Ajmal',
+                'description' => 'Plus de 70 ans d\'expertise dans l\'art de la parfumerie, célèbre pour sa collection de bois précieux et son iconique Amber Wood.',
+                'image_name'  => 'https://www.shutterstock.com/image-vector/ajmal-arabic-name-calligraphy-black-600nw-2440889835.jpg'
+            ],
         ];
 
         $this->db->table('marques')->insertBatch($data);

@@ -71,6 +71,7 @@ class LignePanierModel extends Model
             'id_panier'  => $id_panier,
             'id_produit' => $id_produit,
             'quantite'   => $quantite,
+            'prix_unitaire' => 0 // Valeur par défaut, à mettre à jour plus tard
         ]);
     }
 

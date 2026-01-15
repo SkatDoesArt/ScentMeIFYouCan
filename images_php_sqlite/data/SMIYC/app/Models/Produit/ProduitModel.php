@@ -26,6 +26,7 @@ class ProduitModel extends Model
         'image_name',
         'type',
         'saison',
+        'origine',
     ];
 
     protected bool $allowEmptyInserts = false;
@@ -98,13 +99,66 @@ class ProduitModel extends Model
         return $this->like('saison', $saison)->findAll();
     }
 
+    public function getByOrigine(string $origine)
+    {
+        return $this->like('origine', $origine)->findAll();
+    }
+
+    public function getByType(string $type)
+    {
+        return $this->like('type', $type)->findAll();
+    }
+
+    public function getByPrix(float $prix)
+    {
+        return $this->where('price <=', $prix)->findAll();
+    }
+
+    public function getByMarqueSorted(string $marque, string $col, string $order = 'ASC')
+    {
+        return $this->like('marque', $marque)
+            ->orderBy($col, $order)
+            ->findAll();
+    }
+
+    public function getByMarqueAndPrix(string $marque, float $prix)
+    {
+        return $this->where('price <=', $prix)
+            ->like('marque', $marque)
+            ->findAll();
+    }
+   
+
     /**
-     * Renvoie la liste des produits des produits
+     * Renvoie la liste des produits
      * @return array
      */
-    public function getListePorduit(){
+    public function getListeProduit(){
         return $this->findAll();
     }
 
+    /**
+     * Augmente la quantité d'un produit
+     */
+    public function IncrementQauntite(int $id, int $amount = 1): bool
+    {
+        return $this->builder()
+            ->where('id_produit', $id)
+            ->set('quantiteRestante', "quantiteRestante + $amount", false)
+            ->update();
+    }
+
+    /**
+     * Diminue la quantité d'un produit
+     * (empêche le stock négatif)
+     */
+    public function DecrementQauntite(int $id, int $amount = 1): bool
+    {
+        return $this->builder()
+            ->where('id_produit', $id)
+            ->where('quantiteRestante >=', $amount)
+            ->set('quantiteRestante', "quantiteRestante - $amount", false)
+            ->update();
+    }
 
 }

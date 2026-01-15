@@ -6,6 +6,7 @@ use App\Entities\ProduitEntity;
 use App\Entities\Parfum;
 use App\Entities\Encens;
 use App\Entities\Creme;
+use InvalidArgumentException;
 
 /**
  * Factory pour créer des objets Produit
@@ -25,7 +26,7 @@ class ProduitFactory
             'Parfum' => new Parfum($data),
             'Encens' => new Encens($data),
             'Creme' => new Creme($data),
-            default => throw new \InvalidArgumentException("Type de produit inconnu : $type"),
+            default => throw new InvalidArgumentException("Type de produit inconnu : $type"),
         };
     }
 }

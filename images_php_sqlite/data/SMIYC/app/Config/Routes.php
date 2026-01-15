@@ -35,15 +35,19 @@ $routes->group('auth', function($routes) {
 $routes->group('catalogue', function($routes) {
     //Pages Principale
     $routes->get('marques', 'Catalogue::brand');
-    $routes->get('saison', 'Catalogue::season');
+    $routes->get('saison', 'Catalogue::saison');
     $routes->get('encens', 'Catalogue::encens');
     $routes->get('creme', 'Catalogue::creme');
+    $routes->get('exotique', 'Catalogue::exotique');
    $routes->get('/', 'Catalogue::shop');
     //Afficher un produit en particulier
     $routes->get('product/(:num)', 'Catalogue::detail/$1');
     $routes->get('search', 'Catalogue::search');
-    $routes->get('filters', 'Catalogue::filters');
-    $routes->get('/marque', 'Catalogue::marque');
+    $routes->get('filters/(:any)', 'Catalogue::filters/$1');
+    $routes->get('marque/(:any)', 'Catalogue::marque/$1');
+    $routes->get('season/(:any)', 'Catalogue::season/$1');
+    $routes->get('parfums', 'Catalogue::parfums');
+    $routes->get('all', 'Catalogue::all');
 });
 
 
@@ -80,6 +84,7 @@ $routes->group('payment', function($routes) {
 // COMMANDES
 // ====================================================================
 $routes->group('commande', function($routes) {
+    $routes->get('/', 'Commande::index');
     $routes->get('status/(:num)', 'Commande::status/$1');
     $routes->get('history', 'Commande::history');
 });
@@ -100,7 +105,8 @@ $routes->group('dashboard', function($routes) {
 // ADMINISTRATION
 // ====================================================================
 
-$routes->group('admin', ['filter' => 'admin'], function ($routes) {
+
+$routes->group('admin',['filter' => 'admin'],function ($routes) {
 
     // ==========================
     // Groupe "add" → pour créer des entités
@@ -125,19 +131,22 @@ $routes->group('admin', ['filter' => 'admin'], function ($routes) {
     // ==========================
     $routes->group('edit', function($routes){
         // Modifier un produit par ID
-        $routes->match(['GET','POST'], 'product/(:num)', 'Admin::editProduit');
+        $routes->match(['GET','POST'], 'product/(:num)', 'Admin::editProduit/$1');
 
         // Modifier un utilisateur par ID
-        $routes->match(['GET','POST'], 'user/(:num)', 'Admin::editUser');
+        $routes->match(['GET','POST'], 'user/(:num)', 'Admin::editUser/$1');
 
-        // Modifier des stocks par ID
-        $routes->match(['GET','POST'], 'stocks/(:num)', 'Admin::editStocks');
+        //Augmente la quantite d'un produit
+        $routes->post('add_quantite/product/(:num)','Admin::addStocks/$1');
+        
+        //Diminue la quantite d'un produit
+        $routes->post('quantite/product/(:num)','Admin::removeStocks/$1');
 
         // Modifier des commandes par ID
-        $routes->match(['GET','POST'], 'commandes/(:num)', 'Admin::editCommandes');
+        $routes->match(['GET','POST'], 'commandes/(:num)', 'Admin::editCommandes/$1');
 
         //Modifie le role d'un utilisateur
-        $routes->get('role/(:num)/(:segment)','Admin::editRoleUser/$1/$2');
+        $routes->post('role/(:num)/(:segment)','Admin::editRoleUser/$1/$2');
     });
 
     // ==========================
@@ -145,16 +154,16 @@ $routes->group('admin', ['filter' => 'admin'], function ($routes) {
     // ==========================
     $routes->group('delete', function($routes){
         // Supprimer un produit par ID
-        $routes->match(['GET','POST'], 'product/(:num)', 'Admin::deleteProduit');
+        $routes->post( 'product/(:num)', 'Admin::deleteProduit/$1');
 
         // Supprimer un utilisateur par ID
-        $routes->match(['GET','POST'], 'user/(:num)', 'Admin::deleteUser');
+        $routes->post( 'user/(:num)', 'Admin::deleteUser/$1');
 
         // Supprimer des stocks par ID
-        $routes->match(['GET','POST'], 'stocks/(:num)', 'Admin::deleteStocks');
+        $routes->post( 'stocks/(:num)', 'Admin::deleteStocks/$1');
 
         // Supprimer une commande par ID
-        $routes->match(['GET','POST'], 'commande/(:num)', 'Admin::deleteCommande');
+        $routes->post( 'commande/(:num)', 'Admin::deleteCommande/$1');
     });
 
     // ==========================

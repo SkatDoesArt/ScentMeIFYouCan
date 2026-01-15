@@ -39,22 +39,21 @@ class ProduitEntity extends AProduitEntity
         if ($this->getCategorie() === 'NoCap') {
             return base_url('pictures/parfums/NoCap/' . $image);
         }
+        if (strcasecmp($this->getType(), 'parfums') === 0) {
+            return base_url('pictures/parfums/' . $image);
+        }
 
-        // 3. Sinon, par défaut, on va dans marques
-        return base_url('pictures/marques/' . $image);
+        // 3. Sinon, par défaut, on va dans parfums
+        return base_url('pictures/parfums/' . $image);
     }
 
     // --- GETTER / SETTER SPÉCIFIQUE ---
 
-    public function getCategorie(): string
-    {
-        return $this->attributes['categorie'] ?? 'Parfums';
+    public function getOrigine(): string
+    {  
+        return $this->attributes['origine'] ?? '';
     }
 
-    public function setCategorie(string $categorie): void
-    {
-        $this->attributes['categorie'] = $categorie;
-    }
 
     public function getSaison(): string
     {
@@ -64,5 +63,20 @@ class ProduitEntity extends AProduitEntity
     public function setSaison(string $saison): void
     {
         $this->attributes['saison'] = $saison;
+    }
+
+    public function setOrigine(string $origine): void
+    {
+        $this->attributes['origine'] = $origine;
+    }
+
+    public function getType(): string
+    {
+        return $this->attributes['type'] ?? 'parfums';
+    }
+
+    public function setType(string $type): void
+    {
+        $this->attributes['type'] = $type;
     }
 }

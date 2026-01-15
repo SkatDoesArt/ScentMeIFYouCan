@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sniff&Chill</title>
     <link rel="stylesheet" href="<?= base_url(); ?>css/common.css">
-    <link rel="stylesheet" href="<?= base_url(); ?>css/encens.css">
+    <link rel="stylesheet" href="<?= base_url(); ?>css/caroussel_verticale.css">
 </head>
 
 <body>
@@ -91,7 +91,7 @@
             <?php endforeach; ?>
         ];
     </script>
-    <script src="<?= base_url(); ?>js/encens.js" defer></script>
+    <script src="<?= base_url(); ?>js/caroussel_verticale.js" defer></script>
 </body>
 
 </html>

@@ -5,6 +5,7 @@ namespace App\Entities\Panier;
 use CodeIgniter\Entity\Entity;
 use App\Entities\Panier\LigneCommandeEntity;
 use App\Entities\Enums\StatutCommande;
+use DateTime;
 
 /**
  * Représente une commande
@@ -12,14 +13,14 @@ use App\Entities\Enums\StatutCommande;
 class CommandeEntity extends Entity
 {
     protected int $idCommande;
-    protected \DateTime $date;
+    protected DateTime $date;
     protected StatutCommande $statut;
     protected array $lignesCommande = [];
 
     public function __construct(int $idCommande)
     {
         $this->idCommande = $idCommande;
-        $this->date = new \DateTime();
+        $this->date = new DateTime();
         $this->statut = StatutCommande::Brouillon;
         $this->lignesCommande = [];
     }
@@ -29,7 +30,7 @@ class CommandeEntity extends Entity
         return $this->idCommande;
     }
 
-    public function getDate(): \DateTime
+    public function getDate(): DateTime
     {
         return $this->date;
     }

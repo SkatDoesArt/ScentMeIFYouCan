@@ -35,7 +35,7 @@
                             <h1>Printemps</h1>
                             <p>Fleurs blanches, cerisiers et fraîcheur poudrée.</p>
                             <div class="more">
-                                <a href="<?= base_url('catalogue/saison/printemps') ?>">Voir la sélection</a>
+                                <a href="<?= base_url('catalogue/season/Printemps') ?>">Voir la sélection</a>
                             </div>
                         </div>
                     </div>
@@ -55,7 +55,7 @@
                             <h1>Été</h1>
                             <p>Notes marines, agrumes et brises légères.</p>
                             <div class="more">
-                                <a href="<?= base_url('catalogue/saison/ete') ?>">Voir la sélection</a>
+                                <a href="<?= base_url('catalogue/season/Été') ?>">Voir la sélection</a>
                             </div>
                         </div>
                     </div>
@@ -75,7 +75,7 @@
                             <h1>Automne</h1>
                             <p>Bois de oud, cuir et senteurs aromatiques.</p>
                             <div class="more">
-                                <a href="<?= base_url('catalogue/saison/automne') ?>">Voir la sélection</a>
+                                <a href="<?= base_url('catalogue/season/Automne') ?>">Voir la sélection</a>
                             </div>
                         </div>
                     </div>
@@ -95,7 +95,27 @@
                             <h1>Hiver</h1>
                             <p>Vanille gourmande, ambre et épices chaudes.</p>
                             <div class="more">
-                                <a href="<?= base_url('catalogue/saison/hiver') ?>">Voir la sélection</a>
+                                <a href="<?= base_url('catalogue/season/Hiver') ?>">Voir la sélection</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col" ontouchstart="this.classList.toggle('hover');">
+                <div class="container">
+                    <div class="front"
+                        style="background-image: url('https://i.pinimg.com/736x/11/8b/fb/118bfb92808d1641fbb06a43ede5847b.jpg')">
+                        <div class="inner">
+                            <p>Toutes Saisons</p>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="inner">
+                            <h1>Toutes Saisons</h1>
+                            <p>Des soins polyvalents et des fragrances intemporelles qui vous accompagnent avec élégance, peu importe la météo</p>
+                            <div class="more">
+                                <a href="<?= base_url('catalogue/season/Toutes Saisons') ?>">Voir la sélection</a>
                             </div>
                         </div>
                     </div>

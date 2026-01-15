@@ -3,6 +3,7 @@
 namespace App\Entities\Users;
 
 use CodeIgniter\Entity\Entity;
+use DateTime;
 
 /**
  * Représente une session d'achat, qui contient un Acheteur
@@ -10,20 +11,23 @@ use CodeIgniter\Entity\Entity;
 class SessionAchat extends Entity
 {
     protected int $idSession;
-    protected \DateTime $dateCreation;
-    protected \DateTime $dateDerniereActivite;
+    protected DateTime $dateCreation;
+    protected DateTime $dateDerniereActivite;
     protected Acheteur $acheteur;
 
     public function __construct(Acheteur $acheteur)
     {
+        // Initialize the Entity base to set up dataCaster and attributes
+        parent::__construct([]);
+
         $this->acheteur = $acheteur;
-        $this->dateCreation = new \DateTime();
-        $this->dateDerniereActivite = new \DateTime();
+        $this->dateCreation = new DateTime();
+        $this->dateDerniereActivite = new DateTime();
     }
 
     public function estActive(): bool
     {
-        $now = new \DateTime();
+        $now = new DateTime();
         $interval = $now->getTimestamp() - $this->dateDerniereActivite->getTimestamp();
         return $interval < 3600; // active si moins de 1h depuis dernière activité
     }
@@ -40,6 +44,6 @@ class SessionAchat extends Entity
 
     public function refreshActivite(): void
     {
-        $this->dateDerniereActivite = new \DateTime();
+        $this->dateDerniereActivite = new DateTime();
     }
 }

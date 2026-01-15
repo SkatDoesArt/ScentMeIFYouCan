@@ -250,3 +250,8 @@ label.hidden {
     color: white;
     text-decoration: none;
 }
+
+/* Ensure footer sits at bottom */
+footer {
+    margin-top: auto; /* in case body flex layout not enough */
+}

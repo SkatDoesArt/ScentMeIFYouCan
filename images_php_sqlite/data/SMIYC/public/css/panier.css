@@ -1,124 +1,215 @@
-body {
-    font-family: Arial, sans-serif;
-    margin-top: 130px;
+/* --- NOUVEAU LAYOUT PANIER STYLE IMAGE --- */
+
+/* Conteneur principal qui sépare la liste produits du résumé à droite */
+.grid-layout-panier {
+    display: grid;
+    grid-template-columns: 1fr 340px; /* Liste large | Résumé fixe */
+    gap: 40px;
+    align-items: start;
+    margin-top: 20px;
 }
 
-.panier-container {
-    display: flex;
-    gap: 20px;
-    align-items: flex-start; /* pour que summary reste en haut */
+/* 1. La Bannière Promo Bleue */
+.promo-alert {
+    background-color: #eaf6ff; /* Bleu très clair */
+    color: #2b7de1; /* Bleu du texte */
+    border: 1px solid #dcebf7;
+    padding: 15px 20px;
+    font-size: 0.9rem;
+    text-align: center;
+    border-radius: 4px;
+    margin-bottom: 30px;
+    font-weight: 500;
 }
 
-/* La div panier devient scrollable */
-.panier {
-    flex: 2;
-    max-height: 500px; /* ou la hauteur que tu veux */
-    overflow-y: auto;
-    padding: 10px;
-    border-radius: 5px;
-}
-
-/* Card produit */
-.card {
-    display: flex;
-    border-bottom: 1px solid #ccc;
-    padding: 15px 0;
+/* 2. Structure des colonnes (En-têtes et Lignes) */
+/* On définit une grille à 3 colonnes : Large | Moyen | Moyen */
+.cart-header-row, .cart-row {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr;
     align-items: center;
 }
 
-.card-img {
-    width: 80px;
-    height: 80px;
-    background: #eee;
-    margin-right: 15px;
+/* En-têtes (ARTICLE / QTE / PRIX) */
+.cart-header-row {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    color: #999;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-.card-info {
-    flex: 1;
+.col-qty, .col-price {
+    text-align: right; /* Aligner les titres vers la droite/centre comme l'image */
 }
 
-.card-info div {
-    margin-bottom: 5px;
-}
-
-.quantity-control {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.quantity-control button {
-    width: 25px;
-    height: 25px;
-    cursor: pointer;
-}
-
-.delete-btn {
-    margin-left: 10px;
-    cursor: pointer;
-    color: red;
-}
-
-/* Résumé du panier reste fixe */
-.summary {
-    flex: 1;
-    border: 1px solid #ccc;
-    padding: 15px;
-    border-radius: 5px;
-    position: sticky;
-    top: 0; /* reste collé en haut de la page */
-    height: fit-content;
-}
-
-.summary h3 {
-    margin-top: 0;
-}
-
-.summary input[type="text"] {
-    width: 100%;
-    padding: 5px;
-    margin-bottom: 10px;
-}
-
-.summary input[type="submit"] {
-    width: 100%;
-    padding: 10px;
-    background: black;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-h2{
+/* Mais l'image montre QTE un peu centré par rapport à ses boutons */
+.col-qty {
     text-align: center;
 }
 
-.btn-panier {
-        display: block;         /* permet le centrage avec margin auto */
-    margin: 20px auto;  
-    margin-top: auto;        /* pousse le bouton en bas */
-    align-self: center;      /* centre horizontalement */
-    padding: 10px 25px;
-    background-color: #000;
-    color: #fff;
-    border: none;
+
+/* 3. Lignes Produits */
+.cart-row {
+    padding-bottom: 25px;
+    margin-bottom: 25px;
+    /* Pas de bordure visible sur l'image entre les items, mais souvent utile.
+       L'image n'en montre pas, on laisse vide ou on met border-bottom si besoin */
+}
+
+/* Colonne ARTICLE */
+.product-flex {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.product-thumb {
+    width: 100px;
+    height: auto; /* ou height fixe si tu veux */
+    object-fit: contain;
+    border: 1px solid #f0f0f0; /* Légère bordure grise autour de l'image */
+}
+
+.product-details {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.product-title {
+    font-size: 1rem;
+    color: #333;
+    text-transform: uppercase; /* POCHETTE en majuscule sur l'image */
+    font-weight: normal;
+}
+
+.product-variant {
+    font-size: 0.85rem;
+    color: #888;
+}
+
+/* Colonne QTE (Selecteur - 1 +) */
+.qty-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.qty-control {
+    text-decoration: none;
+    color: #333;
+    font-size: 1.2rem;
+    font-weight: normal;
+    padding: 0 5px;
+}
+
+.qty-control:hover {
+    color: #000;
+    font-weight: bold;
+}
+
+.qty-value {
+    font-size: 1rem;
+    font-weight: normal;
+}
+
+/* Colonne PRIX + SUPPRIMER */
+.price-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Pousse tout à droite */
+    gap: 20px; /* Espace entre le prix et la croix */
+}
+
+.price-val {
+    font-size: 1rem;
+    color: #333;
+}
+
+.remove-btn-cross {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e0e0e0; /* Cercle gris fond */
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
     cursor: pointer;
-
-    transition: background-color 0.3s, transform 0.2s;
-    border-radius: 8px;      /* joli arrondi */
+    transition: background 0.2s;
 }
 
-.btn-panier:hover {
-    background-color: #000;
-    transform: translateY(-2px);
+.remove-btn-cross:hover {
+    background: #d0d0d0;
 }
 
-#header {
-    background-color: #000;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-	box-shadow: 0px 1px 10px rgb(82, 82, 82);
+.remove-btn-cross svg path {
+    stroke: white; /* Croix blanche */
+}
+
+/* Si tu veux la croix grise sur fond transparent comme l'image exacte : */
+.remove-btn-cross {
+    background: transparent;
+}
+
+.remove-btn-cross svg path {
+    stroke: #ccc; /* Croix grise */
+}
+
+.remove-btn-cross:hover svg path {
+    stroke: #999;
+}
+
+/* Placeholder for missing product images */
+.img-placeholder {
+    width: 120px;
+    height: 120px;
+    border-radius: 8px;
+    background: #f3f4f6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9ca3af;
+    font-weight: 600;
+}
+
+@media (max-width: 900px) {
+    .img-placeholder {
+        width: 96px;
+        height: 96px;
+    }
+}
+
+@media (max-width: 520px) {
+    .img-placeholder {
+        width: 160px;
+        height: 160px;
+    }
+}
+
+/* Responsive mobile */
+@media (max-width: 768px) {
+    .grid-layout-panier {
+        grid-template-columns: 1fr; /* Stack vertical */
+    }
+
+    .cart-header-row {
+        display: none;
+    }
+
+    /* On cache les titres en mobile */
+    .cart-row {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .col-qty, .col-price {
+        text-align: left;
+        justify-content: flex-start;
+    }
 }

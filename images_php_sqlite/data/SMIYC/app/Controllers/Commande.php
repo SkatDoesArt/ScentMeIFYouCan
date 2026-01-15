@@ -2,8 +2,15 @@
 
 namespace App\Controllers;
 
+use App\Entities\Panier\CommandeEntity;
+use App\Entities\Panier\LigneCommandeEntity;
+use App\Entities\ProduitEntity;
 use App\Models\Panier\CommandeModel;
 use App\Models\Panier\PanierModel;
+use App\Services\Commande\CommandeValidator;
+use App\Services\Commande\Validation\AddressValidationHandler;
+use App\Services\Commande\Validation\PaymentValidationHandler;
+use App\Services\Commande\Validation\StockValidationHandler;
 use CodeIgniter\Exceptions\PageNotFoundException;
 
 class Commande extends BaseController
@@ -130,9 +137,54 @@ class Commande extends BaseController
 
         $livraison = session()->get('livraison') ?? [];
 
+        // --- Build CommandeEntity from cart + livraison ---
+        $commandeEntity = new CommandeEntity();
+        $commandeEntity->setUserId(auth()->id());
+        $commandeEntity->setDateCommande(date('Y-m-d H:i:s'));
+        $commandeEntity->setStatut('Brouillon');
+
+        // Convert cart items into LigneCommandeEntity objects so validators can use them
+        $lignes = [];
+        foreach ($cart[0] as $item) {
+            $produit = $item['produit'];
+            // Try to adapt the produit entity if needed
+            if ($produit instanceof ProduitEntity) {
+                $produitEntity = $produit;
+            } else {
+                // fallback minimal wrapper
+                $produitEntity = new ProduitEntity((array)$produit);
+            }
+            $ligneEntity = new LigneCommandeEntity($produitEntity, (int)$item['quantite']);
+            $lignes[] = $ligneEntity;
+        }
+        $commandeEntity->setLignesCommande($lignes);
+
+        // Fournir les informations de livraison à l'entité (utilisé par AddressValidationHandler)
+        if (!empty($livraison)) {
+            $commandeEntity->setLivraison($livraison);
+        }
+
+        // construit la COR
+        $validator = new CommandeValidator();
+        $addressHandler = new AddressValidationHandler();
+        $paymentHandler = new PaymentValidationHandler();
+        $stockHandler = new StockValidationHandler();
+
+        $addressHandler->setNext($paymentHandler)->setNext($stockHandler);
+        $validator->setFirstHandler($addressHandler);
+
+        // Execute validation chain
+        $valid = $validator->validate($commandeEntity);
+
+        if (!$valid) {
+            // Le validator renvoie false si une condition échoue
+            return redirect()->to(base_url('commande/checkout'))
+                ->with('error', 'Impossible de valider la commande : vérifiez vos informations et le stock.');
+        }
+
         $commandeModel = new CommandeModel();
+        // Create the order (commande) now that validation passed
         $commande = $commandeModel->createCommande(auth()->id(), $cart, $livraison);
-        $commandeId = $commandeModel->getInsertID();
 
         // Vider le panier pour l'utilisateur courant (supprime les lignes)
         $panierModel->ClearPanier(auth()->id());
@@ -140,7 +192,7 @@ class Commande extends BaseController
         // nettoyer la session
         session()->remove('livraison');
 
-        return redirect()->to(base_url('dashboard/historique_commandes/')); //
+        return redirect()->to(base_url('dashboard/historique_commandes/'));
     }
 
     public function status(int $noCommand = 0)

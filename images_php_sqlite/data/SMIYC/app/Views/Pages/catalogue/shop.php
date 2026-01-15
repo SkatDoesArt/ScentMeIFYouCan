@@ -22,7 +22,7 @@ if (isset(request()->getGet()['categorie'])){
 $maxPriceFound = 350;
 if (!empty($liste_produits)) {
     $prices = array_map(fn($p) => is_object($p) ? intval($p->getPrix()) : intval($p['prix']), $liste_produits);
-    $maxPriceFound = max($prices);
+    // $maxPriceFound = max($prices);
 }
 
 $catSlug = $categorie ?? 'all';  

@@ -1,113 +1,82 @@
-<?php
-$user = auth()->user();
-?>
-
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="<?php echo base_url(); ?>css/common.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>css/index.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>css/dashboard.css">
-
-    <!-- Styles locaux rapides pour la grille admin -->
+    <link rel="stylesheet" href="<?= base_url('css/common.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('css/dashboard.css') ?>">
+    <title>Admin - Tableau de bord</title>
+    
     <style>
+        /* Structure de base pour l'administration */
+        .admin-wrapper {
+            display: flex;
+            min-height: calc(100vh - 80px); /* Ajuster selon la hauteur de votre header */
+            background: #f4f7f6;
+        }
+
+        /* Sidebar */
+        #admin-sidebar {
+            width: 260px;
+            background: #fff;
+            border-right: 1px solid #e0e0e0;
+            padding: 2rem 1rem;
+            flex-shrink: 0;
+        }
+
+        #admin-sidebar ul { list-style: none; padding: 0; }
+        #admin-sidebar li { margin-bottom: 0.5rem; }
+        #admin-sidebar a {
+            display: block;
+            padding: 0.8rem 1rem;
+            color: #4a5568;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        #admin-sidebar a:hover, #admin-sidebar a.active {
+            background: #ebf4ff;
+            color: #2b6cb0;
+            font-weight: 600;
+        }
+
+        /* Contenu principal */
+        .admin-main-content {
+            flex-grow: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        /* Grille des raccourcis (votre CSS existant optimisé) */
         .admin-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.25rem;
-            align-items: stretch;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
         }
-
-        @media (max-width: 700px) {
-            .admin-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
         .grid-item {
             background: #fff;
-            border: 1px solid #e6e6e6;
-            border-radius: 8px;
-            padding: 1rem;
-            box-shadow: 0 6px 18px rgba(18, 18, 18, 0.04);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            min-height: 140px;
-        }
-
-        .grid-item h3 {
-            margin: 0 0 0.5rem 0;
-            font-size: 1.1rem;
-            color: #222;
-        }
-
-        .grid-item p {
-            margin: 0 0 1rem 0;
-            color: #555;
-            flex: 1 0 auto;
-        }
-
-        .grid-actions {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 0.45rem 0.8rem;
-            background: #2b6cb0;
-            color: #fff;
-            border-radius: 6px;
-            text-decoration: none;
-            font-size: 0.95rem;
-        }
-
-        .btn.secondary {
-            background: #edf2f7;
-            color: #2d3748;
+            padding: 1.5rem;
+            border-radius: 12px;
             border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
         }
     </style>
-
-    <title>Admin - Tableau de bord</title>
 </head>
 
 <body>
-<?= view('Pages/partials/header', ['showCart' => true, 'showList' => false]) ?>
+    <?= view('Pages/partials/header', ['showCart' => false]) ?>
 
-<div id="body">
-    <h1>Administration</h1>
-    <div id="body-content">
-        <div id="categories">
-            <ul>
-                <!-- Liens vers les pages d'administration -->
-                <li><a href="<?= base_url('admin/dashboard') ?>"><strong>Tableau de bord</strong></a></li>
-                <li><a href="<?= base_url('admin/products') ?>">Liste des produits</a></li>
-                <li><a href="<?= base_url('admin/add/product') ?>">Ajouter un produit</a></li>
-                <li><a href="<?= base_url('admin/users') ?>">Liste des utilisateurs</a></li>
-                <li><a href="<?= base_url('admin/add/user') ?>">Ajouter un utilisateur</a></li>
-                <li><a href="<?= base_url('admin/orders') ?>">Commandes</a></li>
-                <li><a href="<?= base_url('admin/stock') ?>">Stocks</a></li>
-            </ul>
-        </div>
+    <div class="admin-wrapper">
+        <?= view('Pages/partials/admin_sidebar') ?>
 
-        <div id="infos">
-            <h2>Raccourcis administration</h2>
-
-            <!-- Nouvelle grille 2x2 -->
+        <main class="admin-main-content">
+            <h1>Raccourcis administration</h1>
+            
             <div class="admin-grid">
                 <div class="grid-item">
-                    <div>
-                        <h3>Produits</h3>
-                        <p>Consultez, modifiez ou supprimez des produits. Accédez rapidement à la liste ou créez un nouveau produit.</p>
-                    </div>
+                    <h3>Produits</h3>
+                    <p>Gérez votre inventaire, modifiez les prix et les descriptions.</p>
                     <div class="grid-actions">
                         <a class="btn" href="<?= base_url('admin/products') ?>">Voir la liste</a>
                         <a class="btn secondary" href="<?= base_url('admin/add/product') ?>">Ajouter</a>
@@ -115,47 +84,33 @@ $user = auth()->user();
                 </div>
 
                 <div class="grid-item">
-                    <div>
-                        <h3>Utilisateurs</h3>
-                        <p>Gérez les comptes utilisateurs, leurs rôles et permissions. Consultez la liste des utilisateurs inscrits.</p>
-                    </div>
+                    <h3>Utilisateurs</h3>
+                    <p>Contrôlez les accès et gérez les comptes clients.</p>
                     <div class="grid-actions">
-                        <a class="btn" href="<?= base_url('admin/users') ?>">Voir les utilisateurs</a>
+                        <a class="btn" href="<?= base_url('admin/users') ?>">Liste</a>
                         <a class="btn secondary" href="<?= base_url('admin/add/user') ?>">Ajouter</a>
                     </div>
                 </div>
 
                 <div class="grid-item">
-                    <div>
-                        <h3>Commandes</h3>
-                        <p>Suivi des commandes passées, détails et statuts. Traitez ou annulez des commandes selon le besoin.</p>
-                    </div>
+                    <h3>Commandes</h3>
+                    <p>Suivez l'état des ventes et les livraisons en cours.</p>
                     <div class="grid-actions">
                         <a class="btn" href="<?= base_url('admin/orders') ?>">Voir les commandes</a>
                     </div>
                 </div>
 
-                <div class="grid-item">
-                    <div>
-                        <h3>Stocks</h3>
-                        <p>Consultez et mettez à jour les niveaux de stock pour chaque produit. Ajoutez des entrées de stock rapidement.</p>
-                    </div>
+                <!-- <div class="grid-item">
+                    <h3>Stocks</h3>
+                    <p>Alertes de stock bas et mise à jour des quantités.</p>
                     <div class="grid-actions">
-                        <a class="btn" href="<?= base_url('admin/stock') ?>">Voir les stocks</a>
-                        <a class="btn secondary" href="<?= base_url('admin/add/stocks') ?>">Ajouter</a>
+                        <a class="btn" href="<?= base_url('admin/stock') ?>">Gérer</a>
                     </div>
-                </div>
+                </div> -->
             </div>
-
-            <!-- Déconnexion rapide -->
-            <div style="margin-top:1.2rem;">
-                <a href="<?= base_url('auth/logout') ?>" class="btn">Se déconnecter</a>
-            </div>
-        </div>
+        </main>
     </div>
-</div>
 
-<?= view('Pages/partials/footer') ?>
+    <?= view('Pages/partials/footer') ?>
 </body>
-
 </html>

@@ -19,8 +19,14 @@ class MarquesModel extends Model
     protected $returnType     = MarquesEntity::class;
     protected $useTimestamps  = false;
 
-    public function getMarques()
+    /**
+     * Récupère toutes les marques.
+     *
+     * @return array Tableau des marques
+     */
+    public function getMarques(): array
     {
         return $this->findAll();
     }
+
 }

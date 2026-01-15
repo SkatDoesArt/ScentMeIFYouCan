@@ -8,6 +8,11 @@ use Config\View;
 
 class Cart extends BaseController
 {
+    /**
+     * Affiche le panier de l'utilisateur connecté.
+     *
+     * @return string Vue du panier
+     */
     public function index()
     {
         if (!auth()->loggedIn()) {
@@ -29,6 +34,12 @@ class Cart extends BaseController
     }
 
 
+    /**
+     * Ajoute un produit au panier (crée la ligne ou incrémente la quantité).
+     *
+     * @param int $idProduit Identifiant du produit
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     // Ajoute un produit au panier (créé la ligne ou incrémente la quantité)
     public function addProduct(int $idProduit)
     {
@@ -50,6 +61,12 @@ class Cart extends BaseController
         return redirect()->to(base_url('cart'));
     }
 
+    /**
+     * Augmente la quantité d'une ligne de panier.
+     *
+     * @param int $id_ligne_panier Identifiant de la ligne
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     // Augmente la quantité d'un produit
     public function addQuantite(int $id_ligne_panier)
     {
@@ -59,6 +76,12 @@ class Cart extends BaseController
         return redirect()->to(base_url('cart')); // Recharge la page panier
     }
 
+    /**
+     * Diminue la quantité d'une ligne de panier.
+     *
+     * @param int $id_ligne_panier Identifiant de la ligne
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     // Diminue la quantité d'un produit
     public function decrementQuantite(int $id_ligne_panier)
     {
@@ -68,6 +91,12 @@ class Cart extends BaseController
         return redirect()->to(base_url('cart'));  // Recharge la page panier
     }
 
+    /**
+     * Supprime une ligne du panier.
+     *
+     * @param int $id_ligne_panier Identifiant de la ligne
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     // Supprime une ligne de panier
     public function delete(int $id_ligne_panier)
     {

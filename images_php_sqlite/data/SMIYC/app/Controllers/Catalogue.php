@@ -13,6 +13,11 @@ use function PHPUnit\Framework\containsEqual;
 
 class Catalogue extends BaseController
 {
+    /**
+     * Affiche la page de boutique avec les produits disponibles.
+     *
+     * @return string Vue rendue
+     */
     public function shop(): string
     {
         $produits = new ProduitModel();
@@ -21,6 +26,13 @@ class Catalogue extends BaseController
         return view('Pages/catalogue/shop', $data);
     }
 
+
+    /**
+     * Affiche le détail d'un produit.
+     *
+     * @param int|null $id Identifiant du produit (optionnel)
+     * @return string Vue du produit
+     */
     public function detail($id = null)
     {
         if ($id === null)
@@ -46,6 +58,11 @@ class Catalogue extends BaseController
         return view('Pages/catalogue/product', $data);
     }
 
+    /**
+     * Affiche la liste complète des produits avec pagination.
+     *
+     * @return string Vue rendue
+     */
     public function all(): string
     {
         $produitModel = new ProduitModel();
@@ -62,6 +79,11 @@ class Catalogue extends BaseController
         return view('Pages/catalogue/shop', $data);
     }
 
+    /**
+     * Affiche les parfums avec pagination.
+     *
+     * @return string Vue rendue
+     */
     public function parfums()
     {
         $produitModel = new ProduitModel();
@@ -79,6 +101,11 @@ class Catalogue extends BaseController
         return view('Pages/catalogue/shop', $data);
     }
 
+    /**
+     * Affiche la page des marques.
+     *
+     * @return string Vue rendue
+     */
     public function brand()
     {
         $modelMarques = new MarquesModel();
@@ -92,6 +119,12 @@ class Catalogue extends BaseController
         return view('Pages/catalogue/marques', $data);
     }
 
+    /**
+     * Affiche les produits d'une marque donnée.
+     *
+     * @param string $marque Nom de la marque
+     * @return string Vue rendue
+     */
     public function marque($marque)
     {
         if (!$marque) {
@@ -108,11 +141,22 @@ class Catalogue extends BaseController
         return view('Pages/catalogue/shop', $data);
     }
 
+    /**
+     * Affiche la sélection par saison.
+     *
+     * @return string Vue rendue
+     */
     public function saison()
     {
         return view('Pages/catalogue/saison');
     }
 
+    /**
+     * Affiche les produits d'une saison donnée.
+     *
+     * @param string $saison Nom de la saison
+     * @return string Vue rendue
+     */
     public function season($saison)
     {
         $produitModel = new ProduitModel();
@@ -125,6 +169,11 @@ class Catalogue extends BaseController
         return view('Pages/catalogue/shop', $data);
     }
 
+    /**
+     * Affiche la liste des encens avec pagination.
+     *
+     * @return string Vue rendue
+     */
     public function encens()
     {
         $model = new EncensModel();
@@ -138,6 +187,11 @@ class Catalogue extends BaseController
         return view('Pages/catalogue/encens', $data);
     }
 
+    /**
+     * Affiche la liste des crèmes avec pagination.
+     *
+     * @return string Vue rendue
+     */
     public function creme()
     {
         $model = new CremeModel();
@@ -151,6 +205,11 @@ class Catalogue extends BaseController
         return view('Pages/catalogue/creme', $data);
     }
 
+    /**
+     * Affiche la liste des produits exotiques avec pagination.
+     *
+     * @return string Vue rendue
+     */
     public function exotique()
     {
         $model = new ProduitModel();
@@ -164,6 +223,11 @@ class Catalogue extends BaseController
         return view('Pages/catalogue/exotique', $data);
     }
 
+    /**
+     * Recherche des produits par requête GET 'q'.
+     *
+     * @return string Vue rendue
+     */
     public function search()
     {
         $query = $this->request->getGet('q');
@@ -189,6 +253,12 @@ class Catalogue extends BaseController
         return view('Pages/catalogue/shop', $data);
     }
 
+    /**
+     * Applique des filtres (marque, prix, type) et retourne la liste filtrée.
+     *
+     * @param string|null $categorie Catégorie à filtrer
+     * @return string Vue rendue
+     */
     public function filters($categorie = null)
     {
         // 1. On récupère les paramètres de l'URL

@@ -7,6 +7,11 @@ use App\Models\Produit\ProduitModel;
 
 class Home extends BaseController
 {
+    /**
+     * Affiche la page d'accueil avec une sélection de produits.
+     *
+     * @return string Vue rendue
+     */
     public function index(): string
     {
         // echo "Bienvenue sur la page d'accueil!";

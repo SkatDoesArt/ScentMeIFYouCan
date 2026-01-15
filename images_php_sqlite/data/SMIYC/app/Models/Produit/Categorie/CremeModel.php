@@ -27,8 +27,14 @@ class CremeModel extends Model
 
     protected $useTimestamps = false;
 
-    public function getCremes()
+    /**
+     * Récupère les produits de type "crème".
+     *
+     * @return array Tableau de produits crème
+     */
+    public function getCremes(): array
     {
         return $this->where('type', 'creme')->findAll();
     }
+
 }

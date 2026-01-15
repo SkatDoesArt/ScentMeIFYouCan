@@ -20,22 +20,31 @@ class AvisModel extends Model
     ];
     protected bool $updateOnlyChanged = true;
 
-    //Renvoie tous les utilisateurs qui ont laissé un avis sur un produit
-    public function getAvisWithUsersByProduct($idProduit)
-{
-    return $this->select('avis.*, users.username, users.email')
-                ->join('users', 'users.id = avis.id_user')
-                ->where('avis.id_produit', $idProduit)
-                ->findAll();
-}
-/**
- * Récupère tous les avis d'un produit donné
- */
-public function getAvisByProduit(int $idProduit)
-{
-    return $this->where('id_produit', $idProduit)
-                ->orderBy('date', 'DESC')  // optionnel : trier par date
-                ->findAll();
-}
+    /**
+     * Récupère tous les avis d'un produit avec les informations des utilisateurs.
+     *
+     * @param int $idProduit Identifiant du produit
+     * @return array Tableau d'avis enrichis par les informations utilisateur
+     */
+    public function getAvisWithUsersByProduct(int $idProduit): array
+    {
+        return $this->select('avis.*, users.username, users.email')
+                    ->join('users', 'users.id = avis.id_user')
+                    ->where('avis.id_produit', $idProduit)
+                    ->findAll();
+    }
+
+    /**
+     * Récupère tous les avis d'un produit donné.
+     *
+     * @param int $idProduit Identifiant du produit
+     * @return array Tableau d'avis
+     */
+    public function getAvisByProduit(int $idProduit): array
+    {
+        return $this->where('id_produit', $idProduit)
+                    ->orderBy('date', 'DESC')  // optionnel : trier par date
+                    ->findAll();
+    }
 
 }

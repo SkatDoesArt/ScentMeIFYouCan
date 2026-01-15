@@ -17,6 +17,12 @@ class PanierModel extends Model
     protected bool $updateOnlyChanged = true;
 
 
+    /**
+     * Récupère l'ID du panier d'un utilisateur ou crée un panier s'il n'existe pas.
+     *
+     * @param int $id_user Identifiant de l'utilisateur
+     * @return int Identifiant du panier
+     */
     public function getOrCreatePanier(int $id_user): int
     {
         $panier = $this->where('id_user', $id_user)->first();
@@ -60,7 +66,11 @@ class PanierModel extends Model
 
 
     /**
-     * Supprime un produit d'un panier (toute la ligne)
+     * Supprime une ligne produit d'un panier.
+     *
+     * @param int $id_panier Identifiant du panier
+     * @param int $id_produit Identifiant du produit
+     * @return mixed Résultat de l'opération de suppression
      */
     public function RemoveProduit(int $id_panier, int $id_produit)
     {
@@ -69,7 +79,10 @@ class PanierModel extends Model
             ->delete();
     }
     /**
-     * Vider un panier
+     * Vide un panier (supprime toutes ses lignes).
+     *
+     * @param int $id_panier Identifiant du panier
+     * @return mixed Résultat de l'opération de suppression
      */
     public function ClearPanier(int $id_panier)
     {
@@ -77,9 +90,11 @@ class PanierModel extends Model
     }
 
     /**
-     * Récupére toutes les lignes d'un panier avec les infos des produits
+     * Récupère toutes les lignes d'un panier avec les informations des produits.
+     *
+     * @param int $id_panier Identifiant du panier
+     * @return array Liste des lignes du panier enrichies des informations produit
      */
-
     // Dans PanierModel ou dans LignePanierModel
     public function getPanierComplet(int $id_panier): array
     {
@@ -92,6 +107,12 @@ class PanierModel extends Model
             ->findAll(); // ici, findAll() va renvoyer des objets LignePanierEntity
     }
 
+    /**
+     * Récupère le panier complet (lignes + total) d'un utilisateur.
+     *
+     * @param int $idUser Identifiant de l'utilisateur
+     * @return array Tableau [items => array, total => float]
+     */
     public function getPanierCompletByUser(int $idUser): array
     {
         $panierId = $this->getOrCreatePanier($idUser);

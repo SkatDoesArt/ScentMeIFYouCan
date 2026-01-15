@@ -35,10 +35,13 @@ class NoCapModel extends Model
     protected $useTimestamps = false;
 
     /**
-     * Optionnel : Méthode pour ne récupérer que les parfums No Cap
+     * Récupère les produits de la marque "No Cap".
+     *
+     * @return array Tableau de produits
      */
-    public function getNoCapPerfumes()
+    public function getNoCapPerfumes(): array
     {
         return $this->where('marque', 'No Cap')->findAll();
     }
+
 }

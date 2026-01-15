@@ -72,15 +72,36 @@ class ProduitModel extends Model
         return $this->like('origine', $origine)->findAll();
     }
 
+    /**
+     * Renvoie une liste de produits selon leur origine.
+     *
+     * @param string $origine Origine recherchée
+     * @return array Tableau de produits
+     */
+
     public function getByType(string $type)
     {
         return $this->like('type', $type)->findAll();
     }
 
+    /**
+     * Renvoie une liste de produits selon leur type.
+     *
+     * @param string $type Type recherché
+     * @return array Tableau de produits
+     */
+
     public function getByPrix(float $prix)
     {
         return $this->where('price <=', $prix)->findAll();
     }
+
+    /**
+     * Renvoie une liste de produits dont le prix est inférieur ou égal au prix donné.
+     *
+     * @param float $prix Prix maximum
+     * @return array Tableau de produits
+     */
 
     public function getByMarqueSorted(string $marque, string $col, string $order = 'ASC')
     {
@@ -89,12 +110,29 @@ class ProduitModel extends Model
             ->findAll();
     }
 
+    /**
+     * Renvoie une liste de produits d'une marque triée par une colonne donnée.
+     *
+     * @param string $marque Marque recherchée
+     * @param string $col Colonne pour le tri
+     * @param string $order Ordre de tri ('ASC' ou 'DESC')
+     * @return array Tableau de produits triés
+     */
+
     public function getByMarqueAndPrix(string $marque, float $prix)
     {
         return $this->where('price <=', $prix)
             ->like('marque', $marque)
             ->findAll();
     }
+
+    /**
+     * Renvoie une liste de produits filtrés par marque et prix maximum.
+     *
+     * @param string $marque Marque recherchée
+     * @param float $prix Prix maximum
+     * @return array Tableau de produits
+     */
    
 
     /**
@@ -128,5 +166,6 @@ class ProduitModel extends Model
             ->set('quantiteRestante', "quantiteRestante - $amount", false)
             ->update();
     }
+
 
 }

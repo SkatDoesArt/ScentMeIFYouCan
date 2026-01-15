@@ -19,6 +19,13 @@ class CommandeModel extends Model
     protected bool $updateOnlyChanged = true;
 
 
+    /**
+     * Crée une commande à partir des données du panier.
+     *
+     * @param int $id_user Identifiant de l'utilisateur
+     * @param array $cart Tableau contenant les éléments et le total ([0 => items, 1 => total])
+     * @return CommandeEntity L'entité commande créée
+     */
     public function createCommande(int $id_user, array $cart): CommandeEntity
     {
         $totalPrix = $cart[1];

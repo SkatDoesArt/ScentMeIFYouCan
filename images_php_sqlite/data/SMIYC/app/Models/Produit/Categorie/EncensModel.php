@@ -32,8 +32,14 @@ class EncensModel extends Model
 
     protected $useTimestamps = false;
 
-    public function getEncens()
+    /**
+     * Récupère les produits de type "encens".
+     *
+     * @return array Tableau de produits encens
+     */
+    public function getEncens(): array
     {
         return $this->where('type', 'encens')->findAll();
     }
+
 }

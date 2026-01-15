@@ -17,6 +17,14 @@ class CommandeModel extends Model
     ];
     protected $useTimestamps = false;
 
+    /**
+     * Crée une commande et ses lignes à partir du panier.
+     *
+     * @param int $userId Identifiant de l'utilisateur
+     * @param array $cart Tableau contenant les éléments et le total ([0 => items, 1 => total])
+     * @param array $livraison Données de livraison optionnelles (nom_complet, adresse, etc.)
+     * @return ?CommandeEntity L'entité commande créée ou null en cas d'échec
+     */
     public function createCommande(int $userId, array $cart, array $livraison = []): ?CommandeEntity
     {
         $totalPrix = $cart[1] ?? 0;
@@ -82,11 +90,26 @@ class CommandeModel extends Model
         return $commandes ?: [];
     }
 
-    public function getAllCommande(){
+    /**
+     * Récupère toutes les commandes.
+     *
+     * @return array Tableau de commandes
+     */
+    public function getAllCommande(): array
+    {
         return $this->findAll();
     }
-    public function getCommandeByStatus($id,$status){
+
+    /**
+     * Récupère toutes les commandes correspondant à un statut donné.
+     *
+     * @param mixed $id Identifiant (paramètre présent mais non utilisé actuellement)
+     * @param string $status Statut recherché
+     * @return array Tableau de commandes
+     */
+    public function getCommandeByStatus($id, $status): array
+    {
         $commandes = $this->asArray()->where('status', $status)->findAll();
-        return $commandes ;
+        return $commandes;
     }
 }

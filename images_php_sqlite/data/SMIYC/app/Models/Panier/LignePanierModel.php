@@ -19,6 +19,14 @@ class LignePanierModel extends Model
 
 
 
+    /**
+     * Ajoute un produit à une ligne de panier (ou incrémente la quantité si la ligne existe).
+     *
+     * @param int $id_panier Identifiant du panier
+     * @param int $id_produit Identifiant du produit
+     * @param int $quantite Quantité à ajouter (par défaut 1)
+     * @return bool true si l'opération a réussi, false sinon
+     */
     public function addProduit(int $id_panier, int $id_produit, int $quantite = 1): bool
     {
         // Validation défensive : id_produit doit être positif
@@ -58,6 +66,13 @@ class LignePanierModel extends Model
     // --------------------------------------------
     // Augmente la quantité d'une ligne
     // --------------------------------------------
+    /**
+     * Augmente la quantité d'une ligne de panier.
+     *
+     * @param int $id_ligne_panier Identifiant de la ligne
+     * @param int $amount Montant à ajouter (par défaut 1)
+     * @return bool true si l'opération a réussi
+     */
     public function incrementQuantite(int $id_ligne_panier, int $amount = 1): bool
     {
         return (bool)$this->set(
@@ -73,6 +88,13 @@ class LignePanierModel extends Model
     // --------------------------------------------
     // Diminue la quantité d'une ligne
     // --------------------------------------------
+    /**
+     * Diminue la quantité d'une ligne de panier (garantit que la quantité ne devient pas négative).
+     *
+     * @param int $id_ligne_panier Identifiant de la ligne
+     * @param int $amount Montant à soustraire (par défaut 1)
+     * @return bool true si l'opération a réussi
+     */
     public function decrementQuantite(int $id_ligne_panier, int $amount = 1): bool
     {
         return (bool)$this->set(
@@ -91,6 +113,12 @@ class LignePanierModel extends Model
     // --------------------------------------------
     // Supprime une ligne du panier
     // --------------------------------------------
+    /**
+     * Supprime une ligne du panier.
+     *
+     * @param int $id_ligne_panier Identifiant de la ligne
+     * @return void
+     */
     public function deleteLigne(int $id_ligne_panier)
     {
         $this->delete($id_ligne_panier);

@@ -1,6 +1,6 @@
 <?php
-
 namespace App\Controllers;
+
 
 use App\Models\Produit\ProduitModel;
 use CodeIgniter\Shield\Models\UserIdentityModel;
@@ -9,6 +9,12 @@ use CodeIgniter\Shield\Entities\User;
 use CodeIgniter\Exceptions\PageNotFoundException;
 use Throwable;
 use App\Models\Panier\CommandeModel;
+
+/**
+* The `Admin` class in the PHP code is a controller that handles administrative tasks such as managing
+products, users, orders, and stocks in a web application.
+*/
+
 class Admin extends BaseController
 {
 
@@ -345,22 +351,32 @@ public function addUser()
     /**
      * Modifier une commande
      */
-public function editCommandes($id, $statut)
+public function editCommandes($id)
 {
     $model = new CommandeModel();
 
     // Sécurité : vérifier que la commande existe
     $commande = $model->find($id);
     if (! $commande) {
-        return redirect()->back()->with('error', 'Commande introuvable');
+        throw new PageNotFoundException('Commande introuvable');
     }
+    if( $this->request->is('post')) {
+        $statut=$this->request->getPost('statut');
 
-    // Mise à jour en base
-    $model->update($id, [
-        'statut' => $statut
-    ]);
+        // Mise à jour en base
+        $update=$model->update($id, [
+            'statut' => $statut
+        ]);
+        if ($update !== false) {
+        session()->setFlashdata('success','Status de la commande modifié');
+        }else{
+            session()->setFlashdata('error','Problème lors de la modification du status de la commande');
+        }
 
-    return redirect()->back()->with('success', 'Statut mis à jour');
+    }
+    return view('Pages/admin/edit/edit_commande', ['commande'=> $commande]);
+
+    
 }
 
 

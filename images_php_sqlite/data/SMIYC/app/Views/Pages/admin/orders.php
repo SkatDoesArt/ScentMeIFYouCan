@@ -43,7 +43,7 @@
                         </span>
                         </td>
                         <td>
-                            <a href="<?= base_url('admin/edit/order/' . $p->getIdCommande()) ?>" class="action-btn"
+                            <a href="<?= base_url('admin/edit/commandes/' . $p->getIdCommande()) ?>" class="action-btn"
                                title="Éditer commande">
                                 ✏️
                             </a>

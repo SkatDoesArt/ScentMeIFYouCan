@@ -10,48 +10,47 @@ class AdminSeeder extends Seeder
 {
     public function run()
     {
-        //Ajouter les infos des différents admin
         $users = [
             [
                 'username' => 'admin',
-                'email' => 'admin@admin.com',
+                'email'    => 'admin@admin.com',
                 'password' => 'admin@admin.com',
-                'group' => 'admin',
+                'group'    => 'admin', // Groupe administrateur
             ],
             [
                 'username' => 'user',
-                'email' => 'user@user.com',
+                'email'    => 'user@user.com',
                 'password' => 'user@user.com',
-                'group' => 'user',
+                'group'    => 'user', // Groupe utilisateur standard
             ],
-
         ];
 
         $userModel = new UserModel();
 
         foreach ($users as $data) {
-            // 1. Vérifier si l'utilisateur existe déjà par son username ou email
+            // Vérifier si l'utilisateur existe déjà
             if ($userModel->where('username', $data['username'])->first()) {
-                continue; // Passe à l'utilisateur suivant s'il existe déjà
+                continue;
             }
 
             $user = new User([
                 'username' => $data['username'],
-                'active' => 1,
+                'active'   => 1,
             ]);
+            
             $userModel->save($user);
-
-            // Récupération de l'utilisateur créé
+00
+            // Récupération de l'ID inséré
             $user = $userModel->findById($userModel->getInsertID());
 
-            // Ajout email + mot de passe
+            // Ajout de l'identité (email + mot de passe)
             $user->createEmailIdentity([
-                'email' => $data['email'],
+                'email'    => $data['email'],
                 'password' => $data['password'],
             ]);
 
-            // Assignation au groupe admin
-            $user->addGroup('admin');
+            // MODIFICATION ICI : On utilise la clé 'group' définie dans le tableau $data
+            $user->addGroup($data['group']);
         }
     }
 }

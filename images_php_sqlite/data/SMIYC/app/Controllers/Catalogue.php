@@ -248,7 +248,10 @@ class Catalogue extends BaseController
             ->like('name', $query)
             ->orLike('marque', $query)
             ->groupEnd()
-            ->findAll();
+            ->paginate(15, 'group1');
+
+        // Pager pour la vue (liens de pagination)
+        $data['pager'] = $produitModel->pager;
 
         $data['query'] = $query;
         $data['categorie'] = null;

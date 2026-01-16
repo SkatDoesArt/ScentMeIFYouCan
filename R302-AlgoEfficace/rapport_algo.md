@@ -197,3 +197,41 @@ Lorsqu'il ne reste qu'un seul article et que deux clients cliquent sur "Payer" a
 *   **Risque :** Si on ne travaille pas avec des Transactions SQL ou des verrous (Locks), les deux scripts vont lire "Stock = 1", les deux vont valider, et le stock finira à -1.
 *   **Impact :** Incohérence des stocks et problèmes de SAV (survendu).
 
+
+## 3. Architecture, Déploiement et Sizing (Infrastructure)
+
+### Architecture Actuelle (Preuve de Concept - Développement)
+
+Pour la phase de développement et les tests en environnement local (type SAE R3.06), nous avons opté pour une architecture monolithique centralisée sur une seule instance.
+
+*   **SGBD :** **SQLite** (Base de données orientée fichier).
+*   **Hébergement :** Une VM unique gérant le serveur Apache, l'interpréteur PHP et le stockage des données.
+*   **Localisation physique :** La base est stockée dans `/writable/database.db`.
+*   **Limites identifiées :**
+    *   **Verrouillage (Locking) :** SQLite verrouille l'intégralité du fichier lors d'une écriture, ce qui empêche les accès concurrents (plusieurs clients payant en même temps).
+    *   **Scalabilité :** Impossible de faire du "Load Balancing" (répartition de charge) car le fichier `.db` est local au serveur.
+
+### Dimensionnement Cible (Mise en Production)
+
+Pour supporter une montée en charge réelle (type Black Friday) et garantir une haute disponibilité, l'infrastructure doit évoluer vers un modèle **3-Tiers**.
+
+#### 1. Migration vers un SGBD Client-Serveur
+Le passage à **MariaDB** ou **PostgreSQL** est indispensable.
+*   **Avantages :** Gestion du verrouillage par ligne (Row-level locking) et gestion de pools de connexions simultanées. Cela élimine les blocages lors de pics de commandes.
+
+#### 2. Découplage des services
+L'architecture sera divisée pour isoler les ressources :
+*   **Tier Web (Stateless) :** Plusieurs serveurs PHP synchronisés derrière un Load Balancer. Si un serveur tombe, les autres prennent le relais.
+*   **Tier Données :** Un serveur dédié, optimisé en RAM, pour héberger le SGBD et mettre en cache les requêtes fréquentes.
+
+#### 3. Optimisation des accès : Stratégie d'Indexation
+Afin de passer d'une complexité de recherche linéaire en $O(n)$ à une complexité logarithmique en $O(\log n)$, nous implémentons des index B-Tree sur les colonnes les plus sollicitées :
+*   **Filtrage catalogue :** Index sur `Produit(categorie)` et `Produit(marque)`.
+*   **Gestion Admin :** Index sur `Commande(id_client)` et `Commande(date_creation)` pour accélérer l'affichage de l'historique sans "full table scan".
+
+#### 4. Estimation de la Volumétrie (Sizing)
+*   **Stockage Catalogue :** Pour environ 10 000 produits, les index tiennent entièrement en RAM, garantissant des réponses quasi instantanées.
+*   **Historique des Commandes :** Prévision de ~50 000 lignes par an.
+    *   *SQLite :* Les performances se dégradent avec la taille du fichier (latence disque).
+    *   *MariaDB/PostgreSQL :* Possibilité de mettre en place du partitionnement de table par année pour maintenir des performances constantes sur les données récentes tout en archivant les anciennes.
+

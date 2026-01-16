@@ -7,9 +7,9 @@ use CodeIgniter\Model;
 
 class ProduitModel extends Model
 {
-    protected $table            = 'produit';
-    protected $primaryKey       = 'id_produit';
-    protected $returnType       = ProduitEntity::class;
+    protected $table = 'produit';
+    protected $primaryKey = 'id_produit';
+    protected $returnType = ProduitEntity::class;
     protected $allowedFields = [
         'name',
         'price',
@@ -133,13 +133,14 @@ class ProduitModel extends Model
      * @param float $prix Prix maximum
      * @return array Tableau de produits
      */
-   
+
 
     /**
      * Renvoie la liste des produits
      * @return array
      */
-    public function getListeProduit(){
+    public function getListeProduit()
+    {
         return $this->findAll();
     }
 
@@ -165,6 +166,31 @@ class ProduitModel extends Model
             ->where('quantiteRestante >=', $amount)
             ->set('quantiteRestante', "quantiteRestante - $amount", false)
             ->update();
+    }
+
+    /**
+     * Transforme une entité générique en entité spécifique (Creme, Encens, etc.)
+     */
+    public function castToSpecificEntity($produit)
+    {
+        if (!$produit)
+            return null;
+
+        $data = $produit->toArray();
+        $type = strtolower(trim($produit->type ?? ''));
+
+        switch ($type) {
+            case 'cremes':
+            case 'creme':
+                return new \App\Entities\CremeEntity($data);
+            case 'encens':
+                return new \App\Entities\EncensEntity($data);
+            case 'parfums':
+            case 'parfum':
+                return $produit;
+            default:
+                return $produit;
+        }
     }
 
 

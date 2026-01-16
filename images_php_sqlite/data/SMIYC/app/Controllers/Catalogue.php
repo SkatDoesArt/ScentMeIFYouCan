@@ -39,23 +39,35 @@ class Catalogue extends BaseController
      */
     public function detail($id = null)
     {
-        if ($id === null)
+        if ($id === null) {
             $id = $this->request->getUri()->getSegment(3);
-
-        // 1. Chercher dans les produits classiques
-        $produitModel = new ProduitModel();
-        $data['produit'] = $produitModel->find($id);
-
-        // 2. Si pas trouvé, chercher dans les encens
-        if (!$data['produit']) {
-            $encensModel = new EncensModel();
-            $data['produit'] = $encensModel->find($id);
         }
 
-        if (!$data['produit']) {
+        $produitModel = new ProduitModel();
+        $produitBrut = $produitModel->find($id);
+
+        if (!$produitBrut) {
             throw PageNotFoundException::forPageNotFound();
         }
 
+        // --- LOGIQUE DE CONVERSION ---
+        // On récupère le type pour savoir quelle entité instancier
+        $type = strtolower(trim($produitBrut->type ?? ''));
+
+        if ($type === 'encens') {
+            // On transforme l'objet générique en EncensEntity
+            $produit = new \App\Entities\EncensEntity($produitBrut->toArray());
+        } elseif ($type === 'cremes' || $type === 'creme') {
+            // On transforme l'objet générique en CremeEntity
+            $produit = new \App\Entities\CremeEntity($produitBrut->toArray());
+        } else {
+            // Par défaut (parfums), on garde l'entité classique
+            $produit = $produitBrut;
+        }
+
+        $data['produit'] = $produit;
+
+        // Récupération des avis
         $modelAvis = new AvisModel();
         $data['avis'] = $modelAvis->getAvisByProduit($id);
 

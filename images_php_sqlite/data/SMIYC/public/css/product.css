@@ -1,60 +1,137 @@
+/* --- PAGE PRODUIT AMÉLIORÉE --- */
+
 #body {
-    margin: 2% 5%;
+    margin: 40px 10%; /* Plus d'espace sur les côtés pour l'élégance */
+    color: #1a1a1a;
 }
 
 #body #top {
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
-    width: 100%;
+    grid-template-columns: 450px 1fr 320px; /* Largeurs plus précises */
+    gap: 40px;
+    align-items: start;
+    margin-bottom: 80px;
 }
 
+/* 1. Image du produit */
 #product-img {
-    height: 400px;
-    width: 400px;
+    width: 100%;
+    height: 500px;
     object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05); /* Ombre très légère */
 }
 
+/* 2. Informations textuelles */
 #product-info {
-    font-family: "Playfair Display";
-    margin-left: 5%;
+    font-family: "Playfair Display", serif;
 }
 
 #product-info h1 {
-    font-size: 80px;
-    margin: 0;
-    margin-bottom: 50px;
+    font-size: 40px;
+    line-height: 1.1;
+    margin-bottom: 30px;
+    font-weight: 700;
+    text-transform: capitalize;
 }
 
+#product-info p {
+    font-family: "Inter", sans-serif;
+    font-size: 1.05rem;
+    margin-bottom: 12px;
+    color: #444;
+}
+
+#product-info p strong {
+    color: #000;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    margin-right: 10px;
+}
+
+/* 3. Carte d'achat (Sidebar droite) */
 #add-to-cart {
+    background: #fff;
+    padding: 40px 30px;
+    border-radius: 16px;
+    border: 1px solid #f0f0f0;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 250px;
-    /* margin-left:15%; */
-    padding: 50px;
-    border-radius: 20px;
-    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-}
-
-#add-to-cart p {
-    margin: 5px;
+    text-align: center;
 }
 
 #price {
-    font-size: 30px;
-    font-weight: bold;
-    color: #a33;
-    margin: 20px !important;
+    font-size: 36px !important;
+    font-weight: 700;
+    color: #111 !important;
+    margin: 10px 0 20px 0 !important;
 }
 
+#add-to-cart p {
+    font-family: "Inter", sans-serif;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* 4. Bouton Ajouter au Panier */
 #add-to-cart-btn {
-    width: 250px;
-    padding: 10px;
-    margin: 40px 0;
+    width: 100%;
+    padding: 16px;
+    margin: 25px 0 15px 0;
+    background-color: #111;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-#product-avis {
-    margin-top: 50px;
-    border-top: 2px solid #ddd;
+#add-to-cart-btn:hover {
+    background-color: #333;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
+
+/* 5. Section Avis */
+#product-avis {
+    margin-top: 80px;
+    padding-top: 40px;
+    border-top: 1px solid #eee;
+}
+
+#product-avis h1 {
+    font-family: "Playfair Display";
+    font-size: 32px;
+    margin-bottom: 30px;
+}
+
+.avis {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 1100px) {
+    #body #top {
+        grid-template-columns: 1fr; /* On empile tout sur tablette/mobile */
+        justify-items: center;
+    }
+    
+    #product-info {
+        text-align: center;
+        margin-left: 0;
+    }
+
+    #product-img {
+        max-width: 500px;
+    }
+}
+

@@ -153,3 +153,47 @@ assertions à placer dans le code/tests :
 
 ## 2. Montrer que l'application n'est pas coûteuse
 
+Dans cette partie, on analyse les "goulots d'étranglement" (bottlenecks) de notre application, c'est-à-dire les endroits où le code risque de ramer ou de planter si le nombre de produits ou d'utilisateurs augmente.
+
+### Identification des points critiques (Coûts de traitement)
+
+#### Backend et Accès aux données
+
+*   **Filtrage des catégories et pagination (`Catalogue.php`)**
+    *   **Problème :** L'usage potentiel de `findAll()` sans limite stricte.
+    *   **Analyse :** Si on récupère des milliers de produits d'un coup, on sature la mémoire RAM du serveur. Algorithmiquement, on reste sur du $O(n)$, mais avec un $n$ trop grand, le transfert SQL et l'instanciation des objets deviennent trop lourds.
+    *   **Solution :** Forcer la pagination (`paginate(12)`) pour ne charger que ce qui est affiché.
+
+*   **Dashboard Admin : Risque d'explosion mémoire (`Admin.php`)**
+    *   **Problème :** Les listes d'utilisateurs et de commandes ne sont pas paginées.
+    *   **Risque :** C'est un point critique de scalabilité. Avec 50 000 commandes, faire un `getAllCommande()` provoquera un Memory Exhausted. Le coût est "non borné" : plus le site marche, plus l'admin ralentit jusqu'au crash total.
+
+*   **Redondance des requêtes de détails**
+    *   **Problème :** La méthode `detail($id)` peut enchaîner deux requêtes (Table produits puis Table encens).
+    *   **Analyse :** On double inutilement les entrées/sorties (I/O). Même si l'accès par ID est en $O(1)$, multiplier les allers-retours avec la BDD est une mauvaise pratique pour la latence.
+
+#### Frontend et Rendu visuel
+
+*   **Poids des médias (Images)**
+    *   **Problème :** Affichage direct via `$produit->getUrl()`.
+    *   **Impact :** Si l'admin upload des photos de 3 Mo, le client télécharge des Mo de données pour une simple vignette de 200px. Cela sature la bande passante et plombe le score Lighthouse (performance) du site.
+
+*   **Calculs de logique dans les vues**
+    *   **Problème :** Construction de filtres (ex: liste des marques) directement dans la vue avec des fonctions comme `array_unique`.
+    *   **Analyse :** Ce genre de traitement doit être fait dans le contrôleur ou via une requête `DISTINCT` en SQL pour éviter de manipuler des tableaux de données massifs côté client.
+
+### Analyse de la montée en charge (Scalabilité)
+
+#### Scénario 1 : Pic de trafic (Ex : Soldes ou Black Friday)
+Avec 1000 utilisateurs simultanés, le serveur va saturer sur deux points :
+*   **Bande passante :** Les images non optimisées vont bloquer le tunnel de téléchargement.
+*   **RAM Server :** Si chaque session charge trop de données en mémoire (via les `findAll`), le processeur PHP va saturer la RAM et "tuer" les processus, rendant le site inaccessible.
+
+#### Scénario 2 : Administration à long terme
+Après un an d'utilisation, l'historique de commandes sera trop lourd. Sans pagination dans l'interface admin, la page `orders()` renverra systématiquement une erreur 500 (TimeOut ou Memory Limit), rendant la gestion des stocks et des livraisons impossible.
+
+#### Scénario 3 : Concurrence et intégrité (Race Condition)
+Lorsqu'il ne reste qu'un seul article et que deux clients cliquent sur "Payer" au même millième de seconde :
+*   **Risque :** Si on ne travaille pas avec des Transactions SQL ou des verrous (Locks), les deux scripts vont lire "Stock = 1", les deux vont valider, et le stock finira à -1.
+*   **Impact :** Incohérence des stocks et problèmes de SAV (survendu).
+

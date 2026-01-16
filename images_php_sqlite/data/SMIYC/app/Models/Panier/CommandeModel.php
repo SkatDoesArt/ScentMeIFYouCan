@@ -5,7 +5,6 @@ namespace App\Models\Panier;
 use App\Entities\Panier\CommandeEntity;
 use App\Models\Produit\ProduitModel;
 use CodeIgniter\Model;
-use Config\Database;
 
 class CommandeModel extends Model
 {
@@ -26,7 +25,7 @@ class CommandeModel extends Model
      * @param array $livraison Données de livraison optionnelles (nom_complet, adresse, etc.)
      * @return ?CommandeEntity L'entité commande créée ou null en cas d'échec
      */
-    public function createCommande(int $userId, array $cart, array $livraison = []): ?CommandeEntity
+    public function createCommande(int $userId, array $cart, array $livraison = [])
     {
         $totalPrix = $cart[1] ?? 0;
 
@@ -43,11 +42,8 @@ class CommandeModel extends Model
             'pays' => $livraison['pays'] ?? null,
         ];
 
-        // Transaction: insert commande, decrement stocks, insert lignes
-        $db = Database::connect();
-        $db->transStart();
-
         $this->insert($commandeData);
+
         $commandeId = $this->getInsertID();
 
         $ligneModel = new LigneCommandeModel();
@@ -58,27 +54,28 @@ class CommandeModel extends Model
             $qte = (int)$item['quantite'];
 
             // Tentative de décrémenter le stock: si échoue, rollback et retourner null
-            $ok = $produitModel->DecrementQauntite($produit->id_produit, $qte);
-            if (!$ok) {
-                $db->transRollback();
+            $produitId = $produit->getId() ?? ($produit->id_produit ?? null);
+            if ($produitId === null) {
+                $this->db->transRollback();
                 return null;
             }
 
-            $ligneModel->insert([
+            $ok = $produitModel->DecrementQauntite((int)$produitId, $qte);
+            if (!$ok) {
+                $this->db->transRollback();
+                return null;
+            }
+
+            $newLigne = [
                 'commande_id' => $commandeId,
                 'produit_id' => method_exists($produit, 'getId') ? $produit->getId() : ($produit->id_produit ?? null),
                 'produit_name' => method_exists($produit, 'getNom') ? $produit->getNom() : ($produit->name ?? ''),
                 'quantite' => $qte,
                 'prix_unitaire' => method_exists($produit, 'getPrix') ? $produit->getPrix() : ($produit->price ?? 0),
                 'total_ligne' => $item['total_ligne']
-            ]);
-        }
+            ];
 
-        $db->transComplete();
-
-        if (!$db->transStatus()) {
-            // transaction failed
-            return null;
+            $ligneModel->insert($newLigne);
         }
 
         return $this->find($commandeId);

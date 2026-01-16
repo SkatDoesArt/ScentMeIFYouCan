@@ -39,7 +39,7 @@ class AdminSeeder extends Seeder
             ]);
             
             $userModel->save($user);
-
+00
             // Récupération de l'ID inséré
             $user = $userModel->findById($userModel->getInsertID());
 

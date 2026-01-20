@@ -143,12 +143,3 @@ Ci-dessous un inventaire des fonctionnalités observées directement dans les co
 - Paiement (intégration passerelle / paiement) — Non implémenté
     - Observations : aucune intégration (ex: Stripe/PayPal) détectée dans les controllers ou services. Enum
       `MoyenPaiement` existe mais n'est pas exploité.
-
-Remarques générales et recommandations rapides
-
-- Les flux principaux d'un e‑commerce (catalogue, panier, checkout pour utilisateurs authentifiés, création de commande)
-  sont présents et cohérents.
-- Les éléments à compléter en priorité : support du checkout visiteur (si souhaité), affichage/admin des commandes, et
-  intégration d'une solution de paiement si paiement en ligne nécessaire.
-- Vérifier les vues associées pour la gestion d'erreurs et la validation côté serveur (ex : `Commande::review` fait une
-  validation minimale sur les champs de livraison).
